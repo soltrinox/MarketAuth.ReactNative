@@ -201,7 +201,7 @@ class Anatomy extends React.Component {
         this.state.keywordArr = [...new Set(test.map(item => item.KEY))];
         this.state.keywordArr.sort();
 
-        this.state.keywordArr = this.state.keywordArr.slice(200, 215);
+        this.state.keywordArr = this.state.keywordArr.slice(700, 715);
 
         var happy = [];
         // console.log('@@@@@@@@@@@@@@ ORDERBY JSON: '+  JSON.stringify(test));
