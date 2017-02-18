@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {ScrollView,AppRegistry, View} from 'react-native';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
+import _ from 'lodash';
 
 import {
     Container, Header, Title, Content, Text, H3, Button, Icon,
@@ -18,6 +19,7 @@ import ModalPicker from 'react-native-modal-picker';
 // import {ScrollView} from 'native-base';
 
 import {openDrawer} from '../../actions/drawer';
+import {selectCategory} from '../../actions/drawer';
 
 import {Col, Row, Grid} from 'react-native-easy-grid'
 import DeviceInfo from 'react-native-device-info'
@@ -25,7 +27,8 @@ import {Carousel} from 'react-native-snap-carousel'
 // import {IndicatorViewPager, PagerDotIndicator} from 'rn-viewpager'
 // import Svg from 'react-native-svg'
 import Svg, {G, Rect, Symbol, Use, Defs, Stop} from 'react-native-svg'
-// import Menu, {MenuContext, MenuOptions, MenuOption, MenuTrigger} from 'react-native-menu';
+// import Menu from 'react-native-menu';
+import Selection from 'react-native-selection';
 
 
 
@@ -42,6 +45,7 @@ class Anatomy extends React.Component {
 
     static propTypes = {
         openDrawer: React.PropTypes.func,
+        selectCategory: React.PropTypes.func,
     }
 
 
@@ -56,7 +60,7 @@ class Anatomy extends React.Component {
             userData: {},
             usersArry: [],
             selectedDomain: 'www.default.com',
-            selectedCategory: 'Tomatoes',
+            selectedCategory: '',
             selectedItem: undefined,
 
             results: {
@@ -95,12 +99,13 @@ class Anatomy extends React.Component {
         };
 
         this._getUsers = this._getUsers.bind(this);
-        this._renderModalPicker = this._renderModalPicker.bind(this);
+        //this._renderModalPicker = this._renderModalPicker.bind(this);
         this._updateText = this._updateText.bind(this);
         this._renderItem = this._renderItem.bind(this);
         this._updateCarousels = this._updateCarousels.bind(this);
         this._productCarouselChange2 = this._productCarouselChange2.bind(this);
         this._productCarouselChange3 = this._productCarouselChange3.bind(this);
+        this._returnDataOnSelection = this._returnDataOnSelection.bind(this);
     }
 
     onValueChange(value: string) {
@@ -173,31 +178,27 @@ class Anatomy extends React.Component {
         );
     }
 
+    _returnDataOnSelection(item, e ){
+
+        // console.log('CATEGORY : ' +  eval(e)  +' \n\n '+  e.valueOf()   );
+
+        var kyz = [];
+        kyz = _.keys(item._mySelection1);
+        //
+        // var lmn = [];
+        // lmn = _.keys(e.refs);
 
 
-    _renderModalPicker(){
+        console.log('SELECTION : ' +  JSON.stringify(item._mySelection1.state.value ) );
 
-        let index = 0;
-        const data = [
-            { key: index++, section: true, label: 'Fruits' },
-            { key: index++, label: 'Red Apples' },
-            { key: index++, label: 'Cherries' },
-            { key: index++, label: 'Cranberries' },
-            { key: index++, label: 'Pink Grapefruit' },
-            { key: index++, label: 'Raspberries' },
-            { key: index++, section: true, label: 'Vegetables' },
-            { key: index++, label: 'Beets' },
-            { key: index++, label: 'Red Peppers' },
-            { key: index++, label: 'Radishes' },
-            { key: index++, label: 'Radicchio' },
-            { key: index++, label: 'Red Onions' },
-            { key: index++, label: 'Red Potatoes' },
-            { key: index++, label: 'Rhubarb' },
-            { key: index++, label: 'Tomatoes' }
-        ];
+        // this.setState({ selectedCategory : e.value });
+    }
 
-        // return(
-        // )
+    _renderModalPicker(e){
+
+        console.log('CATEGORY : ' +  eval(e)  +' : '+  eval(e)   );
+
+        this.setState({ selectedCategory : e.value });
     }
 
 
@@ -253,12 +254,16 @@ class Anatomy extends React.Component {
         for (var j = 0; j < this.state.categoriesArr.length; j++) {
             var trr = [];
             var catName = _.toString(this.state.categoriesArr[j]);
+            happy.push({  name: catName, value: catName, icon: '', });
             trr = _.filter(test, {"CAT": catName});
             // console.log('%%%%%%%%%%% SORTED KEYWORDS ON '+ catName +': '+  JSON.stringify(trr));
             var upp = '{' + catName + ' : ' + JSON.stringify(trr) + '}';
             // console.log('########### SORTED ARRAY ON ' + catName + ': ' + JSON.stringify(upp));
             _.set(this.state.dataObjects, catName, trr);
         }
+
+        this.setState({ categoriesArr :  happy });
+
         return this.state.dataObjects;
     }
 
@@ -326,11 +331,7 @@ class Anatomy extends React.Component {
 
         // CREATE THE GRIDS FOR EACH CAROUSEL COLUMN
 
-
-        this.setState({car1: this.example1});
-
     }
-
 
 
     getRandomInt(min, max) {
@@ -345,13 +346,7 @@ class Anatomy extends React.Component {
         // var pic = JSON.parse(tty);
 
         // console.log('this.state.clientColumnItems : '+JSON.stringify(this.state.clientColumnItems));
-
-
-
-
-
-
-
+        const options = this.state.categoriesArr;
 
         return (
             <Container theme={myTheme} style={{ width : 800, backgroundColor: '#000000'}}>
@@ -367,26 +362,20 @@ class Anatomy extends React.Component {
                         </View>
                         <View style={{ width: 220, height: 30, marginRight:20 }}>
 
-                            <ModalPicker
-                                data={[
-                                        { key: 0, section: true, label: 'Fruits' },
-                                    { key: 1, label: 'Red Apples' },
-                                    { key: 2, label: 'Cherries' },
-                                    { key: 3, label: 'Cranberries' },
-                                    { key: 4, section: true, label: 'Vegetables' },
-                                    { key: 5, label: 'Beets' },
-                                    { key: 6, label: 'Tomatoes' }
-                                    ]}  key="5"
-                                initValue="Select something yummy!"
-                                onChange={ (option) => { this.setState({selectedCategory:option.label})}} >
+                            <Selection
 
-                                <Input
-                                    style={{borderWidth:1, borderColor:'#ccc', padding:10, height:30}}
-                                    editable={false}
-                                    placeholder="Select something yummy!"
-                                    value={this.state.selectedCategory} />
-
-                            </ModalPicker>
+                                ref={(mySelection1) => { this._mySelection1 = mySelection1; }}
+                                title="SELECT CATEGORY"
+                                options={options}
+                                //onSelection={(e) => this._returnDataOnSelection(this,e)}
+                                onSelection={(e) => this._returnDataOnSelection.bind(this,e)}
+                                style={{
+                                  body: null,
+                                  option: null,
+                                }}
+                                iconSize={20}
+                                iconColor="#eee"
+                            />
 
                         </View>
 
@@ -594,9 +583,13 @@ class Anatomy extends React.Component {
     }
 }
 
+
+
+
 function bindAction(dispatch) {
     return {
         openDrawer: () => dispatch(openDrawer()),
+        selectCategory: () => dispatch(selectCategory()),
     };
 }
 
