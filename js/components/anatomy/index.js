@@ -13,6 +13,8 @@ import {
     Dimensions
 } from 'native-base';
 
+import ModalPicker from 'react-native-modal-picker';
+
 // import {ScrollView} from 'native-base';
 
 import {openDrawer} from '../../actions/drawer';
@@ -24,7 +26,7 @@ import {Carousel} from 'react-native-snap-carousel'
 // import Svg from 'react-native-svg'
 import Svg, {G, Rect, Symbol, Use, Defs, Stop} from 'react-native-svg'
 // import Menu, {MenuContext, MenuOptions, MenuOption, MenuTrigger} from 'react-native-menu';
-import ModalPicker from 'react-native-modal-picker'
+
 
 
 import sliderStyles from './Slider.style'
@@ -54,7 +56,7 @@ class Anatomy extends React.Component {
             userData: {},
             usersArry: [],
             selectedDomain: 'www.default.com',
-            selectedCategory: 'key0',
+            selectedCategory: 'Tomatoes',
             selectedItem: undefined,
 
             results: {
@@ -80,7 +82,7 @@ class Anatomy extends React.Component {
             domainGridColumns: [],
             carouselPosition2: 0,
             carouselPosition3: 0,
-            car1: Carousel,
+            car1: {},
             car2: {},
             car3: {},
             message: 'Try clicking the top-right menus',
@@ -93,6 +95,7 @@ class Anatomy extends React.Component {
         };
 
         this._getUsers = this._getUsers.bind(this);
+        this._renderModalPicker = this._renderModalPicker.bind(this);
         this._updateText = this._updateText.bind(this);
         this._renderItem = this._renderItem.bind(this);
         this._updateCarousels = this._updateCarousels.bind(this);
@@ -168,6 +171,33 @@ class Anatomy extends React.Component {
                 style={sliderEntryStyles.slideInnerContainer}
             >{entry}</TouchableOpacity>
         );
+    }
+
+
+
+    _renderModalPicker(){
+
+        let index = 0;
+        const data = [
+            { key: index++, section: true, label: 'Fruits' },
+            { key: index++, label: 'Red Apples' },
+            { key: index++, label: 'Cherries' },
+            { key: index++, label: 'Cranberries' },
+            { key: index++, label: 'Pink Grapefruit' },
+            { key: index++, label: 'Raspberries' },
+            { key: index++, section: true, label: 'Vegetables' },
+            { key: index++, label: 'Beets' },
+            { key: index++, label: 'Red Peppers' },
+            { key: index++, label: 'Radishes' },
+            { key: index++, label: 'Radicchio' },
+            { key: index++, label: 'Red Onions' },
+            { key: index++, label: 'Red Potatoes' },
+            { key: index++, label: 'Rhubarb' },
+            { key: index++, label: 'Tomatoes' }
+        ];
+
+        // return(
+        // )
     }
 
 
@@ -337,7 +367,26 @@ class Anatomy extends React.Component {
                         </View>
                         <View style={{ width: 220, height: 30, marginRight:20 }}>
 
+                            <ModalPicker
+                                data={[
+                                        { key: 0, section: true, label: 'Fruits' },
+                                    { key: 1, label: 'Red Apples' },
+                                    { key: 2, label: 'Cherries' },
+                                    { key: 3, label: 'Cranberries' },
+                                    { key: 4, section: true, label: 'Vegetables' },
+                                    { key: 5, label: 'Beets' },
+                                    { key: 6, label: 'Tomatoes' }
+                                    ]}  key="5"
+                                initValue="Select something yummy!"
+                                onChange={ (option) => { this.setState({selectedCategory:option.label})}} >
 
+                                <Input
+                                    style={{borderWidth:1, borderColor:'#ccc', padding:10, height:30}}
+                                    editable={false}
+                                    placeholder="Select something yummy!"
+                                    value={this.state.selectedCategory} />
+
+                            </ModalPicker>
 
                         </View>
 
