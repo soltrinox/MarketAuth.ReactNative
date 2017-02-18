@@ -1,0 +1,38 @@
+
+  {
+    "gender": "female",
+    "name": {
+      "title": "miss",
+      "first": "taylor",
+      "last": "lewis"
+    },
+    "location": {
+      "street": "9302 elgin st",
+      "city": "little rock",
+      "state": "south dakota",
+      "postcode": 70384
+    },
+    "email": "taylor.lewis@example.com",
+    "login": {
+      "username": "ticklishfish983",
+      "password": "store",
+      "salt": "6vGYZOjW",
+      "md5": "e7534a4da620cb3deab50753fe1443c2",
+      "sha1": "58a7532991eed7a79603d7575cc5a0fdc7b80a53",
+      "sha256": "5e0b0e72984421cad76280ecdd1fb143ab4665c0a3dae80d40cf6b4322295535"
+    },
+    "dob": "1951-10-02 15:25:37",
+    "registered": "2006-12-17 20:55:43",
+    "phone": "(298)-541-6488",
+    "cell": "(111)-703-2203",
+    "id": {
+      "name": "SSN",
+      "value": "560-60-5708"
+    },
+    "picture": {
+      "large": "https://randomuser.me/api/portraits/women/45.jpg",
+      "medium": "https://randomuser.me/api/portraits/med/women/45.jpg",
+      "thumbnail": "https://randomuser.me/api/portraits/thumb/women/45.jpg"
+    },
+    "nat": "US"
+  }
