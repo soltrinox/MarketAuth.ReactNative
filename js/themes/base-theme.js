@@ -199,8 +199,8 @@ export default {
 
 
   // Text
-  textColor: '#FFF',
-  inverseTextColor: '#000',
+  textColor: '#000',
+  inverseTextColor: '#fff',
 
 
   // Title

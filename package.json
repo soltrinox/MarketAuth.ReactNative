@@ -16,7 +16,7 @@
     "jest-react-native": "^17.1.0",
     "lodash": "^4.17.4",
     "moment": "^2.13.0",
-    "native-base": "0.5.18",
+    "native-base": "^0.5.22",
     "querystringify": "0.0.4",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",

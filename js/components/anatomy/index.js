@@ -9,6 +9,7 @@ import {
     InputGroup,
     TextInput,
     Input,
+    Picker,
     TouchableOpacity,
     Dimensions
 } from 'native-base';
@@ -24,7 +25,8 @@ import {Carousel} from 'react-native-snap-carousel'
 // import Svg from 'react-native-svg'
 import Svg, {G, Rect, Symbol, Use, Defs, Stop} from 'react-native-svg'
 // import Menu, {MenuContext, MenuOptions, MenuOption, MenuTrigger} from 'react-native-menu';
-import Picker from 'react-native-picker'
+// import Picker from 'react-native-picker'
+const Item = Picker.Item;
 
 
 import sliderStyles from './Slider.style'
@@ -42,6 +44,8 @@ class Anatomy extends React.Component {
         openDrawer: React.PropTypes.func,
     }
 
+
+
     constructor(props, context) {
         super(props, context);
         this.state = {
@@ -52,7 +56,12 @@ class Anatomy extends React.Component {
             userData: {},
             usersArry: [],
             selectedDomain: 'www.default.com',
-            selectedCategory: 'keywords',
+            selectedCategory: 'key0',
+            selectedItem: undefined,
+
+            results: {
+                items: []
+            },
             selectedState: 'CA',
             selectedCity: 'San Francisco',
             selectedDomainTotal: 2,
@@ -91,6 +100,12 @@ class Anatomy extends React.Component {
         this._updateCarousels = this._updateCarousels.bind(this);
         this._productCarouselChange2 = this._productCarouselChange2.bind(this);
         this._productCarouselChange3 = this._productCarouselChange3.bind(this);
+    }
+
+    onValueChange(value: string) {
+        this.setState({
+            selectedCategory: value,
+        });
     }
 
     _getUsers() {
@@ -196,7 +211,8 @@ class Anatomy extends React.Component {
 
         this.state.categoriesArr = [...new Set(test.map(item => item.CAT))];
         this.state.categoriesArr.sort();
-        this.state.categoriesArr = this.state.categoriesArr.slice(80, 95);
+        // this.state.categoriesArr = this.state.categoriesArr.slice(80, 95);
+        // console.log('%%%%%%%%%%% this.state.categoriesArr : '+  JSON.stringify(this.state.categoriesArr));
 
         this.state.keywordArr = [...new Set(test.map(item => item.KEY))];
         this.state.keywordArr.sort();
@@ -212,7 +228,7 @@ class Anatomy extends React.Component {
             trr = _.filter(test, {"CAT": catName});
             // console.log('%%%%%%%%%%% SORTED KEYWORDS ON '+ catName +': '+  JSON.stringify(trr));
             var upp = '{' + catName + ' : ' + JSON.stringify(trr) + '}';
-            console.log('########### SORTED ARRAY ON ' + catName + ': ' + JSON.stringify(upp));
+            // console.log('########### SORTED ARRAY ON ' + catName + ': ' + JSON.stringify(upp));
             _.set(this.state.dataObjects, catName, trr);
         }
         return this.state.dataObjects;
@@ -227,7 +243,7 @@ class Anatomy extends React.Component {
             .then((responseData) => {
                 // console.log('responseData :' + JSON.stringify(responseData.results));
                 this.setState({userData: responseData.results});
-                console.log('AFTER USER DATA: ' + JSON.stringify(this.state.userData));
+                // console.log('AFTER USER DATA: ' + JSON.stringify(this.state.userData));
             })
             .done();
 
@@ -287,41 +303,7 @@ class Anatomy extends React.Component {
 
     }
 
-    toggleTab1() {
-        this.setState({
-            tab1: true,
-            tab2: false,
-            tab3: false,
-            tab4: false,
-        });
-    }
 
-    toggleTab2() {
-        this.setState({
-            tab1: false,
-            tab2: true,
-            tab3: false,
-            tab4: false,
-        });
-    }
-
-    toggleTab3() {
-        this.setState({
-            tab1: false,
-            tab2: false,
-            tab3: true,
-            tab4: false,
-        });
-    }
-
-    toggleTab4() {
-        this.setState({
-            tab1: false,
-            tab2: false,
-            tab3: false,
-            tab4: true,
-        });
-    }
 
     getRandomInt(min, max) {
         min = Math.ceil(min);
@@ -337,6 +319,20 @@ class Anatomy extends React.Component {
         // console.log('this.state.clientColumnItems : '+JSON.stringify(this.state.clientColumnItems));
 
 
+
+        // var catsList = [];
+        // catsList =
+        //     this.state.categoriesArr.map((item, index) => {
+        //             var iii = item;
+        //             var idx = index;
+        //             return (
+        //                 <Picker.Item label={iii} value={iii} key={idx} />
+        //             )
+        //         }
+        //     );
+
+
+
         return (
             <Container theme={myTheme} style={{ width : 800, backgroundColor: '#000000'}}>
 
@@ -346,8 +342,24 @@ class Anatomy extends React.Component {
 
                         <View style={{ width: 220, height: 30, marginRight:20 }}>
                             <InputGroup>
-                                <Input label="CATEGORY" placeholder="CATEGORY" style={{ width: 120, height: 30 }} />
+                                <Input label="DOMAIN" placeholder="DOMAIN" style={{ width: 120, height: 30 }} />
                             </InputGroup>
+                        </View>
+                        <View style={{ width: 220, height: 30, marginRight:20 }}>
+
+                            <Picker
+                                iosHeader="Select Category"
+                                mode="dropdown"
+                                itemStyle={{color:'#000'}}
+                                selectedValue={this.state.selectedCategory}
+                                onValueChange={this.onValueChange.bind(this)} // eslint-disable-line
+                            >
+                                <Item label="CAT1" value="CAT1" />
+                                <Item label="CAT2" value="CAT2" />
+                                <Item label="CAT3" value="CAT3" />
+
+                            </Picker>
+
                         </View>
 
                         <View style={{ width: 220, height: 30, marginRight:20 }}>
@@ -365,7 +377,7 @@ class Anatomy extends React.Component {
                         <Text style={{flex:1, flexDirection: 'row', textAlign: 'center' ,
                color:'#ABABAB', margin:10, fontSize: 18 }}>
                             keywords for <Text
-                            style={{ color:'#ff00ff', fontSize: 22, fontWeight:'700'  }}>{this.state.dropdownSelection}</Text>
+                            style={{ color:'#ff00ff', fontSize: 22, fontWeight:'700'  }}>{this.state.selectedCategory}</Text>
                             @ <Text style={{ color:'#0000FF', fontSize: 22, fontWeight:'bold'  }}>
                             {this.state.selectedDomain}</Text>
                         </Text>
