@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Image } from 'react-native';
 import { connect } from 'react-redux';
 import { Container, Button, View, H3 } from 'native-base';
-
+import navigateTo from '../../actions/sideBarNav';
 import { openDrawer } from '../../actions/drawer';
 import myTheme from '../../themes/base-theme';
 import styles from './styles';
@@ -15,29 +15,29 @@ class Home extends Component { // eslint-disable-line
 
   static propTypes = {
     openDrawer: React.PropTypes.func,
+      navigateTo: React.PropTypes.func,
   }
+
+
+
+    navigateTo(route) {
+        this.props.navigateTo(route, 'home');
+    }
 
   render() {
     return (
-      <Container theme={myTheme}>
-        <Image source={launchscreenBg} style={styles.imageContainer}>
-          <View style={styles.logoContainer}>
-            <Image source={launchscreenLogo} style={styles.logo} />
-          </View>
-          <View style={{ alignItems: 'center', marginBottom: 50, backgroundColor: 'transparent' }}>
-            <H3 style={styles.text}>App to showcase</H3>
-            <View style={{ marginTop: 8 }} />
-            <H3 style={styles.text}>NativeBase components</H3>
-          </View>
-          <View>
+      <Container theme={myTheme} style={{ width : 800, backgroundColor: '#000000' }}>
+
+
+          <View style={{ marginTop:50 }}>
             <Button
               style={{ backgroundColor: '#6FAF98', alignSelf: 'center' }}
-              onPress={this.props.openDrawer}
+              onPress={() => this.navigateTo('anatomy')}
             >
-                Lets Go!
+                View Google Page 1
             </Button>
           </View>
-        </Image>
+
       </Container>
     );
   }
@@ -46,6 +46,7 @@ class Home extends Component { // eslint-disable-line
 function bindActions(dispatch) {
   return {
     openDrawer: () => dispatch(openDrawer()),
+      navigateTo: (route, homeRoute) => dispatch(navigateTo(route, homeRoute)),
   };
 }
 

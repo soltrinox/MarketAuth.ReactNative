@@ -341,8 +341,8 @@ class Anatomy extends React.Component {
         return (
             <Container theme={myTheme} style={{ width : 800, backgroundColor: '#000000'}}>
 
-                <Header style={{ width : 800, backgroundColor: '#000000'}} >
-                    <Title style={{ width : 800, backgroundColor: '#000000', color: '#FFF'}}>GOOGLE PAGE ONE SEO </Title>
+                <Header style={{ width : 800, backgroundColor: '#454545', paddingLeft: 40}} >
+                    <Title style={{ width : 800, backgroundColor: '#00000000', color: '#FFF'}}>GOOGLE PAGE ONE SEO </Title>
 
                 </Header>
 

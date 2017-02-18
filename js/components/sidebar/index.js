@@ -35,13 +35,9 @@ class SideBar extends Component {
         theme={sidebarTheme}
         style={styles.sidebar}
       >
-        <Image source={drawerCover} style={styles.drawerCover}>
-          <Image
-            square
-            style={styles.drawerImage}
-            source={drawerImage}
-          />
-        </Image>
+        <View  style={styles.drawerCover}>
+
+        </View>
         <List>
           <ListItem button iconLeft onPress={() => this.navigateTo('anatomy')} >
             <View style={styles.listItemContainer}>
@@ -51,6 +47,14 @@ class SideBar extends Component {
               <Text style={styles.text}>Google Page One</Text>
             </View>
           </ListItem>
+            <ListItem button iconLeft onPress={() => this.navigateTo('form')} >
+            <View style={styles.listItemContainer}>
+            <View style={[styles.iconContainer, { backgroundColor: '#00C497', paddingLeft: 14 }]}>
+            <Icon name="ios-document-outline" style={styles.sidebarIcon} />
+            </View>
+            <Text style={styles.text}>FORM</Text>
+            </View>
+            </ListItem>
           {/*<ListItem button iconLeft onPress={() => this.navigateTo('badge')}>*/}
             {/*<View style={styles.listItemContainer}>*/}
               {/*<View style={[styles.iconContainer, { backgroundColor: '#4DCAE0' }]}>*/}
@@ -59,17 +63,65 @@ class SideBar extends Component {
               {/*<Text style={styles.text}>Badge</Text>*/}
             {/*</View>*/}
           {/*</ListItem>*/}
-          <ListItem button iconLeft onPress={() => this.navigateTo('button')} >
+          {/*<ListItem button iconLeft onPress={() => this.navigateTo('button')} >*/}
+            {/*<View style={styles.listItemContainer}>*/}
+              {/*<View style={[styles.iconContainer, { backgroundColor: '#5cb85c', paddingLeft: 10 }]}>*/}
+                {/*<Icon name="md-navigate" style={styles.sidebarIcon} />*/}
+              {/*</View>*/}
+              {/*<Text style={styles.text}>Search Term Performance</Text>*/}
+            {/*</View>*/}
+          {/*</ListItem>*/}
+          <ListItem button iconLeft  >
             <View style={styles.listItemContainer}>
-              <View style={[styles.iconContainer, { backgroundColor: '#5cb85c', paddingLeft: 10 }]}>
-                <Icon name="md-navigate" style={styles.sidebarIcon} />
+              <View style={[styles.iconContainer, { backgroundColor: '#454545' }]}>
+
               </View>
-              <Text style={styles.text}>Search Term Performance</Text>
+              <Text style={styles.text}></Text>
             </View>
           </ListItem>
           <ListItem button iconLeft  >
             <View style={styles.listItemContainer}>
-              <View style={[styles.iconContainer, { backgroundColor: '#FFFFFF' }]}>
+              <View style={[styles.iconContainer, { backgroundColor: '#454545' }]}>
+
+              </View>
+              <Text style={styles.text}></Text>
+            </View>
+          </ListItem>
+          <ListItem button iconLeft  >
+            <View style={styles.listItemContainer}>
+              <View style={[styles.iconContainer, { backgroundColor: '#454545' }]}>
+
+              </View>
+              <Text style={styles.text}></Text>
+            </View>
+          </ListItem>
+          <ListItem button iconLeft  >
+            <View style={styles.listItemContainer}>
+              <View style={[styles.iconContainer, { backgroundColor: '#454545' }]}>
+
+              </View>
+              <Text style={styles.text}></Text>
+            </View>
+          </ListItem>
+          <ListItem button iconLeft  >
+            <View style={styles.listItemContainer}>
+              <View style={[styles.iconContainer, { backgroundColor: '#454545' }]}>
+
+              </View>
+              <Text style={styles.text}></Text>
+            </View>
+          </ListItem>
+          <ListItem button iconLeft  >
+            <View style={styles.listItemContainer}>
+              <View style={[styles.iconContainer, { backgroundColor: '#454545' }]}>
+
+              </View>
+              <Text style={styles.text}></Text>
+            </View>
+          </ListItem>
+          <ListItem button iconLeft  >
+            <View style={styles.listItemContainer}>
+              <View style={[styles.iconContainer, { backgroundColor: '#454545' }]}>
 
               </View>
               <Text style={styles.text}></Text>
@@ -99,22 +151,15 @@ class SideBar extends Component {
               <Text style={styles.text}>Settings</Text>
             </View>
           </ListItem>
-          <ListItem button iconLeft onPress={() => this.navigateTo('icon')} >
-            <View style={styles.listItemContainer}>
-              <View style={[styles.iconContainer, { backgroundColor: '#B63A48', paddingLeft: 10 }]}>
-                <Icon name="ios-information-circle-outline" style={styles.sidebarIcon} />
-              </View>
-              <Text style={styles.text}>Icon</Text>
-            </View>
-          </ListItem>
-          {/*<ListItem button iconLeft onPress={() => this.navigateTo('inputgroup')} >*/}
+          {/*<ListItem button iconLeft onPress={() => this.navigateTo('icon')} >*/}
             {/*<View style={styles.listItemContainer}>*/}
-              {/*<View style={[styles.iconContainer, { backgroundColor: '#00C497', paddingLeft: 14 }]}>*/}
-                {/*<Icon name="ios-document-outline" style={styles.sidebarIcon} />*/}
+              {/*<View style={[styles.iconContainer, { backgroundColor: '#B63A48', paddingLeft: 10 }]}>*/}
+                {/*<Icon name="ios-information-circle-outline" style={styles.sidebarIcon} />*/}
               {/*</View>*/}
-              {/*<Text style={styles.text}>InputGroup</Text>*/}
+              {/*<Text style={styles.text}>Icon</Text>*/}
             {/*</View>*/}
           {/*</ListItem>*/}
+
           {/*<ListItem button iconLeft onPress={() => this.navigateTo('layout')} >*/}
             {/*<View style={styles.listItemContainer}>*/}
               {/*<View style={[styles.iconContainer, { backgroundColor: '#5C4196' }]}>*/}
