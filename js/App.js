@@ -7,7 +7,7 @@ import { Container, Content, Text, View } from 'native-base';
 import Modal from 'react-native-modalbox';
 
 import AppNavigator from './AppNavigator';
-import ProgressBar from './components/loaders/ProgressBar';
+// import ProgressBar from './components/loaders/ProgressBar';
 
 import theme from './themes/base-theme';
 
@@ -82,7 +82,7 @@ class App extends Component {
                     <Text style={{ color: theme.brandPrimary, textAlign: 'center', marginBottom: 15, fontSize: 15 }}>
                       Downloading update... {`${parseInt(this.state.downloadProgress, 10)} %`}
                     </Text>
-                    <ProgressBar color="theme.brandPrimary" progress={parseInt(this.state.downloadProgress, 10)} />
+                    {/*<ProgressBar color="theme.brandPrimary" progress={parseInt(this.state.downloadProgress, 10)} />*/}
                   </View>
                 }
               </View>

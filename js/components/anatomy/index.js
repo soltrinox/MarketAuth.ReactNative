@@ -9,7 +9,6 @@ import {
     InputGroup,
     TextInput,
     Input,
-    Picker,
     TouchableOpacity,
     Dimensions
 } from 'native-base';
@@ -25,8 +24,7 @@ import {Carousel} from 'react-native-snap-carousel'
 // import Svg from 'react-native-svg'
 import Svg, {G, Rect, Symbol, Use, Defs, Stop} from 'react-native-svg'
 // import Menu, {MenuContext, MenuOptions, MenuOption, MenuTrigger} from 'react-native-menu';
-// import Picker from 'react-native-picker'
-const Item = Picker.Item;
+import ModalPicker from 'react-native-modal-picker'
 
 
 import sliderStyles from './Slider.style'
@@ -320,16 +318,8 @@ class Anatomy extends React.Component {
 
 
 
-        // var catsList = [];
-        // catsList =
-        //     this.state.categoriesArr.map((item, index) => {
-        //             var iii = item;
-        //             var idx = index;
-        //             return (
-        //                 <Picker.Item label={iii} value={iii} key={idx} />
-        //             )
-        //         }
-        //     );
+
+
 
 
 
@@ -347,18 +337,7 @@ class Anatomy extends React.Component {
                         </View>
                         <View style={{ width: 220, height: 30, marginRight:20 }}>
 
-                            <Picker
-                                iosHeader="Select Category"
-                                mode="dropdown"
-                                itemStyle={{color:'#000'}}
-                                selectedValue={this.state.selectedCategory}
-                                onValueChange={this.onValueChange.bind(this)} // eslint-disable-line
-                            >
-                                <Item label="CAT1" value="CAT1" />
-                                <Item label="CAT2" value="CAT2" />
-                                <Item label="CAT3" value="CAT3" />
 
-                            </Picker>
 
                         </View>
 
