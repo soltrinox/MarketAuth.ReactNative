@@ -159,8 +159,6 @@ class Anatomy extends React.Component {
     }
 
 
-
-
     _domainData() {
         var testJSON = require('./LAS.001.json');
         this.state.dataObjects = {
@@ -214,14 +212,12 @@ class Anatomy extends React.Component {
             var catName = _.toString(this.state.categoriesArr[j]);
             trr = _.filter(test, {"CAT": catName});
             // console.log('%%%%%%%%%%% SORTED KEYWORDS ON '+ catName +': '+  JSON.stringify(trr));
-             var upp = '{' + catName + ' : ' +  JSON.stringify(trr) +'}';
-            console.log('########### SORTED ARRAY ON '+ catName +': '+  JSON.stringify(upp));
+            var upp = '{' + catName + ' : ' + JSON.stringify(trr) + '}';
+            console.log('########### SORTED ARRAY ON ' + catName + ': ' + JSON.stringify(upp));
             _.set(this.state.dataObjects, catName, trr);
         }
         return this.state.dataObjects;
     }
-
-
 
 
     componentWillMount() {
@@ -288,7 +284,6 @@ class Anatomy extends React.Component {
         // CREATE THE GRIDS FOR EACH CAROUSEL COLUMN
 
 
-
         this.setState({car1: this.example1});
 
     }
@@ -344,14 +339,14 @@ class Anatomy extends React.Component {
 
 
         return (
-            <Container theme={myTheme} style={styles.container}>
+            <Container theme={myTheme} style={{ width : 800, backgroundColor: '#000000'}}>
 
-                <Header>
-                    <Title>Header</Title>
+                <Header style={{ width : 800, backgroundColor: '#000000'}} >
+                    <Title style={{ width : 800, backgroundColor: '#000000', color: '#FFF'}}>GOOGLE PAGE ONE SEO </Title>
 
                 </Header>
 
-                <Content padder>
+                <Content padder style={{ width : 800}}>
                     {/*<H3>This is content section</H3>*/}
                     <View style={{ flex:1, marginTop:20 }}>
                         <Text style={{flex:1, flexDirection: 'row', textAlign: 'center' ,
@@ -364,7 +359,7 @@ class Anatomy extends React.Component {
                     </View>
 
                     <View style={{ flex:1, flexDirection:'row', alignItems:'flex-start',
-            marginTop:20, backgroundColor: '#00000022', }}>
+            marginTop:20, backgroundColor: 'rgba(0,0,0,0)', }}>
                         <View
                             style={{ width:300, height:400, overflow: 'hidden', borderRadius:0, backgroundColor: '#00000000', paddingLeft:10}}>
 
@@ -380,10 +375,10 @@ class Anatomy extends React.Component {
                                                 }}>
                                                         <Text
                                                             style={{ height:30,  width:300,
-                                                    color: "rgba(0,0,0,1)",
+                                                    color: "#FFFFFF",
                                                     fontSize: 14,
                                                 }}>{index} ]
-                                                            {JSON.stringify(item)}
+                                                            {item}
                                                         </Text>
                                                     </View>
                                                 </Row>
@@ -395,10 +390,10 @@ class Anatomy extends React.Component {
 
                         </View>
                         <View
-                            style={{ width:800, height:400, backgroundColor: '#00FF0022', overflow:'hidden',flexDirection:'row'   }}>
+                            style={{ width:400, height:400, backgroundColor: 'rgba(0,0,0,0)', overflow:'hidden',flexDirection:'row'   }}>
 
                             <View
-                                style={{ width:350, height:400, overflow: 'hidden', borderRadius:0, backgroundColor: '#00000000', padding:0 }}
+                                style={{ width:200, height:400, overflow: 'hidden', borderRadius:0, backgroundColor: 'rgba(0,0,0,0)', padding:0 }}
                             >
                                 <Grid style={{ flex:1 }}>
                                     {
@@ -409,7 +404,7 @@ class Anatomy extends React.Component {
 
                                                 var ggg = this.getRandomInt(2, 12);
 
-                                            this.state.columnTotal1 = this.state.columnTotal1 + ggg;
+                                                this.state.columnTotal1 = this.state.columnTotal1 + ggg;
 
                                                 for (var k = 0; k < ggg; k++) {
                                                     kray.push(<Svg height="16" width="17" key={k}>
@@ -430,7 +425,7 @@ class Anatomy extends React.Component {
                                                 return (
                                                     <Row style={{ backgroundColor: '#00000000', height: 25 }} key={index}>
                                                         <View key={index}
-                                                              style={{  height:30,  width:350,
+                                                              style={{  height:30,  width:200,
                                                                 backgroundColor: "rgba(0,0,0,1)",
                                                             }}>
 
@@ -453,69 +448,67 @@ class Anatomy extends React.Component {
                                             flexDirection: 'row',
                                             alignItems: 'flex-start',
                                             }}>
-                                            <Text style={{color:'#FFFFFF', fontSize: 20, textAlign: 'center'}}> {this.state.columnTotal1 } </Text>
+                                            <Text
+                                                style={{color:'#FFFFFF', fontSize: 20, textAlign: 'center'}}> {this.state.columnTotal1 } </Text>
                                         </View>
                                     </Row>
                                 </Grid>
                             </View>
 
+
                             <View
-                                style={{width:350, height:400,
-                        backgroundColor: '#FF0000'  }}>
+                                style={{ width:200, height:400, overflow: 'hidden', borderRadius:0, backgroundColor: 'rgba(0,0,0,0)', padding:0 }}
+                            >
+                                <Grid style={{ flex:1 }}>
+                                    {
+                                        this.state.keywordArr.map((item, index) => {
+                                                var itemString = JSON.stringify(item);
 
-                                <View
-                                    style={{ width:350, height:400, overflow: 'hidden', borderRadius:0, backgroundColor: '#00000000', padding:0 }}
-                                >
-                                    <Grid style={{ flex:1 }}>
-                                        {
-                                            this.state.keywordArr.map((item, index) => {
-                                                    var itemString = JSON.stringify(item);
+                                                var kray = [];
 
-                                                    var kray = [];
-
-                                                    var ggg = this.getRandomInt(2, 12);
+                                                var ggg = this.getRandomInt(2, 12);
                                                 this.state.columnTotal2 = this.state.columnTotal2 + ggg;
 
-                                                    for (var k = 0; k < ggg; k++) {
-                                                        kray.push(<Svg height="16" width="17" key={k}>
-                                                            <Rect
-                                                                x="0"
-                                                                y="0"
-                                                                width="15"
-                                                                height="15"
-                                                                stroke="black"
-                                                                strokeWidth="1"
-                                                                fill="green"
-                                                            />
-                                                        </Svg>);
+                                                for (var k = 0; k < ggg; k++) {
+                                                    kray.push(<Svg height="16" width="17" key={k}>
+                                                        <Rect
+                                                            x="0"
+                                                            y="0"
+                                                            width="15"
+                                                            height="15"
+                                                            stroke="black"
+                                                            strokeWidth="1"
+                                                            fill="green"
+                                                        />
+                                                    </Svg>);
 
-                                                    }
+                                                }
 
 
-                                                    return (
-                                                        <Row style={{ backgroundColor: '#00000000', height: 25 }}
-                                                             key={index}>
-                                                            <View key={index}
-                                                                  style={{  height:30,  width:350,
+                                                return (
+                                                    <Row style={{ backgroundColor: '#00000000', height: 25 }}
+                                                         key={index}>
+                                                        <View key={index}
+                                                              style={{  height:30,  width:200,
                                                                 backgroundColor: "rgba(0,0,0,1)",
                                                             }}>
 
-                                                                <View style={{
+                                                            <View style={{
                                                                     flex: 1,
                                                                     flexDirection: 'row',
                                                                     alignItems: 'flex-start',
                                                                     }}>
-                                                                    { kray }
-                                                                </View>
+                                                                { kray }
                                                             </View>
-                                                        </Row>
-                                                    )
-                                                }
-                                            )
-                                        }
-                                    </Grid>
-                                </View>
+                                                        </View>
+                                                    </Row>
+                                                )
+                                            }
+                                        )
+                                    }
+                                </Grid>
                             </View>
+
 
                         </View>
                     </View>
