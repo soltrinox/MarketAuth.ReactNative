@@ -1,15 +1,14 @@
 import React, {Component} from 'react';
-import {ScrollView} from 'react-native';
+import {ScrollView,AppRegistry, View} from 'react-native';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 
 import {
     Container, Header, Title, Content, Text, H3, Button, Icon,
     Image, Footer, FooterTab, StyleSheet,
-    // ScrollView,
-    View,
+    InputGroup,
     TextInput,
-    // AppRegistry,
+    Input,
     TouchableOpacity,
     Dimensions
 } from 'native-base';
@@ -342,8 +341,22 @@ class Anatomy extends React.Component {
             <Container theme={myTheme} style={{ width : 800, backgroundColor: '#000000'}}>
 
                 <Header style={{ width : 800, backgroundColor: '#454545', paddingLeft: 40}} >
-                    <Title style={{ width : 800, backgroundColor: '#00000000', color: '#FFF'}}>GOOGLE PAGE ONE SEO </Title>
 
+                    <View style={{ flex: 1, alignItems : 'flex-start', flexDirection: 'row',}}>
+
+                        <View style={{ width: 220, height: 30, marginRight:20 }}>
+                            <InputGroup>
+                                <Input label="CATEGORY" placeholder="CATEGORY" style={{ width: 120, height: 30 }} />
+                            </InputGroup>
+                        </View>
+
+                        <View style={{ width: 220, height: 30, marginRight:20 }}>
+                            <InputGroup>
+                                <Input label="MARKET" placeholder="MARKET" style={{ width: 120, height: 30 }} />
+                            </InputGroup>
+                        </View>
+
+                    </View>
                 </Header>
 
                 <Content padder style={{ width : 800}}>
