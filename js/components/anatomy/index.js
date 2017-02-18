@@ -372,9 +372,9 @@ class Anatomy extends React.Component {
                     </View>
 
                     <View style={{ flex:1, flexDirection:'row', alignItems:'flex-start',
-            marginTop:20, backgroundColor: '#454545', }}>
+            marginTop:20, backgroundColor: '#000', marginLeft:5 }}>
                         <View
-                            style={{ width:300, height:400, overflow: 'hidden', borderRadius:0, backgroundColor: '#00000000', paddingLeft:10}}>
+                            style={{ width:300, height:400, overflow: 'hidden', borderRadius:0, backgroundColor: '#454545', marginRight:5}}>
 
                             <Grid style={{ flex:1 }}>
                                 {
@@ -403,10 +403,10 @@ class Anatomy extends React.Component {
 
                         </View>
                         <View
-                            style={{ width:400, height:400, backgroundColor: 'rgba(0,0,0,0)', overflow:'hidden',flexDirection:'row'   }}>
+                            style={{ width:400, height:400, backgroundColor: '#000', overflow:'hidden',flexDirection:'row'   }}>
 
                             <View
-                                style={{ width:200, height:400, overflow: 'hidden', borderRadius:0, backgroundColor: 'rgba(0,0,0,0)', padding:0 }}
+                                style={{ width:200, height:400, overflow: 'hidden', borderRadius:0, backgroundColor: '#454545', padding:0,marginLeft:5 }}
                             >
                                 <Grid style={{ flex:1 }}>
                                     {
@@ -470,7 +470,7 @@ class Anatomy extends React.Component {
 
 
                             <View
-                                style={{ width:200, height:400, overflow: 'hidden', borderRadius:0, backgroundColor: 'rgba(0,0,0,0)', padding:0 }}
+                                style={{ width:200, height:400, overflow: 'hidden', borderRadius:0, backgroundColor: '#454545', padding:0, marginLeft:5 }}
                             >
                                 <Grid style={{ flex:1 }}>
                                     {

@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity,View } from 'react-native';
 import { connect } from 'react-redux';
 import { Container, Header, Title, Content, Button, Icon, List, ListItem, InputGroup, Input, Picker, Text, Thumbnail } from 'native-base';
 
@@ -35,12 +35,23 @@ class NHForm extends Component {
   render() {
     return (
       <Container style={{ width : 800, backgroundColor: '#000000' }} >
-        <Header>
-          <Title>Form</Title>
+        <Header style={{ width : 800, backgroundColor: '#454545', paddingLeft: 40}} >
 
-          <Button transparent onPress={this.props.openDrawer}>
-            <Icon name="ios-menu" />
-          </Button>
+          <View style={{ flex: 1, alignItems : 'flex-start', flexDirection: 'row',}}>
+
+            <View style={{ width: 220, height: 30, marginRight:20 }}>
+              <InputGroup>
+                <Input label="CATEGORY" placeholder="CATEGORY" style={{ width: 120, height: 30 }} />
+              </InputGroup>
+            </View>
+
+            <View style={{ width: 220, height: 30, marginRight:20 }}>
+              <InputGroup>
+                <Input label="MARKET" placeholder="MARKET" style={{ width: 120, height: 30 }} />
+              </InputGroup>
+            </View>
+
+          </View>
         </Header>
 
         <Content>
