@@ -34,7 +34,7 @@ class NHForm extends Component {
 
   render() {
     return (
-      <Container style={styles.container}>
+      <Container style={{ width : 800, backgroundColor: '#000000' }} >
         <Header>
           <Title>Form</Title>
 
