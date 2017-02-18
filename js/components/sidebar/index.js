@@ -46,9 +46,9 @@ class SideBar extends Component {
           <ListItem button iconLeft onPress={() => this.navigateTo('anatomy')} >
             <View style={styles.listItemContainer}>
               <View style={[styles.iconContainer, { backgroundColor: '#0209D8', paddingLeft: 14 }]}>
-                <Icon name="ios-phone-portrait-outline" style={styles.sidebarIcon} />
+                <Icon name="ios-grid" style={styles.sidebarIcon} />
               </View>
-              <Text style={styles.text}>Anatomy</Text>
+              <Text style={styles.text}>Google Page One</Text>
             </View>
           </ListItem>
           {/*<ListItem button iconLeft onPress={() => this.navigateTo('badge')}>*/}
@@ -62,17 +62,17 @@ class SideBar extends Component {
           <ListItem button iconLeft onPress={() => this.navigateTo('button')} >
             <View style={styles.listItemContainer}>
               <View style={[styles.iconContainer, { backgroundColor: '#5cb85c', paddingLeft: 10 }]}>
-                <Icon name="md-radio-button-off" style={styles.sidebarIcon} />
+                <Icon name="md-navigate" style={styles.sidebarIcon} />
               </View>
-              <Text style={styles.text}>Button</Text>
+              <Text style={styles.text}>Search Term Performance</Text>
             </View>
           </ListItem>
-          <ListItem button iconLeft onPress={() => this.navigateTo('card')} >
+          <ListItem button iconLeft  >
             <View style={styles.listItemContainer}>
-              <View style={[styles.iconContainer, { backgroundColor: '#877CA6' }]}>
-                <Icon name="ios-keypad" style={styles.sidebarIcon} />
+              <View style={[styles.iconContainer, { backgroundColor: '#FFFFFF' }]}>
+
               </View>
-              <Text style={styles.text}>Card</Text>
+              <Text style={styles.text}></Text>
             </View>
           </ListItem>
           {/*<ListItem button iconLeft onPress={() => this.navigateTo('checkbox')} >*/}
@@ -94,19 +94,19 @@ class SideBar extends Component {
           <ListItem button iconLeft onPress={() => this.navigateTo('form')} >
             <View style={styles.listItemContainer}>
               <View style={[styles.iconContainer, { backgroundColor: '#F5BF35' }]}>
-                <Icon name="ios-call" style={styles.sidebarIcon} />
+                <Icon name="md-cog" style={styles.sidebarIcon} />
               </View>
-              <Text style={styles.text}>Form</Text>
+              <Text style={styles.text}>Settings</Text>
             </View>
           </ListItem>
-          {/*<ListItem button iconLeft onPress={() => this.navigateTo('icon')} >*/}
-            {/*<View style={styles.listItemContainer}>*/}
-              {/*<View style={[styles.iconContainer, { backgroundColor: '#B63A48', paddingLeft: 10 }]}>*/}
-                {/*<Icon name="ios-information-circle-outline" style={styles.sidebarIcon} />*/}
-              {/*</View>*/}
-              {/*<Text style={styles.text}>Icon</Text>*/}
-            {/*</View>*/}
-          {/*</ListItem>*/}
+          <ListItem button iconLeft onPress={() => this.navigateTo('icon')} >
+            <View style={styles.listItemContainer}>
+              <View style={[styles.iconContainer, { backgroundColor: '#B63A48', paddingLeft: 10 }]}>
+                <Icon name="ios-information-circle-outline" style={styles.sidebarIcon} />
+              </View>
+              <Text style={styles.text}>Icon</Text>
+            </View>
+          </ListItem>
           {/*<ListItem button iconLeft onPress={() => this.navigateTo('inputgroup')} >*/}
             {/*<View style={styles.listItemContainer}>*/}
               {/*<View style={[styles.iconContainer, { backgroundColor: '#00C497', paddingLeft: 14 }]}>*/}
