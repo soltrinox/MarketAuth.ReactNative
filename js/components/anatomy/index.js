@@ -359,7 +359,7 @@ class Anatomy extends React.Component {
                     </View>
 
                     <View style={{ flex:1, flexDirection:'row', alignItems:'flex-start',
-            marginTop:20, backgroundColor: 'rgba(0,0,0,0)', }}>
+            marginTop:20, backgroundColor: '#454545', }}>
                         <View
                             style={{ width:300, height:400, overflow: 'hidden', borderRadius:0, backgroundColor: '#00000000', paddingLeft:10}}>
 
@@ -426,7 +426,7 @@ class Anatomy extends React.Component {
                                                     <Row style={{ backgroundColor: '#00000000', height: 25 }} key={index}>
                                                         <View key={index}
                                                               style={{  height:30,  width:200,
-                                                                backgroundColor: "rgba(0,0,0,1)",
+                                                                backgroundColor: "rgba(0,0,0,0)",
                                                             }}>
 
                                                             <View style={{
@@ -490,7 +490,7 @@ class Anatomy extends React.Component {
                                                          key={index}>
                                                         <View key={index}
                                                               style={{  height:30,  width:200,
-                                                                backgroundColor: "rgba(0,0,0,1)",
+                                                                backgroundColor: "rgba(0,0,0,0)",
                                                             }}>
 
                                                             <View style={{
