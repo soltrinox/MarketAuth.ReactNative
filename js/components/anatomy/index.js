@@ -105,7 +105,7 @@ class Anatomy extends React.Component {
         this._updateCarousels = this._updateCarousels.bind(this);
         this._productCarouselChange2 = this._productCarouselChange2.bind(this);
         this._productCarouselChange3 = this._productCarouselChange3.bind(this);
-        this._returnDataOnSelection = this._returnDataOnSelection.bind(this);
+        // this._returnDataOnSelection = this._returnDataOnSelection.bind(this);
     }
 
     onValueChange(value: string) {
@@ -185,20 +185,35 @@ class Anatomy extends React.Component {
         var kyz = [];
         kyz = _.keys(item._mySelection1);
         //
-        // var lmn = [];
-        // lmn = _.keys(e.refs);
+        var lmn = [];
+        lmn = _.keys(e);
 
+        console.log('SELECT CAT : ' +  JSON.stringify(e ) );
 
-        console.log('SELECTION : ' +  JSON.stringify(item._mySelection1.state.value ) );
-
-        // this.setState({ selectedCategory : e.value });
-    }
-
-    _renderModalPicker(e){
-
-        console.log('CATEGORY : ' +  eval(e)  +' : '+  eval(e)   );
+        // console.log('TITLE : ' +  JSON.stringify(item._mySelection1.state.title ) );
+        // console.log('VALUE : ' +  JSON.stringify(item._mySelection1.state.value ) );
 
         this.setState({ selectedCategory : e.value });
+        // this._renderModalPicker(item._mySelection1);
+
+        for (var j = 0; j < this.state.categoriesArr.length; j++) {
+            var trr = [];
+            var catName = _.toString(this.state.categoriesArr[j]);
+            happy.push({  name: catName, value: catName, icon: '', });
+            trr = _.filter(test, {"CAT": catName});
+            // console.log('%%%%%%%%%%% SORTED KEYWORDS ON '+ catName +': '+  JSON.stringify(trr));
+            var upp = '{' + catName + ' : ' + JSON.stringify(trr) + '}';
+            // console.log('########### SORTED ARRAY ON ' + catName + ': ' + JSON.stringify(upp));
+            _.set(this.state.dataObjects, catName, trr);
+        }
+
+    }
+
+    _renderModalPicker(sel1){
+
+        console.log('CATEGORY : ' +  JSON.stringify(sel1.state)   );
+
+        // this.setState({ selectedCategory : e.value });
     }
 
 
@@ -368,7 +383,7 @@ class Anatomy extends React.Component {
                                 title="SELECT CATEGORY"
                                 options={options}
                                 //onSelection={(e) => this._returnDataOnSelection(this,e)}
-                                onSelection={(e) => this._returnDataOnSelection.bind(this,e)}
+                                onSelection={(e) => this._returnDataOnSelection(this,e)}
                                 style={{
                                   body: null,
                                   option: null,
