@@ -196,16 +196,27 @@ class Anatomy extends React.Component {
         this.setState({ selectedCategory : e.value });
         // this._renderModalPicker(item._mySelection1);
 
-        for (var j = 0; j < this.state.categoriesArr.length; j++) {
+        var test = _.orderBy(this.state.rawArr, ['CAT', 'KEY', 'SCORE'], ['asc', 'asc', 'desc']);
+
+
             var trr = [];
-            var catName = _.toString(this.state.categoriesArr[j]);
-            happy.push({  name: catName, value: catName, icon: '', });
-            trr = _.filter(test, {"CAT": catName});
+            var catName = e.value;
+
+            trr = _.filter(test, {"CAT": catName });
             // console.log('%%%%%%%%%%% SORTED KEYWORDS ON '+ catName +': '+  JSON.stringify(trr));
-            var upp = '{' + catName + ' : ' + JSON.stringify(trr) + '}';
-            // console.log('########### SORTED ARRAY ON ' + catName + ': ' + JSON.stringify(upp));
-            _.set(this.state.dataObjects, catName, trr);
-        }
+            var upp = { catName : trr };
+             console.log('########### SELECTED SORTED ARRAY ON ' + catName + ': ' + JSON.stringify(upp));
+            // _.set(this.state.dataObjects, catName, trr);
+
+        var kkt = [];
+        kkt = [...new Set(trr.map(item => item.KEY))];
+        kkt.sort();
+
+        console.log('########### SELECTED SORTED ARRAY ON ' + catName + ': ' + JSON.stringify(kkt));
+
+        this.setState({ keywordArr : kkt })
+        this.setState({ dataObjects : upp });
+
 
     }
 
@@ -261,7 +272,7 @@ class Anatomy extends React.Component {
         this.state.keywordArr = [...new Set(test.map(item => item.KEY))];
         this.state.keywordArr.sort();
 
-        this.state.keywordArr = this.state.keywordArr.slice(700, 715);
+        // this.state.keywordArr = this.state.keywordArr.slice(700, 715);
 
         var happy = [];
         // console.log('@@@@@@@@@@@@@@ ORDERBY JSON: '+  JSON.stringify(test));
@@ -339,9 +350,9 @@ class Anatomy extends React.Component {
 
         // this._updateKeywordsArray(keywordsProducts);
 
-        console.log('@@@@@@@@@@@@@@ categoriesArr : ' + JSON.stringify(this.state.categoriesArr));
-        console.log('@@@@@@@@@@@@@@ keywordArr : ' + JSON.stringify(this.state.keywordArr));
-        console.log('88888888 SORTED KEYWORDS ON : ' + JSON.stringify(this.state.dataObjects));
+        // console.log('@@@@@@@@@@@@@@ categoriesArr : ' + JSON.stringify(this.state.categoriesArr));
+        // console.log('@@@@@@@@@@@@@@ keywordArr : ' + JSON.stringify(this.state.keywordArr));
+        // console.log('88888888 SORTED KEYWORDS ON : ' + JSON.stringify(this.state.dataObjects));
 
 
         // CREATE THE GRIDS FOR EACH CAROUSEL COLUMN
