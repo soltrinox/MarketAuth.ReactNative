@@ -36,12 +36,16 @@ class SideBar extends Component {
         style={styles.sidebar}
       >
         <View  style={styles.drawerCover}>
-
+          <View style={{}}>
+            <Text style={{ fontSize:22, lineHeight: 25, color: '#b7d4e6', fontWeight:'bold', marginTop:20, paddingLeft:12 }}>CONSUMER</Text>
+            <Text style={{ fontSize:22, lineHeight: 25, color: '#b7d4e6', fontWeight:'bold', paddingLeft:12 }}>SEARCH</Text>
+            <Text style={{ fontSize:22, lineHeight: 25, color: '#b7d4e6', fontWeight:'bold', paddingLeft:12 }}>RANKINGS</Text>
+          </View>
         </View>
         <List>
           <ListItem button iconLeft onPress={() => this.navigateTo('anatomy')} >
             <View style={styles.listItemContainer}>
-              <View style={[styles.iconContainer, { backgroundColor: '#0209D8', paddingLeft: 14 }]}>
+              <View style={[styles.iconContainer, { backgroundColor: '#00000000', paddingLeft: 14 }]}>
                 <Icon name="ios-grid" style={styles.sidebarIcon} />
               </View>
               <Text style={styles.text}>Google Page One</Text>
@@ -49,7 +53,7 @@ class SideBar extends Component {
           </ListItem>
             <ListItem button iconLeft onPress={() => this.navigateTo('form')} >
             <View style={styles.listItemContainer}>
-            <View style={[styles.iconContainer, { backgroundColor: '#00C497', paddingLeft: 14 }]}>
+            <View style={[styles.iconContainer, { backgroundColor: '#00000000', paddingLeft: 14 }]}>
             <Icon name="ios-document-outline" style={styles.sidebarIcon} />
             </View>
             <Text style={styles.text}>FORM</Text>
@@ -73,7 +77,7 @@ class SideBar extends Component {
           {/*</ListItem>*/}
           <ListItem button iconLeft  >
             <View style={styles.listItemContainer}>
-              <View style={[styles.iconContainer, { backgroundColor: '#454545' }]}>
+              <View style={[styles.iconContainer, { backgroundColor: '#00000000' }]}>
 
               </View>
               <Text style={styles.text}></Text>
@@ -81,7 +85,7 @@ class SideBar extends Component {
           </ListItem>
           <ListItem button iconLeft  >
             <View style={styles.listItemContainer}>
-              <View style={[styles.iconContainer, { backgroundColor: '#454545' }]}>
+              <View style={[styles.iconContainer, { backgroundColor: '#00000000' }]}>
 
               </View>
               <Text style={styles.text}></Text>
@@ -89,7 +93,7 @@ class SideBar extends Component {
           </ListItem>
           <ListItem button iconLeft  >
             <View style={styles.listItemContainer}>
-              <View style={[styles.iconContainer, { backgroundColor: '#454545' }]}>
+              <View style={[styles.iconContainer, { backgroundColor: '#00000000' }]}>
 
               </View>
               <Text style={styles.text}></Text>
@@ -97,7 +101,7 @@ class SideBar extends Component {
           </ListItem>
           <ListItem button iconLeft  >
             <View style={styles.listItemContainer}>
-              <View style={[styles.iconContainer, { backgroundColor: '#454545' }]}>
+              <View style={[styles.iconContainer, { backgroundColor: '#00000000' }]}>
 
               </View>
               <Text style={styles.text}></Text>
@@ -105,7 +109,7 @@ class SideBar extends Component {
           </ListItem>
           <ListItem button iconLeft  >
             <View style={styles.listItemContainer}>
-              <View style={[styles.iconContainer, { backgroundColor: '#454545' }]}>
+              <View style={[styles.iconContainer, { backgroundColor: '#00000000' }]}>
 
               </View>
               <Text style={styles.text}></Text>
@@ -113,7 +117,7 @@ class SideBar extends Component {
           </ListItem>
           <ListItem button iconLeft  >
             <View style={styles.listItemContainer}>
-              <View style={[styles.iconContainer, { backgroundColor: '#454545' }]}>
+              <View style={[styles.iconContainer, { backgroundColor: '#00000000' }]}>
 
               </View>
               <Text style={styles.text}></Text>
@@ -121,7 +125,7 @@ class SideBar extends Component {
           </ListItem>
           <ListItem button iconLeft  >
             <View style={styles.listItemContainer}>
-              <View style={[styles.iconContainer, { backgroundColor: '#454545' }]}>
+              <View style={[styles.iconContainer, { backgroundColor: '#00000000' }]}>
 
               </View>
               <Text style={styles.text}></Text>
@@ -145,7 +149,7 @@ class SideBar extends Component {
           {/*</ListItem>*/}
           <ListItem button iconLeft onPress={() => this.navigateTo('form')} >
             <View style={styles.listItemContainer}>
-              <View style={[styles.iconContainer, { backgroundColor: '#F5BF35' }]}>
+              <View style={[styles.iconContainer, { backgroundColor: '#00000000' }]}>
                 <Icon name="md-cog" style={styles.sidebarIcon} />
               </View>
               <Text style={styles.text}>Settings</Text>

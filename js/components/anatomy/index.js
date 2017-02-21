@@ -197,26 +197,20 @@ class Anatomy extends React.Component {
         // this._renderModalPicker(item._mySelection1);
 
         var test = _.orderBy(this.state.rawArr, ['CAT', 'KEY', 'SCORE'], ['asc', 'asc', 'desc']);
-
-
             var trr = [];
             var catName = e.value;
-
             trr = _.filter(test, {"CAT": catName });
             // console.log('%%%%%%%%%%% SORTED KEYWORDS ON '+ catName +': '+  JSON.stringify(trr));
             var upp = { catName : trr };
-             console.log('########### SELECTED SORTED ARRAY ON ' + catName + ': ' + JSON.stringify(upp));
+             // console.log('########### SELECTED SORTED ARRAY ON ' + catName + ': ' + JSON.stringify(upp));
             // _.set(this.state.dataObjects, catName, trr);
 
         var kkt = [];
         kkt = [...new Set(trr.map(item => item.KEY))];
         kkt.sort();
-
-        console.log('########### SELECTED SORTED ARRAY ON ' + catName + ': ' + JSON.stringify(kkt));
-
+        // console.log('########### SELECTED SORTED ARRAY ON ' + catName + ': ' + JSON.stringify(kkt));
         this.setState({ keywordArr : kkt })
         this.setState({ dataObjects : upp });
-
 
     }
 
@@ -271,7 +265,6 @@ class Anatomy extends React.Component {
 
         this.state.keywordArr = [...new Set(test.map(item => item.KEY))];
         this.state.keywordArr.sort();
-
         this.state.keywordArr = this.state.keywordArr.slice(700, 715);
 
         var happy = [];
@@ -287,9 +280,7 @@ class Anatomy extends React.Component {
             // console.log('########### SORTED ARRAY ON ' + catName + ': ' + JSON.stringify(upp));
             _.set(this.state.dataObjects, catName, trr);
         }
-
         this.setState({ categoriesArr :  happy });
-
         return this.state.dataObjects;
     }
 
@@ -306,16 +297,13 @@ class Anatomy extends React.Component {
             })
             .done();
 
-
         var doamins = [];
         domains = this._domainData();
         // NOW THAT THE ARRAYS ARE POPULATED LEST LOOK INSIDE
 
-
         console.log("Test Model", DeviceInfo.getModel());
         console.log("Device ID", DeviceInfo.getDeviceId());
         console.log("System Name", DeviceInfo.getSystemName());
-
 
         var clientDomains = ['www.default.com', 'www.generic.com'];
         var keywordsClients = [
@@ -345,20 +333,14 @@ class Anatomy extends React.Component {
             ['keyword10', '8', '9', '11', '11'],
         ];
         this.state.productDomains = products.length;
-
         var productColumnArray = [];
 
         // this._updateKeywordsArray(keywordsProducts);
-
         // console.log('@@@@@@@@@@@@@@ categoriesArr : ' + JSON.stringify(this.state.categoriesArr));
         // console.log('@@@@@@@@@@@@@@ keywordArr : ' + JSON.stringify(this.state.keywordArr));
         // console.log('88888888 SORTED KEYWORDS ON : ' + JSON.stringify(this.state.dataObjects));
-
-
         // CREATE THE GRIDS FOR EACH CAROUSEL COLUMN
-
     }
-
 
     getRandomInt(min, max) {
         min = Math.ceil(min);
@@ -370,14 +352,13 @@ class Anatomy extends React.Component {
 
         // var tty = this.state.userData[0];
         // var pic = JSON.parse(tty);
-
         // console.log('this.state.clientColumnItems : '+JSON.stringify(this.state.clientColumnItems));
         const options = this.state.categoriesArr;
 
         return (
             <Container theme={myTheme} style={{ width : 800, backgroundColor: '#000000'}}>
 
-                <Header style={{ width : 800, backgroundColor: '#454545', paddingLeft: 40}} >
+                <Header style={{ width : 800, height:100, backgroundColor: '#454545', paddingLeft: 40}} >
 
                     <View style={{ flex: 1, alignItems : 'flex-start', flexDirection: 'row',}}>
 
@@ -429,14 +410,14 @@ class Anatomy extends React.Component {
                     <View style={{ flex:1, flexDirection:'row', alignItems:'flex-start',
             marginTop:20, backgroundColor: '#000', marginLeft:5 }}>
                         <View
-                            style={{ width:300, height:400, overflow: 'hidden', borderRadius:0, backgroundColor: '#454545', marginRight:5}}>
+                            style={{ width:300, height:400, overflow: 'hidden', borderRadius:0, backgroundColor: '#0000', marginRight:5}}>
 
                             <Grid style={{ flex:1 }}>
                                 {
                                     this.state.keywordArr.map((item, index) => {
                                             var itemString = JSON.stringify(item);
                                             return (
-                                                <Row style={{ backgroundColor: '#00000000', height: 25 }} key={index}>
+                                                <Row style={{ backgroundColor: '#454545', height: 30, marginBottom: 4 }} key={index}>
                                                     <View key={index}
                                                           style={{  height:30,  width:300,
                                                     backgroundColor: "rgba(0,0,0,0)",
@@ -461,7 +442,7 @@ class Anatomy extends React.Component {
                             style={{ width:400, height:400, backgroundColor: '#000', overflow:'hidden',flexDirection:'row'   }}>
 
                             <View
-                                style={{ width:200, height:400, overflow: 'hidden', borderRadius:0, backgroundColor: '#454545', padding:0,marginLeft:5 }}
+                                style={{ width:200, height:400, overflow: 'hidden', borderRadius:0, backgroundColor: '#000', padding:0,marginLeft:5 }}
                             >
                                 <Grid style={{ flex:1 }}>
                                     {
@@ -491,7 +472,7 @@ class Anatomy extends React.Component {
 
 
                                                 return (
-                                                    <Row style={{ backgroundColor: '#00000000', height: 25 }} key={index}>
+                                                    <Row style={{ backgroundColor: '#454545', height: 30 ,marginBottom: 4 }} key={index}>
                                                         <View key={index}
                                                               style={{  height:30,  width:200,
                                                                 backgroundColor: "rgba(0,0,0,0)",
@@ -510,7 +491,7 @@ class Anatomy extends React.Component {
                                             }
                                         )
                                     }
-                                    <Row style={{ backgroundColor: '#00000000', height: 25 }} key={99}>
+                                    <Row style={{ backgroundColor: '#454545', height: 30,marginBottom: 4 }} key={99}>
                                         <View style={{
                                             flex: 1,
                                             flexDirection: 'row',
@@ -525,7 +506,7 @@ class Anatomy extends React.Component {
 
 
                             <View
-                                style={{ width:200, height:400, overflow: 'hidden', borderRadius:0, backgroundColor: '#454545', padding:0, marginLeft:5 }}
+                                style={{ width:200, height:400, overflow: 'hidden', borderRadius:0, backgroundColor: '#0000', padding:0, marginLeft:5 }}
                             >
                                 <Grid style={{ flex:1 }}>
                                     {
@@ -554,7 +535,7 @@ class Anatomy extends React.Component {
 
 
                                                 return (
-                                                    <Row style={{ backgroundColor: '#00000000', height: 25 }}
+                                                    <Row style={{ backgroundColor: '#454545', height: 30,marginBottom: 4 }}
                                                          key={index}>
                                                         <View key={index}
                                                               style={{  height:30,  width:200,

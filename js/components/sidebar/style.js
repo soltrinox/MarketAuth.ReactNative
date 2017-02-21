@@ -9,7 +9,7 @@ const deviceWidth = Dimensions.get('window').width;
 module.exports = StyleSheet.create({
   sidebar: {
     flex: 1,
-    backgroundColor: '#454545',
+    backgroundColor: '#000000',
   },
   drawerCover: {
     alignSelf: 'stretch',
