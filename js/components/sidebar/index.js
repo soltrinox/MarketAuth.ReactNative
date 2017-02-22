@@ -36,11 +36,7 @@ class SideBar extends Component {
         style={styles.sidebar}
       >
         <View  style={styles.drawerCover}>
-          <View style={{}}>
-            <Text style={{ fontSize:22, lineHeight: 25, color: '#b7d4e6', fontWeight:'bold', marginTop:20, paddingLeft:12 }}>CONSUMER</Text>
-            <Text style={{ fontSize:22, lineHeight: 25, color: '#b7d4e6', fontWeight:'bold', paddingLeft:12 }}>SEARCH</Text>
-            <Text style={{ fontSize:22, lineHeight: 25, color: '#b7d4e6', fontWeight:'bold', paddingLeft:12 }}>RANKINGS</Text>
-          </View>
+          <Image source={require('../../../img/CSR-Logo.png')} />
         </View>
         <List>
           <ListItem button iconLeft onPress={() => this.navigateTo('anatomy')} >
@@ -107,30 +103,31 @@ class SideBar extends Component {
               <Text style={styles.text}></Text>
             </View>
           </ListItem>
-          <ListItem button iconLeft  >
-            <View style={styles.listItemContainer}>
-              <View style={[styles.iconContainer, { backgroundColor: '#00000000' }]}>
 
-              </View>
-              <Text style={styles.text}></Text>
-            </View>
-          </ListItem>
-          <ListItem button iconLeft  >
-            <View style={styles.listItemContainer}>
-              <View style={[styles.iconContainer, { backgroundColor: '#00000000' }]}>
+          {/*<ListItem button iconLeft  >*/}
+            {/*<View style={styles.listItemContainer}>*/}
+              {/*<View style={[styles.iconContainer, { backgroundColor: '#00000000' }]}>*/}
 
-              </View>
-              <Text style={styles.text}></Text>
-            </View>
-          </ListItem>
-          <ListItem button iconLeft  >
-            <View style={styles.listItemContainer}>
-              <View style={[styles.iconContainer, { backgroundColor: '#00000000' }]}>
+              {/*</View>*/}
+              {/*<Text style={styles.text}></Text>*/}
+            {/*</View>*/}
+          {/*</ListItem>*/}
+          {/*<ListItem button iconLeft  >*/}
+            {/*<View style={styles.listItemContainer}>*/}
+              {/*<View style={[styles.iconContainer, { backgroundColor: '#00000000' }]}>*/}
 
-              </View>
-              <Text style={styles.text}></Text>
-            </View>
-          </ListItem>
+              {/*</View>*/}
+              {/*<Text style={styles.text}></Text>*/}
+            {/*</View>*/}
+          {/*</ListItem>*/}
+          {/*<ListItem button iconLeft  >*/}
+            {/*<View style={styles.listItemContainer}>*/}
+              {/*<View style={[styles.iconContainer, { backgroundColor: '#00000000' }]}>*/}
+
+              {/*</View>*/}
+              {/*<Text style={styles.text}></Text>*/}
+            {/*</View>*/}
+          {/*</ListItem>*/}
           {/*<ListItem button iconLeft onPress={() => this.navigateTo('checkbox')} >*/}
             {/*<View style={styles.listItemContainer}>*/}
               {/*<View style={[styles.iconContainer, { backgroundColor: '#EB6B23', paddingLeft: 10 }]}>*/}
@@ -150,20 +147,14 @@ class SideBar extends Component {
           <ListItem button iconLeft onPress={() => this.navigateTo('form')} >
             <View style={styles.listItemContainer}>
               <View style={[styles.iconContainer, { backgroundColor: '#00000000' }]}>
-                <Icon name="md-cog" style={styles.sidebarIcon} />
+                <Icon name="ios-cog-outline" style={styles.sidebarIcon} />
               </View>
               <Text style={styles.text}>Settings</Text>
             </View>
           </ListItem>
-          {/*<ListItem button iconLeft onPress={() => this.navigateTo('icon')} >*/}
-            {/*<View style={styles.listItemContainer}>*/}
-              {/*<View style={[styles.iconContainer, { backgroundColor: '#B63A48', paddingLeft: 10 }]}>*/}
-                {/*<Icon name="ios-information-circle-outline" style={styles.sidebarIcon} />*/}
-              {/*</View>*/}
-              {/*<Text style={styles.text}>Icon</Text>*/}
-            {/*</View>*/}
-          {/*</ListItem>*/}
-
+          <View  style={styles.bottomLogo}>
+            <Image source={require('../../../img/ma-logo.png')} />
+          </View>
           {/*<ListItem button iconLeft onPress={() => this.navigateTo('layout')} >*/}
             {/*<View style={styles.listItemContainer}>*/}
               {/*<View style={[styles.iconContainer, { backgroundColor: '#5C4196' }]}>*/}
