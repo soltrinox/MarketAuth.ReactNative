@@ -15,9 +15,6 @@ import {
 } from 'native-base';
 
 import ModalPicker from 'react-native-modal-picker';
-
-// import {ScrollView} from 'native-base';
-
 import {openDrawer} from '../../actions/drawer';
 import {selectCategory} from '../../actions/drawer';
 
@@ -47,8 +44,6 @@ class Anatomy extends React.Component {
         openDrawer: React.PropTypes.func,
         selectCategory: React.PropTypes.func,
     }
-
-
 
     constructor(props, context) {
         super(props, context);
@@ -168,7 +163,6 @@ class Anatomy extends React.Component {
         }
     }
 
-
     _renderItem(entry) {
         return (
             <TouchableOpacity
@@ -220,7 +214,6 @@ class Anatomy extends React.Component {
 
         // this.setState({ selectedCategory : e.value });
     }
-
 
     _domainData() {
         var testJSON = require('./LAS.001.json');
@@ -283,7 +276,6 @@ class Anatomy extends React.Component {
         this.setState({ categoriesArr :  happy });
         return this.state.dataObjects;
     }
-
 
     componentWillMount() {
 
@@ -368,7 +360,6 @@ class Anatomy extends React.Component {
                             </InputGroup>
                         </View>
                         <View style={{ width: 220, height: 30, marginRight:20 }}>
-
                             <Selection
 
                                 ref={(mySelection1) => { this._mySelection1 = mySelection1; }}
@@ -383,15 +374,12 @@ class Anatomy extends React.Component {
                                 iconSize={20}
                                 iconColor="#eee"
                             />
-
                         </View>
-
                         <View style={{ width: 220, height: 30, marginRight:20 }}>
                             <InputGroup>
                                 <Input label="MARKET" placeholder="MARKET" style={{ width: 120, height: 30 }} />
                             </InputGroup>
                         </View>
-
                     </View>
                 </Header>
 
@@ -439,11 +427,11 @@ class Anatomy extends React.Component {
 
                         </View>
                         <View
-                            style={{ width:400, height:400, backgroundColor: '#000', overflow:'hidden',flexDirection:'row'   }}>
-
+                            style={{ width:400, height:400, backgroundColor: '#000',
+                            overflow:'hidden',flexDirection:'row'   }}>
                             <View
-                                style={{ width:200, height:400, overflow: 'hidden', borderRadius:0, backgroundColor: '#000', padding:0,marginLeft:5 }}
-                            >
+                                style={{ width:200, height:400, overflow: 'hidden',
+                                borderRadius:0, backgroundColor: '#000', padding:0,marginLeft:5 }} >
                                 <Grid style={{ flex:1 }}>
                                     {
                                         this.state.keywordArr.map((item, index) => {
@@ -503,11 +491,9 @@ class Anatomy extends React.Component {
                                     </Row>
                                 </Grid>
                             </View>
-
-
                             <View
-                                style={{ width:200, height:400, overflow: 'hidden', borderRadius:0, backgroundColor: '#0000', padding:0, marginLeft:5 }}
-                            >
+                                style={{ width:200, height:400, overflow: 'hidden',
+                                borderRadius:0, backgroundColor: '#0000', padding:0, marginLeft:5 }} >
                                 <Grid style={{ flex:1 }}>
                                     {
                                         this.state.keywordArr.map((item, index) => {
@@ -557,12 +543,8 @@ class Anatomy extends React.Component {
                                     }
                                 </Grid>
                             </View>
-
-
                         </View>
                     </View>
-
-
                 </Content>
 
                 {/*<Footer >*/}
@@ -589,9 +571,6 @@ class Anatomy extends React.Component {
         );
     }
 }
-
-
-
 
 function bindAction(dispatch) {
     return {

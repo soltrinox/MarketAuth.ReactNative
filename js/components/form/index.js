@@ -35,10 +35,14 @@ class NHForm extends Component {
   render() {
     return (
       <Container style={{ width : 800, backgroundColor: '#000000' }} >
-        <Header style={{ width : 800, backgroundColor: '#454545', paddingLeft: 40}} >
+        <Header style={{ width : 800, height: 100,backgroundColor: '#454545', paddingLeft: 40}} >
 
           <View style={{ flex: 1, alignItems : 'flex-start', flexDirection: 'row',}}>
-
+            <View style={{ width: 220, height: 30, marginRight:20 }}>
+              <InputGroup>
+                <Input label="DOMAIN" placeholder="DOMAIN" style={{ width: 120, height: 30 }} />
+              </InputGroup>
+            </View>
             <View style={{ width: 220, height: 30, marginRight:20 }}>
               <InputGroup>
                 <Input label="CATEGORY" placeholder="CATEGORY" style={{ width: 120, height: 30 }} />
