@@ -186,6 +186,8 @@ class Anatomy extends React.Component {
         );
     }
 
+
+
     _returnDataOnSelection(item, e ){
 
         // console.log('CATEGORY : ' +  eval(e)  +' \n\n '+  e.valueOf()   );
@@ -205,13 +207,13 @@ class Anatomy extends React.Component {
         // this._renderModalPicker(item._mySelection1);
 
         var test = _.orderBy(this.state.rawArr, ['CAT', 'KEY', 'SCORE'], ['asc', 'asc', 'desc']);
-            var trr = [];
-            var catName = e.value;
-            trr = _.filter(test, {"CAT": catName });
-            // console.log('%%%%%%%%%%% SORTED KEYWORDS ON '+ catName +': '+  JSON.stringify(trr));
-            var upp = { catName : trr };
-             // console.log('########### SELECTED SORTED ARRAY ON ' + catName + ': ' + JSON.stringify(upp));
-            // _.set(this.state.dataObjects, catName, trr);
+        var trr = [];
+        var catName = e.value;
+        trr = _.filter(test, {"CAT": catName });
+        // console.log('%%%%%%%%%%% SORTED KEYWORDS ON '+ catName +': '+  JSON.stringify(trr));
+        var upp = { catName : trr };
+        // console.log('########### SELECTED SORTED ARRAY ON ' + catName + ': ' + JSON.stringify(upp));
+        // _.set(this.state.dataObjects, catName, trr);
 
         var kkt = [];
         kkt = [...new Set(trr.map(item => item.KEY))];
@@ -219,6 +221,15 @@ class Anatomy extends React.Component {
         // console.log('########### SELECTED SORTED ARRAY ON ' + catName + ': ' + JSON.stringify(kkt));
         this.setState({ keywordArr : kkt })
         this.setState({ dataObjects : upp });
+
+        console.log('########### DOMAINS BY KEY ON : ' + JSON.stringify(kkt) );
+        var resultXXX = _.filter(test, function(p){
+            return _.includes(kkt, p.KEY);
+        });
+
+        var testDomains = _.orderBy(resultXXX, ['KEY', 'SCORE'], ['asc', 'desc']);
+
+        console.log('########### MATCHED DOMAINS BY KEY : ' + JSON.stringify(testDomains) );
 
     }
 

@@ -47,6 +47,13 @@ const {
   CardStack: NavigationCardStack,
 } = NavigationExperimental;
 
+var DBEvents = require('react-native-db-models').DBEvents;
+var DB = require('./db.js');
+
+DBEvents.on("all", function(){
+    console.log("Database changed");
+});
+
 class AppNavigator extends Component {
 
   static propTypes = {
