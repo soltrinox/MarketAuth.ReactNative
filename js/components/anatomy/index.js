@@ -4,6 +4,11 @@ import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import _ from 'lodash';
 
+
+// DB Emitter Initialized
+
+
+
 import {
     Container, Header, Title, Content, Text, H3, Button, Icon,
     Image, Footer, FooterTab, StyleSheet,
@@ -38,12 +43,21 @@ import myTheme from '../../themes/base-theme';
 import styles from './styles';
 
 
+var DBEvents = require('react-native-db-models').DBEvents;
+var DB = require('../../db.js');
+
+DBEvents.on("all", function(){
+    console.log("Database changed");
+});
+
 class Anatomy extends React.Component {
 
     static propTypes = {
         openDrawer: React.PropTypes.func,
         selectCategory: React.PropTypes.func,
     }
+
+
 
     constructor(props, context) {
         super(props, context);
@@ -277,7 +291,36 @@ class Anatomy extends React.Component {
         return this.state.dataObjects;
     }
 
+    _setData(){
+        DB.users.add({first_name: "TEST", age: 40}, function(added_data){
+            console.log('added_data'+ JSON.stringify(added_data));
+        });
+    }
+
     componentWillMount() {
+
+        var isSet = false;
+
+        // DB.users.get({first_name: "Rishabh"}, function(results){
+        //
+        //     if(  _.isEmpty(results) ){
+        //         console.log('no results : '+ results);
+        //     }else{
+        //         console.log('results : '+ results);
+        //     }
+        // });
+
+
+
+        DB.users.get({first_name: "DYLAN"}, function(results){
+
+            if(  _.isEmpty(results) ){
+                console.log('no results : '+ results);
+                this._setData();
+            }else{
+                console.log('results : '+ JSON.stringify(results) );
+            }
+        });
 
         this.state.userData = {'key': 'val', 'key': 'val'};
         fetch("https://www.randomuser.me/api/1.1?nat=us")

@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { BackAndroid, StatusBar, NavigationExperimental } from 'react-native';
+import { AsyncStorage, BackAndroid, StatusBar, NavigationExperimental } from 'react-native';
 import { connect } from 'react-redux';
 import { Drawer } from 'native-base';
 import { actions } from 'react-native-navigation-redux-helpers';
