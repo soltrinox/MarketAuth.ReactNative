@@ -1,0 +1,826 @@
+[
+  {
+    "UUID": "CE518F5D-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTS",
+    "DOM": "DEX ESS PREMIUM",
+    "SCORE": 2
+  },
+  {
+    "UUID": "CF2B14AB-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTS",
+    "DOM": "AIALASVEGAS.ORG",
+    "SCORE": 2
+  },
+  {
+    "UUID": "CE518F4D-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTS",
+    "DOM": "DEX ESS PLUS",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B14BB-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTS",
+    "DOM": "BUILDDIRECT.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B14CA-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTS",
+    "DOM": "HOMEADVISOR.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B14DA-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTS",
+    "DOM": "HOUZZ.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B14E9-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTS",
+    "DOM": "KMEARCHITECTS.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B14F9-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTS",
+    "DOM": "SMALLSTUDIOASSOCIATES.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1509-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTS",
+    "DOM": "VEGASINC.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CE518F6C-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURAL DESIGN",
+    "DOM": "DEX ESS PLUS",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CE518F7B-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURAL DESIGN",
+    "DOM": "DEX ESS PREMIUM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1518-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURAL DESIGN",
+    "DOM": "AIALASVEGAS.ORG",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1528-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURAL DESIGN",
+    "DOM": "BUILDDIRECT.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1537-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURAL DESIGN",
+    "DOM": "CDARCH.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1547-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURAL DESIGN",
+    "DOM": "GK3ARCHITECTURE.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1557-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURAL DESIGN",
+    "DOM": "HOMEADVISOR.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1566-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURAL DESIGN",
+    "DOM": "HOUZZ.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1576-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURAL DESIGN",
+    "DOM": "INDEED.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1585-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURAL DESIGN",
+    "DOM": "KMEARCHITECTS.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1595-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURAL DESIGN",
+    "DOM": "SMALLSTUDIOASSOCIATES.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CE518F99-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURAL ENGINEERING",
+    "DOM": "DEX ESS PREMIUM",
+    "SCORE": 2
+  },
+  {
+    "UUID": "CE518F8A-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURAL ENGINEERING",
+    "DOM": "DEX ESS PLUS",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1614-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURAL ENGINEERING",
+    "DOM": "ACG.DESIGN",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1629-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURAL ENGINEERING",
+    "DOM": "CRAIGSLIST.ORG",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1639-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURAL ENGINEERING",
+    "DOM": "HDRINC.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1648-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURAL ENGINEERING",
+    "DOM": "HOMEADVISOR.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1658-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURAL ENGINEERING",
+    "DOM": "HOUZZ.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1668-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURAL ENGINEERING",
+    "DOM": "INDEED.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1677-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURAL ENGINEERING",
+    "DOM": "LEARN.ORG",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1686-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURAL ENGINEERING",
+    "DOM": "LINKEDIN.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1696-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURAL ENGINEERING",
+    "DOM": "MONSTER.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B16A5-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURE",
+    "DOM": "AIALASVEGAS.ORG",
+    "SCORE": 2
+  },
+  {
+    "UUID": "CF2B16B4-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURE",
+    "DOM": "ARCHDAILY.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B16C4-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURE",
+    "DOM": "BUILDDIRECT.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B16D3-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURE",
+    "DOM": "HOUZZ.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B16E3-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURE",
+    "DOM": "SH-ARCHITECTURE.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B16F3-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURE",
+    "DOM": "UNLV.EDU",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1702-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURE",
+    "DOM": "WIKIPEDIA.ORG",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B177F-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURE FIRM",
+    "DOM": "VEGASINC.COM",
+    "SCORE": 2
+  },
+  {
+    "UUID": "CE518FAA-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURE FIRM",
+    "DOM": "DEX ESS PREMIUM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1712-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURE FIRM",
+    "DOM": "AIALASVEGAS.ORG",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1722-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURE FIRM",
+    "DOM": "APTUSGROUP.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1731-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURE FIRM",
+    "DOM": "ARCHITECTSUSA.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1740-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURE FIRM",
+    "DOM": "BUILDDIRECT.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1750-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURE FIRM",
+    "DOM": "HOUZZ.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1760-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURE FIRM",
+    "DOM": "KMEARCHITECTS.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B176F-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "ARCHITECTURE FIRM",
+    "DOM": "LASVEGASSUN.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B178E-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "BUSINESS ARCHITECTURE",
+    "DOM": "BIZ-ARCHITECT.COM",
+    "SCORE": 2
+  },
+  {
+    "UUID": "CF2B179E-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "BUSINESS ARCHITECTURE",
+    "DOM": "BUILDINGBUSINESSCAPABILITY.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B17AD-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "BUSINESS ARCHITECTURE",
+    "DOM": "CISCOLIVE.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B17BD-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "BUSINESS ARCHITECTURE",
+    "DOM": "EADIRECTIONS.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B17CD-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "BUSINESS ARCHITECTURE",
+    "DOM": "FASTCOMPANY.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B17DC-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "BUSINESS ARCHITECTURE",
+    "DOM": "FORRESTER.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B17EB-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "BUSINESS ARCHITECTURE",
+    "DOM": "KMEARCHITECTS.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B17FB-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "BUSINESS ARCHITECTURE",
+    "DOM": "LEADINGAGILE.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B180A-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "BUSINESS ARCHITECTURE",
+    "DOM": "REVIEWJOURNAL.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B181A-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "BUSINESS ARCHITECTURE",
+    "DOM": "WORDPRESS.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1858-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOME DESIGN",
+    "DOM": "HOUZZ.COM",
+    "SCORE": 2
+  },
+  {
+    "UUID": "CF2B1886-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOME DESIGN",
+    "DOM": "ROOMRESOLUTIONS.COM",
+    "SCORE": 2
+  },
+  {
+    "UUID": "CF3EBCE5-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "INTERIOR DESIGN",
+    "KEY": "HOME DESIGN",
+    "DOM": "HOUZZ.COM",
+    "SCORE": 2
+  },
+  {
+    "UUID": "CF3EBD49-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "INTERIOR DESIGN",
+    "KEY": "HOME DESIGN",
+    "DOM": "ROOMRESOLUTIONS.COM",
+    "SCORE": 2
+  },
+  {
+    "UUID": "CE518FB9-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOME DESIGN",
+    "DOM": "DEX ESS PREMIUM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1829-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOME DESIGN",
+    "DOM": "BUILDDIRECT.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1839-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOME DESIGN",
+    "DOM": "DECORATINGDEN.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1849-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOME DESIGN",
+    "DOM": "DSILV.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1867-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOME DESIGN",
+    "DOM": "INHABITLV.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1877-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOME DESIGN",
+    "DOM": "INSIDESTYLEHOME.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CE53B2F2-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "INTERIOR DESIGN",
+    "KEY": "HOME DESIGN",
+    "DOM": "DEX ESS PREMIUM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF3EBCB7-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "INTERIOR DESIGN",
+    "KEY": "HOME DESIGN",
+    "DOM": "BUILDDIRECT.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF3EBCC6-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "INTERIOR DESIGN",
+    "KEY": "HOME DESIGN",
+    "DOM": "DECORATINGDEN.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF3EBCD5-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "INTERIOR DESIGN",
+    "KEY": "HOME DESIGN",
+    "DOM": "DSILV.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF3EBCF4-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "INTERIOR DESIGN",
+    "KEY": "HOME DESIGN",
+    "DOM": "INHABITLV.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF3EBD35-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "INTERIOR DESIGN",
+    "KEY": "HOME DESIGN",
+    "DOM": "INSIDESTYLEHOME.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B18B5-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE DESIGN",
+    "DOM": "HOUZZ.COM",
+    "SCORE": 2
+  },
+  {
+    "UUID": "CE518FC8-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE DESIGN",
+    "DOM": "DEX ESS PREMIUM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1896-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE DESIGN",
+    "DOM": "BUILDDIRECT.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B18A5-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE DESIGN",
+    "DOM": "DECORATINGDEN.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B18C5-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE DESIGN",
+    "DOM": "INSIDESTYLEHOME.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B18D5-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE DESIGN",
+    "DOM": "JILLTHOMSONDESIGN.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B18E4-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE DESIGN",
+    "DOM": "PATRICKSSIGNS.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B18F4-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE DESIGN",
+    "DOM": "ROOMRESOLUTIONS.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1903-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE PLANS",
+    "DOM": "DFDHOUSEPLANS.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1912-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE PLANS",
+    "DOM": "DISTINCTIVEHOMESLV.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1921-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE PLANS",
+    "DOM": "DRHORTON.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1931-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE PLANS",
+    "DOM": "HOUSEPLANSANDMORE.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1940-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE PLANS",
+    "DOM": "KBHOME.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1950-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE PLANS",
+    "DOM": "MILLIEFINE.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B195F-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE PLANS",
+    "DOM": "MONSTERHOUSEPLANS.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B196F-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE PLANS",
+    "DOM": "NEWHOMESOURCE.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B197E-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE PLANS",
+    "DOM": "RICHMONDAMERICAN.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B198E-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE PLANS",
+    "DOM": "THETOMLOVEGROUP.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B199D-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE PLANS",
+    "DOM": "ZILLOW.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B19AD-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE STYLES",
+    "DOM": "CITY-DATA.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B19BD-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE STYLES",
+    "DOM": "FACEBOOK.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B19CC-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE STYLES",
+    "DOM": "GREATLASVEGASHOMES.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B19DC-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE STYLES",
+    "DOM": "INSIDESTYLEHOME.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B19EC-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE STYLES",
+    "DOM": "LASVEGASHOMESPECIALIST.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B19FB-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE STYLES",
+    "DOM": "LIVING-LAS-VEGAS.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1A0B-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE STYLES",
+    "DOM": "NEONVEGASHOMES.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1A1A-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE STYLES",
+    "DOM": "VERYVINTAGEVEGAS.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1A29-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE STYLES",
+    "DOM": "WIKIPEDIA.ORG",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1A39-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE STYLES",
+    "DOM": "WINDERMEREEXCELLENCE.COM",
+    "SCORE": 1
+  },
+  {
+    "UUID": "CF2B1A48-",
+    "MARKT": "LAS VEGAS | NV | US",
+    "CAT": "ARCHITECTS",
+    "KEY": "HOUSE STYLES",
+    "DOM": "ZILLOW.COM",
+    "SCORE": 1
+  }
+]

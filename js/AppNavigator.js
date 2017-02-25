@@ -84,7 +84,8 @@ class AppNavigator extends Component {
       this.openDrawer();
     }
 
-    if (this.props.drawerState === 'closed') {
+    if (this.props.drawerState ===
+        'closed') {
       // this._drawer.close();
     }
 
