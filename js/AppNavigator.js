@@ -61,8 +61,8 @@ class AppNavigator extends Component {
     popRoute: React.PropTypes.func,
     closeDrawer: React.PropTypes.func,
     navigation: React.PropTypes.shape({
-      key: React.PropTypes.string,
-      routes: React.PropTypes.array,
+        key: React.PropTypes.string,
+        routes: React.PropTypes.array,
     }),
   }
 
