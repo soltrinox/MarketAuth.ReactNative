@@ -5,10 +5,6 @@ import {connect} from 'react-redux';
 import _ from 'lodash';
 
 
-// DB Emitter Initialized
-
-
-
 import {
     Container, Header, Title, Content, Text, H3, Button, Icon,
     Image, Footer, FooterTab, StyleSheet,
@@ -19,26 +15,16 @@ import {
     Dimensions
 } from 'native-base';
 
-import ModalPicker from 'react-native-modal-picker';
+
 import {openDrawer} from '../../actions/drawer';
 import {selectCategory} from '../../actions/drawer';
-
 import {Col, Row, Grid} from 'react-native-easy-grid'
 import DeviceInfo from 'react-native-device-info'
-import {Carousel} from 'react-native-snap-carousel'
-// import {IndicatorViewPager, PagerDotIndicator} from 'rn-viewpager'
-// import Svg from 'react-native-svg'
 import Svg, {G, Rect, Symbol, Use, Defs, Stop} from 'react-native-svg'
-// import Menu from 'react-native-menu';
 import Selection from 'react-native-selection';
 
 
-
-import sliderStyles from './Slider.style'
-import sliderWidth from './SliderEntry.style'
-import itemWidth from './SliderEntry.style'
 import sliderEntryStyles from './SliderEntry.style'
-
 import myTheme from '../../themes/base-theme';
 import styles from './styles';
 
@@ -124,6 +110,17 @@ class Anatomy extends React.Component {
     }
 
     _getUsers() {
+
+        this.state.userData = {'key': 'val', 'key': 'val'};
+        fetch("https://www.randomuser.me/api/1.1?nat=us")
+            .then((response) => response.json())
+            .then((responseData) => {
+                // console.log('responseData :' + JSON.stringify(responseData.results));
+                this.setState({userData: responseData.results});
+                // console.log('AFTER USER DATA: ' + JSON.stringify(this.state.userData));
+            })
+            .done();
+
         console.log('2222222 USER DATA: ' + JSON.stringify(this.state.userData));
     }
 
@@ -333,15 +330,7 @@ class Anatomy extends React.Component {
             }
         });
 
-        this.state.userData = {'key': 'val', 'key': 'val'};
-        fetch("https://www.randomuser.me/api/1.1?nat=us")
-            .then((response) => response.json())
-            .then((responseData) => {
-                // console.log('responseData :' + JSON.stringify(responseData.results));
-                this.setState({userData: responseData.results});
-                // console.log('AFTER USER DATA: ' + JSON.stringify(this.state.userData));
-            })
-            .done();
+
 
         var doamins = [];
         domains = this._domainData();
