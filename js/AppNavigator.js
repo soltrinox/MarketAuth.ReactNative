@@ -189,7 +189,7 @@ class AppNavigator extends Component {
         acceptPan={false}
         openDrawerOffset={800}
         closedDrawerOffset={0}
-        elevation={0}
+
         onClose={() => {return null} }
         styles={{
           drawer: {

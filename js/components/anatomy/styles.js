@@ -6,16 +6,23 @@ const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window'
 
 module.exports = StyleSheet.create({
   container: {
-    backgroundColor: '#000000',
+    backgroundColor: '#FFF',
 
   },
+    stretch: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent:'flex-start',
+        width: null,
+        height: null,
+
+    },
     content: {
         backgroundColor: 'white',
-        paddingHorizontal: 10,
-        paddingTop: 20,
-        paddingBottom: 30,
+
+
         borderBottomWidth: 1,
-        borderColor: '#ccc'
+        borderColor: '#000'
     },
     contentText: {
         fontSize: 18
@@ -36,7 +43,7 @@ module.exports = StyleSheet.create({
         marginVertical: 5,
         marginHorizontal: 2,
         borderBottomWidth: 1,
-        borderColor: '#ccc'
+        borderColor: '#00000000'
     },
     dropdown: {
         width: 200,

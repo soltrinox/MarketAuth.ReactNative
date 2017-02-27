@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ScrollView,AppRegistry, View} from 'react-native';
+import {ScrollView, AppRegistry, View, Image} from 'react-native';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import _ from 'lodash';
@@ -7,7 +7,7 @@ import _ from 'lodash';
 
 import {
     Container, Header, Title, Content, Text, H3, Button, Icon,
-    Image, Footer, FooterTab, StyleSheet,
+    Footer, FooterTab, StyleSheet,
     InputGroup,
     TextInput,
     Input,
@@ -32,7 +32,7 @@ import styles from './styles';
 var DBEvents = require('react-native-db-models').DBEvents;
 var DB = require('../../db.js');
 
-DBEvents.on("all", function(){
+DBEvents.on("all", function () {
     console.log("Database changed");
 });
 
@@ -42,7 +42,6 @@ class Anatomy extends React.Component {
         openDrawer: React.PropTypes.func,
         selectCategory: React.PropTypes.func,
     }
-
 
 
     constructor(props, context) {
@@ -184,8 +183,7 @@ class Anatomy extends React.Component {
     }
 
 
-
-    _returnDataOnSelection(item, e ){
+    _returnDataOnSelection(item, e) {
 
         // console.log('CATEGORY : ' +  eval(e)  +' \n\n '+  e.valueOf()   );
 
@@ -195,20 +193,20 @@ class Anatomy extends React.Component {
         var lmn = [];
         lmn = _.keys(e);
 
-        console.log('SELECT CAT : ' +  JSON.stringify(e ) );
+        console.log('SELECT CAT NAME : ' + JSON.stringify(e));
 
         // console.log('TITLE : ' +  JSON.stringify(item._mySelection1.state.title ) );
         // console.log('VALUE : ' +  JSON.stringify(item._mySelection1.state.value ) );
 
-        this.setState({ selectedCategory : e.value });
+        this.setState({selectedCategory: e.value});
         // this._renderModalPicker(item._mySelection1);
 
         var test = _.orderBy(this.state.rawArr, ['CAT', 'KEY', 'SCORE'], ['asc', 'asc', 'desc']);
         var trr = [];
         var catName = e.value;
-        trr = _.filter(test, {"CAT": catName });
+        trr = _.filter(test, {"CAT": catName});
         // console.log('%%%%%%%%%%% SORTED KEYWORDS ON '+ catName +': '+  JSON.stringify(trr));
-        var upp = { catName : trr };
+        var upp = {catName: trr};
         // console.log('########### SELECTED SORTED ARRAY ON ' + catName + ': ' + JSON.stringify(upp));
         // _.set(this.state.dataObjects, catName, trr);
 
@@ -216,23 +214,23 @@ class Anatomy extends React.Component {
         kkt = [...new Set(trr.map(item => item.KEY))];
         kkt.sort();
         // console.log('########### SELECTED SORTED ARRAY ON ' + catName + ': ' + JSON.stringify(kkt));
-        this.setState({ keywordArr : kkt })
-        this.setState({ dataObjects : upp });
+        this.setState({keywordArr: kkt})
+        this.setState({dataObjects: upp});
 
-        console.log('########### DOMAINS BY KEY ON : ' + JSON.stringify(kkt) );
-        var resultXXX = _.filter(test, function(p){
+        console.log('########### DOMAINS BY KEY ON : ' + JSON.stringify(kkt));
+        var resultXXX = _.filter(test, function (p) {
             return _.includes(kkt, p.KEY);
         });
 
         var testDomains = _.orderBy(resultXXX, ['KEY', 'SCORE'], ['asc', 'desc']);
 
-        console.log('########### MATCHED DOMAINS BY KEY : ' + JSON.stringify(testDomains) );
+        console.log('########### MATCHED DOMAINS BY KEY : ' + JSON.stringify(testDomains));
 
     }
 
-    _renderModalPicker(sel1){
+    _renderModalPicker(sel1) {
 
-        console.log('CATEGORY : ' +  JSON.stringify(sel1.state)   );
+        console.log('CATEGORY : ' + JSON.stringify(sel1.state));
 
         // this.setState({ selectedCategory : e.value });
     }
@@ -280,7 +278,7 @@ class Anatomy extends React.Component {
 
         this.state.keywordArr = [...new Set(test.map(item => item.KEY))];
         this.state.keywordArr.sort();
-        this.state.keywordArr = this.state.keywordArr.slice(700, 715);
+        this.state.keywordArr = this.state.keywordArr.slice(700, 710);
 
         var happy = [];
         // console.log('@@@@@@@@@@@@@@ ORDERBY JSON: '+  JSON.stringify(test));
@@ -288,20 +286,20 @@ class Anatomy extends React.Component {
         for (var j = 0; j < this.state.categoriesArr.length; j++) {
             var trr = [];
             var catName = _.toString(this.state.categoriesArr[j]);
-            happy.push({  name: catName, value: catName, icon: '', });
+            happy.push({name: catName, value: catName, icon: '',});
             trr = _.filter(test, {"CAT": catName});
             // console.log('%%%%%%%%%%% SORTED KEYWORDS ON '+ catName +': '+  JSON.stringify(trr));
             var upp = '{' + catName + ' : ' + JSON.stringify(trr) + '}';
             // console.log('########### SORTED ARRAY ON ' + catName + ': ' + JSON.stringify(upp));
             _.set(this.state.dataObjects, catName, trr);
         }
-        this.setState({ categoriesArr :  happy });
+        this.setState({categoriesArr: happy});
         return this.state.dataObjects;
     }
 
-    _setData(){
-        DB.users.add({first_name: "TEST", age: 40}, function(added_data){
-            console.log('added_data'+ JSON.stringify(added_data));
+    _setData() {
+        DB.users.add({first_name: "TEST", age: 40}, function (added_data) {
+            console.log('added_data' + JSON.stringify(added_data));
         });
     }
 
@@ -319,17 +317,15 @@ class Anatomy extends React.Component {
         // });
 
 
+        DB.users.get({first_name: "DYLAN"}, function (results) {
 
-        DB.users.get({first_name: "DYLAN"}, function(results){
-
-            if(  _.isEmpty(results) ){
-                console.log('no results : '+ results);
+            if (_.isEmpty(results)) {
+                console.log('no results : ' + results);
                 this._setData();
-            }else{
-                console.log('results : '+ JSON.stringify(results) );
+            } else {
+                console.log('results : ' + JSON.stringify(results));
             }
         });
-
 
 
         var doamins = [];
@@ -393,13 +389,13 @@ class Anatomy extends React.Component {
         return (
             <Container theme={myTheme} style={{ width : 800, backgroundColor: '#000000'}}>
 
-                <Header style={{ width : 800, height:100, backgroundColor: '#454545', paddingLeft: 40}} >
+                <Header style={{ width : 800, height:100, backgroundColor: '#454545', paddingLeft: 40}}>
 
                     <View style={{ flex: 1, alignItems : 'flex-start', flexDirection: 'row',}}>
 
                         <View style={{ width: 220, height: 30, marginRight:20 }}>
                             <InputGroup>
-                                <Input label="DOMAIN" placeholder="DOMAIN" style={{ width: 120, height: 30 }} />
+                                <Input label="DOMAIN" placeholder="DOMAIN" style={{ width: 120, height: 30 }}/>
                             </InputGroup>
                         </View>
                         <View style={{ width: 220, height: 30, marginRight:20 }}>
@@ -420,174 +416,221 @@ class Anatomy extends React.Component {
                         </View>
                         <View style={{ width: 220, height: 30, marginRight:20 }}>
                             <InputGroup>
-                                <Input label="MARKET" placeholder="MARKET" style={{ width: 120, height: 30 }} />
+                                <Input label="MARKET" placeholder="MARKET" style={{ width: 120, height: 30 }}/>
                             </InputGroup>
                         </View>
                     </View>
                 </Header>
 
-                <Content padder style={{ width : 800}}>
-                    {/*<H3>This is content section</H3>*/}
-                    <View style={{ flex:1, marginTop:20 }}>
-                        <Text style={{flex:1, flexDirection: 'row', textAlign: 'center' ,
-               color:'#ABABAB', margin:10, fontSize: 18 }}>
-                            keywords for <Text
-                            style={{ color:'#ff00ff', fontSize: 22, fontWeight:'700'  }}>{this.state.selectedCategory}</Text>
-                            @ <Text style={{ color:'#0000FF', fontSize: 22, fontWeight:'bold'  }}>
-                            {this.state.selectedDomain}</Text>
-                        </Text>
-                    </View>
+                <Content styel={{flex: 1,
+        flexDirection: 'column',
+        justifyContent:'flex-start',}} scrollEnabled={ false }>
+                    <Image
+                        style={styles.stretch}
+                        source={require('./img001.png')}
+                        resizeMode={Image.resizeMode.stretch}
+                    >
+                        <View style={{ height:666, flexDirection: 'column', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.75)'}}>
+                            <View style={{height:null,  flex:1, flexDirection:'row', justifyContent:'flex-start', marginLeft:10,  backgroundColor: 'rgba(0,0,0,0.9)',  }}>
+                                <Text style={{flex:1, flexDirection: 'row', textAlign: 'center' ,
+                   color:'#ABABAB',  fontSize: 18 }}>
+                                    keywords for <Text
+                                    style={{ color:'#ff00ff', fontSize: 22, fontWeight:'700'  }}>{this.state.selectedCategory}</Text>
+                                    @ <Text style={{ color:'#0000FF', fontSize: 22, fontWeight:'bold'  }}>
+                                    {this.state.selectedDomain}</Text>
+                                </Text>
+                            </View>
+                            <View style={{ height:62,  flexDirection:'row', justifyContent:'flex-start', backgroundColor: 'rgba(66,66,66,0.5)', marginLeft:10 }}>
+                                <View
+                                    style={{ width:300, height:62, overflow: 'hidden',
+                                    borderRadius:0, backgroundColor: 'rgba(66,66,66,0.5)', marginRight:5, justifyContent:'flex-end'}}>
+                                    <Text style={{ color:'#FFFFFF', fontSize: 22, fontWeight:'normal'  }}>
+                                        SEARCH TERM</Text>
+                                </View>
+                                <View
+                                    style={{ width:480, height:62, backgroundColor: 'rgba(0,0,0,0)',
+                            overflow:'hidden',flexDirection:'row'   }}>
+                                    <View
+                                        style={{ width:240, height:62, overflow: 'hidden',
+                                borderRadius:0, backgroundColor: 'rgba(66,66,66,0.5)', padding:0,marginLeft:5, justifyContent:'flex-end' }}>
+                                        <Text style={{ color:'#FFFFFF', fontSize: 22, fontWeight:'normal'  }}>
+                                            www.domain.com</Text>
+                                    </View>
+                                    <View
+                                        style={{ width:240, height:62, overflow: 'hidden',
+                                borderRadius:0, backgroundColor: 'rgba(66,66,66,0.5)', padding:0,marginLeft:5, justifyContent:'flex-end' }}>
+                                        <Text style={{ color:'#FFFFFF', fontSize: 22, fontWeight:'normal'  }}>
+                                            DEX PREMIUM</Text>
+                                    </View>
+                                </View>
+                            </View>
+                            <View style={{ height:365, marginTop:5,  flexDirection:'row', overflow: 'hidden', justifyContent:'flex-start', backgroundColor: 'rgba(0,0,0,0)', marginLeft:10 }}>
+                                <View
+                                    style={{ width:300, height:495, overflow: 'hidden', borderRadius:0, backgroundColor: '#0000', marginRight:5}}>
 
-                    <View style={{ flex:1, flexDirection:'row', alignItems:'flex-start',
-            marginTop:20, backgroundColor: '#000', marginLeft:5 }}>
-                        <View
-                            style={{ width:300, height:400, overflow: 'hidden', borderRadius:0, backgroundColor: '#0000', marginRight:5}}>
-
-                            <Grid style={{ flex:1 }}>
-                                {
-                                    this.state.keywordArr.map((item, index) => {
-                                            var itemString = JSON.stringify(item);
-                                            return (
-                                                <Row style={{ backgroundColor: '#454545', height: 30, marginBottom: 4 }} key={index}>
-                                                    <View key={index}
-                                                          style={{  height:30,  width:300,
+                                    <Grid style={{ flex:1 }}>
+                                        {
+                                            this.state.keywordArr.map((item, index) => {
+                                                    var itemString = JSON.stringify(item);
+                                                    return (
+                                                        <Row
+                                                            style={{ backgroundColor: '#454545', height: 30, marginBottom: 2 }}
+                                                            key={index}>
+                                                            <View key={index}
+                                                                  style={{  height:30,  width:300,
                                                     backgroundColor: "rgba(0,0,0,0)",
                                                 }}>
-                                                        <Text
-                                                            style={{ height:30,  width:300,
+                                                                <Text
+                                                                    style={{ height:30,  width:300,
                                                     color: "#FFFFFF",
                                                     fontSize: 14,
                                                 }}>{index} ]
-                                                            {item}
-                                                        </Text>
-                                                    </View>
-                                                </Row>
+                                                                    {item}
+                                                                </Text>
+                                                            </View>
+                                                        </Row>
+                                                    )
+                                                }
                                             )
                                         }
-                                    )
-                                }
-                            </Grid>
+                                    </Grid>
 
-                        </View>
-                        <View
-                            style={{ width:400, height:400, backgroundColor: '#000',
+                                </View>
+                                <View
+                                    style={{ width:480, height:495, backgroundColor: '#000',
                             overflow:'hidden',flexDirection:'row'   }}>
-                            <View
-                                style={{ width:200, height:400, overflow: 'hidden',
-                                borderRadius:0, backgroundColor: '#000', padding:0,marginLeft:5 }} >
-                                <Grid style={{ flex:1 }}>
-                                    {
-                                        this.state.keywordArr.map((item, index) => {
-                                                var itemString = JSON.stringify(item);
+                                    <View
+                                        style={{ width:240, height:495, overflow: 'hidden',
+                                borderRadius:0, backgroundColor: '#000', padding:0,marginLeft:5 }}>
+                                        <Grid style={{ flex:1 }}>
+                                            {
+                                                this.state.keywordArr.map((item, index) => {
+                                                        var itemString = JSON.stringify(item);
 
-                                                var kray = [];
+                                                        var kray = [];
 
-                                                var ggg = this.getRandomInt(2, 12);
+                                                        var ggg = this.getRandomInt(2, 12);
 
-                                                this.state.columnTotal1 = this.state.columnTotal1 + ggg;
+                                                        this.state.columnTotal1 = this.state.columnTotal1 + ggg;
 
-                                                for (var k = 0; k < ggg; k++) {
-                                                    kray.push(<Svg height="16" width="17" key={k}>
-                                                        <Rect
-                                                            x="0"
-                                                            y="0"
-                                                            width="15"
-                                                            height="15"
-                                                            stroke="black"
-                                                            strokeWidth="1"
-                                                            fill="green"
-                                                        />
-                                                    </Svg>);
+                                                        for (var k = 0; k < ggg; k++) {
+                                                            kray.push(<Svg height="16" width="17" key={k}>
+                                                                <Rect
+                                                                    x="0"
+                                                                    y="0"
+                                                                    width="15"
+                                                                    height="15"
+                                                                    stroke="black"
+                                                                    strokeWidth="1"
+                                                                    fill="green"
+                                                                />
+                                                            </Svg>);
 
-                                                }
+                                                        }
 
 
-                                                return (
-                                                    <Row style={{ backgroundColor: '#454545', height: 30 ,marginBottom: 4 }} key={index}>
-                                                        <View key={index}
-                                                              style={{  height:30,  width:200,
+                                                        return (
+                                                            <Row
+                                                                style={{ backgroundColor: '#454545', height: 30 ,marginBottom: 2 }}
+                                                                key={index}>
+                                                                <View key={index}
+                                                                      style={{  height:30,  width:240,
                                                                 backgroundColor: "rgba(0,0,0,0)",
                                                             }}>
 
-                                                            <View style={{
+                                                                    <View style={{
                                                                 flex: 1,
                                                                 flexDirection: 'row',
                                                                 alignItems: 'flex-start',
                                                                 }}>
-                                                                { kray }
-                                                            </View>
-                                                        </View>
-                                                    </Row>
+                                                                        { kray }
+                                                                    </View>
+                                                                </View>
+                                                            </Row>
+                                                        )
+                                                    }
                                                 )
                                             }
-                                        )
-                                    }
-                                    <Row style={{ backgroundColor: '#454545', height: 30,marginBottom: 4 }} key={99}>
-                                        <View style={{
+                                            <Row style={{ backgroundColor: '#454545', height: 30,marginBottom: 4 }}
+                                                 key={99}>
+                                                <View style={{
                                             flex: 1,
                                             flexDirection: 'row',
                                             alignItems: 'flex-start',
                                             }}>
-                                            <Text
-                                                style={{color:'#FFFFFF', fontSize: 20, textAlign: 'center'}}> {this.state.columnTotal1 } </Text>
-                                        </View>
-                                    </Row>
-                                </Grid>
-                            </View>
-                            <View
-                                style={{ width:200, height:400, overflow: 'hidden',
-                                borderRadius:0, backgroundColor: '#0000', padding:0, marginLeft:5 }} >
-                                <Grid style={{ flex:1 }}>
-                                    {
-                                        this.state.keywordArr.map((item, index) => {
-                                                var itemString = JSON.stringify(item);
+                                                    <Text
+                                                        style={{color:'#FFFFFF', fontSize: 20, textAlign: 'center'}}> {this.state.columnTotal1 } </Text>
+                                                </View>
+                                            </Row>
+                                        </Grid>
+                                    </View>
+                                    <View
+                                        style={{ width:240, height:495, overflow: 'hidden',
+                                borderRadius:0, backgroundColor: '#0000', padding:0, marginLeft:5 }}>
+                                        <Grid style={{ flex:1 }}>
+                                            {
+                                                this.state.keywordArr.map((item, index) => {
+                                                        var itemString = JSON.stringify(item);
 
-                                                var kray = [];
+                                                        var kray = [];
 
-                                                var ggg = this.getRandomInt(2, 12);
-                                                this.state.columnTotal2 = this.state.columnTotal2 + ggg;
+                                                        var ggg = this.getRandomInt(2, 12);
+                                                        this.state.columnTotal2 = this.state.columnTotal2 + ggg;
 
-                                                for (var k = 0; k < ggg; k++) {
-                                                    kray.push(<Svg height="16" width="17" key={k}>
-                                                        <Rect
-                                                            x="0"
-                                                            y="0"
-                                                            width="15"
-                                                            height="15"
-                                                            stroke="black"
-                                                            strokeWidth="1"
-                                                            fill="green"
-                                                        />
-                                                    </Svg>);
+                                                        for (var k = 0; k < ggg; k++) {
+                                                            kray.push(<Svg height="16" width="17" key={k}>
+                                                                <Rect
+                                                                    x="0"
+                                                                    y="0"
+                                                                    width="15"
+                                                                    height="15"
+                                                                    stroke="black"
+                                                                    strokeWidth="1"
+                                                                    fill="green"
+                                                                />
+                                                            </Svg>);
 
-                                                }
+                                                        }
 
 
-                                                return (
-                                                    <Row style={{ backgroundColor: '#454545', height: 30,marginBottom: 4 }}
-                                                         key={index}>
-                                                        <View key={index}
-                                                              style={{  height:30,  width:200,
+                                                        return (
+                                                            <Row
+                                                                style={{ backgroundColor: '#454545', height: 30,marginBottom: 2 }}
+                                                                key={index}>
+                                                                <View key={index}
+                                                                      style={{  height:30,  width:240,
                                                                 backgroundColor: "rgba(0,0,0,0)",
                                                             }}>
 
-                                                            <View style={{
+                                                                    <View style={{
                                                                     flex: 1,
                                                                     flexDirection: 'row',
                                                                     alignItems: 'flex-start',
                                                                     }}>
-                                                                { kray }
-                                                            </View>
-                                                        </View>
-                                                    </Row>
+                                                                        { kray }
+                                                                    </View>
+                                                                </View>
+                                                            </Row>
+                                                        )
+                                                    }
                                                 )
                                             }
-                                        )
-                                    }
-                                </Grid>
+                                        </Grid>
+                                    </View>
+                                </View>
+                            </View>
+                            <View style={{ height:120, paddingTop:8, flexDirection: 'column', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,254,0.5)'}}>
+                                <Text style={{flex:1, flexDirection: 'row', textAlign: 'center' ,
+                   color:'#ABABAB',  fontSize: 18 }}>
+                                    keywords for <Text
+                                    style={{ color:'#ff00ff', fontSize: 22, fontWeight:'700'  }}>{this.state.selectedCategory}</Text>
+                                    @ <Text style={{ color:'#0000FF', fontSize: 22, fontWeight:'bold'  }}>
+                                    {this.state.selectedDomain}</Text>
+                                </Text>
                             </View>
                         </View>
-                    </View>
+
+                    </Image>
                 </Content>
 
                 {/*<Footer >*/}

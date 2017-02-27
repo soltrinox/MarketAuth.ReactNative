@@ -34,6 +34,7 @@ class SideBar extends Component {
       <Content
         theme={sidebarTheme}
         style={styles.sidebar}
+        scrollEnabled={ false }
       >
         <View  style={styles.drawerCover}>
           <View style={{}}>
@@ -51,14 +52,14 @@ class SideBar extends Component {
               <Text style={styles.text}>Google Page One</Text>
             </View>
           </ListItem>
-            <ListItem button iconLeft onPress={() => this.navigateTo('form')} >
-            <View style={styles.listItemContainer}>
-            <View style={[styles.iconContainer, { backgroundColor: '#00000000', paddingLeft: 14 }]}>
-            <Icon name="ios-document-outline" style={styles.sidebarIcon} />
-            </View>
-            <Text style={styles.text}>FORM</Text>
-            </View>
-            </ListItem>
+          {/*<ListItem button iconLeft onPress={() => this.navigateTo('form')} >*/}
+            {/*<View style={styles.listItemContainer}>*/}
+            {/*<View style={[styles.iconContainer, { backgroundColor: '#00000000', paddingLeft: 14 }]}>*/}
+            {/*<Icon name="ios-document-outline" style={styles.sidebarIcon} />*/}
+            {/*</View>*/}
+            {/*<Text style={styles.text}>FORM</Text>*/}
+            {/*</View>*/}
+          {/*</ListItem>*/}
           {/*<ListItem button iconLeft onPress={() => this.navigateTo('badge')}>*/}
             {/*<View style={styles.listItemContainer}>*/}
               {/*<View style={[styles.iconContainer, { backgroundColor: '#4DCAE0' }]}>*/}
@@ -67,14 +68,14 @@ class SideBar extends Component {
               {/*<Text style={styles.text}>Badge</Text>*/}
             {/*</View>*/}
           {/*</ListItem>*/}
-          {/*<ListItem button iconLeft onPress={() => this.navigateTo('button')} >*/}
-            {/*<View style={styles.listItemContainer}>*/}
-              {/*<View style={[styles.iconContainer, { backgroundColor: '#5cb85c', paddingLeft: 10 }]}>*/}
-                {/*<Icon name="md-navigate" style={styles.sidebarIcon} />*/}
-              {/*</View>*/}
-              {/*<Text style={styles.text}>Search Term Performance</Text>*/}
-            {/*</View>*/}
-          {/*</ListItem>*/}
+          <ListItem button iconLeft onPress={() => this.navigateTo('button')} >
+            <View style={styles.listItemContainer}>
+              <View style={[styles.iconContainer, { backgroundColor: '#00000000', paddingLeft: 14 }]}>
+                <Icon name="ios-document-outline" style={styles.sidebarIcon} />
+              </View>
+              <Text style={styles.text}>Page #2</Text>
+            </View>
+          </ListItem>
           <ListItem button iconLeft  >
             <View style={styles.listItemContainer}>
               <View style={[styles.iconContainer, { backgroundColor: '#00000000' }]}>
