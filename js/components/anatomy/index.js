@@ -386,27 +386,28 @@ class Anatomy extends React.Component {
                         source={require('./img001.png')}
                         resizeMode={Image.resizeMode.stretch}
                     >
-                        <View style={{ height:666, flexDirection: 'column', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.75)'}}>
+                        <View style={{ height:666, flexDirection: 'column', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.85)'}}>
                             <View style={{height:null,  flex:1, flexDirection:'row', justifyContent:'flex-start', marginLeft:0,  backgroundColor: 'rgba(0,0,0,0.0)',  }}>
-                                <Text   style={{ marginTop:20, width:400, height:40, color:'#00ff00', lineHeight:38, fontSize: 36, fontWeight:'bold' , paddingLeft:20, textAlign: 'left',
-                                backgroundColor: 'rgba(0,0,0,0.5)',  }}>
+                                <Text   style={{ marginTop:20, width:400, height:40,overflow:'hidden', color:'#00ff00', lineHeight:38, fontSize: 36, fontWeight:'bold' , paddingLeft:20, textAlign: 'left',
+                                backgroundColor: 'rgba(0,0,0,0.5)',  }} ellipsizeMode={'tail'} numberOfLines={1}>
                                     {this.state.selectedCategory}
                                 </Text>
-                                <Text style={{ marginTop:20, width:400, height:40, color:'#ffffff', lineHeight:38, fontSize: 36, fontWeight:'bold' , paddingRight:20, textAlign: 'right',
-                                backgroundColor: 'rgba(0,0,0,0.5)', }}>
+                                <Text style={{ marginTop:20, width:400, height:40,overflow:'hidden', color:'#ffffff', lineHeight:38, fontSize: 36, fontWeight:'bold' , paddingRight:20, textAlign: 'right',
+                                backgroundColor: 'rgba(0,0,0,0.5)', }} ellipsizeMode={'tail'} numberOfLines={1}>
                                     {this.state.selectedCity}
                                 </Text>
                             </View>
-                            <View style={{ height:40, paddingTop:8, flexDirection: 'column', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.5)'}}>
-                                <Text style={{flex:1, width:800, height:40, flexDirection: 'row', textAlign: 'center' , color:'#ABABAB',  fontSize: 22 }}>
+                            <View style={{ height:40, paddingTop:8, flexDirection: 'column',overflow:'hidden', justifyContent: 'flex-start', marginTop:0 ,
+                            backgroundColor : 'rgba(0,0,0,0.0)'}}>
+                                <Text style={{flex:1, width:800, height:40, flexDirection: 'row', textAlign: 'center' , color:'#ABABAB',  fontSize: 22 }} ellipsizeMode={'tail'} numberOfLines={1}>
                                     Top 10 Searches for   {this.state.selectedCategory}  in  {this.state.selectedCity}
                                 </Text>
                             </View>
-                            <View style={{ height:62,  flexDirection:'row', justifyContent:'flex-start', backgroundColor: 'rgba(66,66,66,0.5)', marginLeft:10 }}>
+                            <View style={{ height:62,  flexDirection:'row', justifyContent:'flex-start', backgroundColor: 'rgba(0,0,0,0)', marginLeft:5 }}>
                                 <View
                                     style={{ width:300, height:62, overflow: 'hidden',
-                                    borderRadius:0, backgroundColor: 'rgba(66,66,66,0.5)', marginRight:5, justifyContent:'flex-end'}}>
-                                    <Text style={{ color:'#FFFFFF', fontSize: 22, fontWeight:'normal'  }}>
+                                    borderRadius:0, backgroundColor: 'rgba(66,66,66,0.5)', marginRight:5, justifyContent:'center'}}>
+                                    <Text style={{ color:'#FFFFFF', fontSize: 24, lineHeight:28, fontWeight:'normal',textAlign:'center'  }}>
                                         SEARCH TERM</Text>
                                 </View>
                                 <View
@@ -414,21 +415,21 @@ class Anatomy extends React.Component {
                             overflow:'hidden',flexDirection:'row'   }}>
                                     <View
                                         style={{ width:240, height:62, overflow: 'hidden',
-                                borderRadius:0, backgroundColor: 'rgba(66,66,66,0.5)', padding:0,marginLeft:5, justifyContent:'flex-end' }}>
-                                        <Text style={{ color:'#FFFFFF', fontSize: 22, fontWeight:'normal'  }}>
+                                borderRadius:0, backgroundColor: 'rgba(66,66,66,0.5)', padding:0,marginLeft:5, justifyContent:'center' }}>
+                                        <Text style={{ color:'#FFFFFF', fontSize: 24,lineHeight:28, fontWeight:'normal',textAlign:'center'    }} ellipsizeMode={'tail'} numberOfLines={1}  >
                                             www.domain.com</Text>
                                     </View>
                                     <View
                                         style={{ width:240, height:62, overflow: 'hidden',
-                                borderRadius:0, backgroundColor: 'rgba(66,66,66,0.5)', padding:0,marginLeft:5, justifyContent:'flex-end' }}>
-                                        <Text style={{ color:'#FFFFFF', fontSize: 22, fontWeight:'normal'  }}>
+                                borderRadius:0, backgroundColor: 'rgba(66,66,66,0.5)', padding:0,marginLeft:5, justifyContent:'center' }}>
+                                        <Text style={{ color:'#FFFFFF', fontSize: 24,lineHeight:28, fontWeight:'normal',textAlign:'center'   }} ellipsizeMode={'tail'} numberOfLines={1}>
                                             DEX PREMIUM</Text>
                                     </View>
                                 </View>
                             </View>
-                            <View style={{ height:365, marginTop:5,  flexDirection:'row', overflow: 'hidden', justifyContent:'flex-start', backgroundColor: 'rgba(0,0,0,0)', marginLeft:10 }}>
+                            <View style={{ height:365, marginTop:5,  flexDirection:'row', overflow: 'hidden', justifyContent:'flex-start', backgroundColor: 'rgba(0,0,0,0)', marginLeft:5 }}>
                                 <View
-                                    style={{ width:300, height:495, overflow: 'hidden', borderRadius:0, backgroundColor: '#0000', marginRight:5}}>
+                                    style={{ width:300, height:495, overflow: 'hidden', borderRadius:0, backgroundColor: 'rgba(0,0,0,0)', marginRight:5}}>
 
                                     <Grid style={{ flex:1 }}>
                                         {
@@ -436,17 +437,12 @@ class Anatomy extends React.Component {
                                                     var itemString = JSON.stringify(item);
                                                     return (
                                                         <Row
-                                                            style={{ backgroundColor: '#454545', height: 30, marginBottom: 2 }}
+                                                            style={{ backgroundColor: '#454545', height: 30, marginBottom: 2,  justifyContent:'center' }}
                                                             key={index}>
-                                                            <View key={index}
-                                                                  style={{  height:30,  width:300,
-                                                    backgroundColor: "rgba(0,0,0,0)",
-                                                }}>
-                                                                <Text
-                                                                    style={{ height:30,  width:300,
-                                                    color: "#FFFFFF",
-                                                    fontSize: 14,
-                                                }}>{index} ]
+                                                            <View
+                                                                  style={{  height:30,  width:300, backgroundColor: "rgba(0,0,0,0)",  justifyContent:'center' }}>
+                                                                <Text style={{ height:30,  width:300, color: "#FFFFFF", fontSize: 14, textAlign: 'center' , }} ellipsizeMode={'tail'} numberOfLines={1} >
+
                                                                     {item}
                                                                 </Text>
                                                             </View>
@@ -459,7 +455,7 @@ class Anatomy extends React.Component {
 
                                 </View>
                                 <View
-                                    style={{ width:480, height:495, backgroundColor: '#000',
+                                    style={{ width:480, height:495, backgroundColor: 'rgba(0,0,0,0)',
                             overflow:'hidden',flexDirection:'row'   }}>
                                     <View
                                         style={{ width:240, height:495, overflow: 'hidden',

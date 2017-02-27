@@ -19,8 +19,6 @@ module.exports = StyleSheet.create({
     },
     content: {
         backgroundColor: 'white',
-
-
         borderBottomWidth: 1,
         borderColor: '#000'
     },
