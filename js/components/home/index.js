@@ -37,7 +37,26 @@ class Home extends Component { // eslint-disable-line
                 View Google Page 1
             </Button>
           </View>
-
+          {/*<Footer >*/}
+          {/*<FooterTab>*/}
+          {/*<Button active={this.state.tab1} onPress={() => this.toggleTab1()} >*/}
+          {/*Apps*/}
+          {/*<Icon name="ios-apps-outline" />*/}
+          {/*</Button>*/}
+          {/*<Button active={this.state.tab2} onPress={() => this.toggleTab2()} >*/}
+          {/*Camera*/}
+          {/*<Icon name="ios-camera-outline" />*/}
+          {/*</Button>*/}
+          {/*<Button active={this.state.tab3} onPress={() => this.toggleTab3()} >*/}
+          {/*Navigate*/}
+          {/*<Icon name="ios-compass" />*/}
+          {/*</Button>*/}
+          {/*<Button active={this.state.tab4} onPress={() => this.toggleTab4()} >*/}
+          {/*Contact*/}
+          {/*<Icon name="ios-contact-outline" />*/}
+          {/*</Button>*/}
+          {/*</FooterTab>*/}
+          {/*</Footer>*/}
       </Container>
     );
   }

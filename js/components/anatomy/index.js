@@ -54,14 +54,14 @@ class Anatomy extends React.Component {
             userData: {},
             usersArry: [],
             selectedDomain: 'www.default.com',
-            selectedCategory: '',
+            selectedCategory: 'ARCHITECTS',
             selectedItem: undefined,
 
             results: {
                 items: []
             },
             selectedState: 'CA',
-            selectedCity: 'San Francisco',
+            selectedCity: 'PHOENIX, AZ',
             selectedDomainTotal: 2,
             columnTotal1: 0,
             columnTotal2: 0,
@@ -95,10 +95,7 @@ class Anatomy extends React.Component {
         this._getUsers = this._getUsers.bind(this);
         //this._renderModalPicker = this._renderModalPicker.bind(this);
         this._updateText = this._updateText.bind(this);
-        this._renderItem = this._renderItem.bind(this);
-        this._updateCarousels = this._updateCarousels.bind(this);
-        this._productCarouselChange2 = this._productCarouselChange2.bind(this);
-        this._productCarouselChange3 = this._productCarouselChange3.bind(this);
+
         // this._returnDataOnSelection = this._returnDataOnSelection.bind(this);
     }
 
@@ -139,48 +136,7 @@ class Anatomy extends React.Component {
         this.setState({domainGridColumns: arrayz});
     }
 
-    _updateCarousels(carInstance, itemPos) {
 
-        console.log('@@@@@ Change ON ' + carInstance + ' POS: ' + itemPos);
-        if (carInstance === 'CAR1') {
-
-        }
-    }
-
-    _productCarouselChange2(carInstance, itemPos) {
-
-        if (this._myCarousel3.currentIndex === itemPos) {
-            console.log('@@@@@ NO Change ON ' + carInstance + ' POS: ' + itemPos + ' @' + this._myCarousel2.currentIndex);
-        } else {
-            if (this._myCarousel3.currentIndex === this._myCarousel2.currentIndex) {
-                console.log('INDEX MATCH ');
-            } else {
-                this._myCarousel3.snapToItem(this._myCarousel2.currentIndex);
-            }
-        }
-    }
-
-    _productCarouselChange3(carInstance, itemPos) {
-
-        if (this._myCarousel2.currentIndex === itemPos) {
-            console.log('@@@@@ NO Change ON ' + carInstance + ' POS: ' + itemPos + ' @' + this._myCarousel3.currentIndex);
-        } else {
-            if (this._myCarousel2.currentIndex === this._myCarousel3.currentIndex) {
-                console.log('INDEX MATCH ');
-            } else {
-                this._myCarousel2.snapToItem(this._myCarousel3.currentIndex);
-            }
-        }
-    }
-
-    _renderItem(entry) {
-        return (
-            <TouchableOpacity
-                activeOpacity={0.9}
-                style={sliderEntryStyles.slideInnerContainer}
-            >{entry}</TouchableOpacity>
-        );
-    }
 
 
     _returnDataOnSelection(item, e) {
@@ -431,13 +387,19 @@ class Anatomy extends React.Component {
                         resizeMode={Image.resizeMode.stretch}
                     >
                         <View style={{ height:666, flexDirection: 'column', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.75)'}}>
-                            <View style={{height:null,  flex:1, flexDirection:'row', justifyContent:'flex-start', marginLeft:10,  backgroundColor: 'rgba(0,0,0,0.9)',  }}>
-                                <Text style={{flex:1, flexDirection: 'row', textAlign: 'center' ,
-                   color:'#ABABAB',  fontSize: 18 }}>
-                                    keywords for <Text
-                                    style={{ color:'#ff00ff', fontSize: 22, fontWeight:'700'  }}>{this.state.selectedCategory}</Text>
-                                    @ <Text style={{ color:'#0000FF', fontSize: 22, fontWeight:'bold'  }}>
-                                    {this.state.selectedDomain}</Text>
+                            <View style={{height:null,  flex:1, flexDirection:'row', justifyContent:'flex-start', marginLeft:0,  backgroundColor: 'rgba(0,0,0,0.0)',  }}>
+                                <Text   style={{ marginTop:20, width:400, height:40, color:'#00ff00', lineHeight:38, fontSize: 36, fontWeight:'bold' , paddingLeft:20, textAlign: 'left',
+                                backgroundColor: 'rgba(0,0,0,0.5)',  }}>
+                                    {this.state.selectedCategory}
+                                </Text>
+                                <Text style={{ marginTop:20, width:400, height:40, color:'#ffffff', lineHeight:38, fontSize: 36, fontWeight:'bold' , paddingRight:20, textAlign: 'right',
+                                backgroundColor: 'rgba(0,0,0,0.5)', }}>
+                                    {this.state.selectedCity}
+                                </Text>
+                            </View>
+                            <View style={{ height:40, paddingTop:8, flexDirection: 'column', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.5)'}}>
+                                <Text style={{flex:1, width:800, height:40, flexDirection: 'row', textAlign: 'center' , color:'#ABABAB',  fontSize: 22 }}>
+                                    Top 10 Searches for   {this.state.selectedCategory}  in  {this.state.selectedCity}
                                 </Text>
                             </View>
                             <View style={{ height:62,  flexDirection:'row', justifyContent:'flex-start', backgroundColor: 'rgba(66,66,66,0.5)', marginLeft:10 }}>
@@ -542,6 +504,7 @@ class Anatomy extends React.Component {
                                                                 flex: 1,
                                                                 flexDirection: 'row',
                                                                 alignItems: 'flex-start',
+                                                                marginTop:3
                                                                 }}>
                                                                         { kray }
                                                                     </View>
@@ -606,6 +569,7 @@ class Anatomy extends React.Component {
                                                                     flex: 1,
                                                                     flexDirection: 'row',
                                                                     alignItems: 'flex-start',
+                                                                     marginTop:3
                                                                     }}>
                                                                         { kray }
                                                                     </View>
@@ -625,34 +589,13 @@ class Anatomy extends React.Component {
                                     keywords for <Text
                                     style={{ color:'#ff00ff', fontSize: 22, fontWeight:'700'  }}>{this.state.selectedCategory}</Text>
                                     @ <Text style={{ color:'#0000FF', fontSize: 22, fontWeight:'bold'  }}>
-                                    {this.state.selectedDomain}</Text>
+                                    {this.state.selectedCity}</Text>
                                 </Text>
                             </View>
                         </View>
-
                     </Image>
                 </Content>
 
-                {/*<Footer >*/}
-                {/*<FooterTab>*/}
-                {/*<Button active={this.state.tab1} onPress={() => this.toggleTab1()} >*/}
-                {/*Apps*/}
-                {/*<Icon name="ios-apps-outline" />*/}
-                {/*</Button>*/}
-                {/*<Button active={this.state.tab2} onPress={() => this.toggleTab2()} >*/}
-                {/*Camera*/}
-                {/*<Icon name="ios-camera-outline" />*/}
-                {/*</Button>*/}
-                {/*<Button active={this.state.tab3} onPress={() => this.toggleTab3()} >*/}
-                {/*Navigate*/}
-                {/*<Icon name="ios-compass" />*/}
-                {/*</Button>*/}
-                {/*<Button active={this.state.tab4} onPress={() => this.toggleTab4()} >*/}
-                {/*Contact*/}
-                {/*<Icon name="ios-contact-outline" />*/}
-                {/*</Button>*/}
-                {/*</FooterTab>*/}
-                {/*</Footer>*/}
             </Container>
         );
     }
