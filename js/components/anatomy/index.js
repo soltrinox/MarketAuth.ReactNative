@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import _ from 'lodash';
 
-
+import Picker from 'native-base';
 import {
     Container, Header, Title, Content, Text, H3, Button, Icon,
     Footer, FooterTab, StyleSheet,
@@ -257,12 +257,21 @@ class Anatomy extends React.Component {
         return Math.floor(Math.random() * (max - min)) + min;
     }
 
+    _renderPicker(){
+        this.state.categoriesArr.map((item, index) => {
+                var itemString = JSON.stringify(item);
+                return ( <Picker.Item label={itemString} value={itemString} key={index} /> )
+            }
+        )
+    }
+
     render() {
 
         // var tty = this.state.userData[0];
         // var pic = JSON.parse(tty);
         // console.log('this.state.clientColumnItems : '+JSON.stringify(this.state.clientColumnItems));
         const options = this.state.categoriesArr;
+
 
         return (
             <Container theme={myTheme} style={{ width : 800, backgroundColor: '#000000'}}>
@@ -282,7 +291,7 @@ class Anatomy extends React.Component {
                                 ref={(mySelection1) => { this._mySelection1 = mySelection1; }}
                                 title="SELECT CATEGORY"
                                 options={options}
-                                //onSelection={(e) => this._returnDataOnSelection(this,e)}
+
                                 onSelection={(e) => this._returnDataOnSelection(this,e)}
                                 style={{
                                   body: null,
@@ -291,6 +300,7 @@ class Anatomy extends React.Component {
                                 iconSize={20}
                                 iconColor="#eee"
                             />
+
                         </View>
                         <View style={{ width: 220, height: 30, marginRight:20 }}>
                             <InputGroup>
