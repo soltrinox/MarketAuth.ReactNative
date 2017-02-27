@@ -107,6 +107,8 @@ class Anatomy extends React.Component {
 
     _getUsers() {
 
+
+
         this.state.userData = {'key': 'val', 'key': 'val'};
         fetch("https://www.randomuser.me/api/1.1?nat=us")
             .then((response) => response.json())
@@ -141,55 +143,40 @@ class Anatomy extends React.Component {
 
     _returnDataOnSelection(item, e) {
 
-        // console.log('CATEGORY : ' +  eval(e)  +' \n\n '+  e.valueOf()   );
-
-        var kyz = [];
-        kyz = _.keys(item._mySelection1);
-        //
-        var lmn = [];
-        lmn = _.keys(e);
-
         console.log('SELECT CAT NAME : ' + JSON.stringify(e));
-
-        // console.log('TITLE : ' +  JSON.stringify(item._mySelection1.state.title ) );
-        // console.log('VALUE : ' +  JSON.stringify(item._mySelection1.state.value ) );
-
         this.setState({selectedCategory: e.value});
-        // this._renderModalPicker(item._mySelection1);
-
         var test = _.orderBy(this.state.rawArr, ['CAT', 'KEY', 'SCORE'], ['asc', 'asc', 'desc']);
         var trr = [];
         var catName = e.value;
         trr = _.filter(test, {"CAT": catName});
-        // console.log('%%%%%%%%%%% SORTED KEYWORDS ON '+ catName +': '+  JSON.stringify(trr));
         var upp = {catName: trr};
-        // console.log('########### SELECTED SORTED ARRAY ON ' + catName + ': ' + JSON.stringify(upp));
-        // _.set(this.state.dataObjects, catName, trr);
-
         var kkt = [];
         kkt = [...new Set(trr.map(item => item.KEY))];
         kkt.sort();
-        // console.log('########### SELECTED SORTED ARRAY ON ' + catName + ': ' + JSON.stringify(kkt));
         this.setState({keywordArr: kkt})
         this.setState({dataObjects: upp});
 
-        console.log('########### DOMAINS BY KEY ON : ' + JSON.stringify(kkt));
+        // console.log('########### DOMAINS BY KEY ON : ' + JSON.stringify(kkt));
         var resultXXX = _.filter(test, function (p) {
             return _.includes(kkt, p.KEY);
         });
 
         var testDomains = _.orderBy(resultXXX, ['KEY', 'SCORE'], ['asc', 'desc']);
-
         console.log('########### MATCHED DOMAINS BY KEY : ' + JSON.stringify(testDomains));
 
+
+        DB.domains.get({first_name: "DYLAN"}, function (results) {
+
+            if (_.isEmpty(results)) {
+                console.log('no results : ' + results);
+                this._setData();
+            } else {
+                console.log('results : ' + JSON.stringify(results));
+            }
+        });
+
     }
 
-    _renderModalPicker(sel1) {
-
-        console.log('CATEGORY : ' + JSON.stringify(sel1.state));
-
-        // this.setState({ selectedCategory : e.value });
-    }
 
     _domainData() {
         var testJSON = require('./LAS.001.json');
@@ -229,24 +216,17 @@ class Anatomy extends React.Component {
 
         this.state.categoriesArr = [...new Set(test.map(item => item.CAT))];
         this.state.categoriesArr.sort();
-        // this.state.categoriesArr = this.state.categoriesArr.slice(80, 95);
-        // console.log('%%%%%%%%%%% this.state.categoriesArr : '+  JSON.stringify(this.state.categoriesArr));
-
         this.state.keywordArr = [...new Set(test.map(item => item.KEY))];
         this.state.keywordArr.sort();
         this.state.keywordArr = this.state.keywordArr.slice(700, 710);
-
         var happy = [];
-        // console.log('@@@@@@@@@@@@@@ ORDERBY JSON: '+  JSON.stringify(test));
 
         for (var j = 0; j < this.state.categoriesArr.length; j++) {
             var trr = [];
             var catName = _.toString(this.state.categoriesArr[j]);
             happy.push({name: catName, value: catName, icon: '',});
             trr = _.filter(test, {"CAT": catName});
-            // console.log('%%%%%%%%%%% SORTED KEYWORDS ON '+ catName +': '+  JSON.stringify(trr));
             var upp = '{' + catName + ' : ' + JSON.stringify(trr) + '}';
-            // console.log('########### SORTED ARRAY ON ' + catName + ': ' + JSON.stringify(upp));
             _.set(this.state.dataObjects, catName, trr);
         }
         this.setState({categoriesArr: happy});
@@ -261,72 +241,14 @@ class Anatomy extends React.Component {
 
     componentWillMount() {
 
-        var isSet = false;
-
-        // DB.users.get({first_name: "Rishabh"}, function(results){
-        //
-        //     if(  _.isEmpty(results) ){
-        //         console.log('no results : '+ results);
-        //     }else{
-        //         console.log('results : '+ results);
-        //     }
-        // });
-
-
-        DB.users.get({first_name: "DYLAN"}, function (results) {
-
-            if (_.isEmpty(results)) {
-                console.log('no results : ' + results);
-                this._setData();
-            } else {
-                console.log('results : ' + JSON.stringify(results));
-            }
-        });
-
-
-        var doamins = [];
+        var domains = [];
         domains = this._domainData();
-        // NOW THAT THE ARRAYS ARE POPULATED LEST LOOK INSIDE
+        // NOW THAT THE ARRAYS ARE POPULATED  LOOK INSIDE
 
         console.log("Test Model", DeviceInfo.getModel());
         console.log("Device ID", DeviceInfo.getDeviceId());
         console.log("System Name", DeviceInfo.getSystemName());
 
-        var clientDomains = ['www.default.com', 'www.generic.com'];
-        var keywordsClients = [
-            ['keyword1', '0', '1'],
-            ['keyword2', '2', '2'],
-            ['keyword3', '0', '1'],
-            ['keyword4', '1', '2'],
-            ['keyword5', '2', '0'],
-            ['keyword6', '1', '1'],
-            ['keyword7', '0', '3'],
-            ['keyword8', '1', '0'],
-            ['keyword9', '0', '1'],
-            ['keyword10', '0', '2'],
-        ];
-
-        var products = ['DEX BASIC', 'DEX PLUS', 'DEX PRO', 'DEX PREMIUM'];
-        var keywordsProducts = [
-            ['keyword1', '5', '2', '7', '9'],
-            ['keyword2', '6', '5', '9', '12'],
-            ['keyword3', '1', '7', '6', '10'],
-            ['keyword4', '8', '7', '8', '9'],
-            ['keyword5', '10', '10', '10', '10'],
-            ['keyword6', '5', '4', '8', '11'],
-            ['keyword7', '9', '8', '5', '9'],
-            ['keyword8', '3', '5', '9', '12'],
-            ['keyword9', '4', '1', '6', '9'],
-            ['keyword10', '8', '9', '11', '11'],
-        ];
-        this.state.productDomains = products.length;
-        var productColumnArray = [];
-
-        // this._updateKeywordsArray(keywordsProducts);
-        // console.log('@@@@@@@@@@@@@@ categoriesArr : ' + JSON.stringify(this.state.categoriesArr));
-        // console.log('@@@@@@@@@@@@@@ keywordArr : ' + JSON.stringify(this.state.keywordArr));
-        // console.log('88888888 SORTED KEYWORDS ON : ' + JSON.stringify(this.state.dataObjects));
-        // CREATE THE GRIDS FOR EACH CAROUSEL COLUMN
     }
 
     getRandomInt(min, max) {

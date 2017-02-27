@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { TouchableOpacity,View } from 'react-native';
 import { connect } from 'react-redux';
-import { Container, Header, Title, Content, Button, Icon,  List, ListItem, InputGroup, Input, Picker, Text, Thumbnail } from 'native-base';
+import { Container, Header, Title, Content, Button, Icon, List, ListItem, InputGroup, Input, Picker, Text, Thumbnail } from 'native-base';
 
 import { openDrawer } from '../../actions/drawer';
 import styles from './styles';
@@ -44,16 +44,10 @@ class NHForm extends Component {
               </InputGroup>
             </View>
             <View style={{ width: 220, height: 30, marginRight:20 }}>
-              <Item>
-                <Icon name="search" />
-                <Input placeholder="Search" />
-                <Icon active name="people" />
-              </Item>
-              <Button transparent>
-                <Text>Search</Text>
-              </Button>
+              <InputGroup>
+                <Input label="CATEGORY" placeholder="CATEGORY" style={{ width: 120, height: 30 }} />
+              </InputGroup>
             </View>
-
 
             <View style={{ width: 220, height: 30, marginRight:20 }}>
               <InputGroup>
