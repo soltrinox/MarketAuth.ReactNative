@@ -137,6 +137,11 @@ class Anatomy extends React.Component {
 
     _returnDataOnSelection(item, e) {
 
+        this.setState({ columnTotal1 : 0} );
+        this.setState({ columnTotal2 : 0} );
+        this.setState({ columnTotal3 : 0} );
+        this.setState({ columnTotal4 : 0} );
+
         console.log('SELECT CAT NAME : ' + JSON.stringify(e));
         this.setState({selectedCategory: e.value});
         var test = _.orderBy(this.state.rawArr, ['CAT', 'KEY', 'SCORE'], ['asc', 'asc', 'desc']);
@@ -156,7 +161,30 @@ class Anatomy extends React.Component {
         });
 
         var testDomains = _.orderBy(resultXXX, ['KEY', 'SCORE'], ['asc', 'desc']);
-        console.log('########### MATCHED DOMAINS BY KEY : ' + JSON.stringify(testDomains));
+        // console.log('########### MATCHED DOMAINS BY KEY : ' + JSON.stringify(testDomains));
+
+        _.forEach(kkt, function(value) {
+
+            var keysByCat = [];
+            keysByCat = _.filter(test, {"CAT": catName, "KEY": value });
+            _.forEach(keysByCat, function(value2) {
+                // console.log('\n\n===============\n\n DOM: ' + JSON.stringify(value.DOM) );
+                if(_.isEqual(value2.DOM , "Dex ESS Premium")){
+                    console.log('\n\n===============\n\n FOUND: ' + JSON.stringify(value2.DOM) + ' @ ' + value2.KEY+ ' <- ' + value2.SCORE  );
+                }
+                if(_.isEqual(value2.DOM , "Dex ESS Plus")) {
+                    console.log('\n\n===============\n\n FOUND: ' + JSON.stringify(value2.DOM)+ ' @ ' + value2.KEY+ ' <- ' + value2.SCORE  );
+                }
+                if(_.isEqual(value2.DOM , "Dex ESS Basic")) {
+                    console.log('\n\n===============\n\n FOUND: ' + JSON.stringify(value2.DOM)+ ' @ ' + value2.KEY+ ' <- ' + value2.SCORE  );
+                }
+            });
+
+
+
+        });
+
+
 
 
         DB.domains.get({first_name: "DYLAN"}, function (results) {
@@ -243,6 +271,13 @@ class Anatomy extends React.Component {
         console.log("Device ID", DeviceInfo.getDeviceId());
         console.log("System Name", DeviceInfo.getSystemName());
 
+
+    }
+    componentDidMount(){
+        this.setState({ columnTotal1 : 0} );
+        this.setState({ columnTotal2 : 0} );
+        this.setState({ columnTotal3 : 0} );
+        this.setState({ columnTotal4 : 0} );
     }
 
     getRandomInt(min, max) {
@@ -265,6 +300,7 @@ class Anatomy extends React.Component {
         // var pic = JSON.parse(tty);
         // console.log('this.state.clientColumnItems : '+JSON.stringify(this.state.clientColumnItems));
         const options = this.state.categoriesArr;
+
 
 
         return (
@@ -383,6 +419,7 @@ class Anatomy extends React.Component {
                                 borderRadius:0, backgroundColor: '#000', padding:0,marginLeft:5 }}>
                                         <Grid style={{ flex:1 }}>
                                             {
+
                                                 this.state.keywordArr.map((item, index) => {
                                                         var itemString = JSON.stringify(item);
 

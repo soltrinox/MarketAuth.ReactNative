@@ -31,11 +31,7 @@ class SideBar extends Component {
 
   render() {
     return (
-      <Content
-        theme={sidebarTheme}
-        style={styles.sidebar}
-        scrollEnabled={ false }
-      >
+      <Content theme={sidebarTheme} style={styles.sidebar} scrollEnabled={ false } >
         <View  style={styles.drawerCover}>
           <View style={{}}>
             <Text style={{ fontSize:22, lineHeight: 25, color: '#b7d4e6', fontWeight:'bold', marginTop:20, paddingLeft:12 }}>CONSUMER</Text>
@@ -140,6 +136,7 @@ class SideBar extends Component {
             {/*<Text style={styles.text}>Deck Swiper</Text>*/}
             {/*</View>*/}
             {/*</ListItem>*/}
+
           {/*<ListItem button iconLeft onPress={() => this.navigateTo('icon')} >*/}
             {/*<View style={styles.listItemContainer}>*/}
               {/*<View style={[styles.iconContainer, { backgroundColor: '#B63A48', paddingLeft: 10 }]}>*/}
