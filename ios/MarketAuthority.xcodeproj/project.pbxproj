@@ -439,15 +439,6 @@
 		13B07FAE1A68108700A75B9A /* NativebaseKitchenSink */ = {
 			isa = PBXGroup;
 			children = (
-				FCDF42061E61E13900D5554D /* Ionicons.ttf */,
-				FC70B2901E5923A00076E89E /* icon.png */,
-				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
-				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
-				13B07FB01A68108700A75B9A /* AppDelegate.m */,
-				13B07FB51A68108700A75B9A /* Images.xcassets */,
-				13B07FB61A68108700A75B9A /* Info.plist */,
-				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
-				13B07FB71A68108700A75B9A /* main.m */,
 			);
 			name = NativebaseKitchenSink;
 			sourceTree = "<group>";
@@ -551,6 +542,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				FC397CC31E68DADD00104423 /* MarketAuthority */,
 				13B07FAE1A68108700A75B9A /* NativebaseKitchenSink */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* NativebaseKitchenSinkTests */,
@@ -584,6 +576,22 @@
 				5F644FCEFAE94E61B19AC619 /* libz.tbd */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FC397CC31E68DADD00104423 /* MarketAuthority */ = {
+			isa = PBXGroup;
+			children = (
+				FCDF42061E61E13900D5554D /* Ionicons.ttf */,
+				FC70B2901E5923A00076E89E /* icon.png */,
+				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
+				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
+				13B07FB01A68108700A75B9A /* AppDelegate.m */,
+				13B07FB51A68108700A75B9A /* Images.xcassets */,
+				13B07FB61A68108700A75B9A /* Info.plist */,
+				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
+				13B07FB71A68108700A75B9A /* main.m */,
+			);
+			name = MarketAuthority;
 			sourceTree = "<group>";
 		};
 		FC70B2611E5921DC0076E89E /* Products */ = {

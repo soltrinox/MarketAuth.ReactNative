@@ -179,7 +179,7 @@ class Anatomy extends React.Component {
 
 
     _domainData() {
-        var testJSON = require('./LAS.001.json');
+        var testJSON = require('./PHX.001.json');
         this.state.dataObjects = {
             CATEGORY1: [
                 {KEY: 'First Domain', DOM: 'DEX PLUS'},
@@ -275,11 +275,8 @@ class Anatomy extends React.Component {
 
         return (
             <Container theme={myTheme} style={{ width : 800, backgroundColor: '#000000'}}>
-
                 <Header style={{ width : 800, height:100, backgroundColor: '#454545', paddingLeft: 40}}>
-
                     <View style={{ flex: 1, alignItems : 'flex-start', flexDirection: 'row',}}>
-
                         <View style={{ width: 220, height: 30, marginRight:20 }}>
                             <InputGroup>
                                 <Input label="DOMAIN" placeholder="DOMAIN" style={{ width: 120, height: 30 }}/>
@@ -320,8 +317,7 @@ class Anatomy extends React.Component {
                     >
                         <View style={{ height:666, flexDirection: 'column', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.85)'}}>
                             <View style={{height:null,  flex:1, flexDirection:'row', justifyContent:'flex-start', marginLeft:0,  backgroundColor: 'rgba(0,0,0,0.0)',  }}>
-                                <Text   style={{ marginTop:20, width:400, height:40,overflow:'hidden', color:'#00ff00', lineHeight:38, fontSize: 36, fontWeight:'bold' , paddingLeft:20, textAlign: 'left',
-                                backgroundColor: 'rgba(0,0,0,0.5)',  }} ellipsizeMode={'tail'} numberOfLines={1}>
+                                <Text   style={{ marginTop:20, width:400, height:40,overflow:'hidden', color:'#00ff00', lineHeight:38, fontSize: 36, fontWeight:'bold' , paddingLeft:20, textAlign: 'left', backgroundColor: 'rgba(0,0,0,0.5)',  }} ellipsizeMode={'tail'} numberOfLines={1}>
                                     {this.state.selectedCategory}
                                 </Text>
                                 <Text style={{ marginTop:20, width:400, height:40,overflow:'hidden', color:'#ffffff', lineHeight:38, fontSize: 36, fontWeight:'bold' , paddingRight:20, textAlign: 'right',
@@ -329,8 +325,7 @@ class Anatomy extends React.Component {
                                     {this.state.selectedCity}
                                 </Text>
                             </View>
-                            <View style={{ height:40, paddingTop:8, flexDirection: 'column',overflow:'hidden', justifyContent: 'flex-start', marginTop:0 ,
-                            backgroundColor : 'rgba(0,0,0,0.0)'}}>
+                            <View style={{ height:40, paddingTop:8, flexDirection: 'column',overflow:'hidden', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.0)'}}>
                                 <Text style={{flex:1, width:800, height:40, flexDirection: 'row', textAlign: 'center' , color:'#ABABAB',  fontSize: 22 }} ellipsizeMode={'tail'} numberOfLines={1}>
                                     Top 10 Searches for   {this.state.selectedCategory}  in  {this.state.selectedCity}
                                 </Text>
@@ -523,7 +518,6 @@ class Anatomy extends React.Component {
                         </View>
                     </Image>
                 </Content>
-
             </Container>
         );
     }
