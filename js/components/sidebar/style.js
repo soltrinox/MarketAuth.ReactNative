@@ -30,28 +30,40 @@ module.exports = StyleSheet.create({
     height: 0,
     resizeMode: 'cover',
   },
+    listItemContainer2: {
+        height: 60,
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        backgroundColor: '#454545',
+        marginBottom:6
+    },
   listItemContainer: {
+      height: 60,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
+      backgroundColor: '#000',
+      marginBottom:6
   },
   iconContainer: {
     width: 37,
     height: 37,
     borderRadius: 18,
-    marginRight: 12,
-    paddingLeft: 11,
+    marginRight: 3,
+    paddingLeft: 0,
     paddingTop: (Platform.OS === 'android') ? 7 : 5,
   },
   sidebarIcon: {
-    fontSize: 21,
+    fontSize: 22,
     color: '#fff',
-    lineHeight: (Platform.OS === 'android') ? 21 : 25,
+    lineHeight: (Platform.OS === 'android') ? 22 : 25,
     backgroundColor: 'transparent',
   },
   text: {
     fontWeight: '500',
       color : '#FFF',
-    fontSize: 16,
+    fontSize: 22,
+      lineHeight: (Platform.OS === 'android') ? 22 : 25,
   },
 });

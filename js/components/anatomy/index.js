@@ -106,9 +106,6 @@ class Anatomy extends React.Component {
     }
 
     _getUsers() {
-
-
-
         this.state.userData = {'key': 'val', 'key': 'val'};
         fetch("https://www.randomuser.me/api/1.1?nat=us")
             .then((response) => response.json())
@@ -137,9 +134,6 @@ class Anatomy extends React.Component {
     _updateDomainColumns(arrayz) {
         this.setState({domainGridColumns: arrayz});
     }
-
-
-
 
     _returnDataOnSelection(item, e) {
 
@@ -506,7 +500,7 @@ class Anatomy extends React.Component {
                                     </View>
                                 </View>
                             </View>
-                            <View style={{ height:120, paddingTop:8, flexDirection: 'column', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,254,0.5)'}}>
+                            <View style={{ height:120, paddingTop:8, flexDirection: 'column', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.5)'}}>
                                 <Text style={{flex:1, flexDirection: 'row', textAlign: 'center' ,
                    color:'#ABABAB',  fontSize: 18 }}>
                                     keywords for <Text
@@ -514,6 +508,13 @@ class Anatomy extends React.Component {
                                     @ <Text style={{ color:'#0000FF', fontSize: 22, fontWeight:'bold'  }}>
                                     {this.state.selectedCity}</Text>
                                 </Text>
+                                <Text style={{flex:1, lineHeight:12, flexDirection: 'row', textAlign: 'left' ,
+                   color:'#ABABAB',  fontSize: 11 }}>
+                                    This is a service message for users and disclosure.  This is a service message for users and disclosure.
+                                 This is a service message for users and disclosure.  This is a service message for users and disclosure.
+                                 This is a service message for users and disclosure.  This is a service message for users and disclosure.
+                                 This is a service message for users and disclosure. </Text>
+
                             </View>
                         </View>
                     </Image>

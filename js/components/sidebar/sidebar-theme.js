@@ -9,14 +9,14 @@ export default {
   lineHeightH2: 27,
   lineHeightH3: 22,
   iconLineHeight: (Platform.OS === 'ios') ? 37 : 30,
-  lineHeight: (Platform.OS === 'ios') ? 20 : 24,
+  lineHeight: (Platform.OS === 'ios') ? 24 : 28,
 
 
   // List
   listBorderColor: '#ffffff',
   listDividerBg: '#ffffff',
-  listItemHeight: 45,
-  listItemPadding: 10,
+  listItemHeight: 65,
+  listItemPadding: 4,
   listNoteColor: '#FFFFFF',
   listNoteSize: 13,
 
