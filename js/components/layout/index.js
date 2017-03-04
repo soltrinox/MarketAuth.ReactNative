@@ -479,10 +479,10 @@ class NHLayout extends React.Component {
         justifyContent:'flex-start',}} scrollEnabled={ false }>
                 <Image
                     style={styles.stretch}
-                    source={require('./img001.png')}
+                    source={require('./call.count.back.png')}
                     resizeMode={Image.resizeMode.stretch}
                 >
-                  <View style={{ height:666, flexDirection: 'column', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.85)'}}>
+                  <View style={{ opacity: 0,  height:666, flexDirection: 'column', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.85)'}}>
                     <View style={{height:null,  flex:1, flexDirection:'row', justifyContent:'flex-start', marginLeft:0,  backgroundColor: 'rgba(0,0,0,0.0)',  }}>
                       <Text   style={{ marginTop:20, width:400, height:40,overflow:'hidden', color:'#00ff00', lineHeight:38, fontSize: 36, fontWeight:'bold' , paddingLeft:20, textAlign: 'left', backgroundColor: 'rgba(0,0,0,0.5)',  }} ellipsizeMode={'tail'} numberOfLines={1}>
                           {this.state.selectedCategory}

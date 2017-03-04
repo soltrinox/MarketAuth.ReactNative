@@ -31,7 +31,7 @@ module.exports = StyleSheet.create({
     resizeMode: 'cover',
   },
     listItemContainer2: {
-        height: 60,
+        height: 80,
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center',

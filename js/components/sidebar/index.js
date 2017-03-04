@@ -40,76 +40,44 @@ class SideBar extends Component {
           </View>
         </View>
         <List>
-          <ListItem button iconLeft >
-            <View style={styles.listItemContainer}>
-              <View style={[styles.iconContainer, { backgroundColor: '#00000000' }]}>
 
-              </View>
-              <Text style={styles.text}>  </Text>
-            </View>
-          </ListItem>
           <ListItem button  onPress={() => this.navigateTo('anatomy')} >
             <View style={styles.listItemContainer2}>
-              {/*<View style={[styles.iconContainer, { backgroundColor: '#00000000', paddingLeft: 1 }]}>*/}
-                {/*<Icon name="ios-grid" style={styles.sidebarIcon} />*/}
-              {/*</View>*/}
+              <Image source={require('./page.png')}  style={{width: 58, height: 54, backgroundColor: 'transparent'} }  />
               <Text style={styles.text}>Page One</Text>
             </View>
           </ListItem>
+
+          <ListItem button  onPress={() => this.navigateTo('button')} >
+            <View style={styles.listItemContainer2}>
+              <Image source={require('./cover.png')}  style={{width: 55, height: 52, backgroundColor: 'transparent'} }  />
+              <Text style={styles.text}>Performance</Text>
+            </View>
+          </ListItem>
+
+          <ListItem button  onPress={() => this.navigateTo('layout')} >
+            <View style={styles.listItemContainer2}>
+              <Image source={require('./call.png')}  style={{width: 57, height: 55, backgroundColor: 'transparent'} }  />
+              <Text style={styles.text}>Call Count</Text>
+            </View>
+          </ListItem>
           <ListItem button iconLeft >
             <View style={styles.listItemContainer}>
               <View style={[styles.iconContainer, { backgroundColor: '#00000000' }]}>
 
               </View>
               <Text style={styles.text}>  </Text>
-            </View>
-          </ListItem>
-          <ListItem button  onPress={() => this.navigateTo('button')} >
-            <View style={styles.listItemContainer2}>
-              {/*<View style={[styles.iconContainer, { backgroundColor: '#00000000', paddingLeft: 1 }]}>*/}
-                {/*<Icon name="ios-document-outline" style={styles.sidebarIcon} />*/}
-              {/*</View>*/}
-              <Text style={styles.text}>Performance</Text>
-            </View>
-          </ListItem>
-          <ListItem button iconLeft  >
-            <View style={styles.listItemContainer}>
-              <View style={[styles.iconContainer, { backgroundColor: '#00000000' }]}>
-
-              </View>
-              <Text style={styles.text}></Text>
-            </View>
-          </ListItem>
-          <ListItem button  onPress={() => this.navigateTo('layout')} >
-            <View style={styles.listItemContainer2}>
-              {/*<View style={[styles.iconContainer, { backgroundColor: '#00000000' }]}>*/}
-
-              {/*</View>*/}
-              <Text style={styles.text}>Call Count</Text>
-            </View>
-          </ListItem>
-          <ListItem button iconLeft  >
-            <View style={styles.listItemContainer}>
-              <View style={[styles.iconContainer, { backgroundColor: '#00000000' }]}>
-
-              </View>
-              <Text style={styles.text}></Text>
-            </View>
-          </ListItem>
-          <ListItem button iconLeft  >
-            <View style={styles.listItemContainer}>
-              <View style={[styles.iconContainer, { backgroundColor: '#00000000' }]}>
-
-              </View>
-              <Text style={styles.text}></Text>
             </View>
           </ListItem>
           <ListItem button iconLeft onPress={() => this.navigateTo('form')} >
             <View style={styles.listItemContainer2}>
-              <View style={[styles.iconContainer, { backgroundColor: '#00000000' }]}>
-                {/*<Icon name="md-cog" style={styles.sidebarIcon} />*/}
-              </View>
+              <Image source={require('./gog.png')}  style={{width: 57, height: 55, backgroundColor: 'transparent'} }  />
               <Text style={styles.text}>Settings</Text>
+            </View>
+          </ListItem>
+          <ListItem button   >
+            <View style={{ backgroundColor: '#454545', height: 80}}>
+              <Image source={require('./markauth.logo.png')}  style={{width: 149, height: 51, backgroundColor: 'transparent'} }  />
             </View>
           </ListItem>
             {/*<ListItem button iconLeft onPress={() => this.navigateTo('form')} >*/}

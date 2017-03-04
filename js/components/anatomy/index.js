@@ -441,8 +441,8 @@ class Anatomy extends React.Component {
                 <Header style={{ width : 800, height:100, backgroundColor: '#454545', paddingLeft: 40}}>
                     <View style={{ flex: 1, alignItems : 'flex-start', flexDirection: 'row',}}>
                         <View style={{ width: 220, height: 30, marginRight:20 }}>
-                            <InputGroup>
-                                <Input label="DOMAIN" placeholder="DOMAIN" style={{ width: 120, height: 30 }}/>
+                            <InputGroup style={{ backgroundColor: '#2c75ab'}}>
+                                <Input label="DOMAIN" placeholder="DOMAIN" style={{ width: 120, height: 30, color: '#FFF' }}/>
                             </InputGroup>
                         </View>
                         <View style={{ width: 220, height: 30, marginRight:20 }}>
@@ -456,7 +456,8 @@ class Anatomy extends React.Component {
                                 style={{
                                   body: null,
                                   option: null,
-                                  color: '#FFF'
+                                  color: '#FFF',
+                                   backgroundColor: '#2c75ab'
                                 }}
                                 iconSize={20}
                                 iconColor="#eee"
@@ -464,8 +465,8 @@ class Anatomy extends React.Component {
 
                         </View>
                         <View style={{ width: 220, height: 30, marginRight:20 }}>
-                            <InputGroup>
-                                <Input label="MARKET" placeholder="MARKET" style={{ width: 120, height: 30 }}/>
+                            <InputGroup style={{ backgroundColor: '#2c75ab'}}>
+                                <Input label="MARKET" placeholder="MARKET" style={{ width: 120, height: 30,  color: '#FFF' }}/>
                             </InputGroup>
                         </View>
                     </View>
