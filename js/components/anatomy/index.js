@@ -509,13 +509,13 @@ class Anatomy extends React.Component {
                                         style={{ width:240, height:62, overflow: 'hidden',
                                 borderRadius:0, backgroundColor: 'rgba(66,66,66,0.5)', padding:0,marginLeft:5, justifyContent:'center' }}>
                                         <Text style={{ color:'#FFFFFF', fontSize: 24,lineHeight:28, fontWeight:'normal',textAlign:'center'    }} ellipsizeMode={'tail'} numberOfLines={1}  >
-                                            www.domain.com</Text>
+                                            ESS PLUS</Text>
                                     </View>
                                     <View
                                         style={{ width:240, height:62, overflow: 'hidden',
                                 borderRadius:0, backgroundColor: 'rgba(66,66,66,0.5)', padding:0,marginLeft:5, justifyContent:'center' }}>
                                         <Text style={{ color:'#FFFFFF', fontSize: 24,lineHeight:28, fontWeight:'normal',textAlign:'center'   }} ellipsizeMode={'tail'} numberOfLines={1}>
-                                            DEX PREMIUM</Text>
+                                            ESS PREMIUM</Text>
                                     </View>
                                 </View>
                             </View>
@@ -560,11 +560,18 @@ class Anatomy extends React.Component {
 
                                                         var kray = [];
 
-                                                        var ggg = this.getRandomInt(2, 12);
+                                                    var rowValue = [];
+                                                    rowValue = this.state.dexPlus[item]
+                                                    var itr = {};
+                                                    itr = _.head(rowValue);
 
-                                                        this.state.columnTotal1 = this.state.columnTotal1 + ggg;
+                                                    if(_.isUndefined(itr)){
 
-                                                        for (var k = 0; k < ggg; k++) {
+                                                    }else{
+                                                        var tempScore = _.toInteger(itr.SCORE);
+                                                        console.log('00000000000000 DEXPLUS rowValue : ' + JSON.stringify(itr) );
+                                                        console.log('00000000000000 DEXPLUS rowValue SCORE: ' + _.toString(tempScore) );
+                                                        for (var k = 0; k < tempScore; k++) {
                                                             kray.push(<Svg height="16" width="17" key={k}>
                                                                 <Rect
                                                                     x="0"
@@ -576,8 +583,10 @@ class Anatomy extends React.Component {
                                                                     fill="green"
                                                                 />
                                                             </Svg>);
-
                                                         }
+                                                        this.state.columnTotal1 = this.state.columnTotal1 +  _.toInteger(tempScore);
+                                                        tempScore = null;
+                                                    }
 
 
                                                         return (
@@ -622,14 +631,11 @@ class Anatomy extends React.Component {
                                         <Grid style={{ flex:1 }}>
                                             {
                                                 this.state.keywordArr.map((item, index) => {
-                                                        var itemString = JSON.stringify(item);
+                                                    var itemString = JSON.stringify(item);
 
-                                                        var kray = [];
+                                                    var kray = [];
 
-                                                        {/*var ggg = this.getRandomInt(2, 12);*/}
-                                                        {/*this.state.columnTotal2 = this.state.columnTotal2 + ggg;*/}
-
-                                                        var rowValue = [];
+                                                    var rowValue = [];
                                                     rowValue = this.state.dexPrem[item]
                                                     var itr = {};
                                                     itr = _.head(rowValue);
