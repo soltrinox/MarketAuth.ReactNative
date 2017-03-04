@@ -172,6 +172,9 @@ class Anatomy extends React.Component {
 
     _returnDataOnSelection(item, e) {
 
+        // TODO: separate the function of updating the objects... to call from the header on Module load.
+        // TODO: and then update the grid from the store category and domains in persisted object when move between Module
+
         this.setState({columnTotal1: 0});
         this.setState({columnTotal2: 0});
         this.setState({columnTotal3: 0});
