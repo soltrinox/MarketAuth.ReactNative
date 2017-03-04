@@ -6,7 +6,8 @@
     "postinstall": "remotedev-debugger",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "eslint": "eslint",
-    "test": "jest"
+    "test": "jest",
+    "eject-native-base": "node node_modules/native-base/ejectTheme.js"
   },
   "dependencies": {
     "apisauce": "^0.6.0",
