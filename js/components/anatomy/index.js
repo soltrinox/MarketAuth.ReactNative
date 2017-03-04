@@ -239,7 +239,6 @@ class Anatomy extends React.Component {
         catName = e.value;
 
 
-
         var devPremUpdate = {};
         devPremUpdate[catName] = dexPremObj;
         DB.dexPrem.add(devPremUpdate, function(added_data){
@@ -258,8 +257,20 @@ class Anatomy extends React.Component {
             console.log('dexBasc = '+ JSON.stringify(added_data));
         });
 
-    }
 
+        DB.dexBasc.get_all(function(result){
+            console.log('$$$$$$ dexBasc get_all : '+ result.catName + ' @ '+ JSON.stringify(result) );
+        });
+
+        DB.dexPlus.get_all(function(result){
+            console.log('$$$$$$ dexPlus get_all : '+ result.catName + ' @ '+ JSON.stringify(result) );
+        });
+
+        DB.dexPrem.get_all(function(result){
+            console.log('$$$$$$ dexPrem get_all : '+ result.catName + ' @ '+ JSON.stringify(result) );
+        });
+
+    }
 
 
     _addDexObj(nObj){
@@ -350,7 +361,17 @@ class Anatomy extends React.Component {
         // NOW THAT THE ARRAYS ARE POPULATED  LOOK INSIDE
 
 
+        DB.dexBasc.get_all(function(result){
+            console.log('$$$$$$ dexBasc get_all : '+ JSON.stringify(result) );
+        });
 
+        DB.dexPlus.get_all(function(result){
+            console.log('$$$$$$ dexPlus get_all : '+ JSON.stringify(result) );
+        });
+
+        DB.dexPrem.get_all(function(result){
+            console.log('$$$$$$ dexPrem get_all : '+ JSON.stringify(result) );
+        });
 
         console.log("Test Model", DeviceInfo.getModel());
         console.log("Device ID", DeviceInfo.getDeviceId());
@@ -358,6 +379,7 @@ class Anatomy extends React.Component {
 
 
     }
+
     componentDidMount(){
         this.setState({ columnTotal1 : 0} );
         this.setState({ columnTotal2 : 0} );
@@ -372,6 +394,11 @@ class Anatomy extends React.Component {
         // DB.dexPrem.erase_db(function(removed_data){
         //     console.log(removed_data);
         // });
+
+
+
+
+
     }
 
     getRandomInt(min, max) {
