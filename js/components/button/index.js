@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
-import {ScrollView,AppRegistry, View} from 'react-native';
+import {ScrollView, AppRegistry, View, Image} from 'react-native';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import _ from 'lodash';
 
-
+import Picker from 'native-base';
 import {
     Container, Header, Title, Content, Text, H3, Button, Icon,
-    Image, Footer, FooterTab, StyleSheet,
+    Footer, FooterTab, StyleSheet,
     InputGroup,
     TextInput,
     Input,
@@ -32,7 +32,7 @@ import styles from './styles';
 var DBEvents = require('react-native-db-models').DBEvents;
 var DB = require('../../db.js');
 
-DBEvents.on("all", function(){
+DBEvents.on("all", function () {
     console.log("Database changed");
 });
 
@@ -42,7 +42,6 @@ class NHButton extends React.Component {
         openDrawer: React.PropTypes.func,
         selectCategory: React.PropTypes.func,
     }
-
 
 
     constructor(props, context) {
@@ -55,14 +54,14 @@ class NHButton extends React.Component {
             userData: {},
             usersArry: [],
             selectedDomain: 'www.default.com',
-            selectedCategory: '',
+            selectedCategory: 'ARCHITECTS',
             selectedItem: undefined,
 
             results: {
                 items: []
             },
             selectedState: 'CA',
-            selectedCity: 'San Francisco',
+            selectedCity: 'PHOENIX, AZ',
             selectedDomainTotal: 2,
             columnTotal1: 0,
             columnTotal2: 0,
@@ -70,6 +69,11 @@ class NHButton extends React.Component {
             columnTotal4: 0,
             columnTotal5: 0,
             columnTotal6: 0,
+
+            dexPrem : [],
+            dexPlus : [],
+            dexBasc: [],
+
             domain1: 'test 1',
             domain2: 'test 1',
             domain3: 'test 1',
@@ -96,10 +100,7 @@ class NHButton extends React.Component {
         this._getUsers = this._getUsers.bind(this);
         //this._renderModalPicker = this._renderModalPicker.bind(this);
         this._updateText = this._updateText.bind(this);
-        this._renderItem = this._renderItem.bind(this);
-        this._updateCarousels = this._updateCarousels.bind(this);
-        this._productCarouselChange2 = this._productCarouselChange2.bind(this);
-        this._productCarouselChange3 = this._productCarouselChange3.bind(this);
+
         // this._returnDataOnSelection = this._returnDataOnSelection.bind(this);
     }
 
@@ -110,7 +111,6 @@ class NHButton extends React.Component {
     }
 
     _getUsers() {
-
         this.state.userData = {'key': 'val', 'key': 'val'};
         fetch("https://www.randomuser.me/api/1.1?nat=us")
             .then((response) => response.json())
@@ -140,105 +140,170 @@ class NHButton extends React.Component {
         this.setState({domainGridColumns: arrayz});
     }
 
-    _updateCarousels(carInstance, itemPos) {
-
-        console.log('@@@@@ Change ON ' + carInstance + ' POS: ' + itemPos);
-        if (carInstance === 'CAR1') {
-
-        }
+    _addDexPrem(catt , newObj){
+        var ttd = this.state.selectedCategory;
+        DB.dexPrem.add( { tdd : newObj} , function (added_data) {
+            console.log('dexPrem added_data' + JSON.stringify(added_data));
+        });
+        DB.dexPrem.get_all(function(result){
+            console.log('$$$$$$ get_all dexPrem: '+ JSON.stringify(result) );
+        });
     }
 
-    _productCarouselChange2(carInstance, itemPos) {
-
-        if (this._myCarousel3.currentIndex === itemPos) {
-            console.log('@@@@@ NO Change ON ' + carInstance + ' POS: ' + itemPos + ' @' + this._myCarousel2.currentIndex);
-        } else {
-            if (this._myCarousel3.currentIndex === this._myCarousel2.currentIndex) {
-                console.log('INDEX MATCH ');
-            } else {
-                this._myCarousel3.snapToItem(this._myCarousel2.currentIndex);
-            }
-        }
+    _addDexPlus(catt , newObj ){
+        var ttd = this.state.selectedCategory;
+        DB.dexPlus.add( {tdd : newObj}  , function (added_data) {
+            console.log('dexPlus added_data' + JSON.stringify(added_data));
+        });
+        DB.dexPlus.get_all(function(result){
+            console.log('$$$$$$ get_all dexPlus: '+ JSON.stringify(result) );
+        });
     }
 
-    _productCarouselChange3(carInstance, itemPos) {
-
-        if (this._myCarousel2.currentIndex === itemPos) {
-            console.log('@@@@@ NO Change ON ' + carInstance + ' POS: ' + itemPos + ' @' + this._myCarousel3.currentIndex);
-        } else {
-            if (this._myCarousel2.currentIndex === this._myCarousel3.currentIndex) {
-                console.log('INDEX MATCH ');
-            } else {
-                this._myCarousel2.snapToItem(this._myCarousel3.currentIndex);
-            }
-        }
+    _addDexBasc( catt , newObj ){
+        var ttd = this.state.selectedCategory;
+        DB.dexBasc.add( {tdd : newObj}  , function (added_data) {
+            console.log('dexBasc added_data' + JSON.stringify(added_data));
+        });
+        DB.dexBasc.get_all(function(result){
+            console.log('$$$$$$ get_all dexBasc: '+ JSON.stringify(result) );
+        });
     }
 
-    _renderItem(entry) {
-        return (
-            <TouchableOpacity
-                activeOpacity={0.9}
-                style={sliderEntryStyles.slideInnerContainer}
-            >{entry}</TouchableOpacity>
-        );
-    }
+    _returnDataOnSelection(item, e) {
 
+        this.setState({ columnTotal1 : 0} );
+        this.setState({ columnTotal2 : 0} );
+        this.setState({ columnTotal3 : 0} );
+        this.setState({ columnTotal4 : 0} );
 
-
-    _returnDataOnSelection(item, e ){
-
-        // console.log('CATEGORY : ' +  eval(e)  +' \n\n '+  e.valueOf()   );
-
-        var kyz = [];
-        kyz = _.keys(item._mySelection1);
-        //
-        var lmn = [];
-        lmn = _.keys(e);
-
-        console.log('SELECT CAT NAME : ' +  JSON.stringify(e ) );
-
-        // console.log('TITLE : ' +  JSON.stringify(item._mySelection1.state.title ) );
-        // console.log('VALUE : ' +  JSON.stringify(item._mySelection1.state.value ) );
-
-        this.setState({ selectedCategory : e.value });
-        // this._renderModalPicker(item._mySelection1);
-
+        console.log('SELECT CAT NAME : ' + JSON.stringify(e));
+        this.setState({selectedCategory: e.value});
         var test = _.orderBy(this.state.rawArr, ['CAT', 'KEY', 'SCORE'], ['asc', 'asc', 'desc']);
         var trr = [];
         var catName = e.value;
-        trr = _.filter(test, {"CAT": catName });
-        // console.log('%%%%%%%%%%% SORTED KEYWORDS ON '+ catName +': '+  JSON.stringify(trr));
-        var upp = { catName : trr };
-        // console.log('########### SELECTED SORTED ARRAY ON ' + catName + ': ' + JSON.stringify(upp));
-        // _.set(this.state.dataObjects, catName, trr);
-
+        trr = _.filter(test, {"CAT": catName});
+        var upp = {catName: trr};
         var kkt = [];
         kkt = [...new Set(trr.map(item => item.KEY))];
         kkt.sort();
-        // console.log('########### SELECTED SORTED ARRAY ON ' + catName + ': ' + JSON.stringify(kkt));
-        this.setState({ keywordArr : kkt })
-        this.setState({ dataObjects : upp });
+        this.setState({keywordArr: kkt});
+        this.setState({dataObjects: upp});
 
-        console.log('########### DOMAINS BY KEY ON : ' + JSON.stringify(kkt) );
-        var resultXXX = _.filter(test, function(p){
+        // console.log('########### DOMAINS BY KEY ON : ' + JSON.stringify(kkt));
+        var resultXXX = _.filter(test, function (p) {
             return _.includes(kkt, p.KEY);
         });
 
         var testDomains = _.orderBy(resultXXX, ['KEY', 'SCORE'], ['asc', 'desc']);
+        // console.log('########### MATCHED DOMAINS BY KEY : ' + JSON.stringify(testDomains));
 
-        console.log('########### MATCHED DOMAINS BY KEY : ' + JSON.stringify(testDomains) );
+        var dexPremObj = [];
+        var dexPlusObj = [];
+        var dexBascObj = [];
+
+        _.forEach(kkt, function(value) {
+            var keysByCat = [];
+            keysByCat = _.filter(test, {"CAT": catName, "KEY": value });
+            _.forEach(keysByCat, function(value) {
+                var value2 = value;
+                // console.log('\n\n===============\n\n DOM: ' + JSON.stringify(value.DOM) );
+                if(_.isEqual(value2.DOM , "Dex ESS Premium")){
+                    console.log('\n\n===============\n\n FOUND: ' + JSON.stringify(value2.DOM) + ' @ ' + value2.KEY+ ' <- ' + value2.SCORE  );
+                    dexPremObj.push(value2);
+                }
+                if(_.isEqual(value2.DOM , "Dex ESS Plus")) {
+                    console.log('\n\n===============\n\n FOUND: ' + JSON.stringify(value2.DOM)+ ' @ ' + value2.KEY+ ' <- ' + value2.SCORE  );
+                    dexPlusObj.push(value2);
+                }
+                if(_.isEqual(value2.DOM , "Dex ESS Basic")) {
+                    console.log('\n\n===============\n\n FOUND: ' + JSON.stringify(value2.DOM)+ ' @ ' + value2.KEY+ ' <- ' + value2.SCORE  );
+                    dexBascObj.push(value2);
+                }
+            });
+        });
+
+
+        var tabPrem = {};
+        var tabPlus = {};
+        var tabBasc = {};
+
+        _.forEach(kkt, function(value) {
+            console.log('XXXXXXXXXXX value @ '+ JSON.stringify(value));
+            tabPrem[value] = _.filter(dexPremObj, {"DOM": "Dex ESS Premium", "KEY": value });
+            tabPlus[value] = _.filter(dexPlusObj, {"DOM": "Dex ESS Plus", "KEY": value });
+            tabBasc[value] = _.filter(dexBascObj, {"DOM": "Dex ESS Basic", "KEY": value });
+        });
+
+        // console.log('XXXXXXXXXXX tabPrem @ '+ JSON.stringify(tabPrem));
+        // console.log('XXXXXXXXXXX tabPlus @ '+ JSON.stringify(tabPlus));
+        // console.log('XXXXXXXXXXX tabBasc @ '+ JSON.stringify(tabBasc));
+
+        this.setState({dexPrem : tabPrem });
+        console.log('@@@@@@@ dexPrem @ '+ JSON.stringify(tabPrem));
+        this.setState({dexPlus : tabPlus });
+        console.log('@@@@@@@ dexPlus @ '+ JSON.stringify(tabPlus));
+        this.setState({dexBasc : tabBasc });
+        console.log('@@@@@@@ dexBasc @ '+ JSON.stringify(tabBasc));
+
+
+
+        // var ttc = _.toString(this.state.selectedCategory);
+        // this._addDexBasc( this.state.selectedCategory, dexBascObj  );
+        // this._addDexPlus( this.state.selectedCategory,  dexPlusObj );
+        // this._addDexPrem( this.state.selectedCategory, dexPremObj );
+        catName = e.value;
+
+
+        var devPremUpdate = {};
+        devPremUpdate[catName] = dexPremObj;
+        DB.dexPrem.add(devPremUpdate, function(added_data){
+            console.log('dexPrem = '+ JSON.stringify(added_data));
+        });
+
+        var devPlusUpdate = {};
+        devPlusUpdate[catName] = dexPlusObj;
+        DB.dexPlus.add( devPlusUpdate, function(added_data){
+            console.log('dexPlus = '+ JSON.stringify(added_data));
+        });
+
+        var devBascUpdate = {};
+        devBascUpdate[catName] = dexBascObj;
+        DB.dexBasc.add( devBascUpdate, function(added_data){
+            console.log('dexBasc = '+ JSON.stringify(added_data));
+        });
+
+
+        DB.dexBasc.get_all(function(result){
+            console.log('$$$$$$ dexBasc get_all : '+ result.catName + ' @ '+ JSON.stringify(result) );
+        });
+
+        DB.dexPlus.get_all(function(result){
+            console.log('$$$$$$ dexPlus get_all : '+ result.catName + ' @ '+ JSON.stringify(result) );
+        });
+
+        DB.dexPrem.get_all(function(result){
+            console.log('$$$$$$ dexPrem get_all : '+ result.catName + ' @ '+ JSON.stringify(result) );
+        });
 
     }
 
-    _renderModalPicker(sel1){
 
-        console.log('CATEGORY : ' +  JSON.stringify(sel1.state)   );
+    _addDexObj(nObj){
+        DB.domains.add(nObj , function (added_data) {
+            console.log('%%%%%% added_data' + JSON.stringify(added_data));
+        });
+        DB.domains.get_all(function(result){
+            console.log('$$$$$$ get_all : '+ JSON.stringify(result) );
+        });
 
-        // this.setState({ selectedCategory : e.value });
     }
 
     _domainData() {
-        var testJSON = require('./LAS.001.json');
+
+
+
+        var testJSON = require('./PHX.001.json');
         this.state.dataObjects = {
             CATEGORY1: [
                 {KEY: 'First Domain', DOM: 'DEX PLUS'},
@@ -275,112 +340,96 @@ class NHButton extends React.Component {
 
         this.state.categoriesArr = [...new Set(test.map(item => item.CAT))];
         this.state.categoriesArr.sort();
-        // this.state.categoriesArr = this.state.categoriesArr.slice(80, 95);
-        // console.log('%%%%%%%%%%% this.state.categoriesArr : '+  JSON.stringify(this.state.categoriesArr));
-
         this.state.keywordArr = [...new Set(test.map(item => item.KEY))];
         this.state.keywordArr.sort();
-        this.state.keywordArr = this.state.keywordArr.slice(700, 715);
+        this.state.keywordArr = ["Select Category","Select Category","Select Category","Select Category","Select Category","Select Category","Select Category","Select Category","Select Category","Select Category"];
+        // this.state.keywordArr.slice(700, 710);
+
+        // this._addDexBasc( { cat: 'generic', keysz:  this.state.keywordArr.slice(700, 710) });
+        // this._addDexPlus( { cat: 'generic', keysz:  this.state.keywordArr.slice(700, 710) });
+        // this._addDexPrem( { cat: 'generic', keysz:  this.state.keywordArr.slice(700, 710) });
+
+
 
         var happy = [];
-        // console.log('@@@@@@@@@@@@@@ ORDERBY JSON: '+  JSON.stringify(test));
 
         for (var j = 0; j < this.state.categoriesArr.length; j++) {
             var trr = [];
             var catName = _.toString(this.state.categoriesArr[j]);
-            happy.push({  name: catName, value: catName, icon: '', });
+            happy.push({name: catName, value: catName, icon: '',});
             trr = _.filter(test, {"CAT": catName});
-            // console.log('%%%%%%%%%%% SORTED KEYWORDS ON '+ catName +': '+  JSON.stringify(trr));
             var upp = '{' + catName + ' : ' + JSON.stringify(trr) + '}';
-            // console.log('########### SORTED ARRAY ON ' + catName + ': ' + JSON.stringify(upp));
             _.set(this.state.dataObjects, catName, trr);
         }
-        this.setState({ categoriesArr :  happy });
+        this.setState({categoriesArr: happy});
         return this.state.dataObjects;
     }
 
-    _setData(){
-        DB.users.add({first_name: "TEST", age: 40}, function(added_data){
-            console.log('added_data'+ JSON.stringify(added_data));
-        });
+    _setUserData() {
+        // DB.users.add({first_name: "TEST", age: 40}, function (added_data) {
+        //     console.log('added_data' + JSON.stringify(added_data));
+        // });
     }
 
     componentWillMount() {
 
-        var isSet = false;
-
-        // DB.users.get({first_name: "Rishabh"}, function(results){
-        //
-        //     if(  _.isEmpty(results) ){
-        //         console.log('no results : '+ results);
-        //     }else{
-        //         console.log('results : '+ results);
-        //     }
-        // });
+        var domains = [];
+        domains = this._domainData();
+        // NOW THAT THE ARRAYS ARE POPULATED  LOOK INSIDE
 
 
-
-        DB.users.get({first_name: "DYLAN"}, function(results){
-
-            if(  _.isEmpty(results) ){
-                console.log('no results : '+ results);
-                this._setData();
-            }else{
-                console.log('results : '+ JSON.stringify(results) );
-            }
+        DB.dexBasc.get_all(function(result){
+            console.log('$$$$$$ dexBasc get_all : '+ JSON.stringify(result) );
         });
 
+        DB.dexPlus.get_all(function(result){
+            console.log('$$$$$$ dexPlus get_all : '+ JSON.stringify(result) );
+        });
 
-
-        var doamins = [];
-        domains = this._domainData();
-        // NOW THAT THE ARRAYS ARE POPULATED LEST LOOK INSIDE
+        DB.dexPrem.get_all(function(result){
+            console.log('$$$$$$ dexPrem get_all : '+ JSON.stringify(result) );
+        });
 
         console.log("Test Model", DeviceInfo.getModel());
         console.log("Device ID", DeviceInfo.getDeviceId());
         console.log("System Name", DeviceInfo.getSystemName());
 
-        var clientDomains = ['www.default.com', 'www.generic.com'];
-        var keywordsClients = [
-            ['keyword1', '0', '1'],
-            ['keyword2', '2', '2'],
-            ['keyword3', '0', '1'],
-            ['keyword4', '1', '2'],
-            ['keyword5', '2', '0'],
-            ['keyword6', '1', '1'],
-            ['keyword7', '0', '3'],
-            ['keyword8', '1', '0'],
-            ['keyword9', '0', '1'],
-            ['keyword10', '0', '2'],
-        ];
 
-        var products = ['DEX BASIC', 'DEX PLUS', 'DEX PRO', 'DEX PREMIUM'];
-        var keywordsProducts = [
-            ['keyword1', '5', '2', '7', '9'],
-            ['keyword2', '6', '5', '9', '12'],
-            ['keyword3', '1', '7', '6', '10'],
-            ['keyword4', '8', '7', '8', '9'],
-            ['keyword5', '10', '10', '10', '10'],
-            ['keyword6', '5', '4', '8', '11'],
-            ['keyword7', '9', '8', '5', '9'],
-            ['keyword8', '3', '5', '9', '12'],
-            ['keyword9', '4', '1', '6', '9'],
-            ['keyword10', '8', '9', '11', '11'],
-        ];
-        this.state.productDomains = products.length;
-        var productColumnArray = [];
+    }
 
-        // this._updateKeywordsArray(keywordsProducts);
-        // console.log('@@@@@@@@@@@@@@ categoriesArr : ' + JSON.stringify(this.state.categoriesArr));
-        // console.log('@@@@@@@@@@@@@@ keywordArr : ' + JSON.stringify(this.state.keywordArr));
-        // console.log('88888888 SORTED KEYWORDS ON : ' + JSON.stringify(this.state.dataObjects));
-        // CREATE THE GRIDS FOR EACH CAROUSEL COLUMN
+    componentDidMount(){
+        this.setState({ columnTotal1 : 0} );
+        this.setState({ columnTotal2 : 0} );
+        this.setState({ columnTotal3 : 0} );
+        this.setState({ columnTotal4 : 0} );
+        // DB.dexBasc.erase_db(function(removed_data){
+        //     console.log(removed_data);
+        // });
+        // DB.dexPlus.erase_db(function(removed_data){
+        //     console.log(removed_data);
+        // });
+        // DB.dexPrem.erase_db(function(removed_data){
+        //     console.log(removed_data);
+        // });
+
+
+
+
+
     }
 
     getRandomInt(min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    _renderPicker(){
+        this.state.categoriesArr.map((item, index) => {
+                var itemString = JSON.stringify(item);
+                return ( <Picker.Item label={itemString} value={itemString} key={index} /> )
+            }
+        )
     }
 
     render() {
@@ -392,224 +441,287 @@ class NHButton extends React.Component {
 
         return (
             <Container theme={myTheme} style={{ width : 800, backgroundColor: '#000000'}}>
+                <Header style={{ width : 800, height:100, backgroundColor: '#454545', paddingLeft: 40}}>
+                    <View style={{ flex: 1, alignItems : 'flex-start', flexDirection: 'row',}}>
+                        <View style={{ width: 220, height: 30, marginRight:20 }}>
+                            <InputGroup>
+                                <Input label="DOMAIN" placeholder="DOMAIN" style={{ width: 120, height: 30 }}/>
+                            </InputGroup>
+                        </View>
+                        <View style={{ width: 220, height: 30, marginRight:20 }}>
+                            <Selection
 
-              <Header style={{ width : 800, height:100, backgroundColor: '#454545', paddingLeft: 40}} >
+                                ref={(mySelection1) => { this._mySelection1 = mySelection1; }}
+                                title="SELECT CATEGORY"
+                                options={options}
 
-                <View style={{ flex: 1, alignItems : 'flex-start', flexDirection: 'row',}}>
-
-                  <View style={{ width: 220, height: 30, marginRight:20 }}>
-                    <InputGroup>
-                      <Input label="DOMAIN" placeholder="DOMAIN" style={{ width: 120, height: 30 }} />
-                    </InputGroup>
-                  </View>
-                  <View style={{ width: 220, height: 30, marginRight:20 }}>
-                    <Selection
-
-                        ref={(mySelection1) => { this._mySelection1 = mySelection1; }}
-                        title="SELECT CATEGORY"
-                        options={options}
-                        //onSelection={(e) => this._returnDataOnSelection(this,e)}
-                        onSelection={(e) => this._returnDataOnSelection(this,e)}
-                        style={{
+                                onSelection={(e) => this._returnDataOnSelection(this,e)}
+                                style={{
                                   body: null,
                                   option: null,
+                                  color: '#FFF'
                                 }}
-                        iconSize={20}
-                        iconColor="#eee"
-                    />
-                  </View>
-                  <View style={{ width: 220, height: 30, marginRight:20 }}>
-                    <InputGroup>
-                      <Input label="MARKET" placeholder="MARKET" style={{ width: 120, height: 30 }} />
-                    </InputGroup>
-                  </View>
-                </View>
-              </Header>
+                                iconSize={20}
+                                iconColor="#eee"
+                            />
 
-              <Content padder style={{ width : 800}}>
-                  {/*<H3>This is content section</H3>*/}
-                <View style={{ flex:1, marginTop:20 }}>
-                  <Text style={{flex:1, flexDirection: 'row', textAlign: 'center' ,
-               color:'#ABABAB', margin:10, fontSize: 18 }}>
-                    keywords for <Text
-                      style={{ color:'#ff00ff', fontSize: 22, fontWeight:'700'  }}>{this.state.selectedCategory}</Text>
-                    @ <Text style={{ color:'#0000FF', fontSize: 22, fontWeight:'bold'  }}>
-                      {this.state.selectedDomain}</Text>
-                  </Text>
-                </View>
+                        </View>
+                        <View style={{ width: 220, height: 30, marginRight:20 }}>
+                            <InputGroup>
+                                <Input label="MARKET" placeholder="MARKET" style={{ width: 120, height: 30 }}/>
+                            </InputGroup>
+                        </View>
+                    </View>
+                </Header>
 
-                <View style={{ flex:1, flexDirection:'row', alignItems:'flex-start',
-            marginTop:20, backgroundColor: '#000', marginLeft:5 }}>
-                  <View
-                      style={{ width:300, height:400, overflow: 'hidden', borderRadius:0, backgroundColor: '#0000', marginRight:5}}>
-
-                    <Grid style={{ flex:1 }}>
-                        {
-                            this.state.keywordArr.map((item, index) => {
-                                    var itemString = JSON.stringify(item);
-                                    return (
-                                        <Row style={{ backgroundColor: '#454545', height: 30, marginBottom: 4 }} key={index}>
-                                          <View key={index}
-                                                style={{  height:30,  width:300,
-                                                    backgroundColor: "rgba(0,0,0,0)",
-                                                }}>
-                                            <Text
-                                                style={{ height:30,  width:300,
-                                                    color: "#FFFFFF",
-                                                    fontSize: 14,
-                                                }}>{index} ]
-                                                {item}
-                                            </Text>
-                                          </View>
-                                        </Row>
-                                    )
-                                }
-                            )
-                        }
-                    </Grid>
-
-                  </View>
-                  <View
-                      style={{ width:400, height:400, backgroundColor: '#000',
+                <Content styel={{flex: 1,
+        flexDirection: 'column',
+        justifyContent:'flex-start',}} scrollEnabled={ false }>
+                    <Image
+                        style={styles.stretch}
+                        source={require('./img001.png')}
+                        resizeMode={Image.resizeMode.stretch}
+                    >
+                        <View style={{ height:666, flexDirection: 'column', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.85)'}}>
+                            <View style={{height:null,  flex:1, flexDirection:'row', justifyContent:'flex-start', marginLeft:0,  backgroundColor: 'rgba(0,0,0,0.0)',  }}>
+                                <Text   style={{ marginTop:20, width:400, height:40,overflow:'hidden', color:'#00ff00', lineHeight:38, fontSize: 36, fontWeight:'bold' , paddingLeft:20, textAlign: 'left', backgroundColor: 'rgba(0,0,0,0.5)',  }} ellipsizeMode={'tail'} numberOfLines={1}>
+                                    {this.state.selectedCategory}
+                                </Text>
+                                <Text style={{ marginTop:20, width:400, height:40,overflow:'hidden', color:'#ffffff', lineHeight:38, fontSize: 36, fontWeight:'bold' , paddingRight:20, textAlign: 'right',
+                                backgroundColor: 'rgba(0,0,0,0.5)', }} ellipsizeMode={'tail'} numberOfLines={1}>
+                                    {this.state.selectedCity}
+                                </Text>
+                            </View>
+                            <View style={{ height:40, paddingTop:8, flexDirection: 'column',overflow:'hidden', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.0)'}}>
+                                <Text style={{flex:1, width:800, height:40, flexDirection: 'row', textAlign: 'center' , color:'#ABABAB',  fontSize: 22 }} ellipsizeMode={'tail'} numberOfLines={1}>
+                                    Top 10 Searches for   {this.state.selectedCategory}  in  {this.state.selectedCity}
+                                </Text>
+                            </View>
+                            <View style={{ height:62,  flexDirection:'row', justifyContent:'flex-start', backgroundColor: 'rgba(0,0,0,0)', marginLeft:5 }}>
+                                <View
+                                    style={{ width:300, height:62, overflow: 'hidden',
+                                    borderRadius:0, backgroundColor: 'rgba(66,66,66,0.5)', marginRight:5, justifyContent:'center'}}>
+                                    <Text style={{ color:'#FFFFFF', fontSize: 24, lineHeight:28, fontWeight:'normal',textAlign:'center'  }}>
+                                        SEARCH TERM</Text>
+                                </View>
+                                <View
+                                    style={{ width:480, height:62, backgroundColor: 'rgba(0,0,0,0)',
                             overflow:'hidden',flexDirection:'row'   }}>
-                    <View
-                        style={{ width:200, height:400, overflow: 'hidden',
-                                borderRadius:0, backgroundColor: '#000', padding:0,marginLeft:5 }} >
-                      <Grid style={{ flex:1 }}>
-                          {
-                              this.state.keywordArr.map((item, index) => {
-                                      var itemString = JSON.stringify(item);
+                                    <View
+                                        style={{ width:240, height:62, overflow: 'hidden',
+                                borderRadius:0, backgroundColor: 'rgba(66,66,66,0.5)', padding:0,marginLeft:5, justifyContent:'center' }}>
+                                        <Text style={{ color:'#FFFFFF', fontSize: 24,lineHeight:28, fontWeight:'normal',textAlign:'center'    }} ellipsizeMode={'tail'} numberOfLines={1}  >
+                                            ESS PLUS</Text>
+                                    </View>
+                                    <View
+                                        style={{ width:240, height:62, overflow: 'hidden',
+                                borderRadius:0, backgroundColor: 'rgba(66,66,66,0.5)', padding:0,marginLeft:5, justifyContent:'center' }}>
+                                        <Text style={{ color:'#FFFFFF', fontSize: 24,lineHeight:28, fontWeight:'normal',textAlign:'center'   }} ellipsizeMode={'tail'} numberOfLines={1}>
+                                            ESS PREMIUM</Text>
+                                    </View>
+                                </View>
+                            </View>
+                            <View style={{ height:365, marginTop:5,  flexDirection:'row', overflow: 'hidden', justifyContent:'flex-start', backgroundColor: 'rgba(0,0,0,0)', marginLeft:5 }}>
+                                <View
+                                    style={{ width:300, height:495, overflow: 'hidden', borderRadius:0, backgroundColor: 'rgba(0,0,0,0)', marginRight:5}}>
 
-                                      var kray = [];
+                                    <Grid style={{ flex:1 }}>
+                                        {
+                                            this.state.keywordArr.map((item, index) => {
+                                                    var itemString = JSON.stringify(item);
+                                                    return (
+                                                        <Row
+                                                            style={{ backgroundColor: '#454545', height: 30, marginBottom: 2,  justifyContent:'center' }}
+                                                            key={index}>
+                                                            <View
+                                                                style={{  height:30,  width:300, backgroundColor: "rgba(0,0,0,0)",  justifyContent:'center' }}>
+                                                                <Text style={{ height:30,  width:300, color: "#FFFFFF", fontSize: 16, lineHeight:18, textAlign: 'center' , }} ellipsizeMode={'tail'} numberOfLines={1} >
 
-                                      var ggg = this.getRandomInt(2, 12);
+                                                                    {item}
+                                                                </Text>
+                                                            </View>
+                                                        </Row>
+                                                    )
+                                                }
+                                            )
+                                        }
+                                    </Grid>
 
-                                      this.state.columnTotal1 = this.state.columnTotal1 + ggg;
+                                </View>
+                                <View
+                                    style={{ width:480, height:495, backgroundColor: 'rgba(0,0,0,0)',
+                            overflow:'hidden',flexDirection:'row'   }}>
+                                    <View
+                                        style={{ width:240, height:495, overflow: 'hidden',
+                                borderRadius:0, backgroundColor: '#000', padding:0,marginLeft:5 }}>
+                                        <Grid style={{ flex:1 }}>
+                                            {
 
-                                      for (var k = 0; k < ggg; k++) {
-                                          kray.push(<Svg height="16" width="17" key={k}>
-                                            <Rect
-                                                x="0"
-                                                y="0"
-                                                width="15"
-                                                height="15"
-                                                stroke="black"
-                                                strokeWidth="1"
-                                                fill="green"
-                                            />
-                                          </Svg>);
+                                                this.state.keywordArr.map((item, index) => {
+                                                        var itemString = JSON.stringify(item);
 
-                                      }
+                                                        var kray = [];
+
+                                                        var rowValue = [];
+                                                        rowValue = this.state.dexPlus[item]
+                                                        var itr = {};
+                                                        itr = _.head(rowValue);
+
+                                                        if(_.isUndefined(itr)){
+
+                                                        }else{
+                                                            var tempScore = _.toInteger(itr.SCORE);
+                                                            console.log('00000000000000 DEXPLUS rowValue : ' + JSON.stringify(itr) );
+                                                            console.log('00000000000000 DEXPLUS rowValue SCORE: ' + _.toString(tempScore) );
+                                                            for (var k = 0; k < tempScore; k++) {
+                                                                kray.push(<Svg height="16" width="17" key={k}>
+                                                                    <Rect
+                                                                        x="0"
+                                                                        y="0"
+                                                                        width="15"
+                                                                        height="15"
+                                                                        stroke="black"
+                                                                        strokeWidth="1"
+                                                                        fill="green"
+                                                                    />
+                                                                </Svg>);
+                                                            }
+                                                            this.state.columnTotal1 = this.state.columnTotal1 +  _.toInteger(tempScore);
+                                                            tempScore = null;
+                                                        }
 
 
-                                      return (
-                                          <Row style={{ backgroundColor: '#454545', height: 30 ,marginBottom: 4 }} key={index}>
-                                            <View key={index}
-                                                  style={{  height:30,  width:200,
+                                                        return (
+                                                            <Row
+                                                                style={{ backgroundColor: '#454545', height: 30 ,marginBottom: 2 }}
+                                                                key={index}>
+                                                                <View key={index}
+                                                                      style={{  height:30,  width:240,
                                                                 backgroundColor: "rgba(0,0,0,0)",
                                                             }}>
 
-                                              <View style={{
+                                                                    <View style={{
                                                                 flex: 1,
                                                                 flexDirection: 'row',
                                                                 alignItems: 'flex-start',
+                                                                marginTop:3
                                                                 }}>
-                                                  { kray }
-                                              </View>
-                                            </View>
-                                          </Row>
-                                      )
-                                  }
-                              )
-                          }
-                        <Row style={{ backgroundColor: '#454545', height: 30,marginBottom: 4 }} key={99}>
-                          <View style={{
+                                                                        { kray }
+                                                                    </View>
+                                                                </View>
+                                                            </Row>
+                                                        )
+                                                    }
+                                                )
+                                            }
+                                            <Row style={{ backgroundColor: '#454545', height: 30,marginBottom: 4 }}
+                                                 key={99}>
+                                                <View style={{
                                             flex: 1,
                                             flexDirection: 'row',
                                             alignItems: 'flex-start',
                                             }}>
-                            <Text
-                                style={{color:'#FFFFFF', fontSize: 20, textAlign: 'center'}}> {this.state.columnTotal1 } </Text>
-                          </View>
-                        </Row>
-                      </Grid>
-                    </View>
-                    <View
-                        style={{ width:200, height:400, overflow: 'hidden',
-                                borderRadius:0, backgroundColor: '#0000', padding:0, marginLeft:5 }} >
-                      <Grid style={{ flex:1 }}>
-                          {
-                              this.state.keywordArr.map((item, index) => {
-                                      var itemString = JSON.stringify(item);
+                                                    <Text
+                                                        style={{color:'#FFFFFF', fontSize: 20, textAlign: 'center'}}> {this.state.columnTotal1 } </Text>
+                                                </View>
+                                            </Row>
+                                        </Grid>
+                                    </View>
+                                    <View
+                                        style={{ width:240, height:495, overflow: 'hidden',
+                                borderRadius:0, backgroundColor: '#0000', padding:0, marginLeft:5 }}>
+                                        <Grid style={{ flex:1 }}>
+                                            {
+                                                this.state.keywordArr.map((item, index) => {
+                                                        var itemString = JSON.stringify(item);
 
-                                      var kray = [];
+                                                        var kray = [];
 
-                                      var ggg = this.getRandomInt(2, 12);
-                                      this.state.columnTotal2 = this.state.columnTotal2 + ggg;
+                                                        var rowValue = [];
+                                                        rowValue = this.state.dexPrem[item]
+                                                        var itr = {};
+                                                        itr = _.head(rowValue);
 
-                                      for (var k = 0; k < ggg; k++) {
-                                          kray.push(<Svg height="16" width="17" key={k}>
-                                            <Rect
-                                                x="0"
-                                                y="0"
-                                                width="15"
-                                                height="15"
-                                                stroke="black"
-                                                strokeWidth="1"
-                                                fill="green"
-                                            />
-                                          </Svg>);
+                                                        if(_.isUndefined(itr)){
 
-                                      }
+                                                        }else{
+                                                            var tempScore = _.toInteger(itr.SCORE);
+                                                            console.log('00000000000000 DEXPREM rowValue : ' + JSON.stringify(itr) );
+                                                            console.log('00000000000000 DEXPREM rowValue SCORE: ' + _.toString(tempScore) );
+                                                            for (var k = 0; k < tempScore; k++) {
+                                                                kray.push(<Svg height="16" width="17" key={k}>
+                                                                    <Rect
+                                                                        x="0"
+                                                                        y="0"
+                                                                        width="15"
+                                                                        height="15"
+                                                                        stroke="black"
+                                                                        strokeWidth="1"
+                                                                        fill="green"
+                                                                    />
+                                                                </Svg>);
+                                                            }
+                                                            this.state.columnTotal2 = this.state.columnTotal2 +  _.toInteger(tempScore);
+                                                            tempScore = null;
+                                                        }
 
-
-                                      return (
-                                          <Row style={{ backgroundColor: '#454545', height: 30,marginBottom: 4 }}
-                                               key={index}>
-                                            <View key={index}
-                                                  style={{  height:30,  width:200,
+                                                        return (
+                                                            <Row
+                                                                style={{ backgroundColor: '#454545', height: 30,marginBottom: 2 }}
+                                                                key={index}>
+                                                                <View key={index}
+                                                                      style={{  height:30,  width:240,
                                                                 backgroundColor: "rgba(0,0,0,0)",
                                                             }}>
 
-                                              <View style={{
+                                                                    <View style={{
                                                                     flex: 1,
                                                                     flexDirection: 'row',
                                                                     alignItems: 'flex-start',
+                                                                     marginTop:3
                                                                     }}>
-                                                  { kray }
-                                              </View>
-                                            </View>
-                                          </Row>
-                                      )
-                                  }
-                              )
-                          }
-                      </Grid>
-                    </View>
-                  </View>
-                </View>
-              </Content>
+                                                                        { kray }
+                                                                    </View>
+                                                                </View>
+                                                            </Row>
+                                                        )
+                                                    }
+                                                )
+                                            }
+                                            <Row style={{ backgroundColor: '#454545', height: 30,marginBottom: 4 }}
+                                                 key={99}>
+                                                <View style={{
+                                            flex: 1,
+                                            flexDirection: 'row',
+                                            alignItems: 'flex-start',
+                                            }}>
+                                                    <Text
+                                                        style={{color:'#FFFFFF', fontSize: 20, textAlign: 'center'}}> {this.state.columnTotal2 } </Text>
+                                                </View>
+                                            </Row>
+                                        </Grid>
+                                    </View>
+                                </View>
+                            </View>
+                            <View style={{ height:120, paddingTop:8, flexDirection: 'column', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.5)'}}>
+                                <Text style={{flex:1, flexDirection: 'row', textAlign: 'center' ,
+                   color:'#ABABAB',  fontSize: 18 }}>
+                                    keywords for <Text
+                                    style={{ color:'#ff00ff', fontSize: 22, fontWeight:'700'  }}>{this.state.selectedCategory}</Text>
+                                    @ <Text style={{ color:'#0000FF', fontSize: 22, fontWeight:'bold'  }}>
+                                    {this.state.selectedCity}</Text>
+                                </Text>
+                                <Text style={{flex:1, lineHeight:12, flexDirection: 'row', textAlign: 'left' ,
+                   color:'#ABABAB',  fontSize: 11 }}>
+                                    This is a service message for users and disclosure.  This is a service message for users and disclosure.
+                                 This is a service message for users and disclosure.  This is a service message for users and disclosure.
+                                 This is a service message for users and disclosure.  This is a service message for users and disclosure.
+                                 This is a service message for users and disclosure. </Text>
 
-                {/*<Footer >*/}
-                {/*<FooterTab>*/}
-                {/*<Button active={this.state.tab1} onPress={() => this.toggleTab1()} >*/}
-                {/*Apps*/}
-                {/*<Icon name="ios-apps-outline" />*/}
-                {/*</Button>*/}
-                {/*<Button active={this.state.tab2} onPress={() => this.toggleTab2()} >*/}
-                {/*Camera*/}
-                {/*<Icon name="ios-camera-outline" />*/}
-                {/*</Button>*/}
-                {/*<Button active={this.state.tab3} onPress={() => this.toggleTab3()} >*/}
-                {/*Navigate*/}
-                {/*<Icon name="ios-compass" />*/}
-                {/*</Button>*/}
-                {/*<Button active={this.state.tab4} onPress={() => this.toggleTab4()} >*/}
-                {/*Contact*/}
-                {/*<Icon name="ios-contact-outline" />*/}
-                {/*</Button>*/}
-                {/*</FooterTab>*/}
-                {/*</Footer>*/}
+                            </View>
+                        </View>
+                    </Image>
+                </Content>
             </Container>
         );
     }
@@ -627,3 +739,7 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, bindAction)(NHButton);
+
+
+
+

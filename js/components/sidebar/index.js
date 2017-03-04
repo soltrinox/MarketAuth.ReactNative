@@ -48,12 +48,12 @@ class SideBar extends Component {
               <Text style={styles.text}>  </Text>
             </View>
           </ListItem>
-          <ListItem button iconLeft onPress={() => this.navigateTo('anatomy')} >
+          <ListItem button  onPress={() => this.navigateTo('anatomy')} >
             <View style={styles.listItemContainer2}>
               {/*<View style={[styles.iconContainer, { backgroundColor: '#00000000', paddingLeft: 1 }]}>*/}
                 {/*<Icon name="ios-grid" style={styles.sidebarIcon} />*/}
               {/*</View>*/}
-              <Text style={styles.text}>Google Page One</Text>
+              <Text style={styles.text}>Page One</Text>
             </View>
           </ListItem>
           <ListItem button iconLeft >
@@ -64,12 +64,12 @@ class SideBar extends Component {
               <Text style={styles.text}>  </Text>
             </View>
           </ListItem>
-          <ListItem button iconLeft onPress={() => this.navigateTo('button')} >
+          <ListItem button  onPress={() => this.navigateTo('button')} >
             <View style={styles.listItemContainer2}>
               {/*<View style={[styles.iconContainer, { backgroundColor: '#00000000', paddingLeft: 1 }]}>*/}
                 {/*<Icon name="ios-document-outline" style={styles.sidebarIcon} />*/}
               {/*</View>*/}
-              <Text style={styles.text}>Page #2</Text>
+              <Text style={styles.text}>Performance</Text>
             </View>
           </ListItem>
           <ListItem button iconLeft  >
@@ -80,12 +80,12 @@ class SideBar extends Component {
               <Text style={styles.text}></Text>
             </View>
           </ListItem>
-          <ListItem button iconLeft  >
-            <View style={styles.listItemContainer}>
-              <View style={[styles.iconContainer, { backgroundColor: '#00000000' }]}>
+          <ListItem button  onPress={() => this.navigateTo('layout')} >
+            <View style={styles.listItemContainer2}>
+              {/*<View style={[styles.iconContainer, { backgroundColor: '#00000000' }]}>*/}
 
-              </View>
-              <Text style={styles.text}></Text>
+              {/*</View>*/}
+              <Text style={styles.text}>Call Count</Text>
             </View>
           </ListItem>
           <ListItem button iconLeft  >

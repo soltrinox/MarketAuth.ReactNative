@@ -7,7 +7,7 @@ function wp (percentage) {
   return Math.round(value);
 }
 
-const slideHeight = 400; //viewportHeight * 0.4;
+const slideHeight = 495; //viewportHeight * 0.4;
 const slideWidth = 350; //wp(75);
 
 export const sliderWidth = 350;

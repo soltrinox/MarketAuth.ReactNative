@@ -36,7 +36,8 @@ module.exports = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center',
         backgroundColor: '#454545',
-        marginBottom:6
+        marginBottom:6,
+        paddingLeft:4
     },
   listItemContainer: {
       height: 60,

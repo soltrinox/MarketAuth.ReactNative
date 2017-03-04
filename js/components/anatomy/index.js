@@ -342,7 +342,8 @@ class Anatomy extends React.Component {
         this.state.categoriesArr.sort();
         this.state.keywordArr = [...new Set(test.map(item => item.KEY))];
         this.state.keywordArr.sort();
-        this.state.keywordArr = this.state.keywordArr.slice(700, 710);
+        this.state.keywordArr = ["Select Category","Select Category","Select Category","Select Category","Select Category","Select Category","Select Category","Select Category","Select Category","Select Category"];
+            // this.state.keywordArr.slice(700, 710);
 
         // this._addDexBasc( { cat: 'generic', keysz:  this.state.keywordArr.slice(700, 710) });
         // this._addDexPlus( { cat: 'generic', keysz:  this.state.keywordArr.slice(700, 710) });
@@ -458,6 +459,7 @@ class Anatomy extends React.Component {
                                 style={{
                                   body: null,
                                   option: null,
+                                  color: '#FFF'
                                 }}
                                 iconSize={20}
                                 iconColor="#eee"
