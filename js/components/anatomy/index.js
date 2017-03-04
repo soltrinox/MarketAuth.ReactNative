@@ -70,8 +70,8 @@ class Anatomy extends React.Component {
             columnTotal5: 0,
             columnTotal6: 0,
 
-            dexPrem : [],
-            dexPlus : [],
+            dexPrem: [],
+            dexPlus: [],
             dexBasc: [],
 
             domain1: 'test 1',
@@ -140,42 +140,42 @@ class Anatomy extends React.Component {
         this.setState({domainGridColumns: arrayz});
     }
 
-    _addDexPrem(catt , newObj){
+    _addDexPrem(catt, newObj) {
         var ttd = this.state.selectedCategory;
-        DB.dexPrem.add( { tdd : newObj} , function (added_data) {
+        DB.dexPrem.add({tdd: newObj}, function (added_data) {
             console.log('dexPrem added_data' + JSON.stringify(added_data));
         });
-        DB.dexPrem.get_all(function(result){
-            console.log('$$$$$$ get_all dexPrem: '+ JSON.stringify(result) );
+        DB.dexPrem.get_all(function (result) {
+            console.log('$$$$$$ get_all dexPrem: ' + JSON.stringify(result));
         });
     }
 
-    _addDexPlus(catt , newObj ){
+    _addDexPlus(catt, newObj) {
         var ttd = this.state.selectedCategory;
-        DB.dexPlus.add( {tdd : newObj}  , function (added_data) {
+        DB.dexPlus.add({tdd: newObj}, function (added_data) {
             console.log('dexPlus added_data' + JSON.stringify(added_data));
         });
-        DB.dexPlus.get_all(function(result){
-            console.log('$$$$$$ get_all dexPlus: '+ JSON.stringify(result) );
+        DB.dexPlus.get_all(function (result) {
+            console.log('$$$$$$ get_all dexPlus: ' + JSON.stringify(result));
         });
     }
 
-    _addDexBasc( catt , newObj ){
+    _addDexBasc(catt, newObj) {
         var ttd = this.state.selectedCategory;
-        DB.dexBasc.add( {tdd : newObj}  , function (added_data) {
+        DB.dexBasc.add({tdd: newObj}, function (added_data) {
             console.log('dexBasc added_data' + JSON.stringify(added_data));
         });
-        DB.dexBasc.get_all(function(result){
-            console.log('$$$$$$ get_all dexBasc: '+ JSON.stringify(result) );
+        DB.dexBasc.get_all(function (result) {
+            console.log('$$$$$$ get_all dexBasc: ' + JSON.stringify(result));
         });
     }
 
     _returnDataOnSelection(item, e) {
 
-        this.setState({ columnTotal1 : 0} );
-        this.setState({ columnTotal2 : 0} );
-        this.setState({ columnTotal3 : 0} );
-        this.setState({ columnTotal4 : 0} );
+        this.setState({columnTotal1: 0});
+        this.setState({columnTotal2: 0});
+        this.setState({columnTotal3: 0});
+        this.setState({columnTotal4: 0});
 
         console.log('SELECT CAT NAME : ' + JSON.stringify(e));
         this.setState({selectedCategory: e.value});
@@ -198,26 +198,26 @@ class Anatomy extends React.Component {
         var testDomains = _.orderBy(resultXXX, ['KEY', 'SCORE'], ['asc', 'desc']);
         // console.log('########### MATCHED DOMAINS BY KEY : ' + JSON.stringify(testDomains));
 
-           var dexPremObj = [];
-           var dexPlusObj = [];
-           var dexBascObj = [];
+        var dexPremObj = [];
+        var dexPlusObj = [];
+        var dexBascObj = [];
 
-        _.forEach(kkt, function(value) {
+        _.forEach(kkt, function (value) {
             var keysByCat = [];
-            keysByCat = _.filter(test, {"CAT": catName, "KEY": value });
-            _.forEach(keysByCat, function(value) {
+            keysByCat = _.filter(test, {"CAT": catName, "KEY": value});
+            _.forEach(keysByCat, function (value) {
                 var value2 = value;
-                 // console.log('\n\n===============\n\n DOM: ' + JSON.stringify(value.DOM) );
-                if(_.isEqual(value2.DOM , "Dex ESS Premium")){
-                    console.log('\n\n===============\n\n FOUND: ' + JSON.stringify(value2.DOM) + ' @ ' + value2.KEY+ ' <- ' + value2.SCORE  );
+                // console.log('\n\n===============\n\n DOM: ' + JSON.stringify(value.DOM) );
+                if (_.isEqual(value2.DOM, "Dex ESS Premium")) {
+                    console.log('\n\n===============\n\n FOUND: ' + JSON.stringify(value2.DOM) + ' @ ' + value2.KEY + ' <- ' + value2.SCORE);
                     dexPremObj.push(value2);
                 }
-                if(_.isEqual(value2.DOM , "Dex ESS Plus")) {
-                    console.log('\n\n===============\n\n FOUND: ' + JSON.stringify(value2.DOM)+ ' @ ' + value2.KEY+ ' <- ' + value2.SCORE  );
+                if (_.isEqual(value2.DOM, "Dex ESS Plus")) {
+                    console.log('\n\n===============\n\n FOUND: ' + JSON.stringify(value2.DOM) + ' @ ' + value2.KEY + ' <- ' + value2.SCORE);
                     dexPlusObj.push(value2);
                 }
-                if(_.isEqual(value2.DOM , "Dex ESS Basic")) {
-                    console.log('\n\n===============\n\n FOUND: ' + JSON.stringify(value2.DOM)+ ' @ ' + value2.KEY+ ' <- ' + value2.SCORE  );
+                if (_.isEqual(value2.DOM, "Dex ESS Basic")) {
+                    console.log('\n\n===============\n\n FOUND: ' + JSON.stringify(value2.DOM) + ' @ ' + value2.KEY + ' <- ' + value2.SCORE);
                     dexBascObj.push(value2);
                 }
             });
@@ -228,24 +228,23 @@ class Anatomy extends React.Component {
         var tabPlus = {};
         var tabBasc = {};
 
-        _.forEach(kkt, function(value) {
-            console.log('XXXXXXXXXXX value @ '+ JSON.stringify(value));
-            tabPrem[value] = _.filter(dexPremObj, {"DOM": "Dex ESS Premium", "KEY": value });
-            tabPlus[value] = _.filter(dexPlusObj, {"DOM": "Dex ESS Plus", "KEY": value });
-            tabBasc[value] = _.filter(dexBascObj, {"DOM": "Dex ESS Basic", "KEY": value });
+        _.forEach(kkt, function (value) {
+            console.log('XXXXXXXXXXX value @ ' + JSON.stringify(value));
+            tabPrem[value] = _.filter(dexPremObj, {"DOM": "Dex ESS Premium", "KEY": value});
+            tabPlus[value] = _.filter(dexPlusObj, {"DOM": "Dex ESS Plus", "KEY": value});
+            tabBasc[value] = _.filter(dexBascObj, {"DOM": "Dex ESS Basic", "KEY": value});
         });
 
         // console.log('XXXXXXXXXXX tabPrem @ '+ JSON.stringify(tabPrem));
         // console.log('XXXXXXXXXXX tabPlus @ '+ JSON.stringify(tabPlus));
         // console.log('XXXXXXXXXXX tabBasc @ '+ JSON.stringify(tabBasc));
 
-        this.setState({dexPrem : tabPrem });
-        console.log('@@@@@@@ dexPrem @ '+ JSON.stringify(tabPrem));
-        this.setState({dexPlus : tabPlus });
-        console.log('@@@@@@@ dexPlus @ '+ JSON.stringify(tabPlus));
-        this.setState({dexBasc : tabBasc });
-        console.log('@@@@@@@ dexBasc @ '+ JSON.stringify(tabBasc));
-
+        this.setState({dexPrem: tabPrem});
+        console.log('@@@@@@@ dexPrem @ ' + JSON.stringify(tabPrem));
+        this.setState({dexPlus: tabPlus});
+        console.log('@@@@@@@ dexPlus @ ' + JSON.stringify(tabPlus));
+        this.setState({dexBasc: tabBasc});
+        console.log('@@@@@@@ dexBasc @ ' + JSON.stringify(tabBasc));
 
 
         // var ttc = _.toString(this.state.selectedCategory);
@@ -257,50 +256,49 @@ class Anatomy extends React.Component {
 
         var devPremUpdate = {};
         devPremUpdate[catName] = dexPremObj;
-        DB.dexPrem.add(devPremUpdate, function(added_data){
-            console.log('dexPrem = '+ JSON.stringify(added_data));
+        DB.dexPrem.add(devPremUpdate, function (added_data) {
+            console.log('dexPrem = ' + JSON.stringify(added_data));
         });
 
         var devPlusUpdate = {};
         devPlusUpdate[catName] = dexPlusObj;
-        DB.dexPlus.add( devPlusUpdate, function(added_data){
-            console.log('dexPlus = '+ JSON.stringify(added_data));
+        DB.dexPlus.add(devPlusUpdate, function (added_data) {
+            console.log('dexPlus = ' + JSON.stringify(added_data));
         });
 
         var devBascUpdate = {};
         devBascUpdate[catName] = dexBascObj;
-        DB.dexBasc.add( devBascUpdate, function(added_data){
-            console.log('dexBasc = '+ JSON.stringify(added_data));
+        DB.dexBasc.add(devBascUpdate, function (added_data) {
+            console.log('dexBasc = ' + JSON.stringify(added_data));
         });
 
 
-        DB.dexBasc.get_all(function(result){
-            console.log('$$$$$$ dexBasc get_all : '+ result.catName + ' @ '+ JSON.stringify(result) );
+        DB.dexBasc.get_all(function (result) {
+            console.log('$$$$$$ dexBasc get_all : ' + result.catName + ' @ ' + JSON.stringify(result));
         });
 
-        DB.dexPlus.get_all(function(result){
-            console.log('$$$$$$ dexPlus get_all : '+ result.catName + ' @ '+ JSON.stringify(result) );
+        DB.dexPlus.get_all(function (result) {
+            console.log('$$$$$$ dexPlus get_all : ' + result.catName + ' @ ' + JSON.stringify(result));
         });
 
-        DB.dexPrem.get_all(function(result){
-            console.log('$$$$$$ dexPrem get_all : '+ result.catName + ' @ '+ JSON.stringify(result) );
+        DB.dexPrem.get_all(function (result) {
+            console.log('$$$$$$ dexPrem get_all : ' + result.catName + ' @ ' + JSON.stringify(result));
         });
 
     }
 
 
-    _addDexObj(nObj){
-        DB.domains.add(nObj , function (added_data) {
+    _addDexObj(nObj) {
+        DB.domains.add(nObj, function (added_data) {
             console.log('%%%%%% added_data' + JSON.stringify(added_data));
         });
-        DB.domains.get_all(function(result){
-            console.log('$$$$$$ get_all : '+ JSON.stringify(result) );
+        DB.domains.get_all(function (result) {
+            console.log('$$$$$$ get_all : ' + JSON.stringify(result));
         });
 
     }
 
     _domainData() {
-
 
 
         var testJSON = require('./PHX.001.json');
@@ -342,13 +340,12 @@ class Anatomy extends React.Component {
         this.state.categoriesArr.sort();
         this.state.keywordArr = [...new Set(test.map(item => item.KEY))];
         this.state.keywordArr.sort();
-        this.state.keywordArr = ["Select Category","Select Category","Select Category","Select Category","Select Category","Select Category","Select Category","Select Category","Select Category","Select Category"];
-            // this.state.keywordArr.slice(700, 710);
+        this.state.keywordArr = ["Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category"];
+        // this.state.keywordArr.slice(700, 710);
 
         // this._addDexBasc( { cat: 'generic', keysz:  this.state.keywordArr.slice(700, 710) });
         // this._addDexPlus( { cat: 'generic', keysz:  this.state.keywordArr.slice(700, 710) });
         // this._addDexPrem( { cat: 'generic', keysz:  this.state.keywordArr.slice(700, 710) });
-
 
 
         var happy = [];
@@ -378,16 +375,16 @@ class Anatomy extends React.Component {
         // NOW THAT THE ARRAYS ARE POPULATED  LOOK INSIDE
 
 
-        DB.dexBasc.get_all(function(result){
-            console.log('$$$$$$ dexBasc get_all : '+ JSON.stringify(result) );
+        DB.dexBasc.get_all(function (result) {
+            console.log('$$$$$$ dexBasc get_all : ' + JSON.stringify(result));
         });
 
-        DB.dexPlus.get_all(function(result){
-            console.log('$$$$$$ dexPlus get_all : '+ JSON.stringify(result) );
+        DB.dexPlus.get_all(function (result) {
+            console.log('$$$$$$ dexPlus get_all : ' + JSON.stringify(result));
         });
 
-        DB.dexPrem.get_all(function(result){
-            console.log('$$$$$$ dexPrem get_all : '+ JSON.stringify(result) );
+        DB.dexPrem.get_all(function (result) {
+            console.log('$$$$$$ dexPrem get_all : ' + JSON.stringify(result));
         });
 
         console.log("Test Model", DeviceInfo.getModel());
@@ -397,11 +394,11 @@ class Anatomy extends React.Component {
 
     }
 
-    componentDidMount(){
-        this.setState({ columnTotal1 : 0} );
-        this.setState({ columnTotal2 : 0} );
-        this.setState({ columnTotal3 : 0} );
-        this.setState({ columnTotal4 : 0} );
+    componentDidMount() {
+        this.setState({columnTotal1: 0});
+        this.setState({columnTotal2: 0});
+        this.setState({columnTotal3: 0});
+        this.setState({columnTotal4: 0});
         // DB.dexBasc.erase_db(function(removed_data){
         //     console.log(removed_data);
         // });
@@ -413,9 +410,6 @@ class Anatomy extends React.Component {
         // });
 
 
-
-
-
     }
 
     getRandomInt(min, max) {
@@ -424,10 +418,10 @@ class Anatomy extends React.Component {
         return Math.floor(Math.random() * (max - min)) + min;
     }
 
-    _renderPicker(){
+    _renderPicker() {
         this.state.categoriesArr.map((item, index) => {
                 var itemString = JSON.stringify(item);
-                return ( <Picker.Item label={itemString} value={itemString} key={index} /> )
+                return ( <Picker.Item label={itemString} value={itemString} key={index}/> )
             }
         )
     }
@@ -482,9 +476,13 @@ class Anatomy extends React.Component {
                         source={require('./img001.png')}
                         resizeMode={Image.resizeMode.stretch}
                     >
-                        <View style={{ height:666, flexDirection: 'column', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.85)'}}>
-                            <View style={{height:null,  flex:1, flexDirection:'row', justifyContent:'flex-start', marginLeft:0,  backgroundColor: 'rgba(0,0,0,0.0)',  }}>
-                                <Text   style={{ marginTop:20, width:400, height:40,overflow:'hidden', color:'#00ff00', lineHeight:38, fontSize: 36, fontWeight:'bold' , paddingLeft:20, textAlign: 'left', backgroundColor: 'rgba(0,0,0,0.5)',  }} ellipsizeMode={'tail'} numberOfLines={1}>
+                        <View
+                            style={{ height:666, flexDirection: 'column', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.85)'}}>
+                            <View
+                                style={{height:null,  flex:1, flexDirection:'row', justifyContent:'flex-start', marginLeft:0,  backgroundColor: 'rgba(0,0,0,0.0)',  }}>
+                                <Text
+                                    style={{ marginTop:20, width:400, height:40,overflow:'hidden', color:'#00ff00', lineHeight:38, fontSize: 36, fontWeight:'bold' , paddingLeft:20, textAlign: 'left', backgroundColor: 'rgba(0,0,0,0.5)',  }}
+                                    ellipsizeMode={'tail'} numberOfLines={1}>
                                     {this.state.selectedCategory}
                                 </Text>
                                 <Text style={{ marginTop:20, width:400, height:40,overflow:'hidden', color:'#ffffff', lineHeight:38, fontSize: 36, fontWeight:'bold' , paddingRight:20, textAlign: 'right',
@@ -492,16 +490,21 @@ class Anatomy extends React.Component {
                                     {this.state.selectedCity}
                                 </Text>
                             </View>
-                            <View style={{ height:40, paddingTop:8, flexDirection: 'column',overflow:'hidden', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.0)'}}>
-                                <Text style={{flex:1, width:800, height:40, flexDirection: 'row', textAlign: 'center' , color:'#ABABAB',  fontSize: 22 }} ellipsizeMode={'tail'} numberOfLines={1}>
-                                    Top 10 Searches for   {this.state.selectedCategory}  in  {this.state.selectedCity}
+                            <View
+                                style={{ height:40, paddingTop:8, flexDirection: 'column',overflow:'hidden', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.0)'}}>
+                                <Text
+                                    style={{flex:1, width:800, height:40, flexDirection: 'row', textAlign: 'center' , color:'#ABABAB',  fontSize: 22 }}
+                                    ellipsizeMode={'tail'} numberOfLines={1}>
+                                    Top 10 Searches for {this.state.selectedCategory} in {this.state.selectedCity}
                                 </Text>
                             </View>
-                            <View style={{ height:62,  flexDirection:'row', justifyContent:'flex-start', backgroundColor: 'rgba(0,0,0,0)', marginLeft:5 }}>
+                            <View
+                                style={{ height:62,  flexDirection:'row', justifyContent:'flex-start', backgroundColor: 'rgba(0,0,0,0)', marginLeft:5 }}>
                                 <View
                                     style={{ width:300, height:62, overflow: 'hidden',
                                     borderRadius:0, backgroundColor: 'rgba(66,66,66,0.5)', marginRight:5, justifyContent:'center'}}>
-                                    <Text style={{ color:'#FFFFFF', fontSize: 24, lineHeight:28, fontWeight:'normal',textAlign:'center'  }}>
+                                    <Text
+                                        style={{ color:'#FFFFFF', fontSize: 24, lineHeight:28, fontWeight:'normal',textAlign:'center'  }}>
                                         SEARCH TERM</Text>
                                 </View>
                                 <View
@@ -510,18 +513,23 @@ class Anatomy extends React.Component {
                                     <View
                                         style={{ width:240, height:62, overflow: 'hidden',
                                 borderRadius:0, backgroundColor: 'rgba(66,66,66,0.5)', padding:0,marginLeft:5, justifyContent:'center' }}>
-                                        <Text style={{ color:'#FFFFFF', fontSize: 24,lineHeight:28, fontWeight:'normal',textAlign:'center'    }} ellipsizeMode={'tail'} numberOfLines={1}  >
+                                        <Text
+                                            style={{ color:'#FFFFFF', fontSize: 24,lineHeight:28, fontWeight:'normal',textAlign:'center'    }}
+                                            ellipsizeMode={'tail'} numberOfLines={1}>
                                             ESS PLUS</Text>
                                     </View>
                                     <View
                                         style={{ width:240, height:62, overflow: 'hidden',
                                 borderRadius:0, backgroundColor: 'rgba(66,66,66,0.5)', padding:0,marginLeft:5, justifyContent:'center' }}>
-                                        <Text style={{ color:'#FFFFFF', fontSize: 24,lineHeight:28, fontWeight:'normal',textAlign:'center'   }} ellipsizeMode={'tail'} numberOfLines={1}>
+                                        <Text
+                                            style={{ color:'#FFFFFF', fontSize: 24,lineHeight:28, fontWeight:'normal',textAlign:'center'   }}
+                                            ellipsizeMode={'tail'} numberOfLines={1}>
                                             ESS PREMIUM</Text>
                                     </View>
                                 </View>
                             </View>
-                            <View style={{ height:365, marginTop:5,  flexDirection:'row', overflow: 'hidden', justifyContent:'flex-start', backgroundColor: 'rgba(0,0,0,0)', marginLeft:5 }}>
+                            <View
+                                style={{ height:365, marginTop:5,  flexDirection:'row', overflow: 'hidden', justifyContent:'flex-start', backgroundColor: 'rgba(0,0,0,0)', marginLeft:5 }}>
                                 <View
                                     style={{ width:300, height:495, overflow: 'hidden', borderRadius:0, backgroundColor: 'rgba(0,0,0,0)', marginRight:5}}>
 
@@ -534,8 +542,10 @@ class Anatomy extends React.Component {
                                                             style={{ backgroundColor: '#454545', height: 30, marginBottom: 2,  justifyContent:'center' }}
                                                             key={index}>
                                                             <View
-                                                                  style={{  height:30,  width:300, backgroundColor: "rgba(0,0,0,0)",  justifyContent:'center' }}>
-                                                                <Text style={{ height:30,  width:300, color: "#FFFFFF", fontSize: 16, lineHeight:18, textAlign: 'center' , }} ellipsizeMode={'tail'} numberOfLines={1} >
+                                                                style={{  height:30,  width:300, backgroundColor: "rgba(0,0,0,0)",  justifyContent:'center' }}>
+                                                                <Text
+                                                                    style={{ height:30,  width:300, color: "#FFFFFF", fontSize: 16, lineHeight:18, textAlign: 'center' , }}
+                                                                    ellipsizeMode={'tail'} numberOfLines={1}>
 
                                                                     {item}
                                                                 </Text>
@@ -562,34 +572,35 @@ class Anatomy extends React.Component {
 
                                                         var kray = [];
 
-                                                    var rowValue = [];
-                                                    rowValue = this.state.dexPlus[item]
-                                                    var itr = {};
-                                                    itr = _.head(rowValue);
+                                                        var rowValue = [];
+                                                        rowValue = this.state.dexPlus[item];
+                                                        var itr = {};
+                                                        itr = _.head(rowValue);
 
-                                                    if(_.isUndefined(itr)){
+                                                        if (_.isUndefined(itr)) {
 
-                                                    }else{
-                                                        var tempScore = _.toInteger(itr.SCORE);
-                                                        console.log('00000000000000 DEXPLUS rowValue : ' + JSON.stringify(itr) );
-                                                        console.log('00000000000000 DEXPLUS rowValue SCORE: ' + _.toString(tempScore) );
-                                                        for (var k = 0; k < tempScore; k++) {
-                                                            kray.push(<Svg height="16" width="17" key={k}>
-                                                                <Rect
-                                                                    x="0"
-                                                                    y="0"
-                                                                    width="15"
-                                                                    height="15"
-                                                                    stroke="black"
-                                                                    strokeWidth="1"
-                                                                    fill="green"
-                                                                />
-                                                            </Svg>);
+                                                        } else {
+                                                            var tempScore = _.toInteger(itr.SCORE);
+                                                            console.log('00000000000000 DEXPLUS rowValue : ' + JSON.stringify(itr));
+                                                            console.log('00000000000000 DEXPLUS rowValue SCORE: ' + _.toString(tempScore));
+                                                            if(tempScore >= 1) {
+                                                                for (var k = 0; k < tempScore; k++) {
+                                                                    kray.push(<Svg height="16" width="17" key={k}>
+                                                                        <Rect
+                                                                            x="0"
+                                                                            y="0"
+                                                                            width="15"
+                                                                            height="15"
+                                                                            stroke="black"
+                                                                            strokeWidth="1"
+                                                                            fill="green"
+                                                                        />
+                                                                    </Svg>);
+                                                                }
+                                                            }
+                                                            this.state.columnTotal1 = this.state.columnTotal1 + _.toInteger(tempScore);
+                                                            tempScore = 0;
                                                         }
-                                                        this.state.columnTotal1 = this.state.columnTotal1 +  _.toInteger(tempScore);
-                                                        tempScore = null;
-                                                    }
-
 
                                                         return (
                                                             <Row
@@ -615,7 +626,7 @@ class Anatomy extends React.Component {
                                                 )
                                             }
                                             <Row style={{ backgroundColor: '#454545', height: 30,marginBottom: 4 }}
-                                                 key={99}>
+                                                 key={98}>
                                                 <View style={{
                                             flex: 1,
                                             flexDirection: 'row',
@@ -633,37 +644,40 @@ class Anatomy extends React.Component {
                                         <Grid style={{ flex:1 }}>
                                             {
                                                 this.state.keywordArr.map((item, index) => {
-                                                    var itemString = JSON.stringify(item);
+                                                        var itemString = JSON.stringify(item);
 
-                                                    var kray = [];
+                                                        var kray2 = [];
 
-                                                    var rowValue = [];
-                                                    rowValue = this.state.dexPrem[item]
-                                                    var itr = {};
-                                                    itr = _.head(rowValue);
+                                                        var rowValue2 = [];
+                                                        rowValue2 = this.state.dexPrem[item];
+                                                        var itr2 = {};
+                                                        itr2 = _.head(rowValue2);
 
-                                                    if(_.isUndefined(itr)){
+                                                        if (_.isUndefined(itr2)) {
 
-                                                    }else{
-                                                        var tempScore = _.toInteger(itr.SCORE);
-                                                        console.log('00000000000000 DEXPREM rowValue : ' + JSON.stringify(itr) );
-                                                        console.log('00000000000000 DEXPREM rowValue SCORE: ' + _.toString(tempScore) );
-                                                        for (var k = 0; k < tempScore; k++) {
-                                                            kray.push(<Svg height="16" width="17" key={k}>
-                                                                <Rect
-                                                                    x="0"
-                                                                    y="0"
-                                                                    width="15"
-                                                                    height="15"
-                                                                    stroke="black"
-                                                                    strokeWidth="1"
-                                                                    fill="green"
-                                                                />
-                                                            </Svg>);
+                                                        } else {
+                                                            var tempScore2 = _.toInteger(itr2.SCORE);
+                                                            console.log('00000000000000 DEXPREM rowValue : ' + JSON.stringify(itr2));
+                                                            console.log('00000000000000 DEXPREM rowValue SCORE: ' + _.toString(tempScore2));
+                                                            if(tempScore2 >= 1){
+                                                                for (var b = 0; b < tempScore2; b++) {
+                                                                    kray2.push(<Svg height="16" width="17" key={b}>
+                                                                        <Rect
+                                                                            x="0"
+                                                                            y="0"
+                                                                            width="15"
+                                                                            height="15"
+                                                                            stroke="black"
+                                                                            strokeWidth="1"
+                                                                            fill="green"
+                                                                        />
+                                                                    </Svg>);
+                                                                }
+                                                            }
+
+                                                            this.state.columnTotal2 = this.state.columnTotal2 + _.toInteger(tempScore2);
+                                                            tempScore2 = 0;
                                                         }
-                                                        this.state.columnTotal2 = this.state.columnTotal2 +  _.toInteger(tempScore);
-                                                        tempScore = null;
-                                                    }
 
                                                         return (
                                                             <Row
@@ -680,7 +694,7 @@ class Anatomy extends React.Component {
                                                                     alignItems: 'flex-start',
                                                                      marginTop:3
                                                                     }}>
-                                                                        { kray }
+                                                                        { kray2 }
                                                                     </View>
                                                                 </View>
                                                             </Row>
@@ -703,7 +717,8 @@ class Anatomy extends React.Component {
                                     </View>
                                 </View>
                             </View>
-                            <View style={{ height:120, paddingTop:8, flexDirection: 'column', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.5)'}}>
+                            <View
+                                style={{ height:120, paddingTop:8, flexDirection: 'column', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.5)'}}>
                                 <Text style={{flex:1, flexDirection: 'row', textAlign: 'center' ,
                    color:'#ABABAB',  fontSize: 18 }}>
                                     keywords for <Text
