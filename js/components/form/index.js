@@ -95,8 +95,8 @@ class NHForm extends Component {
                 />
               </InputGroup>
             </ListItem>
-            <ListItem iconLeft>
-              <Icon name="ios-transgender" style={{ color: '#0A69FE' }} />
+            <ListItem >
+
               <Text>GENDER</Text>
               <Picker
                 iosHeader="Select one"

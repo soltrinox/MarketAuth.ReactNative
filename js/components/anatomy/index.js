@@ -69,6 +69,11 @@ class Anatomy extends React.Component {
             columnTotal4: 0,
             columnTotal5: 0,
             columnTotal6: 0,
+
+            dexPrem : [],
+            dexPlus : [],
+            dexBasc: [],
+
             domain1: 'test 1',
             domain2: 'test 1',
             domain3: 'test 1',
@@ -135,12 +140,46 @@ class Anatomy extends React.Component {
         this.setState({domainGridColumns: arrayz});
     }
 
+    _addDexPrem(catt , newObj){
+        var ttd = this.state.selectedCategory;
+        DB.dexPrem.add( { tdd : newObj} , function (added_data) {
+            console.log('dexPrem added_data' + JSON.stringify(added_data));
+        });
+        DB.dexPrem.get_all(function(result){
+            console.log('$$$$$$ get_all dexPrem: '+ JSON.stringify(result) );
+        });
+    }
+
+    _addDexPlus(catt , newObj ){
+        var ttd = this.state.selectedCategory;
+        DB.dexPlus.add( {tdd : newObj}  , function (added_data) {
+            console.log('dexPlus added_data' + JSON.stringify(added_data));
+        });
+        DB.dexPlus.get_all(function(result){
+            console.log('$$$$$$ get_all dexPlus: '+ JSON.stringify(result) );
+        });
+    }
+
+    _addDexBasc( catt , newObj ){
+        var ttd = this.state.selectedCategory;
+        DB.dexBasc.add( {tdd : newObj}  , function (added_data) {
+            console.log('dexBasc added_data' + JSON.stringify(added_data));
+        });
+        DB.dexBasc.get_all(function(result){
+            console.log('$$$$$$ get_all dexBasc: '+ JSON.stringify(result) );
+        });
+    }
+
     _returnDataOnSelection(item, e) {
+
+
 
         this.setState({ columnTotal1 : 0} );
         this.setState({ columnTotal2 : 0} );
         this.setState({ columnTotal3 : 0} );
         this.setState({ columnTotal4 : 0} );
+
+
 
         console.log('SELECT CAT NAME : ' + JSON.stringify(e));
         this.setState({selectedCategory: e.value});
@@ -152,7 +191,7 @@ class Anatomy extends React.Component {
         var kkt = [];
         kkt = [...new Set(trr.map(item => item.KEY))];
         kkt.sort();
-        this.setState({keywordArr: kkt})
+        this.setState({keywordArr: kkt});
         this.setState({dataObjects: upp});
 
         // console.log('########### DOMAINS BY KEY ON : ' + JSON.stringify(kkt));
@@ -163,44 +202,80 @@ class Anatomy extends React.Component {
         var testDomains = _.orderBy(resultXXX, ['KEY', 'SCORE'], ['asc', 'desc']);
         // console.log('########### MATCHED DOMAINS BY KEY : ' + JSON.stringify(testDomains));
 
-        _.forEach(kkt, function(value) {
+           var dexPremObj = [];
+           var dexPlusObj = [];
+           var dexBascObj = [];
 
+        _.forEach(kkt, function(value) {
             var keysByCat = [];
             keysByCat = _.filter(test, {"CAT": catName, "KEY": value });
-            _.forEach(keysByCat, function(value2) {
-                // console.log('\n\n===============\n\n DOM: ' + JSON.stringify(value.DOM) );
+            _.forEach(keysByCat, function(value) {
+                var value2 = value;
+                 // console.log('\n\n===============\n\n DOM: ' + JSON.stringify(value.DOM) );
                 if(_.isEqual(value2.DOM , "Dex ESS Premium")){
                     console.log('\n\n===============\n\n FOUND: ' + JSON.stringify(value2.DOM) + ' @ ' + value2.KEY+ ' <- ' + value2.SCORE  );
+                    dexPremObj.push(value2);
                 }
                 if(_.isEqual(value2.DOM , "Dex ESS Plus")) {
                     console.log('\n\n===============\n\n FOUND: ' + JSON.stringify(value2.DOM)+ ' @ ' + value2.KEY+ ' <- ' + value2.SCORE  );
+                    dexPlusObj.push(value2);
                 }
                 if(_.isEqual(value2.DOM , "Dex ESS Basic")) {
                     console.log('\n\n===============\n\n FOUND: ' + JSON.stringify(value2.DOM)+ ' @ ' + value2.KEY+ ' <- ' + value2.SCORE  );
+                    dexBascObj.push(value2);
                 }
             });
-
-
-
         });
 
+        this.setState({dexPrem : dexPremObj });
+        this.setState({dexPlus : dexPlusObj });
+        this.setState({dexBasc : dexBascObj });
+
+
+        // var ttc = _.toString(this.state.selectedCategory);
+        // this._addDexBasc( this.state.selectedCategory, dexBascObj  );
+        // this._addDexPlus( this.state.selectedCategory,  dexPlusObj );
+        // this._addDexPrem( this.state.selectedCategory, dexPremObj );
+        catName = e.value;
 
 
 
-        DB.domains.get({first_name: "DYLAN"}, function (results) {
+        var devPremUpdate = {};
+        devPremUpdate[catName] = dexPremObj;
+        DB.dexPrem.add(devPremUpdate, function(added_data){
+            console.log('dexPrem = '+ JSON.stringify(added_data));
+        });
 
-            if (_.isEmpty(results)) {
-                console.log('no results : ' + results);
-                this._setData();
-            } else {
-                console.log('results : ' + JSON.stringify(results));
-            }
+        var devPlusUpdate = {};
+        devPlusUpdate[catName] = dexPlusObj;
+        DB.dexPlus.add( devPlusUpdate, function(added_data){
+            console.log('dexPlus = '+ JSON.stringify(added_data));
+        });
+
+        var devBascUpdate = {};
+        devBascUpdate[catName] = dexBascObj;
+        DB.dexBasc.add( devBascUpdate, function(added_data){
+            console.log('dexBasc = '+ JSON.stringify(added_data));
         });
 
     }
 
 
+
+    _addDexObj(nObj){
+        DB.domains.add(nObj , function (added_data) {
+            console.log('%%%%%% added_data' + JSON.stringify(added_data));
+        });
+        DB.domains.get_all(function(result){
+            console.log('$$$$$$ get_all : '+ JSON.stringify(result) );
+        });
+
+    }
+
     _domainData() {
+
+
+
         var testJSON = require('./PHX.001.json');
         this.state.dataObjects = {
             CATEGORY1: [
@@ -241,6 +316,13 @@ class Anatomy extends React.Component {
         this.state.keywordArr = [...new Set(test.map(item => item.KEY))];
         this.state.keywordArr.sort();
         this.state.keywordArr = this.state.keywordArr.slice(700, 710);
+
+        // this._addDexBasc( { cat: 'generic', keysz:  this.state.keywordArr.slice(700, 710) });
+        // this._addDexPlus( { cat: 'generic', keysz:  this.state.keywordArr.slice(700, 710) });
+        // this._addDexPrem( { cat: 'generic', keysz:  this.state.keywordArr.slice(700, 710) });
+
+
+
         var happy = [];
 
         for (var j = 0; j < this.state.categoriesArr.length; j++) {
@@ -255,10 +337,10 @@ class Anatomy extends React.Component {
         return this.state.dataObjects;
     }
 
-    _setData() {
-        DB.users.add({first_name: "TEST", age: 40}, function (added_data) {
-            console.log('added_data' + JSON.stringify(added_data));
-        });
+    _setUserData() {
+        // DB.users.add({first_name: "TEST", age: 40}, function (added_data) {
+        //     console.log('added_data' + JSON.stringify(added_data));
+        // });
     }
 
     componentWillMount() {
@@ -266,6 +348,9 @@ class Anatomy extends React.Component {
         var domains = [];
         domains = this._domainData();
         // NOW THAT THE ARRAYS ARE POPULATED  LOOK INSIDE
+
+
+
 
         console.log("Test Model", DeviceInfo.getModel());
         console.log("Device ID", DeviceInfo.getDeviceId());
@@ -278,6 +363,15 @@ class Anatomy extends React.Component {
         this.setState({ columnTotal2 : 0} );
         this.setState({ columnTotal3 : 0} );
         this.setState({ columnTotal4 : 0} );
+        // DB.dexBasc.erase_db(function(removed_data){
+        //     console.log(removed_data);
+        // });
+        // DB.dexPlus.erase_db(function(removed_data){
+        //     console.log(removed_data);
+        // });
+        // DB.dexPrem.erase_db(function(removed_data){
+        //     console.log(removed_data);
+        // });
     }
 
     getRandomInt(min, max) {
@@ -300,8 +394,6 @@ class Anatomy extends React.Component {
         // var pic = JSON.parse(tty);
         // console.log('this.state.clientColumnItems : '+JSON.stringify(this.state.clientColumnItems));
         const options = this.state.categoriesArr;
-
-
 
         return (
             <Container theme={myTheme} style={{ width : 800, backgroundColor: '#000000'}}>

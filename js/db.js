@@ -8,6 +8,9 @@ var DB = {
     "markets": new RNDBModel.create_db('markets'),
     "domains": new RNDBModel.create_db('domains'),
     "settings": new RNDBModel.create_db('settings'),
+    "dexPrem": new RNDBModel.create_db('dexPrem'),
+    "dexPlus": new RNDBModel.create_db('dexPlus'),
+    "dexBasc": new RNDBModel.create_db('dexBasc'),
 }
 
 module.exports = DB
