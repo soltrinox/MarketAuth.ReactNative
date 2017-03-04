@@ -172,14 +172,10 @@ class Anatomy extends React.Component {
 
     _returnDataOnSelection(item, e) {
 
-
-
         this.setState({ columnTotal1 : 0} );
         this.setState({ columnTotal2 : 0} );
         this.setState({ columnTotal3 : 0} );
         this.setState({ columnTotal4 : 0} );
-
-
 
         console.log('SELECT CAT NAME : ' + JSON.stringify(e));
         this.setState({selectedCategory: e.value});
@@ -537,7 +533,7 @@ class Anatomy extends React.Component {
                                                             key={index}>
                                                             <View
                                                                   style={{  height:30,  width:300, backgroundColor: "rgba(0,0,0,0)",  justifyContent:'center' }}>
-                                                                <Text style={{ height:30,  width:300, color: "#FFFFFF", fontSize: 14, textAlign: 'center' , }} ellipsizeMode={'tail'} numberOfLines={1} >
+                                                                <Text style={{ height:30,  width:300, color: "#FFFFFF", fontSize: 16, lineHeight:18, textAlign: 'center' , }} ellipsizeMode={'tail'} numberOfLines={1} >
 
                                                                     {item}
                                                                 </Text>
@@ -630,10 +626,21 @@ class Anatomy extends React.Component {
 
                                                         var kray = [];
 
-                                                        var ggg = this.getRandomInt(2, 12);
-                                                        this.state.columnTotal2 = this.state.columnTotal2 + ggg;
+                                                        {/*var ggg = this.getRandomInt(2, 12);*/}
+                                                        {/*this.state.columnTotal2 = this.state.columnTotal2 + ggg;*/}
 
-                                                        for (var k = 0; k < ggg; k++) {
+                                                        var rowValue = [];
+                                                    rowValue = this.state.dexPrem[item]
+                                                    var itr = {};
+                                                    itr = _.head(rowValue);
+
+                                                    if(_.isUndefined(itr)){
+
+                                                    }else{
+                                                        var tempScore = _.toInteger(itr.SCORE);
+                                                        console.log('00000000000000 DEXPREM rowValue : ' + JSON.stringify(itr) );
+                                                        console.log('00000000000000 DEXPREM rowValue SCORE: ' + _.toString(tempScore) );
+                                                        for (var k = 0; k < tempScore; k++) {
                                                             kray.push(<Svg height="16" width="17" key={k}>
                                                                 <Rect
                                                                     x="0"
@@ -645,9 +652,10 @@ class Anatomy extends React.Component {
                                                                     fill="green"
                                                                 />
                                                             </Svg>);
-
                                                         }
-
+                                                        this.state.columnTotal2 = this.state.columnTotal2 +  _.toInteger(tempScore);
+                                                        tempScore = null;
+                                                    }
 
                                                         return (
                                                             <Row
@@ -672,6 +680,17 @@ class Anatomy extends React.Component {
                                                     }
                                                 )
                                             }
+                                            <Row style={{ backgroundColor: '#454545', height: 30,marginBottom: 4 }}
+                                                 key={99}>
+                                                <View style={{
+                                            flex: 1,
+                                            flexDirection: 'row',
+                                            alignItems: 'flex-start',
+                                            }}>
+                                                    <Text
+                                                        style={{color:'#FFFFFF', fontSize: 20, textAlign: 'center'}}> {this.state.columnTotal2 } </Text>
+                                                </View>
+                                            </Row>
                                         </Grid>
                                     </View>
                                 </View>
