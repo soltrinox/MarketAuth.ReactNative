@@ -227,9 +227,29 @@ class Anatomy extends React.Component {
             });
         });
 
-        this.setState({dexPrem : dexPremObj });
-        this.setState({dexPlus : dexPlusObj });
-        this.setState({dexBasc : dexBascObj });
+
+        var tabPrem = {};
+        var tabPlus = {};
+        var tabBasc = {};
+
+        _.forEach(kkt, function(value) {
+            console.log('XXXXXXXXXXX value @ '+ JSON.stringify(value));
+            tabPrem[value] = _.filter(dexPremObj, {"DOM": "Dex ESS Premium", "KEY": value });
+            tabPlus[value] = _.filter(dexPlusObj, {"DOM": "Dex ESS Plus", "KEY": value });
+            tabBasc[value] = _.filter(dexBascObj, {"DOM": "Dex ESS Basic", "KEY": value });
+        });
+
+        // console.log('XXXXXXXXXXX tabPrem @ '+ JSON.stringify(tabPrem));
+        // console.log('XXXXXXXXXXX tabPlus @ '+ JSON.stringify(tabPlus));
+        // console.log('XXXXXXXXXXX tabBasc @ '+ JSON.stringify(tabBasc));
+
+        this.setState({dexPrem : tabPrem });
+        console.log('@@@@@@@ dexPrem @ '+ JSON.stringify(tabPrem));
+        this.setState({dexPlus : tabPlus });
+        console.log('@@@@@@@ dexPlus @ '+ JSON.stringify(tabPlus));
+        this.setState({dexBasc : tabBasc });
+        console.log('@@@@@@@ dexBasc @ '+ JSON.stringify(tabBasc));
+
 
 
         // var ttc = _.toString(this.state.selectedCategory);
