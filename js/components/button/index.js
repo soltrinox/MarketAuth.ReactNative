@@ -149,6 +149,8 @@ class NHButton extends React.Component {
 
     _returnDataOnSelection(item, e) {
 
+        var catName = e.value;
+
         this.setState({ columnTotal1 : 0} );
         this.setState({ columnTotal2 : 0} );
         this.setState({ columnTotal3 : 0} );
@@ -158,7 +160,7 @@ class NHButton extends React.Component {
         this.setState({selectedCategory: e.value});
         var test = _.orderBy(this.state.rawArr, ['CAT', 'KEY', 'SCORE'], ['asc', 'asc', 'desc']);
         var trr = [];
-        var catName = e.value;
+
         trr = _.filter(test, {"CAT": catName});
         var upp = {catName: trr};
         var kkt = [];
@@ -332,7 +334,7 @@ class NHButton extends React.Component {
         console.log("System Name", DeviceInfo.getSystemName());
 
         console.log("ORIG this.props.navigation.selectedNavCategory : " + this.props.navigation.selectedNavCategory );
-
+        this.state.selectedCategory = this.props.navigation.selectedNavCategory;
 
     }
 
@@ -341,7 +343,6 @@ class NHButton extends React.Component {
         this.setState({ columnTotal2 : 0} );
         this.setState({ columnTotal3 : 0} );
         this.setState({ columnTotal4 : 0} );
-
 
     }
 
