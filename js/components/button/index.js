@@ -482,7 +482,7 @@ class NHButton extends React.Component {
                         source={require('./proto.back.png')}
                         resizeMode={Image.resizeMode.stretch}
                     >
-                        <View style={{ opacity: 0,  height:666, flexDirection: 'column', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.85)'}}>
+                        <View style={{ opacity: 1.0,  height:666, flexDirection: 'column', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.85)'}}>
                             <View style={{height:null,  flex:1, flexDirection:'row', justifyContent:'flex-start', marginLeft:0,  backgroundColor: 'rgba(0,0,0,0.0)',  }}>
                                 <Text   style={{ marginTop:20, width:400, height:40,overflow:'hidden', color:'#00ff00', lineHeight:38, fontSize: 36, fontWeight:'bold' , paddingLeft:20, textAlign: 'left', backgroundColor: 'rgba(0,0,0,0.5)',  }} ellipsizeMode={'tail'} numberOfLines={1}>
                                     {this.state.selectedCategory}
@@ -502,7 +502,7 @@ class NHButton extends React.Component {
                                     style={{ width:300, height:62, overflow: 'hidden',
                                     borderRadius:0, backgroundColor: 'rgba(66,66,66,0.5)', marginRight:5, justifyContent:'center'}}>
                                     <Text style={{ color:'#FFFFFF', fontSize: 24, lineHeight:28, fontWeight:'normal',textAlign:'center'  }}>
-                                        SEARCH TERM</Text>
+                                        COVERAGE</Text>
                                 </View>
                                 <View
                                     style={{ width:480, height:62, backgroundColor: 'rgba(0,0,0,0)',
@@ -511,13 +511,13 @@ class NHButton extends React.Component {
                                         style={{ width:240, height:62, overflow: 'hidden',
                                 borderRadius:0, backgroundColor: 'rgba(66,66,66,0.5)', padding:0,marginLeft:5, justifyContent:'center' }}>
                                         <Text style={{ color:'#FFFFFF', fontSize: 24,lineHeight:28, fontWeight:'normal',textAlign:'center'    }} ellipsizeMode={'tail'} numberOfLines={1}  >
-                                            ESS PLUS</Text>
+                                            DOMAIN</Text>
                                     </View>
                                     <View
                                         style={{ width:240, height:62, overflow: 'hidden',
                                 borderRadius:0, backgroundColor: 'rgba(66,66,66,0.5)', padding:0,marginLeft:5, justifyContent:'center' }}>
                                         <Text style={{ color:'#FFFFFF', fontSize: 24,lineHeight:28, fontWeight:'normal',textAlign:'center'   }} ellipsizeMode={'tail'} numberOfLines={1}>
-                                            ESS PREMIUM</Text>
+                                            PAGE ONE</Text>
                                     </View>
                                 </View>
                             </View>
