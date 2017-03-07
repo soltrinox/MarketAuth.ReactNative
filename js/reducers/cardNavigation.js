@@ -8,8 +8,14 @@ const initialState = {
     {
       key: 'home',
       index: 0,
+
     },
   ],
+    selectedNavCategory: 'Accountant',
+    selectedNavDomain : 'www.domain.com',
+    dexNavPrem: [],
+    dexNavPlux: [],
+    dexNavBasc: [],
 };
 
 module.exports = cardStackReducer(initialState);

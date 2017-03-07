@@ -40,7 +40,14 @@ class NHButton extends React.Component {
 
     static propTypes = {
         openDrawer: React.PropTypes.func,
-        selectCategory: React.PropTypes.func,
+        navigation: React.PropTypes.shape({
+            key: React.PropTypes.string,
+            selectedNavCategory: React.PropTypes.string,
+            selectedNavDomain : React.PropTypes.string,
+            dexNavPrem: React.PropTypes.array,
+            dexNavPlux: React.PropTypes.array,
+            dexNavBasc: React.PropTypes.array,
+        }),
     }
 
 
@@ -224,8 +231,8 @@ class NHButton extends React.Component {
         // this._addDexPrem( this.state.selectedCategory, dexPremObj );
         catName = e.value;
 
-
-
+        this.props.navigation.selectedNavCategory = catName;
+        console.log("NEW this.props.navigation.selectedNavCategory : " + this.props.navigation.selectedNavCategory );
 
     }
 
@@ -323,6 +330,8 @@ class NHButton extends React.Component {
         console.log("Test Model", DeviceInfo.getModel());
         console.log("Device ID", DeviceInfo.getDeviceId());
         console.log("System Name", DeviceInfo.getSystemName());
+
+        console.log("ORIG this.props.navigation.selectedNavCategory : " + this.props.navigation.selectedNavCategory );
 
 
     }
@@ -648,7 +657,7 @@ class NHButton extends React.Component {
 function bindAction(dispatch) {
     return {
         openDrawer: () => dispatch(openDrawer()),
-        selectCategory: () => dispatch(selectCategory()),
+
     };
 }
 

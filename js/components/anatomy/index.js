@@ -40,12 +40,17 @@ class Anatomy extends React.Component {
 
     static propTypes = {
         openDrawer: React.PropTypes.func,
-        selectCategory: React.PropTypes.string,
-        selectedDomain : React.PropTypes.string,
-        dexPrem: React.PropTypes.array,
-        dexPlux: React.PropTypes.array,
-        dexBasc: React.PropTypes.array,
+        navigation: React.PropTypes.shape({
+            key: React.PropTypes.string,
+            selectedNavCategory: React.PropTypes.string,
+            selectedNavDomain : React.PropTypes.string,
+            dexNavPrem: React.PropTypes.array,
+            dexNavPlux: React.PropTypes.array,
+            dexNavBasc: React.PropTypes.array,
+        }),
     }
+
+
 
 
     constructor(props, context) {
@@ -183,6 +188,8 @@ class Anatomy extends React.Component {
     _returnDataOnSelection(item, e) {
 
         var catName = e.value;
+
+        this.props.navigation.selectedNavCategory = catName;
 
         // TODO: separate the function of updating the objects... to call from the header on Module load.
         // TODO: and then update the grid from the store category and domains in persisted object when move between Module
@@ -324,6 +331,8 @@ class Anatomy extends React.Component {
         //     console.log('$$$$$$ dexPrem get_all :   @ ' + stringify(result, {maxLength: 0, indent: '\t'}) );
         // });
 
+        console.log("NEW this.props.navigation.selectedNavCategory : " + this.props.navigation.selectedNavCategory );
+
     }
 
 
@@ -396,6 +405,8 @@ class Anatomy extends React.Component {
         console.log("Test Model", DeviceInfo.getModel());
         console.log("Device ID", DeviceInfo.getDeviceId());
         console.log("System Name", DeviceInfo.getSystemName());
+
+        console.log("ORIG this.props.navigation.selectedNavCategory : " + this.props.navigation.selectedNavCategory );
 
     }
 
@@ -763,11 +774,12 @@ function bindAction(dispatch) {
 
 const mapStateToProps = state => ({
     navigation: state.cardNavigation,
-    selectedDomain : state.selectedDomain,
-    selectedCategory : state.selectedCategory,
-    dexPrem: state.dexPrem,
-    dexPlux: state.dexPlux,
-    dexBasc: state.dexBasc,
 });
+
+//     selectedNavDomain : state.selectedNavDomain,
+//     selectedNavCategory : state.selectedNavCategory,
+//     dexNavPrem: state.dexNavPrem,
+//     dexNavPlux: state.dexNavPlux,
+//     dexNavBasc: state.dexNavBasc,
 
 export default connect(mapStateToProps, bindAction)(Anatomy);

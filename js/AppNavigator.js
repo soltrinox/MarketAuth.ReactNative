@@ -63,12 +63,13 @@ class AppNavigator extends Component {
     navigation: React.PropTypes.shape({
         key: React.PropTypes.string,
         routes: React.PropTypes.array,
+        selectedNavCategory: React.PropTypes.string,
+        selectedNavDomain : React.PropTypes.string,
+        dexNavPrem: React.PropTypes.array,
+        dexNavPlux: React.PropTypes.array,
+        dexNavBasc: React.PropTypes.array,
     }),
-      selectCategory: React.PropTypes.string,
-      selectedDomain : React.PropTypes.string,
-      dexPrem: React.PropTypes.array,
-      dexPlux: React.PropTypes.array,
-      dexBasc: React.PropTypes.array,
+
   }
 
   componentDidMount() {
@@ -235,11 +236,12 @@ const bindAction = dispatch => ({
 const mapStateToProps = state => ({
   drawerState: state.drawer.drawerState,
   navigation: state.cardNavigation,
-    selectedDomain : state.selectedDomain,
-    selectedCategory : state.selectedCategory,
-    dexPrem: state.dexPrem,
-    dexPlux: state.dexPlux,
-    dexBasc: state.dexBasc,
 });
+
+//     selectedNavDomain : state.selectedNavDomain,
+//     selectedNavCategory : state.selectedNavCategory,
+//     dexNavPrem: state.dexNavPrem,
+//     dexNAvPlux: state.dexNavPlux,
+//     dexNavBasc: state.dexNavBasc,
 
 export default connect(mapStateToProps, bindAction)(AppNavigator);

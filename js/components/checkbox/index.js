@@ -10,6 +10,14 @@ class NHCheckbox extends Component {
 
   static propTypes = {
     openDrawer: React.PropTypes.func,
+      navigation: React.PropTypes.shape({
+          key: React.PropTypes.string,
+          selectedNavCategory: React.PropTypes.string,
+          selectedNavDomain : React.PropTypes.string,
+          dexNavPrem: React.PropTypes.array,
+          dexNavPlux: React.PropTypes.array,
+          dexNavBasc: React.PropTypes.array,
+      }),
   }
 
   constructor(props) {
