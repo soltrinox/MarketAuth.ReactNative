@@ -1,4 +1,7 @@
-import React, {Component} from 'react';
+
+
+
+    import React, {Component} from 'react';
 import {ScrollView, AppRegistry, View, Image} from 'react-native';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
@@ -28,9 +31,10 @@ import sliderEntryStyles from './SliderEntry.style'
 import myTheme from '../../themes/base-theme';
 import styles from './styles';
 
-
+var stringify = require("json-stringify-pretty-compact");
 var DBEvents = require('react-native-db-models').DBEvents;
 var DB = require('../../db.js');
+const _mySelection1 = '';
 
 DBEvents.on("all", function () {
     console.log("Database changed");
@@ -43,7 +47,7 @@ class NHButton extends React.Component {
         navigation: React.PropTypes.shape({
             key: React.PropTypes.string,
             selectedNavCategory: React.PropTypes.string,
-            selectedNavDomain : React.PropTypes.string,
+            selectedNavDomain: React.PropTypes.string,
             dexNavPrem: React.PropTypes.array,
             dexNavPlux: React.PropTypes.array,
             dexNavBasc: React.PropTypes.array,
@@ -61,13 +65,13 @@ class NHButton extends React.Component {
             userData: {},
             usersArry: [],
             selectedDomain: 'www.default.com',
-            selectedCategory: 'ARCHITECTS',
-            selectedItem: undefined,
+            selectedCategory: 'Accountant',
+            _mySelection1 : 'Accountant',
 
             results: {
                 items: []
             },
-            selectedState: 'CA',
+            selectedState: 'AZ',
             selectedCity: 'PHOENIX, AZ',
             selectedDomainTotal: 2,
             columnTotal1: 0,
@@ -76,9 +80,11 @@ class NHButton extends React.Component {
             columnTotal4: 0,
             columnTotal5: 0,
             columnTotal6: 0,
-            dexPlus : [],
-            dexPrem : [],
+
+            dexPrem: [],
+            dexPlux: [],
             dexBasc: [],
+
             domain1: 'test 1',
             domain2: 'test 1',
             domain3: 'test 1',
@@ -126,7 +132,7 @@ class NHButton extends React.Component {
             })
             .done();
 
-        console.log('2222222 USER DATA: ' + JSON.stringify(this.state.userData));
+        // console.log('2222222 USER DATA: ' + JSON.stringify(this.state.userData));
     }
 
     _updateText(ddomain) {
@@ -145,118 +151,211 @@ class NHButton extends React.Component {
         this.setState({domainGridColumns: arrayz});
     }
 
+    _addDexPrem(newObj) {
+        var ttd = this.state.selectedCategory;
 
+        DB.dexPrem.add(newObj, function (added_data) {
+            console.log('dexPrem added_data = ' + stringify(added_data, {maxLength: 0, indent: '\t'}));
+            DB.dexPrem.get_all(function (result) {
+                console.log('dexPrem get_all = ' + stringify(result, {maxLength: 0, indent: '\t'}));
+            });
+        });
+
+    }
+
+    _addDexPlux(newObj) {
+        var ttd = this.state.selectedCategory;
+
+        DB.dexPlux.add(newObj, function (added_data) {
+            console.log('dexPlux added_data = ' + stringify(added_data, {maxLength: 0, indent: '\t'}));
+            DB.dexPlux.get_all(function (result) {
+                console.log('dexPlux get_all = ' + stringify(result, {maxLength: 0, indent: '\t'}));
+            });
+        });
+
+    }
+
+    _addDexBasc(newObj) {
+        var ttd = this.state.selectedCategory;
+
+        DB.dexBasc.add(newObj, function (added_data) {
+            console.log('dexBasc added_data = ' + stringify(added_data, {maxLength: 0, indent: '\t'}));
+            DB.dexBasc.get_all(function (result) {
+                console.log('dexBasc get_all = ' + stringify(result, {maxLength: 0, indent: '\t'}));
+            });
+        });
+
+    }
+
+    _persistObjects() {
+        DB.dexBasc.get({CAT: catName}, function (result) {
+            if (_.isEmpty(result)) {
+                console.log('\n @@@@@@@@ EMPTY dexBasc NO ' + catName + ' ..... ');
+
+            } else {
+                console.log('\n ######## EXISTS dexBasc  : ' + stringify(result, {maxLength: 0, indent: '\t'}));
+                r
+            }
+        });
+
+        DB.dexPlux.get({CAT: catName}, function (result) {
+            if (_.isEmpty(result)) {
+                console.log('\n @@@@@@@@ EMPTY dexPlux NO ' + catName + ' ..... ');
+
+            } else {
+                console.log('\n ######## EXISTS dexPlux : ' + stringify(result, {maxLength: 0, indent: '\t'}));
+
+            }
+        });
+
+        DB.dexPrem.get({CAT: catName}, function (result) {
+            if (_.isEmpty(result)) {
+                console.log('\n @@@@@@@@ EMPTY dexPrem NO ' + catName + ' ..... ');
+            } else {
+                console.log('\n ######## EXISTS dexPrem : ' + stringify(result, {maxLength: 0, indent: '\t'}));
+            }
+        });
+
+
+        // var devPluxUpdate = { };
+        // devPluxUpdate["CAT"] = catName;
+        // devPluxUpdate["KEYS"] = tabPlux;
+        // console.log('\n  : devPluxUpdate  = ' + stringify(devPluxUpdate, {maxLength: 0, indent: '\t'}) );
+        // this._addDexPlux(devPluxUpdate);
+        //
+        // var devPremUpdate = { };
+        // devPremUpdate["CAT"] = catName;
+        // devPremUpdate["KEYS"] = tabPrem;
+        // console.log('\n : devPremUpdate  = ' + stringify(devPremUpdate, {maxLength: 0, indent: '\t'}) );
+        // this._addDexPrem(devPremUpdate);
+        //
+        // var devBascUpdate = { };
+        // devBascUpdate["CAT"] = catName;
+        // devBascUpdate["KEYS"] = tabBasc;
+        // console.log('\n  : devBascUpdate  = ' + stringify(devBascUpdate, {maxLength: 0, indent: '\t'}) );
+        // this._addDexBasc(devBascUpdate);
+
+        // DB.dexPrem.erase_db(function(removed_data3){
+        //     console.log(removed_data3);
+        // });
+        //
+        // DB.dexPlux.erase_db(function(removed_data2){
+        //     console.log(removed_data2);
+        // });
+        //
+        // DB.dexBasc.erase_db(function(removed_data){
+        //     console.log(removed_data);
+        // });
+
+        // DB.dexBasc.get_all(function (result2) {
+        //     console.log('\n  ------ dexBasc get_all : ' + stringify(result2, {maxLength: 0, indent: '\t'}) );
+        // });
+
+    }
+
+    _resetGridColumnTotal(){
+        this.setState({columnTotal1: 0});
+        this.setState({columnTotal2: 0});
+        this.setState({columnTotal3: 0});
+        this.setState({columnTotal4: 0});
+    }
 
     _returnDataOnSelection(item, e) {
 
-        var catName = e.value;
+        this._resetGridColumnTotal();
 
-        this.setState({ columnTotal1 : 0} );
-        this.setState({ columnTotal2 : 0} );
-        this.setState({ columnTotal3 : 0} );
-        this.setState({ columnTotal4 : 0} );
+        var catName = '';
+        if (_.isUndefined(e.value)) {
+            if (_.isUndefined(this.props.navigation.selectedNavCategory)) {
+                catName = '';
+            } else {
+                catName = this.props.navigation.selectedNavCategory;
+            }
+        } else {
+            catName = e.value;
+            this.props.navigation.selectedNavCategory = catName;
+        }
+        this.setState({selectedCategory: catName});
+        this._updateGrids(catName);
+    }
 
-        console.log('SELECT CAT NAME : ' + JSON.stringify(e));
-        this.setState({selectedCategory: e.value});
+    _updateGrids(catName = this.state.selectedCategory ){
+
+        this.props.navigation.selectedNavCategory = _.toString(catName);
+
+        this._resetGridColumnTotal();
+
         var test = _.orderBy(this.state.rawArr, ['CAT', 'KEY', 'SCORE'], ['asc', 'asc', 'desc']);
-        var trr = [];
-
-        trr = _.filter(test, {"CAT": catName});
+        var trr  = _.filter(test, {"CAT": catName});
         var upp = {catName: trr};
-        var kkt = [];
-        kkt = [...new Set(trr.map(item => item.KEY))];
+        var kkt = [...new Set(trr.map(item => item.KEY))];
         kkt.sort();
         this.setState({keywordArr: kkt});
         this.setState({dataObjects: upp});
 
-        // console.log('########### DOMAINS BY KEY ON : ' + JSON.stringify(kkt));
-        var resultXXX = _.filter(test, function (p) {
-            return _.includes(kkt, p.KEY);
-        });
+        /*
+         // console.log('########### DOMAINS BY KEY ON : ' + JSON.stringify(kkt));
+         // var resultXXX = _.filter(test, function (p) {
+         //     return _.includes(kkt, p.KEY);
+         // });
 
-        var testDomains = _.orderBy(resultXXX, ['KEY', 'SCORE'], ['asc', 'desc']);
-        // console.log('########### MATCHED DOMAINS BY KEY : ' + JSON.stringify(testDomains));
+         // var testDomains = _.orderBy(resultXXX, ['KEY', 'SCORE'], ['asc', 'desc']);
+         // console.log('########### MATCHED DOMAINS BY KEY : ' + JSON.stringify(testDomains));
+         */
 
         var dexPremObj = [];
-        var dexPlusObj = [];
+        var dexPluxObj = [];
         var dexBascObj = [];
 
-        _.forEach(kkt, function(value) {
-            var keysByCat = [];
-            keysByCat = _.filter(test, {"CAT": catName, "KEY": value });
-            _.forEach(keysByCat, function(value) {
-                var value2 = value;
-                // console.log('\n\n===============\n\n DOM: ' + JSON.stringify(value.DOM) );
-                if(_.isEqual(value2.DOM , "Dex ESS Premium")){
-                    console.log('\n\n===============\n\n FOUND: ' + JSON.stringify(value2.DOM) + ' @ ' + value2.KEY+ ' <- ' + value2.SCORE  );
+        _.forEach(kkt, function (value) {
+            var keysByCat = _.filter(test, {"CAT": catName, "KEY": value});
+            _.forEach(keysByCat, function (value2) {
+                if (_.isEqual(value2.DOM, "Dex ESS Premium")) {
+                    // console.log('\n FOUND: ' + JSON.stringify(value2.DOM) + ' @ ' + value2.KEY + ' <- ' + value2.SCORE);
                     dexPremObj.push(value2);
                 }
-                if(_.isEqual(value2.DOM , "Dex ESS Plus")) {
-                    console.log('\n\n===============\n\n FOUND: ' + JSON.stringify(value2.DOM)+ ' @ ' + value2.KEY+ ' <- ' + value2.SCORE  );
-                    dexPlusObj.push(value2);
+                if (_.isEqual(value2.DOM, "Dex ESS Plus")) {
+                    // console.log('\n FOUND: ' + JSON.stringify(value2.DOM) + ' @ ' + value2.KEY + ' <- ' + value2.SCORE);
+                    dexPluxObj.push(value2);
                 }
-                if(_.isEqual(value2.DOM , "Dex ESS Basic")) {
-                    console.log('\n\n===============\n\n FOUND: ' + JSON.stringify(value2.DOM)+ ' @ ' + value2.KEY+ ' <- ' + value2.SCORE  );
+                if (_.isEqual(value2.DOM, "Dex ESS Basic")) {
+                    // console.log('\n FOUND: ' + JSON.stringify(value2.DOM) + ' @ ' + value2.KEY + ' <- ' + value2.SCORE);
                     dexBascObj.push(value2);
                 }
             });
         });
 
+        console.log('@@@@@@@ dexPrem @ ' + JSON.stringify(dexPremObj));
+        console.log('@@@@@@@ dexPlux @ ' + JSON.stringify(dexPluxObj));
+        console.log('@@@@@@@ dexBasc @ ' + JSON.stringify(dexBascObj));
 
         var tabPrem = {};
-        var tabPlus = {};
+        var tabPlux = {};
         var tabBasc = {};
 
-        _.forEach(kkt, function(value) {
-            console.log('XXXXXXXXXXX value @ '+ JSON.stringify(value));
-            tabPrem[value] = _.filter(dexPremObj, {"DOM": "Dex ESS Premium", "KEY": value });
-            tabPlus[value] = _.filter(dexPlusObj, {"DOM": "Dex ESS Plus", "KEY": value });
-            tabBasc[value] = _.filter(dexBascObj, {"DOM": "Dex ESS Basic", "KEY": value });
+        _.forEach(kkt, function (value) {
+            // console.log('XXXXXXXXXXX value @ ' + JSON.stringify(value));
+            tabPrem[value] = _.filter(dexPremObj, {"DOM": "Dex ESS Premium", "KEY": value});
+            tabPlux[value] = _.filter(dexPluxObj, {"DOM": "Dex ESS Plus", "KEY": value});
+            tabBasc[value] = _.filter(dexBascObj, {"DOM": "Dex ESS Basic", "KEY": value});
         });
 
-        // console.log('XXXXXXXXXXX tabPrem @ '+ JSON.stringify(tabPrem));
-        // console.log('XXXXXXXXXXX tabPlus @ '+ JSON.stringify(tabPlus));
-        // console.log('XXXXXXXXXXX tabBasc @ '+ JSON.stringify(tabBasc));
-
-        this.setState({dexPrem : tabPrem });
-        console.log('@@@@@@@ dexPrem @ '+ JSON.stringify(tabPrem));
-        this.setState({dexPlus : tabPlus });
-        console.log('@@@@@@@ dexPlus @ '+ JSON.stringify(tabPlus));
-        this.setState({dexBasc : tabBasc });
-        console.log('@@@@@@@ dexBasc @ '+ JSON.stringify(tabBasc));
+        this.setState({dexPrem: tabPrem});
+        this.setState({dexPlux: tabPlux});
+        this.setState({dexBasc: tabBasc});
 
 
-
-        // var ttc = _.toString(this.state.selectedCategory);
-        // this._addDexBasc( this.state.selectedCategory, dexBascObj  );
-        // this._addDexPlus( this.state.selectedCategory,  dexPlusObj );
-        // this._addDexPrem( this.state.selectedCategory, dexPremObj );
-        catName = e.value;
-
-        this.props.navigation.selectedNavCategory = catName;
-        console.log("NEW this.props.navigation.selectedNavCategory : " + this.props.navigation.selectedNavCategory );
+        console.log("NEW this.props.navigation.selectedNavCategory : " + this.props.navigation.selectedNavCategory);
 
     }
 
-
-    _addDexObj(nObj){
-        DB.domains.add(nObj , function (added_data) {
-            console.log('%%%%%% added_data' + JSON.stringify(added_data));
-        });
-        DB.domains.get_all(function(result){
-            console.log('$$$$$$ get_all : '+ JSON.stringify(result) );
-        });
-
-    }
 
     _domainData() {
-
-
 
         var testJSON = require('./PHX.001.json');
         this.state.dataObjects = {
             CATEGORY1: [
-                {KEY: 'First Domain', DOM: 'DEX PLUS'},
+                {KEY: 'First Domain', DOM: 'DEX Plux'},
                 {KEY: 'First Domain', DOM: 'DEX PREM'},
                 {KEY: 'First Domain', DOM: 'www.xxxxx.com'},
                 {KEY: 'First Domain', DOM: 'www.yyyy.com'},
@@ -292,14 +391,7 @@ class NHButton extends React.Component {
         this.state.categoriesArr.sort();
         this.state.keywordArr = [...new Set(test.map(item => item.KEY))];
         this.state.keywordArr.sort();
-        this.state.keywordArr = ["Select Category","Select Category","Select Category","Select Category","Select Category","Select Category","Select Category","Select Category","Select Category","Select Category"];
-        // this.state.keywordArr.slice(700, 710);
-
-        // this._addDexBasc( { cat: 'generic', keysz:  this.state.keywordArr.slice(700, 710) });
-        // this._addDexPlus( { cat: 'generic', keysz:  this.state.keywordArr.slice(700, 710) });
-        // this._addDexPrem( { cat: 'generic', keysz:  this.state.keywordArr.slice(700, 710) });
-
-
+        this.state.keywordArr = ["Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category"];
 
         var happy = [];
 
@@ -308,41 +400,33 @@ class NHButton extends React.Component {
             var catName = _.toString(this.state.categoriesArr[j]);
             happy.push({name: catName, value: catName, icon: '',});
             trr = _.filter(test, {"CAT": catName});
-            var upp = '{' + catName + ' : ' + JSON.stringify(trr) + '}';
+            // var upp = '{' + catName + ' : ' + JSON.stringify(trr) + '}';
             _.set(this.state.dataObjects, catName, trr);
         }
         this.setState({categoriesArr: happy});
-        return this.state.dataObjects;
+        // return this.state.dataObjects;
     }
 
-    _setUserData() {
-        // DB.users.add({first_name: "TEST", age: 40}, function (added_data) {
-        //     console.log('added_data' + JSON.stringify(added_data));
-        // });
-    }
 
     componentWillMount() {
-
-        var domains = [];
-        domains = this._domainData();
-        // NOW THAT THE ARRAYS ARE POPULATED  LOOK INSIDE
-
-
 
         console.log("Test Model", DeviceInfo.getModel());
         console.log("Device ID", DeviceInfo.getDeviceId());
         console.log("System Name", DeviceInfo.getSystemName());
 
-        console.log("ORIG this.props.navigation.selectedNavCategory : " + this.props.navigation.selectedNavCategory );
+        console.log("ORIG this.props.navigation.selectedNavCategory : " + this.props.navigation.selectedNavCategory);
         this.state.selectedCategory = this.props.navigation.selectedNavCategory;
 
+        // var domains =
+
+        this._domainData();
+
+        this._updateGrids(this.state.selectedCategory);
     }
 
-    componentDidMount(){
-        this.setState({ columnTotal1 : 0} );
-        this.setState({ columnTotal2 : 0} );
-        this.setState({ columnTotal3 : 0} );
-        this.setState({ columnTotal4 : 0} );
+    componentDidMount() {
+
+        this._resetGridColumnTotal();
 
     }
 
@@ -352,19 +436,18 @@ class NHButton extends React.Component {
         return Math.floor(Math.random() * (max - min)) + min;
     }
 
-    _renderPicker(){
+    _renderPicker() {
         this.state.categoriesArr.map((item, index) => {
                 var itemString = JSON.stringify(item);
-                return ( <Picker.Item label={itemString} value={itemString} key={index} /> )
+                return ( <Picker.Item label={itemString} value={itemString} key={index}/> )
             }
         )
     }
 
-    render() {
 
-        // var tty = this.state.userData[0];
-        // var pic = JSON.parse(tty);
-        // console.log('this.state.clientColumnItems : '+JSON.stringify(this.state.clientColumnItems));
+    render() {
+        var gridCol1Total = 0;
+        var gridCol2Total = 0;
         const options = this.state.categoriesArr;
 
         return (
@@ -372,22 +455,63 @@ class NHButton extends React.Component {
                 <Header style={{ width : 800, height:100, backgroundColor: '#454545', paddingLeft: 40}}>
                     <View style={{ flex: 1, alignItems : 'flex-start', flexDirection: 'row',}}>
                         <View style={{ width: 220, height: 30, marginRight:20 }}>
-                            <InputGroup>
-                                <Input label="DOMAIN" placeholder="DOMAIN" style={{ width: 120, height: 30 }}/>
+                            <InputGroup style={{ borderRadius: 8, backgroundColor: '#2c75ab'}}>
+                                <Input label="DOMAIN" placeholder="DOMAIN" placeholderTextColor="#ABABAB"
+                                       style={{ width: 120, height: 30, color: 'white', fontWeight: 'bold',
+                                       fontSize: 20, lineHeight:22, textAlign: 'center' }}/>
                             </InputGroup>
                         </View>
-                        <View style={{ width: 220, height: 30, marginRight:20 }}>
+                        <View style={{ width: 220, height: 30, marginRight:10,  }}>
                             <Selection
-
                                 ref={(mySelection1) => { this._mySelection1 = mySelection1; }}
-                                title="SELECT CATEGORY"
-                                options={options}
-
+                                titleCustomize={true}
+                                title={this.state.selectedCategory}
+                                options={this.state.categoriesArr}
                                 onSelection={(e) => this._returnDataOnSelection(this,e)}
+
                                 style={{
-                                  body: null,
-                                  option: null,
-                                  color: '#FFF'
+                                    main:{
+                                      backgroundColor: '#2c75ab',
+                                      borderRadius: 8,
+                                      width: 220, height: 30
+                                    },
+                                 color: '#FFF',
+                                  textColor : '#FFF',
+                                  backgroundColor: '#2c75ab',
+                                  body: {
+                                      width: 400,
+                                      backgroundColor: '#ffffff',
+                                      maxHeight: 400,
+                                      borderRadius: 5,
+                                      overflow: 'hidden',
+                                  },
+                                  option: {
+                                      width: 400,
+                                      padding: 10,
+                                      fontSize: 20,
+                                      lineHeight:22,
+                                      fontWeight: 'bold',
+                                      borderBottomWidth: 1,
+                                      borderBottomColor: '#cccccc',
+                                      flexDirection: 'row',
+                                  },
+                                  optionText:{
+                                        color: 'white',
+                                    fontWeight: 'bold',
+                                    fontSize: 20,
+                                    lineHeight:22,
+                                  },
+                                  textx:{
+                                    paddingTop:3,
+                                    color: 'white',
+                                    fontWeight: 'bold',
+                                    fontSize: 20,
+                                    lineHeight:22,
+                                    height:30,
+                                    textAlign: 'center',
+                                    backgroundColor: '#00000000',
+                                    borderRadius: 8,
+                                  }
                                 }}
                                 iconSize={20}
                                 iconColor="#eee"
@@ -395,8 +519,10 @@ class NHButton extends React.Component {
 
                         </View>
                         <View style={{ width: 220, height: 30, marginRight:20 }}>
-                            <InputGroup>
-                                <Input label="MARKET" placeholder="MARKET" style={{ width: 120, height: 30 }}/>
+                            <InputGroup style={{ borderRadius: 8, backgroundColor: '#2c75ab'}}>
+                                <Input label="MARKET" placeholder="MARKET" placeholderTextColor="#ABABAB"
+                                       style={{ width: 120, height: 30, color: 'white', fontWeight: 'bold',
+                                       fontSize: 20, lineHeight:22, textAlign: 'center' }}/>
                             </InputGroup>
                         </View>
                     </View>
@@ -410,9 +536,13 @@ class NHButton extends React.Component {
                         source={require('./proto.back.png')}
                         resizeMode={Image.resizeMode.stretch}
                     >
-                        <View style={{ opacity: 1.0,  height:666, flexDirection: 'column', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.85)'}}>
-                            <View style={{height:null,  flex:1, flexDirection:'row', justifyContent:'flex-start', marginLeft:0,  backgroundColor: 'rgba(0,0,0,0.0)',  }}>
-                                <Text   style={{ marginTop:20, width:400, height:40,overflow:'hidden', color:'#00ff00', lineHeight:38, fontSize: 36, fontWeight:'bold' , paddingLeft:20, textAlign: 'left', backgroundColor: 'rgba(0,0,0,0.5)',  }} ellipsizeMode={'tail'} numberOfLines={1}>
+                        <View
+                            style={{ opacity:0.0, height:666, flexDirection: 'column', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.85)'}}>
+                            <View
+                                style={{height:null,  flex:1, flexDirection:'row', justifyContent:'flex-start', marginLeft:0,  backgroundColor: 'rgba(0,0,0,0.0)',  }}>
+                                <Text
+                                    style={{ marginTop:20, width:400, height:40,overflow:'hidden', color:'#00ff00', lineHeight:38, fontSize: 36, fontWeight:'bold' , paddingLeft:20, textAlign: 'left', backgroundColor: 'rgba(0,0,0,0.5)',  }}
+                                    ellipsizeMode={'tail'} numberOfLines={1}>
                                     {this.state.selectedCategory}
                                 </Text>
                                 <Text style={{ marginTop:20, width:400, height:40,overflow:'hidden', color:'#ffffff', lineHeight:38, fontSize: 36, fontWeight:'bold' , paddingRight:20, textAlign: 'right',
@@ -420,17 +550,22 @@ class NHButton extends React.Component {
                                     {this.state.selectedCity}
                                 </Text>
                             </View>
-                            <View style={{ height:40, paddingTop:8, flexDirection: 'column',overflow:'hidden', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.0)'}}>
-                                <Text style={{flex:1, width:800, height:40, flexDirection: 'row', textAlign: 'center' , color:'#ABABAB',  fontSize: 22 }} ellipsizeMode={'tail'} numberOfLines={1}>
-                                    Top 10 Searches for   {this.state.selectedCategory}  in  {this.state.selectedCity}
+                            <View
+                                style={{ height:40, paddingTop:8, flexDirection: 'column',overflow:'hidden', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.0)'}}>
+                                <Text
+                                    style={{flex:1, width:800, height:40, flexDirection: 'row', textAlign: 'center' , color:'#ABABAB',  fontSize: 22 }}
+                                    ellipsizeMode={'tail'} numberOfLines={1}>
+                                    Top 10 Searches for {this.state.selectedCategory} in {this.state.selectedCity}
                                 </Text>
                             </View>
-                            <View style={{ height:62,  flexDirection:'row', justifyContent:'flex-start', backgroundColor: 'rgba(0,0,0,0)', marginLeft:5 }}>
+                            <View
+                                style={{ height:62,  flexDirection:'row', justifyContent:'flex-start', backgroundColor: 'rgba(0,0,0,0)', marginLeft:5 }}>
                                 <View
                                     style={{ width:300, height:62, overflow: 'hidden',
                                     borderRadius:0, backgroundColor: 'rgba(66,66,66,0.5)', marginRight:5, justifyContent:'center'}}>
-                                    <Text style={{ color:'#FFFFFF', fontSize: 24, lineHeight:28, fontWeight:'normal',textAlign:'center'  }}>
-                                        COVERAGE</Text>
+                                    <Text
+                                        style={{ color:'#FFFFFF', fontSize: 24, lineHeight:28, fontWeight:'normal',textAlign:'center'  }}>
+                                        SEARCH TERM</Text>
                                 </View>
                                 <View
                                     style={{ width:480, height:62, backgroundColor: 'rgba(0,0,0,0)',
@@ -438,18 +573,23 @@ class NHButton extends React.Component {
                                     <View
                                         style={{ width:240, height:62, overflow: 'hidden',
                                 borderRadius:0, backgroundColor: 'rgba(66,66,66,0.5)', padding:0,marginLeft:5, justifyContent:'center' }}>
-                                        <Text style={{ color:'#FFFFFF', fontSize: 24,lineHeight:28, fontWeight:'normal',textAlign:'center'    }} ellipsizeMode={'tail'} numberOfLines={1}  >
-                                            DOMAIN</Text>
+                                        <Text
+                                            style={{ color:'#FFFFFF', fontSize: 24,lineHeight:28, fontWeight:'normal',textAlign:'center'    }}
+                                            ellipsizeMode={'tail'} numberOfLines={1}>
+                                            ESS Plus</Text>
                                     </View>
                                     <View
                                         style={{ width:240, height:62, overflow: 'hidden',
                                 borderRadius:0, backgroundColor: 'rgba(66,66,66,0.5)', padding:0,marginLeft:5, justifyContent:'center' }}>
-                                        <Text style={{ color:'#FFFFFF', fontSize: 24,lineHeight:28, fontWeight:'normal',textAlign:'center'   }} ellipsizeMode={'tail'} numberOfLines={1}>
-                                            PAGE ONE</Text>
+                                        <Text
+                                            style={{ color:'#FFFFFF', fontSize: 24,lineHeight:28, fontWeight:'normal',textAlign:'center'   }}
+                                            ellipsizeMode={'tail'} numberOfLines={1}>
+                                            ESS PREMIUM</Text>
                                     </View>
                                 </View>
                             </View>
-                            <View style={{ height:365, marginTop:5,  flexDirection:'row', overflow: 'hidden', justifyContent:'flex-start', backgroundColor: 'rgba(0,0,0,0)', marginLeft:5 }}>
+                            <View
+                                style={{ height:365, marginTop:5,  flexDirection:'row', overflow: 'hidden', justifyContent:'flex-start', backgroundColor: 'rgba(0,0,0,0)', marginLeft:5 }}>
                                 <View
                                     style={{ width:300, height:495, overflow: 'hidden', borderRadius:0, backgroundColor: 'rgba(0,0,0,0)', marginRight:5}}>
 
@@ -462,8 +602,10 @@ class NHButton extends React.Component {
                                                             style={{ backgroundColor: '#454545', height: 30, marginBottom: 2,  justifyContent:'center' }}
                                                             key={index}>
                                                             <View
-                                                                style={{  height:30,  width:300, backgroundColor: "rgba(0,0,0,0)",  justifyContent:'center' }}>
-                                                                <Text style={{ height:30,  width:300, color: "#FFFFFF", fontSize: 16, lineHeight:18, textAlign: 'center' , }} ellipsizeMode={'tail'} numberOfLines={1} >
+                                                                style={{ paddingTop:4, paddingLeft: 3, height:30,  width:300, backgroundColor: "rgba(0,0,0,0)",  justifyContent:'center' }}>
+                                                                <Text
+                                                                    style={{ textAlignVertical: 'bottom', height:30,  width:300, color: "#FFFFFF", fontSize: 21, lineHeight:22, textAlign: 'left' , }}
+                                                                    ellipsizeMode={'tail'} numberOfLines={1}>
 
                                                                     {item}
                                                                 </Text>
@@ -491,43 +633,43 @@ class NHButton extends React.Component {
                                                         var kray = [];
 
                                                         var rowValue = [];
-                                                        rowValue = this.state.dexPlus[item]
+                                                        rowValue = this.state.dexPlux[item];
                                                         var itr = {};
                                                         itr = _.head(rowValue);
 
-                                                        if(_.isUndefined(itr)){
+                                                        if (_.isUndefined(itr)) {
 
-                                                        }else{
+                                                        } else {
                                                             var tempScore = _.toInteger(itr.SCORE);
-                                                            console.log('00000000000000 DEXPLUS rowValue : ' + JSON.stringify(itr) );
-                                                            console.log('00000000000000 DEXPLUS rowValue SCORE: ' + _.toString(tempScore) );
-                                                            for (var k = 0; k < tempScore; k++) {
-                                                                kray.push(<Svg height="16" width="17" key={k}>
-                                                                    <Rect
-                                                                        x="0"
-                                                                        y="0"
-                                                                        width="15"
-                                                                        height="15"
-                                                                        stroke="black"
-                                                                        strokeWidth="1"
-                                                                        fill="green"
-                                                                    />
-                                                                </Svg>);
+                                                            {/*console.log('00000000000000  obj : ' + JSON.stringify(itr));*/}
+                                                            {/*console.log('00000000000000  rowValue SCORE: ' + _.toString(tempScore));*/}
+                                                            if (tempScore >= 1) {
+                                                                for (var k = 0; k < tempScore; k++) {
+                                                                    kray.push(<Svg height="20" width="20" key={k}>
+                                                                        <Rect
+                                                                            x="0"
+                                                                            y="0"
+                                                                            width="18"
+                                                                            height="18"
+                                                                            stroke="black"
+                                                                            strokeWidth="1"
+                                                                            fill="green"
+                                                                        />
+                                                                    </Svg>);
+                                                                }
                                                             }
-                                                            this.state.columnTotal1 = this.state.columnTotal1 +  _.toInteger(tempScore);
-                                                            tempScore = null;
+                                                            gridCol1Total = gridCol1Total + _.toInteger(tempScore);
+                                                            tempScore = 0;
                                                         }
-
 
                                                         return (
                                                             <Row
                                                                 style={{ backgroundColor: '#454545', height: 30 ,marginBottom: 2 }}
                                                                 key={index}>
                                                                 <View key={index}
-                                                                      style={{  height:30,  width:240,
+                                                                      style={{ paddingVertical: 3, paddingLeft: 3, height:30,  width:240,
                                                                 backgroundColor: "rgba(0,0,0,0)",
                                                             }}>
-
                                                                     <View style={{
                                                                 flex: 1,
                                                                 flexDirection: 'row',
@@ -543,14 +685,15 @@ class NHButton extends React.Component {
                                                 )
                                             }
                                             <Row style={{ backgroundColor: '#454545', height: 30,marginBottom: 4 }}
-                                                 key={99}>
+                                                 key={98}>
                                                 <View style={{
                                             flex: 1,
                                             flexDirection: 'row',
                                             alignItems: 'flex-start',
                                             }}>
                                                     <Text
-                                                        style={{color:'#FFFFFF', fontSize: 20, textAlign: 'center'}}> {this.state.columnTotal1 } </Text>
+                                                        style={{ textAlignVertical: 'bottom',height: 30, color:'#FFFFFF', fontWeight:'bold',  fontSize: 25,lineHeight:26, textAlign: 'center'}}>
+                                                        { gridCol1Total } </Text>
                                                 </View>
                                             </Row>
                                         </Grid>
@@ -563,34 +706,37 @@ class NHButton extends React.Component {
                                                 this.state.keywordArr.map((item, index) => {
                                                         var itemString = JSON.stringify(item);
 
-                                                        var kray = [];
+                                                        var kray2 = [];
 
-                                                        var rowValue = [];
-                                                        rowValue = this.state.dexPrem[item]
-                                                        var itr = {};
-                                                        itr = _.head(rowValue);
+                                                        var rowValue2 = [];
+                                                        rowValue2 = this.state.dexPrem[item];
+                                                        var itr2 = {};
+                                                        itr2 = _.head(rowValue2);
 
-                                                        if(_.isUndefined(itr)){
+                                                        if (_.isUndefined(itr2)) {
 
-                                                        }else{
-                                                            var tempScore = _.toInteger(itr.SCORE);
-                                                            console.log('00000000000000 DEXPREM rowValue : ' + JSON.stringify(itr) );
-                                                            console.log('00000000000000 DEXPREM rowValue SCORE: ' + _.toString(tempScore) );
-                                                            for (var k = 0; k < tempScore; k++) {
-                                                                kray.push(<Svg height="16" width="17" key={k}>
-                                                                    <Rect
-                                                                        x="0"
-                                                                        y="0"
-                                                                        width="15"
-                                                                        height="15"
-                                                                        stroke="black"
-                                                                        strokeWidth="1"
-                                                                        fill="green"
-                                                                    />
-                                                                </Svg>);
+                                                        } else {
+                                                            var tempScore2 = _.toInteger(itr2.SCORE);
+                                                            {/*console.log('00000000000000 DEXPREM rowValue : ' + JSON.stringify(itr2));*/}
+                                                            {/*console.log('00000000000000 DEXPREM rowValue SCORE: ' + _.toString(tempScore2));*/}
+                                                            if (tempScore2 >= 1) {
+                                                                for (var b = 0; b < tempScore2; b++) {
+                                                                    kray2.push(<Svg height="20" width="20" key={b}>
+                                                                        <Rect
+                                                                            x="0"
+                                                                            y="0"
+                                                                            width="18"
+                                                                            height="18"
+                                                                            stroke="black"
+                                                                            strokeWidth="1"
+                                                                            fill="green"
+                                                                        />
+                                                                    </Svg>);
+                                                                }
                                                             }
-                                                            this.state.columnTotal2 = this.state.columnTotal2 +  _.toInteger(tempScore);
-                                                            tempScore = null;
+
+                                                            gridCol2Total = gridCol2Total + _.toInteger(tempScore2);
+                                                            tempScore2 = 0;
                                                         }
 
                                                         return (
@@ -598,7 +744,7 @@ class NHButton extends React.Component {
                                                                 style={{ backgroundColor: '#454545', height: 30,marginBottom: 2 }}
                                                                 key={index}>
                                                                 <View key={index}
-                                                                      style={{  height:30,  width:240,
+                                                                      style={{ paddingVertical: 3, paddingLeft: 3, height:30,  width:240,
                                                                 backgroundColor: "rgba(0,0,0,0)",
                                                             }}>
 
@@ -608,7 +754,7 @@ class NHButton extends React.Component {
                                                                     alignItems: 'flex-start',
                                                                      marginTop:3
                                                                     }}>
-                                                                        { kray }
+                                                                        { kray2 }
                                                                     </View>
                                                                 </View>
                                                             </Row>
@@ -624,14 +770,16 @@ class NHButton extends React.Component {
                                             alignItems: 'flex-start',
                                             }}>
                                                     <Text
-                                                        style={{color:'#FFFFFF', fontSize: 20, textAlign: 'center'}}> {this.state.columnTotal2 } </Text>
+                                                        style={{ textAlignVertical: 'bottom',height: 30, color:'#FFFFFF', fontWeight:'bold',  fontSize: 25,lineHeight:26, textAlign: 'center'}}>
+                                                        {gridCol2Total } </Text>
                                                 </View>
                                             </Row>
                                         </Grid>
                                     </View>
                                 </View>
                             </View>
-                            <View style={{ height:120, paddingTop:8, flexDirection: 'column', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.5)'}}>
+                            <View
+                                style={{ height:120, paddingTop:8, flexDirection: 'column', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.5)'}}>
                                 <Text style={{flex:1, flexDirection: 'row', textAlign: 'center' ,
                    color:'#ABABAB',  fontSize: 18 }}>
                                     keywords for <Text
@@ -666,8 +814,10 @@ const mapStateToProps = state => ({
     navigation: state.cardNavigation,
 });
 
+//     selectedNavDomain : state.selectedNavDomain,
+//     selectedNavCategory : state.selectedNavCategory,
+//     dexNavPrem: state.dexNavPrem,
+//     dexNavPlux: state.dexNavPlux,
+//     dexNavBasc: state.dexNavBasc,
+
 export default connect(mapStateToProps, bindAction)(NHButton);
-
-
-
-
