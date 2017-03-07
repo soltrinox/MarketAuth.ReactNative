@@ -15,6 +15,11 @@ class SideBar extends Component {
 
   static propTypes = {
     navigateTo: React.PropTypes.func,
+      selectCategory: React.PropTypes.string,
+      selectedDomain : React.PropTypes.string,
+      dexPrem: React.PropTypes.array,
+      dexPlux: React.PropTypes.array,
+      dexBasc: React.PropTypes.array,
   }
 
   constructor(props) {
@@ -22,6 +27,11 @@ class SideBar extends Component {
     this.state = {
       // shadowOffsetWidth: 0,
       // shadowRadius: 0,
+        selectedDomain: 'www.default.com',
+        selectedCategory: 'ARCHITECTS',
+        dexPrem: [],
+        dexPlux: [],
+        dexBasc: [],
     };
   }
 
@@ -200,6 +210,11 @@ function bindAction(dispatch) {
 
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,
+    selectedDomain : state.selectedDomain,
+    selectedCategory : state.selectedCategory,
+    dexPrem: state.dexPrem,
+    dexPlux: state.dexPlux,
+    dexBasc: state.dexBasc,
 });
 
 export default connect(mapStateToProps, bindAction)(SideBar);

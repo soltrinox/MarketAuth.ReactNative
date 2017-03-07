@@ -64,6 +64,11 @@ class AppNavigator extends Component {
         key: React.PropTypes.string,
         routes: React.PropTypes.array,
     }),
+      selectCategory: React.PropTypes.string,
+      selectedDomain : React.PropTypes.string,
+      dexPrem: React.PropTypes.array,
+      dexPlux: React.PropTypes.array,
+      dexBasc: React.PropTypes.array,
   }
 
   componentDidMount() {
@@ -139,7 +144,7 @@ class AppNavigator extends Component {
       case 'inputgroup':
         return <NHInputGroup />;
       case 'layout':
-        return <NHLayout />;
+        return <NHLayout  navigator={navigator} {... this.props} />;
       case 'list':
         return <NHList />;
       case 'basicList':
@@ -215,6 +220,7 @@ class AppNavigator extends Component {
           navigationState={this.props.navigation}
          // renderOverlay={this._renderOverlay}
           renderScene={this._renderScene}
+
         />
       </Drawer>
     );
@@ -229,6 +235,11 @@ const bindAction = dispatch => ({
 const mapStateToProps = state => ({
   drawerState: state.drawer.drawerState,
   navigation: state.cardNavigation,
+    selectedDomain : state.selectedDomain,
+    selectedCategory : state.selectedCategory,
+    dexPrem: state.dexPrem,
+    dexPlux: state.dexPlux,
+    dexBasc: state.dexBasc,
 });
 
 export default connect(mapStateToProps, bindAction)(AppNavigator);

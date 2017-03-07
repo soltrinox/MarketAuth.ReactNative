@@ -1,16 +1,16 @@
-var RNDBModel = require('react-native-db-models')
+var RNDBModel = require('react-native-db-models');
 
 var DB = {
     "app": new RNDBModel.create_db('app'),
     "users": new RNDBModel.create_db('users'),
     "cats": new RNDBModel.create_db('cats'),
+    "settings": new RNDBModel.create_db('settings'),
+    "dexPrem": new RNDBModel.create_db('dexPrem'),
+    "dexPlux": new RNDBModel.create_db('dexPlux'),
+    "dexBasc": new RNDBModel.create_db('dexBasc'),
     "keywords": new RNDBModel.create_db('keywords'),
     "markets": new RNDBModel.create_db('markets'),
     "domains": new RNDBModel.create_db('domains'),
-    "settings": new RNDBModel.create_db('settings'),
-    "dexPrem": new RNDBModel.create_db('dexPrem'),
-    "dexPluss": new RNDBModel.create_db('dexPluss'),
-    "dexBasc": new RNDBModel.create_db('dexBasc'),
-}
+};
 
-module.exports = DB
+module.exports = DB;

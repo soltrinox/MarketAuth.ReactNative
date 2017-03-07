@@ -69,11 +69,9 @@ class NHButton extends React.Component {
             columnTotal4: 0,
             columnTotal5: 0,
             columnTotal6: 0,
-
-            dexPrem : [],
             dexPlus : [],
+            dexPrem : [],
             dexBasc: [],
-
             domain1: 'test 1',
             domain2: 'test 1',
             domain3: 'test 1',
@@ -140,35 +138,7 @@ class NHButton extends React.Component {
         this.setState({domainGridColumns: arrayz});
     }
 
-    _addDexPrem(catt , newObj){
-        var ttd = this.state.selectedCategory;
-        DB.dexPrem.add( { tdd : newObj} , function (added_data) {
-            console.log('dexPrem added_data' + JSON.stringify(added_data));
-        });
-        DB.dexPrem.get_all(function(result){
-            console.log('$$$$$$ get_all dexPrem: '+ JSON.stringify(result) );
-        });
-    }
 
-    _addDexPlus(catt , newObj ){
-        var ttd = this.state.selectedCategory;
-        DB.dexPlus.add( {tdd : newObj}  , function (added_data) {
-            console.log('dexPlus added_data' + JSON.stringify(added_data));
-        });
-        DB.dexPlus.get_all(function(result){
-            console.log('$$$$$$ get_all dexPlus: '+ JSON.stringify(result) );
-        });
-    }
-
-    _addDexBasc( catt , newObj ){
-        var ttd = this.state.selectedCategory;
-        DB.dexBasc.add( {tdd : newObj}  , function (added_data) {
-            console.log('dexBasc added_data' + JSON.stringify(added_data));
-        });
-        DB.dexBasc.get_all(function(result){
-            console.log('$$$$$$ get_all dexBasc: '+ JSON.stringify(result) );
-        });
-    }
 
     _returnDataOnSelection(item, e) {
 
@@ -255,36 +225,7 @@ class NHButton extends React.Component {
         catName = e.value;
 
 
-        var devPremUpdate = {};
-        devPremUpdate[catName] = dexPremObj;
-        DB.dexPrem.add(devPremUpdate, function(added_data){
-            console.log('dexPrem = '+ JSON.stringify(added_data));
-        });
 
-        var devPlusUpdate = {};
-        devPlusUpdate[catName] = dexPlusObj;
-        DB.dexPlus.add( devPlusUpdate, function(added_data){
-            console.log('dexPlus = '+ JSON.stringify(added_data));
-        });
-
-        var devBascUpdate = {};
-        devBascUpdate[catName] = dexBascObj;
-        DB.dexBasc.add( devBascUpdate, function(added_data){
-            console.log('dexBasc = '+ JSON.stringify(added_data));
-        });
-
-
-        DB.dexBasc.get_all(function(result){
-            console.log('$$$$$$ dexBasc get_all : '+ result.catName + ' @ '+ JSON.stringify(result) );
-        });
-
-        DB.dexPlus.get_all(function(result){
-            console.log('$$$$$$ dexPlus get_all : '+ result.catName + ' @ '+ JSON.stringify(result) );
-        });
-
-        DB.dexPrem.get_all(function(result){
-            console.log('$$$$$$ dexPrem get_all : '+ result.catName + ' @ '+ JSON.stringify(result) );
-        });
 
     }
 
@@ -378,17 +319,6 @@ class NHButton extends React.Component {
         // NOW THAT THE ARRAYS ARE POPULATED  LOOK INSIDE
 
 
-        DB.dexBasc.get_all(function(result){
-            console.log('$$$$$$ dexBasc get_all : '+ JSON.stringify(result) );
-        });
-
-        DB.dexPlus.get_all(function(result){
-            console.log('$$$$$$ dexPlus get_all : '+ JSON.stringify(result) );
-        });
-
-        DB.dexPrem.get_all(function(result){
-            console.log('$$$$$$ dexPrem get_all : '+ JSON.stringify(result) );
-        });
 
         console.log("Test Model", DeviceInfo.getModel());
         console.log("Device ID", DeviceInfo.getDeviceId());
@@ -402,18 +332,6 @@ class NHButton extends React.Component {
         this.setState({ columnTotal2 : 0} );
         this.setState({ columnTotal3 : 0} );
         this.setState({ columnTotal4 : 0} );
-        // DB.dexBasc.erase_db(function(removed_data){
-        //     console.log(removed_data);
-        // });
-        // DB.dexPlus.erase_db(function(removed_data){
-        //     console.log(removed_data);
-        // });
-        // DB.dexPrem.erase_db(function(removed_data){
-        //     console.log(removed_data);
-        // });
-
-
-
 
 
     }

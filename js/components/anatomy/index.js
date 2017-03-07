@@ -33,14 +33,18 @@ var DBEvents = require('react-native-db-models').DBEvents;
 var DB = require('../../db.js');
 
 DBEvents.on("all", function () {
-    // console.log("Database changed");
+    console.log("Database changed");
 });
 
 class Anatomy extends React.Component {
 
     static propTypes = {
         openDrawer: React.PropTypes.func,
-        selectCategory: React.PropTypes.func,
+        selectCategory: React.PropTypes.string,
+        selectedDomain : React.PropTypes.string,
+        dexPrem: React.PropTypes.array,
+        dexPlux: React.PropTypes.array,
+        dexBasc: React.PropTypes.array,
     }
 
 
@@ -71,7 +75,7 @@ class Anatomy extends React.Component {
             columnTotal6: 0,
 
             dexPrem: [],
-            dexPluss: [],
+            dexPlux: [],
             dexBasc: [],
 
             domain1: 'test 1',
@@ -142,32 +146,38 @@ class Anatomy extends React.Component {
 
     _addDexPrem(newObj) {
         var ttd = this.state.selectedCategory;
-        DB.dexPrem.add({tdd: newObj}, function (added_data) {
-            console.log('dexPrem added_data' + JSON.stringify(added_data));
+
+        DB.dexPrem.add(newObj, function (added_data) {
+            console.log('dexPrem added_data = ' + stringify(added_data, {maxLength: 0, indent: '\t'}) );
+            DB.dexPrem.get_all(function (result) {
+                console.log('dexPrem get_all = ' + stringify(result, {maxLength: 0, indent: '\t'}) );
+            });
         });
-        DB.dexPrem.get_all(function (result) {
-            console.log('$$$$$$ get_all dexPrem: ' + JSON.stringify(result));
-        });
+
     }
 
-    _addDexPlus(newObj) {
+    _addDexPlux(newObj) {
         var ttd = this.state.selectedCategory;
-        DB.dexPluss.add({tdd: newObj}, function (added_data) {
-            console.log('dexPluss added_data' + JSON.stringify(added_data));
+
+        DB.dexPlux.add(newObj, function (added_data) {
+            console.log('dexPlux added_data = ' + stringify(added_data, {maxLength: 0, indent: '\t'}) );
+            DB.dexPlux.get_all(function (result) {
+                console.log('dexPlux get_all = ' + stringify(result, {maxLength: 0, indent: '\t'}) );
+            });
         });
-        DB.dexPluss.get_all(function (result) {
-            console.log('$$$$$$ get_all dexPluss: ' + JSON.stringify(result));
-        });
+
     }
 
     _addDexBasc(newObj) {
         var ttd = this.state.selectedCategory;
-        DB.dexBasc.add({tdd: newObj}, function (added_data) {
-            console.log('dexBasc added_data' + JSON.stringify(added_data));
+
+        DB.dexBasc.add(newObj, function (added_data) {
+            console.log('dexBasc added_data = ' + stringify(added_data, {maxLength: 0, indent: '\t'}) );
+            DB.dexBasc.get_all(function (result) {
+                console.log('dexBasc get_all = ' + stringify(result, {maxLength: 0, indent: '\t'}) );
+            });
         });
-        DB.dexBasc.get_all(function (result) {
-            console.log('$$$$$$ get_all dexBasc: ' + JSON.stringify(result));
-        });
+
     }
 
     _returnDataOnSelection(item, e) {
@@ -177,39 +187,38 @@ class Anatomy extends React.Component {
         // TODO: separate the function of updating the objects... to call from the header on Module load.
         // TODO: and then update the grid from the store category and domains in persisted object when move between Module
 
-        var foundPremCat = DB.dexPrem.get({'CAT': catName }, function (result) {
+
+        DB.dexBasc.get({ CAT: catName }, function (result) {
             if(_.isEmpty(result)){
-                console.log('\n\n\n @@@@@@@@ EMPTY dexPrem NO '+catName+' ..... '  );
-                return false;
+                console.log('\n @@@@@@@@ EMPTY dexBasc NO '+ catName + ' ..... '  );
+
             }else{
-                console.log('\n\n\n ######## EXISTS dexPrem : ' + stringify(result, {maxLength: 0, indent: '\t'}) );
-                return true;
+                console.log('\n ######## EXISTS dexBasc  : ' + stringify(result, {maxLength: 0, indent: '\t'}) );
+                r
             }
         });
 
-        var foundPlussCat = DB.dexPluss.get({'CAT': catName }, function (result2) {
-            if(_.isEmpty(result2)){
-                console.log('\n\n\n @@@@@@@@ EMPTY dexPluss NO '+ catName + ' ..... '  );
-                return false;
+        DB.dexPlux.get({ CAT: catName }, function (result) {
+            if(_.isEmpty(result)){
+                console.log('\n @@@@@@@@ EMPTY dexPlux NO ' + catName + ' ..... '  );
+
             }else{
-                console.log('\n\n\n ######## EXISTS dexPluss : ' + stringify(result2, {maxLength: 0, indent: '\t'}) );
-                return true;
+                console.log('\n ######## EXISTS dexPlux : ' + stringify(result, {maxLength: 0, indent: '\t'}) );
+
             }
         });
 
-        var foundBascCat = DB.dexBasc.get({'CAT':catName }, function (result3) {
-            if(_.isEmpty(result3)){
-                console.log('\n\n\n @@@@@@@@ EMPTY dexBasc NO '+catName+' ..... '  );
-                return false;
+        DB.dexPrem.get({ CAT: catName }, function (result) {
+            if(_.isEmpty(result)){
+                console.log('\n @@@@@@@@ EMPTY dexPrem NO ' + catName + ' ..... '  );
             }else{
-                console.log('\n\n\n ######## EXISTS dexBasc  : ' + stringify(result3, {maxLength: 0, indent: '\t'}) );
-                return true;
+                console.log('\n ######## EXISTS dexPrem : ' + stringify(result, {maxLength: 0, indent: '\t'}) );
             }
         });
 
-        if(_.isUndefined(catName)){
-
-        }else{
+        // if(_.isUndefined(catName)){
+        //
+        // }else{
             this.setState({columnTotal1: 0});
             this.setState({columnTotal2: 0});
             this.setState({columnTotal3: 0});
@@ -237,87 +246,83 @@ class Anatomy extends React.Component {
             // console.log('########### MATCHED DOMAINS BY KEY : ' + JSON.stringify(testDomains));
 
             var dexPremObj = [];
-            var dexPlussObj = [];
+            var dexPluxObj = [];
             var dexBascObj = [];
 
             _.forEach(kkt, function (value) {
                 var keysByCat = [];
                 keysByCat = _.filter(test, {"CAT": catName, "KEY": value});
-                _.forEach(keysByCat, function (value) {
-                    var value2 = value;
+                _.forEach(keysByCat, function (value2) {
+                    // var value2 = value;
                     // console.log('\n\n===============\n\n DOM: ' + JSON.stringify(value.DOM) );
                     if (_.isEqual(value2.DOM, "Dex ESS Premium")) {
-                        console.log('\n\n FOUND: ' + JSON.stringify(value2.DOM) + ' @ ' + value2.KEY + ' <- ' + value2.SCORE);
+                        console.log('\n FOUND: ' + JSON.stringify(value2.DOM) + ' @ ' + value2.KEY + ' <- ' + value2.SCORE);
                         dexPremObj.push(value2);
                     }
                     if (_.isEqual(value2.DOM, "Dex ESS Plus")) {
-                        console.log('\n\n FOUND: ' + JSON.stringify(value2.DOM) + ' @ ' + value2.KEY + ' <- ' + value2.SCORE);
-                        dexPlussObj.push(value2);
+                        console.log('\n FOUND: ' + JSON.stringify(value2.DOM) + ' @ ' + value2.KEY + ' <- ' + value2.SCORE);
+                        dexPluxObj.push(value2);
                     }
                     if (_.isEqual(value2.DOM, "Dex ESS Basic")) {
-                        console.log('\n\n FOUND: ' + JSON.stringify(value2.DOM) + ' @ ' + value2.KEY + ' <- ' + value2.SCORE);
+                        console.log('\n FOUND: ' + JSON.stringify(value2.DOM) + ' @ ' + value2.KEY + ' <- ' + value2.SCORE);
                         dexBascObj.push(value2);
                     }
                 });
             });
 
+            console.log('@@@@@@@ dexPrem @ ' + JSON.stringify(dexPremObj));
+            console.log('@@@@@@@ dexPlux @ ' + JSON.stringify(dexPluxObj));
+            console.log('@@@@@@@ dexBasc @ ' + JSON.stringify(dexBascObj));
 
-            var tabPrem = {};
-            var tabPluss = {};
-            var tabBasc = {};
+            var tabPrem = { };
+            var tabPlux = { };
+            var tabBasc = { };
 
             _.forEach(kkt, function (value) {
-                console.log('XXXXXXXXXXX value @ ' + JSON.stringify(value));
-                tabPrem[value] = _.filter(dexPremObj, {"DOM": "Dex ESS Premium", "KEY": value});
-                tabPluss[value] = _.filter(dexPlussObj, {"DOM": "Dex ESS Plus", "KEY": value});
+                // console.log('XXXXXXXXXXX value @ ' + JSON.stringify(value));
+                tabPrem[value] = _.filter(dexPremObj, {"DOM" : "Dex ESS Premium", "KEY": value});
+                tabPlux[value] = _.filter(dexPluxObj, {"DOM" : "Dex ESS Plus", "KEY": value});
                 tabBasc[value] = _.filter(dexBascObj, {"DOM": "Dex ESS Basic", "KEY": value});
             });
 
+
             this.setState({dexPrem: tabPrem});
-            // console.log('@@@@@@@ dexPrem @ ' + JSON.stringify(tabPrem));
-            this.setState({dexPluss: tabPluss});
-            // console.log('@@@@@@@ dexPluss @ ' + JSON.stringify(tabPluss));
+            this.setState({dexPlux: tabPlux});
             this.setState({dexBasc: tabBasc});
-            // console.log('@@@@@@@ dexBasc @ ' + JSON.stringify(tabBasc));
 
 
-            catName = e.value;
+
+            // catName = e.value;
+
+            var devPluxUpdate = { };
+            devPluxUpdate["CAT"] = catName;
+            devPluxUpdate["KEYS"] = tabPlux;
+            console.log('\n  : devPluxUpdate  = ' + stringify(devPluxUpdate, {maxLength: 0, indent: '\t'}) );
+            this._addDexPlux(devPluxUpdate);
 
             var devPremUpdate = { };
-            devPremUpdate['CAT'] = catName;
-            devPremUpdate['KEYS'] = tabPrem;
-            console.log('\n\n\n00000000000 : devPremUpdate  = ' + stringify(devPremUpdate, {maxLength: 0, indent: '\t'}) );
-            DB.dexPrem.add(devPremUpdate, function (added_data) {
-                console.log('dexPrem added_data = ' + stringify(added_data, {maxLength: 0, indent: '\t'}) );
-            });
-
-            var devPlussUpdate = { };
-            devPlussUpdate['CAT'] = catName;
-            devPlussUpdate['KEYS'] = tabPluss;
-            console.log('\n\n\n00000000000 : devPlussUpdate  = ' + stringify(devPlussUpdate, {maxLength: 0, indent: '\t'}) );
-            DB.dexPluss.add(devPlussUpdate, function (added_data) {
-                console.log('dexPluss added_data = ' + stringify(added_data, {maxLength: 0, indent: '\t'}) );
-            });
+            devPremUpdate["CAT"] = catName;
+            devPremUpdate["KEYS"] = tabPrem;
+            console.log('\n : devPremUpdate  = ' + stringify(devPremUpdate, {maxLength: 0, indent: '\t'}) );
+            this._addDexPrem(devPremUpdate);
 
             var devBascUpdate = { };
-            devBascUpdate['CAT'] = catName;
-            devBascUpdate['KEYS'] = tabBasc;
-            console.log('\n\n\n00000000000 : devBascUpdate  = ' + stringify(devBascUpdate, {maxLength: 0, indent: '\t'}) );
-            DB.dexBasc.add(devBascUpdate, function (added_data) {
-                console.log('dexBasc added_data = ' + stringify(added_data, {maxLength: 0, indent: '\t'}) );
-            });
+            devBascUpdate["CAT"] = catName;
+            devBascUpdate["KEYS"] = tabBasc;
+            console.log('\n  : devBascUpdate  = ' + stringify(devBascUpdate, {maxLength: 0, indent: '\t'}) );
+            this._addDexBasc(devBascUpdate);
 
-        }
+        // }
 
-        DB.dexBasc.get_all(function (result) {
-            console.log('$$$$$$ dexBasc get_all :   @ ' + stringify(result, {maxLength: 0, indent: '\t'}) );
-        });
-        DB.dexPluss.get_all(function (result) {
-            console.log('$$$$$$ dexPluss get_all :   @ ' + stringify(result, {maxLength: 0, indent: '\t'}) );
-        });
-        DB.dexPrem.get_all(function (result) {
-            console.log('$$$$$$ dexPrem get_all :   @ ' + stringify(result, {maxLength: 0, indent: '\t'}) );
-        });
+        // DB.dexBasc.get_all(function (result) {
+        //     console.log('$$$$$$ dexBasc get_all :   @ ' + stringify(result, {maxLength: 0, indent: '\t'}) );
+        // });
+        // DB.dexPlux.get_all(function (result) {
+        //     console.log('$$$$$$ dexPlux get_all :   @ ' + stringify(result, {maxLength: 0, indent: '\t'}) );
+        // });
+        // DB.dexPrem.get_all(function (result) {
+        //     console.log('$$$$$$ dexPrem get_all :   @ ' + stringify(result, {maxLength: 0, indent: '\t'}) );
+        // });
 
     }
 
@@ -325,11 +330,10 @@ class Anatomy extends React.Component {
 
     _domainData() {
 
-
         var testJSON = require('./PHX.001.json');
         this.state.dataObjects = {
             CATEGORY1: [
-                {KEY: 'First Domain', DOM: 'DEX PLUS'},
+                {KEY: 'First Domain', DOM: 'DEX Plux'},
                 {KEY: 'First Domain', DOM: 'DEX PREM'},
                 {KEY: 'First Domain', DOM: 'www.xxxxx.com'},
                 {KEY: 'First Domain', DOM: 'www.yyyy.com'},
@@ -378,25 +382,11 @@ class Anatomy extends React.Component {
             _.set(this.state.dataObjects, catName, trr);
         }
         this.setState({categoriesArr: happy});
+
+
         return this.state.dataObjects;
     }
 
-    _setUserData() {
-        // DB.users.add({first_name: "TEST", age: 40}, function (added_data) {
-        //     console.log('added_data' + JSON.stringify(added_data));
-        // });
-
-        // DB.dexPluss.erase_db(function(removed_data2){
-        //     console.log(removed_data2);
-        // });
-        // DB.dexPrem.erase_db(function(removed_data3){
-        //     console.log(removed_data3);
-        // });
-        // DB.dexBasc.erase_db(function(removed_data){
-        //     console.log(removed_data);
-        // });
-
-    }
 
     componentWillMount() {
 
@@ -407,25 +397,6 @@ class Anatomy extends React.Component {
         console.log("Device ID", DeviceInfo.getDeviceId());
         console.log("System Name", DeviceInfo.getSystemName());
 
-
-        DB.dexPluss.get_all(function (result3) {
-            console.log('\n\n\n ------ dexPluss get_all : ' + stringify(result3, {maxLength: 0, indent: '\t'}) );
-        });
-
-        DB.dexPrem.get_all(function (result) {
-            console.log('\n\n\nPRPRPR dexPrem get_all : ' + stringify(result, {maxLength: 0, indent: '\t'}) );
-        });
-
-
-
-        DB.dexBasc.get_all(function (result2) {
-            console.log('\n\n\nBCBCBC dexBasc get_all : ' + stringify(result2, {maxLength: 0, indent: '\t'}) );
-        });
-
-
-
-
-
     }
 
     componentDidMount() {
@@ -435,9 +406,21 @@ class Anatomy extends React.Component {
         this.setState({columnTotal3: 0});
         this.setState({columnTotal4: 0});
 
+        // DB.dexPrem.erase_db(function(removed_data3){
+        //     console.log(removed_data3);
+        // });
+        //
+        // DB.dexPlux.erase_db(function(removed_data2){
+        //     console.log(removed_data2);
+        // });
+        //
+        // DB.dexBasc.erase_db(function(removed_data){
+        //     console.log(removed_data);
+        // });
 
-
-
+        // DB.dexBasc.get_all(function (result2) {
+        //     console.log('\n  ------ dexBasc get_all : ' + stringify(result2, {maxLength: 0, indent: '\t'}) );
+        // });
     }
 
     getRandomInt(min, max) {
@@ -545,7 +528,7 @@ class Anatomy extends React.Component {
                                         <Text
                                             style={{ color:'#FFFFFF', fontSize: 24,lineHeight:28, fontWeight:'normal',textAlign:'center'    }}
                                             ellipsizeMode={'tail'} numberOfLines={1}>
-                                            ESS PLUS</Text>
+                                            ESS Plus</Text>
                                     </View>
                                     <View
                                         style={{ width:240, height:62, overflow: 'hidden',
@@ -602,7 +585,7 @@ class Anatomy extends React.Component {
                                                         var kray = [];
 
                                                         var rowValue = [];
-                                                        rowValue = this.state.dexPluss[item];
+                                                        rowValue = this.state.dexPlux[item];
                                                         var itr = {};
                                                         itr = _.head(rowValue);
 
@@ -774,12 +757,17 @@ class Anatomy extends React.Component {
 function bindAction(dispatch) {
     return {
         openDrawer: () => dispatch(openDrawer()),
-        selectCategory: () => dispatch(selectCategory()),
+
     };
 }
 
 const mapStateToProps = state => ({
     navigation: state.cardNavigation,
+    selectedDomain : state.selectedDomain,
+    selectedCategory : state.selectedCategory,
+    dexPrem: state.dexPrem,
+    dexPlux: state.dexPlux,
+    dexBasc: state.dexBasc,
 });
 
 export default connect(mapStateToProps, bindAction)(Anatomy);
