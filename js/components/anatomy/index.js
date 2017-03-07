@@ -33,7 +33,7 @@ var DBEvents = require('react-native-db-models').DBEvents;
 var DB = require('../../db.js');
 
 DBEvents.on("all", function () {
-    console.log("Database changed");
+    // console.log("Database changed");
 });
 
 class Anatomy extends React.Component {
@@ -71,7 +71,7 @@ class Anatomy extends React.Component {
             columnTotal6: 0,
 
             dexPrem: [],
-            dexPlus: [],
+            dexPluss: [],
             dexBasc: [],
 
             domain1: 'test 1',
@@ -152,11 +152,11 @@ class Anatomy extends React.Component {
 
     _addDexPlus(newObj) {
         var ttd = this.state.selectedCategory;
-        DB.dexPlus.add({tdd: newObj}, function (added_data) {
-            console.log('dexPlus added_data' + JSON.stringify(added_data));
+        DB.dexPluss.add({tdd: newObj}, function (added_data) {
+            console.log('dexPluss added_data' + JSON.stringify(added_data));
         });
-        DB.dexPlus.get_all(function (result) {
-            console.log('$$$$$$ get_all dexPlus: ' + JSON.stringify(result));
+        DB.dexPluss.get_all(function (result) {
+            console.log('$$$$$$ get_all dexPluss: ' + JSON.stringify(result));
         });
     }
 
@@ -172,20 +172,42 @@ class Anatomy extends React.Component {
 
     _returnDataOnSelection(item, e) {
 
+        var catName = e.value;
+
         // TODO: separate the function of updating the objects... to call from the header on Module load.
         // TODO: and then update the grid from the store category and domains in persisted object when move between Module
 
-        var foundCat = DB.dexPrem.get({'CAT':'Accountant'}, function (result) {
+        var foundPremCat = DB.dexPrem.get({'CAT': catName }, function (result) {
             if(_.isEmpty(result)){
-                console.log('\n\n\n@@@@@@@@ EMPTY NO Accountant ..... '  );
+                console.log('\n\n\n @@@@@@@@ EMPTY dexPrem NO '+catName+' ..... '  );
                 return false;
             }else{
-                console.log('\n\n\n######## EXISTS Accountant : ' + stringify(result, {maxLength: 0, indent: '\t'}) );
+                console.log('\n\n\n ######## EXISTS dexPrem : ' + stringify(result, {maxLength: 0, indent: '\t'}) );
                 return true;
             }
         });
 
-        if(foundCat){
+        var foundPlussCat = DB.dexPluss.get({'CAT': catName }, function (result2) {
+            if(_.isEmpty(result2)){
+                console.log('\n\n\n @@@@@@@@ EMPTY dexPluss NO '+ catName + ' ..... '  );
+                return false;
+            }else{
+                console.log('\n\n\n ######## EXISTS dexPluss : ' + stringify(result2, {maxLength: 0, indent: '\t'}) );
+                return true;
+            }
+        });
+
+        var foundBascCat = DB.dexBasc.get({'CAT':catName }, function (result3) {
+            if(_.isEmpty(result3)){
+                console.log('\n\n\n @@@@@@@@ EMPTY dexBasc NO '+catName+' ..... '  );
+                return false;
+            }else{
+                console.log('\n\n\n ######## EXISTS dexBasc  : ' + stringify(result3, {maxLength: 0, indent: '\t'}) );
+                return true;
+            }
+        });
+
+        if(_.isUndefined(catName)){
 
         }else{
             this.setState({columnTotal1: 0});
@@ -197,7 +219,7 @@ class Anatomy extends React.Component {
             this.setState({selectedCategory: e.value});
             var test = _.orderBy(this.state.rawArr, ['CAT', 'KEY', 'SCORE'], ['asc', 'asc', 'desc']);
             var trr = [];
-            var catName = e.value;
+
             trr = _.filter(test, {"CAT": catName});
             var upp = {catName: trr};
             var kkt = [];
@@ -215,7 +237,7 @@ class Anatomy extends React.Component {
             // console.log('########### MATCHED DOMAINS BY KEY : ' + JSON.stringify(testDomains));
 
             var dexPremObj = [];
-            var dexPlusObj = [];
+            var dexPlussObj = [];
             var dexBascObj = [];
 
             _.forEach(kkt, function (value) {
@@ -230,7 +252,7 @@ class Anatomy extends React.Component {
                     }
                     if (_.isEqual(value2.DOM, "Dex ESS Plus")) {
                         console.log('\n\n FOUND: ' + JSON.stringify(value2.DOM) + ' @ ' + value2.KEY + ' <- ' + value2.SCORE);
-                        dexPlusObj.push(value2);
+                        dexPlussObj.push(value2);
                     }
                     if (_.isEqual(value2.DOM, "Dex ESS Basic")) {
                         console.log('\n\n FOUND: ' + JSON.stringify(value2.DOM) + ' @ ' + value2.KEY + ' <- ' + value2.SCORE);
@@ -241,20 +263,20 @@ class Anatomy extends React.Component {
 
 
             var tabPrem = {};
-            var tabPlus = {};
+            var tabPluss = {};
             var tabBasc = {};
 
             _.forEach(kkt, function (value) {
                 console.log('XXXXXXXXXXX value @ ' + JSON.stringify(value));
                 tabPrem[value] = _.filter(dexPremObj, {"DOM": "Dex ESS Premium", "KEY": value});
-                tabPlus[value] = _.filter(dexPlusObj, {"DOM": "Dex ESS Plus", "KEY": value});
+                tabPluss[value] = _.filter(dexPlussObj, {"DOM": "Dex ESS Plus", "KEY": value});
                 tabBasc[value] = _.filter(dexBascObj, {"DOM": "Dex ESS Basic", "KEY": value});
             });
 
             this.setState({dexPrem: tabPrem});
             // console.log('@@@@@@@ dexPrem @ ' + JSON.stringify(tabPrem));
-            this.setState({dexPlus: tabPlus});
-            // console.log('@@@@@@@ dexPlus @ ' + JSON.stringify(tabPlus));
+            this.setState({dexPluss: tabPluss});
+            // console.log('@@@@@@@ dexPluss @ ' + JSON.stringify(tabPluss));
             this.setState({dexBasc: tabBasc});
             // console.log('@@@@@@@ dexBasc @ ' + JSON.stringify(tabBasc));
 
@@ -269,12 +291,12 @@ class Anatomy extends React.Component {
                 console.log('dexPrem added_data = ' + stringify(added_data, {maxLength: 0, indent: '\t'}) );
             });
 
-            var devPlusUpdate = { };
-            devPlusUpdate['CAT'] = catName;
-            devPlusUpdate['KEYS'] = tabPlus;
-            console.log('\n\n\n00000000000 : devPlusUpdate  = ' + stringify(devPlusUpdate, {maxLength: 0, indent: '\t'}) );
-            DB.dexPlus.add(devPlusUpdate, function (added_data) {
-                console.log('dexPlus added_data = ' + stringify(added_data, {maxLength: 0, indent: '\t'}) );
+            var devPlussUpdate = { };
+            devPlussUpdate['CAT'] = catName;
+            devPlussUpdate['KEYS'] = tabPluss;
+            console.log('\n\n\n00000000000 : devPlussUpdate  = ' + stringify(devPlussUpdate, {maxLength: 0, indent: '\t'}) );
+            DB.dexPluss.add(devPlussUpdate, function (added_data) {
+                console.log('dexPluss added_data = ' + stringify(added_data, {maxLength: 0, indent: '\t'}) );
             });
 
             var devBascUpdate = { };
@@ -288,13 +310,13 @@ class Anatomy extends React.Component {
         }
 
         DB.dexBasc.get_all(function (result) {
-            console.log('$$$$$$ dexBasc get_all : ' + result.catName + ' @ ' + stringify(result, {maxLength: 0, indent: '\t'}) );
+            console.log('$$$$$$ dexBasc get_all :   @ ' + stringify(result, {maxLength: 0, indent: '\t'}) );
         });
-        DB.dexPlus.get_all(function (result) {
-            console.log('$$$$$$ dexPlus get_all : ' + result.catName + ' @ ' + stringify(result, {maxLength: 0, indent: '\t'}) );
+        DB.dexPluss.get_all(function (result) {
+            console.log('$$$$$$ dexPluss get_all :   @ ' + stringify(result, {maxLength: 0, indent: '\t'}) );
         });
         DB.dexPrem.get_all(function (result) {
-            console.log('$$$$$$ dexPrem get_all : ' + result.catName + ' @ ' + stringify(result, {maxLength: 0, indent: '\t'}) );
+            console.log('$$$$$$ dexPrem get_all :   @ ' + stringify(result, {maxLength: 0, indent: '\t'}) );
         });
 
     }
@@ -344,12 +366,6 @@ class Anatomy extends React.Component {
         this.state.keywordArr = [...new Set(test.map(item => item.KEY))];
         this.state.keywordArr.sort();
         this.state.keywordArr = ["Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category"];
-        // this.state.keywordArr.slice(700, 710);
-
-        // this._addDexBasc( { cat: 'generic', keysz:  this.state.keywordArr.slice(700, 710) });
-        // this._addDexPlus( { cat: 'generic', keysz:  this.state.keywordArr.slice(700, 710) });
-        // this._addDexPrem( { cat: 'generic', keysz:  this.state.keywordArr.slice(700, 710) });
-
 
         var happy = [];
 
@@ -369,21 +385,8 @@ class Anatomy extends React.Component {
         // DB.users.add({first_name: "TEST", age: 40}, function (added_data) {
         //     console.log('added_data' + JSON.stringify(added_data));
         // });
-    }
 
-    componentWillMount() {
-
-        var domains = [];
-        domains = this._domainData();
-        // NOW THAT THE ARRAYS ARE POPULATED  LOOK INSIDE
-
-
-        console.log("Test Model", DeviceInfo.getModel());
-        console.log("Device ID", DeviceInfo.getDeviceId());
-        console.log("System Name", DeviceInfo.getSystemName());
-
-
-        // DB.dexPlus.erase_db(function(removed_data2){
+        // DB.dexPluss.erase_db(function(removed_data2){
         //     console.log(removed_data2);
         // });
         // DB.dexPrem.erase_db(function(removed_data3){
@@ -393,47 +396,46 @@ class Anatomy extends React.Component {
         //     console.log(removed_data);
         // });
 
-        // DB.dexPlus.remove(1, function(removed_data){
-        //     console.log(removed_data);
-        // });
+    }
+
+    componentWillMount() {
+
+        var domains = [];
+        domains = this._domainData();
+
+        console.log("Test Model", DeviceInfo.getModel());
+        console.log("Device ID", DeviceInfo.getDeviceId());
+        console.log("System Name", DeviceInfo.getSystemName());
+
+
+        DB.dexPluss.get_all(function (result3) {
+            console.log('\n\n\n ------ dexPluss get_all : ' + stringify(result3, {maxLength: 0, indent: '\t'}) );
+        });
 
         DB.dexPrem.get_all(function (result) {
-            console.log('\n\n\n$$$$$$ dexPrem get_all : ' + stringify(result, {maxLength: 0, indent: '\t'}) );
-
+            console.log('\n\n\nPRPRPR dexPrem get_all : ' + stringify(result, {maxLength: 0, indent: '\t'}) );
         });
 
-        DB.dexPrem.get({'CAT':'Accountant'}, function (result) {
-            if(_.isEmpty(result)){
-                console.log('\n\n\n######## EMPTY NO Accountant : ' + stringify(result, {maxLength: 0, indent: '\t'}) );
-            }else{
-                console.log('\n\n\n######## EXISTS Accountant : ' + stringify(result, {maxLength: 0, indent: '\t'}) );
-            }
+
+
+        DB.dexBasc.get_all(function (result2) {
+            console.log('\n\n\nBCBCBC dexBasc get_all : ' + stringify(result2, {maxLength: 0, indent: '\t'}) );
         });
+
+
+
 
 
     }
 
     componentDidMount() {
+
         this.setState({columnTotal1: 0});
         this.setState({columnTotal2: 0});
         this.setState({columnTotal3: 0});
         this.setState({columnTotal4: 0});
 
 
-        // DB.dexBasc.get_all(function (result) {
-        //     console.log('$$$$$$ dexBasc get_all : ' + JSON.stringify(result));
-        // });
-
-        // DB.dexPlus.get_all(function (result) {
-        //     console.log('$$$$$$ dexPlus get_all : ' + JSON.stringify(result));
-        // });
-
-        // var resultsXX =
-        // DB.dexPrem.get_all(function (result) {
-        //     console.log('$$$$$$ dexPrem get_all : ' + stringify(result, {maxLength: 0, indent: '\t'}) );
-        // });
-        // console.log('$$$$$$ dexPrem get_all : ' + JSON.stringify(resultsXX, {maxLength: 0, indent: '\t'}) );
-        // console.log('$$$$$$ dexPrem get_all : ' + stringify(result, {maxLength: 0, indent: indent}) );
 
 
     }
@@ -600,7 +602,7 @@ class Anatomy extends React.Component {
                                                         var kray = [];
 
                                                         var rowValue = [];
-                                                        rowValue = this.state.dexPlus[item];
+                                                        rowValue = this.state.dexPluss[item];
                                                         var itr = {};
                                                         itr = _.head(rowValue);
 
@@ -608,8 +610,8 @@ class Anatomy extends React.Component {
 
                                                         } else {
                                                             var tempScore = _.toInteger(itr.SCORE);
-                                                            console.log('00000000000000 DEXPLUS rowValue : ' + JSON.stringify(itr));
-                                                            console.log('00000000000000 DEXPLUS rowValue SCORE: ' + _.toString(tempScore));
+                                                            console.log('00000000000000  obj : ' + JSON.stringify(itr));
+                                                            console.log('00000000000000  rowValue SCORE: ' + _.toString(tempScore));
                                                             if(tempScore >= 1) {
                                                                 for (var k = 0; k < tempScore; k++) {
                                                                     kray.push(<Svg height="16" width="17" key={k}>

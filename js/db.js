@@ -9,7 +9,7 @@ var DB = {
     "domains": new RNDBModel.create_db('domains'),
     "settings": new RNDBModel.create_db('settings'),
     "dexPrem": new RNDBModel.create_db('dexPrem'),
-    "dexPlus": new RNDBModel.create_db('dexPlus'),
+    "dexPluss": new RNDBModel.create_db('dexPluss'),
     "dexBasc": new RNDBModel.create_db('dexBasc'),
 }
 
