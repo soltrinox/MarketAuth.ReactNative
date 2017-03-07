@@ -52,8 +52,6 @@ class Anatomy extends React.Component {
     }
 
 
-
-
     constructor(props, context) {
         super(props, context);
         this.state = {
@@ -131,7 +129,7 @@ class Anatomy extends React.Component {
             })
             .done();
 
-        console.log('2222222 USER DATA: ' + JSON.stringify(this.state.userData));
+        // console.log('2222222 USER DATA: ' + JSON.stringify(this.state.userData));
     }
 
     _updateText(ddomain) {
@@ -185,7 +183,6 @@ class Anatomy extends React.Component {
         });
 
     }
-
 
     _persistObjects() {
         DB.dexBasc.get({CAT: catName}, function (result) {
@@ -253,13 +250,18 @@ class Anatomy extends React.Component {
 
     }
 
+    _resetGridColumnTotal(){
+        this.setState({columnTotal1: 0});
+        this.setState({columnTotal2: 0});
+        this.setState({columnTotal3: 0});
+        this.setState({columnTotal4: 0});
+    }
+
     _returnDataOnSelection(item, e) {
 
+        this._resetGridColumnTotal();
+
         var catName = '';
-
-        // TODO: separate the function of updating the objects... to call from the header on Module load.
-        // TODO: and then update the grid from the store category and domains in persisted object when move between Module
-
         if (_.isUndefined(e.value)) {
             if (_.isUndefined(this.props.navigation.selectedNavCategory)) {
                 catName = '';
@@ -278,10 +280,7 @@ class Anatomy extends React.Component {
 
         this.props.navigation.selectedNavCategory = _.toString(catName);
 
-        this.setState({columnTotal1: 0});
-        this.setState({columnTotal2: 0});
-        this.setState({columnTotal3: 0});
-        this.setState({columnTotal4: 0});
+        this._resetGridColumnTotal();
 
         var test = _.orderBy(this.state.rawArr, ['CAT', 'KEY', 'SCORE'], ['asc', 'asc', 'desc']);
         var trr  = _.filter(test, {"CAT": catName});
@@ -309,15 +308,15 @@ class Anatomy extends React.Component {
             var keysByCat = _.filter(test, {"CAT": catName, "KEY": value});
             _.forEach(keysByCat, function (value2) {
                 if (_.isEqual(value2.DOM, "Dex ESS Premium")) {
-                    console.log('\n FOUND: ' + JSON.stringify(value2.DOM) + ' @ ' + value2.KEY + ' <- ' + value2.SCORE);
+                    // console.log('\n FOUND: ' + JSON.stringify(value2.DOM) + ' @ ' + value2.KEY + ' <- ' + value2.SCORE);
                     dexPremObj.push(value2);
                 }
                 if (_.isEqual(value2.DOM, "Dex ESS Plus")) {
-                    console.log('\n FOUND: ' + JSON.stringify(value2.DOM) + ' @ ' + value2.KEY + ' <- ' + value2.SCORE);
+                    // console.log('\n FOUND: ' + JSON.stringify(value2.DOM) + ' @ ' + value2.KEY + ' <- ' + value2.SCORE);
                     dexPluxObj.push(value2);
                 }
                 if (_.isEqual(value2.DOM, "Dex ESS Basic")) {
-                    console.log('\n FOUND: ' + JSON.stringify(value2.DOM) + ' @ ' + value2.KEY + ' <- ' + value2.SCORE);
+                    // console.log('\n FOUND: ' + JSON.stringify(value2.DOM) + ' @ ' + value2.KEY + ' <- ' + value2.SCORE);
                     dexBascObj.push(value2);
                 }
             });
@@ -402,7 +401,7 @@ class Anatomy extends React.Component {
             _.set(this.state.dataObjects, catName, trr);
         }
         this.setState({categoriesArr: happy});
-        return this.state.dataObjects;
+        // return this.state.dataObjects;
     }
 
 
@@ -415,18 +414,16 @@ class Anatomy extends React.Component {
         console.log("ORIG this.props.navigation.selectedNavCategory : " + this.props.navigation.selectedNavCategory);
         this.state.selectedCategory = this.props.navigation.selectedNavCategory;
 
-        var domains = [];
-        domains = this._domainData();
+        // var domains =
+
+        this._domainData();
 
         this._updateGrids(this.state.selectedCategory);
     }
 
     componentDidMount() {
 
-        this.setState({columnTotal1: 0});
-        this.setState({columnTotal2: 0});
-        this.setState({columnTotal3: 0});
-        this.setState({columnTotal4: 0});
+        this._resetGridColumnTotal();
 
     }
 
@@ -444,11 +441,10 @@ class Anatomy extends React.Component {
         )
     }
 
-    render() {
 
-        // var tty = this.state.userData[0];
-        // var pic = JSON.parse(tty);
-        // console.log('this.state.clientColumnItems : '+JSON.stringify(this.state.clientColumnItems));
+    render() {
+        var gridCol1Total = 0;
+        var gridCol2Total = 0;
         const options = this.state.categoriesArr;
 
         return (
@@ -561,9 +557,9 @@ class Anatomy extends React.Component {
                                                             style={{ backgroundColor: '#454545', height: 30, marginBottom: 2,  justifyContent:'center' }}
                                                             key={index}>
                                                             <View
-                                                                style={{  height:30,  width:300, backgroundColor: "rgba(0,0,0,0)",  justifyContent:'center' }}>
+                                                                style={{ paddingTop:4, paddingLeft: 3, height:30,  width:300, backgroundColor: "rgba(0,0,0,0)",  justifyContent:'center' }}>
                                                                 <Text
-                                                                    style={{ height:30,  width:300, color: "#FFFFFF", fontSize: 16, lineHeight:18, textAlign: 'center' , }}
+                                                                    style={{ textAlignVertical: 'bottom', height:30,  width:300, color: "#FFFFFF", fontSize: 21, lineHeight:22, textAlign: 'left' , }}
                                                                     ellipsizeMode={'tail'} numberOfLines={1}>
 
                                                                     {item}
@@ -600,16 +596,16 @@ class Anatomy extends React.Component {
 
                                                         } else {
                                                             var tempScore = _.toInteger(itr.SCORE);
-                                                            console.log('00000000000000  obj : ' + JSON.stringify(itr));
-                                                            console.log('00000000000000  rowValue SCORE: ' + _.toString(tempScore));
+                                                            {/*console.log('00000000000000  obj : ' + JSON.stringify(itr));*/}
+                                                            {/*console.log('00000000000000  rowValue SCORE: ' + _.toString(tempScore));*/}
                                                             if (tempScore >= 1) {
                                                                 for (var k = 0; k < tempScore; k++) {
-                                                                    kray.push(<Svg height="16" width="17" key={k}>
+                                                                    kray.push(<Svg height="20" width="20" key={k}>
                                                                         <Rect
                                                                             x="0"
                                                                             y="0"
-                                                                            width="15"
-                                                                            height="15"
+                                                                            width="18"
+                                                                            height="18"
                                                                             stroke="black"
                                                                             strokeWidth="1"
                                                                             fill="green"
@@ -617,7 +613,7 @@ class Anatomy extends React.Component {
                                                                     </Svg>);
                                                                 }
                                                             }
-                                                            this.state.columnTotal1 = this.state.columnTotal1 + _.toInteger(tempScore);
+                                                            gridCol1Total = gridCol1Total + _.toInteger(tempScore);
                                                             tempScore = 0;
                                                         }
 
@@ -626,10 +622,9 @@ class Anatomy extends React.Component {
                                                                 style={{ backgroundColor: '#454545', height: 30 ,marginBottom: 2 }}
                                                                 key={index}>
                                                                 <View key={index}
-                                                                      style={{  height:30,  width:240,
+                                                                      style={{ paddingVertical: 3, paddingLeft: 3, height:30,  width:240,
                                                                 backgroundColor: "rgba(0,0,0,0)",
                                                             }}>
-
                                                                     <View style={{
                                                                 flex: 1,
                                                                 flexDirection: 'row',
@@ -652,7 +647,8 @@ class Anatomy extends React.Component {
                                             alignItems: 'flex-start',
                                             }}>
                                                     <Text
-                                                        style={{color:'#FFFFFF', fontSize: 20, textAlign: 'center'}}> {this.state.columnTotal1 } </Text>
+                                                        style={{ textAlignVertical: 'bottom',height: 30, color:'#FFFFFF', fontWeight:'bold',  fontSize: 25,lineHeight:26, textAlign: 'center'}}>
+                                                        { gridCol1Total } </Text>
                                                 </View>
                                             </Row>
                                         </Grid>
@@ -676,16 +672,16 @@ class Anatomy extends React.Component {
 
                                                         } else {
                                                             var tempScore2 = _.toInteger(itr2.SCORE);
-                                                            console.log('00000000000000 DEXPREM rowValue : ' + JSON.stringify(itr2));
-                                                            console.log('00000000000000 DEXPREM rowValue SCORE: ' + _.toString(tempScore2));
+                                                            {/*console.log('00000000000000 DEXPREM rowValue : ' + JSON.stringify(itr2));*/}
+                                                            {/*console.log('00000000000000 DEXPREM rowValue SCORE: ' + _.toString(tempScore2));*/}
                                                             if (tempScore2 >= 1) {
                                                                 for (var b = 0; b < tempScore2; b++) {
-                                                                    kray2.push(<Svg height="16" width="17" key={b}>
+                                                                    kray2.push(<Svg height="20" width="20" key={b}>
                                                                         <Rect
                                                                             x="0"
                                                                             y="0"
-                                                                            width="15"
-                                                                            height="15"
+                                                                            width="18"
+                                                                            height="18"
                                                                             stroke="black"
                                                                             strokeWidth="1"
                                                                             fill="green"
@@ -694,7 +690,7 @@ class Anatomy extends React.Component {
                                                                 }
                                                             }
 
-                                                            this.state.columnTotal2 = this.state.columnTotal2 + _.toInteger(tempScore2);
+                                                            gridCol2Total = gridCol2Total + _.toInteger(tempScore2);
                                                             tempScore2 = 0;
                                                         }
 
@@ -703,7 +699,7 @@ class Anatomy extends React.Component {
                                                                 style={{ backgroundColor: '#454545', height: 30,marginBottom: 2 }}
                                                                 key={index}>
                                                                 <View key={index}
-                                                                      style={{  height:30,  width:240,
+                                                                      style={{ paddingVertical: 3, paddingLeft: 3, height:30,  width:240,
                                                                 backgroundColor: "rgba(0,0,0,0)",
                                                             }}>
 
@@ -729,7 +725,8 @@ class Anatomy extends React.Component {
                                             alignItems: 'flex-start',
                                             }}>
                                                     <Text
-                                                        style={{color:'#FFFFFF', fontSize: 20, textAlign: 'center'}}> {this.state.columnTotal2 } </Text>
+                                                        style={{ textAlignVertical: 'bottom',height: 30, color:'#FFFFFF', fontWeight:'bold',  fontSize: 25,lineHeight:26, textAlign: 'center'}}>
+                                                        {gridCol2Total } </Text>
                                                 </View>
                                             </Row>
                                         </Grid>
