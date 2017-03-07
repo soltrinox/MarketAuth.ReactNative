@@ -452,22 +452,63 @@ class Anatomy extends React.Component {
                 <Header style={{ width : 800, height:100, backgroundColor: '#454545', paddingLeft: 40}}>
                     <View style={{ flex: 1, alignItems : 'flex-start', flexDirection: 'row',}}>
                         <View style={{ width: 220, height: 30, marginRight:20 }}>
-                            <InputGroup style={{ backgroundColor: '#2c75ab'}}>
-                                <Input label="DOMAIN" placeholder="DOMAIN"
-                                       style={{ width: 120, height: 30, color: '#FFF' }}/>
+                            <InputGroup style={{ borderRadius: 8, backgroundColor: '#2c75ab'}}>
+                                <Input label="DOMAIN" placeholder="DOMAIN" placeholderTextColor="#ABABAB"
+                                       style={{ width: 120, height: 30, color: 'white', fontWeight: 'bold',
+                                       fontSize: 20, lineHeight:22, textAlign: 'center' }}/>
                             </InputGroup>
                         </View>
-                        <View style={{ width: 220, height: 30, marginRight:20 }}>
+                        <View style={{ width: 220, height: 30, marginRight:10,  }}>
                             <Selection
                                 ref={(mySelection1) => { this._mySelection1 = mySelection1; }}
+                                titleCustomize={true}
                                 title={this.state.selectedCategory}
                                 options={this.state.categoriesArr}
                                 onSelection={(e) => this._returnDataOnSelection(this,e)}
+
                                 style={{
-                                  body: null,
-                                  option: null,
-                                  color: '#FFF',
-                                   backgroundColor: '#2c75ab'
+                                    main:{
+                                      backgroundColor: '#2c75ab',
+                                      borderRadius: 8,
+                                      width: 220, height: 30
+                                    },
+                                 color: '#FFF',
+                                  textColor : '#FFF',
+                                  backgroundColor: '#2c75ab',
+                                  body: {
+                                      width: 400,
+                                      backgroundColor: '#ffffff',
+                                      maxHeight: 400,
+                                      borderRadius: 5,
+                                      overflow: 'hidden',
+                                  },
+                                  option: {
+                                      width: 400,
+                                      padding: 10,
+                                      fontSize: 20,
+                                      lineHeight:22,
+                                      fontWeight: 'bold',
+                                      borderBottomWidth: 1,
+                                      borderBottomColor: '#cccccc',
+                                      flexDirection: 'row',
+                                  },
+                                  optionText:{
+                                        color: 'white',
+                                    fontWeight: 'bold',
+                                    fontSize: 20,
+                                    lineHeight:22,
+                                  },
+                                  textx:{
+                                    paddingTop:3,
+                                    color: 'white',
+                                    fontWeight: 'bold',
+                                    fontSize: 20,
+                                    lineHeight:22,
+                                    height:30,
+                                    textAlign: 'center',
+                                    backgroundColor: '#00000000',
+                                    borderRadius: 8,
+                                  }
                                 }}
                                 iconSize={20}
                                 iconColor="#eee"
@@ -475,9 +516,10 @@ class Anatomy extends React.Component {
 
                         </View>
                         <View style={{ width: 220, height: 30, marginRight:20 }}>
-                            <InputGroup style={{ backgroundColor: '#2c75ab'}}>
-                                <Input label="MARKET" placeholder="MARKET"
-                                       style={{ width: 120, height: 30,  color: '#FFF' }}/>
+                            <InputGroup style={{ borderRadius: 8, backgroundColor: '#2c75ab'}}>
+                                <Input label="MARKET" placeholder="MARKET" placeholderTextColor="#ABABAB"
+                                       style={{ width: 120, height: 30, color: 'white', fontWeight: 'bold',
+                                       fontSize: 20, lineHeight:22, textAlign: 'center' }}/>
                             </InputGroup>
                         </View>
                     </View>

@@ -55,5 +55,6 @@ module.exports = StyleSheet.create({
         borderWidth: 2,
         width: 200,
         height: 200
-    }
+    },
+
 });
