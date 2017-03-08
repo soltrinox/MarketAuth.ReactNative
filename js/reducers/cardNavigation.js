@@ -13,6 +13,7 @@ const initialState = {
   ],
     selectedNavCategory: 'Accountant',
     selectedNavDomain : 'www.domain.com',
+    selectedNavLocale: 'PHOENIX, AZ',
     dexNavPrem: [],
     dexNavPlux: [],
     dexNavBasc: [],

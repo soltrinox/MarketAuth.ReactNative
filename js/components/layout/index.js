@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ScrollView, AppRegistry, View, Image} from 'react-native';
+import {ScrollView, AppRegistry, View, TextInput, Image} from 'react-native';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import _ from 'lodash';
@@ -9,8 +9,7 @@ import {
     Container, Header, Title, Content, Text, H3, Button, Icon,
     Footer, FooterTab, StyleSheet,
     InputGroup,
-    TextInput,
-    Input,
+    Input, Item,
     TouchableOpacity,
     Dimensions
 } from 'native-base';
@@ -31,7 +30,7 @@ import styles from './styles';
 var stringify = require("json-stringify-pretty-compact");
 var DBEvents = require('react-native-db-models').DBEvents;
 var DB = require('../../db.js');
-const _mySelection1 = '';
+const _categorySelect1 = '';
 
 DBEvents.on("all", function () {
     console.log("Database changed");
@@ -39,12 +38,17 @@ DBEvents.on("all", function () {
 
 class NHLayout extends React.Component {
 
+    _domainInput : any;
+    _marketInput : any;
+    _categorySelect1 : any;
+
     static propTypes = {
         openDrawer: React.PropTypes.func,
         navigation: React.PropTypes.shape({
             key: React.PropTypes.string,
             selectedNavCategory: React.PropTypes.string,
             selectedNavDomain: React.PropTypes.string,
+            selectedNavLocale: React.PropTypes.string,
             dexNavPrem: React.PropTypes.array,
             dexNavPlux: React.PropTypes.array,
             dexNavBasc: React.PropTypes.array,
@@ -63,7 +67,9 @@ class NHLayout extends React.Component {
             usersArry: [],
             selectedDomain: 'www.default.com',
             selectedCategory: 'Accountant',
-            _mySelection1 : 'Accountant',
+            marketInputText : 'PHOENIX, AZ',
+            domainInputText : 'www.domain.com',
+
 
             results: {
                 items: []
@@ -82,20 +88,6 @@ class NHLayout extends React.Component {
             dexPlux: [],
             dexBasc: [],
 
-            domain1: 'test 1',
-            domain2: 'test 1',
-            domain3: 'test 1',
-            productDomains: 4,
-            clientColumnItems: [],
-            domainItems2: [],
-            domainItems3: [],
-            keywordGridColumns: [],
-            domainGridColumns: [],
-            carouselPosition2: 0,
-            carouselPosition3: 0,
-            car1: {},
-            car2: {},
-            car3: {},
             message: 'Try clicking the top-right menus',
             firstMenuDisabled: false,
             dropdownSelection: '   CATEGORY   ',
@@ -404,21 +396,54 @@ class NHLayout extends React.Component {
         // return this.state.dataObjects;
     }
 
+    _confirmGlobalsOnLoad(){
+
+        var ready,ready1,ready2,ready3 = false;
+
+        var markVal =  _.toString(this.state.marketInputText);
+        var domVal = _.toString(this.state.domainInputText);
+        var catVal = _.toString(this.state.selectedCategory);
+
+        if( _.isEqual( markVal , this.props.navigation.selectedNavLocale) ) {
+            ready1 = true;
+        }else{
+            this.state.marketInputText = _.toString(this.props.navigation.selectedNavLocale);
+            console.log('this.state.marketInputText : '+ stringify(this.state.marketInputText, {maxLength: 0, indent: '\t'}) );
+            ready1 = true;
+        }
+
+        if( _.isEqual( domVal , this.props.navigation.selectedNavDomain)  ) {
+            ready2 = true;
+        }else{
+            this.state.domainInputText = _.toString(this.props.navigation.selectedNavDomain);
+            console.log('this.state.domainInputText : ' + stringify(this.state.domainInputText, {maxLength: 0, indent: '\t'}) );
+            ready2 = true;
+        }
+
+        if( _.isEqual( catVal , this.props.navigation.selectedNavCategory)  ) {
+            ready3 = true;
+        }else{
+            this.state.selectedCategory = _.toString(this.props.navigation.selectedNavCategory);
+            console.log('this.state.marketInputText : '+ stringify(this.state.selectedCategory, {maxLength: 0, indent: '\t'}) );
+            ready3 = true;
+        }
+
+        if(ready3 && ready2 && ready1){
+            ready = true;
+        }
+        return ready;
+    }
 
     componentWillMount() {
+
+        if(this._confirmGlobalsOnLoad){
+            this._domainData();
+            this._updateGrids(this.state.selectedCategory);
+        }
 
         console.log("Test Model", DeviceInfo.getModel());
         console.log("Device ID", DeviceInfo.getDeviceId());
         console.log("System Name", DeviceInfo.getSystemName());
-
-        console.log("ORIG this.props.navigation.selectedNavCategory : " + this.props.navigation.selectedNavCategory);
-        this.state.selectedCategory = this.props.navigation.selectedNavCategory;
-
-        // var domains =
-
-        this._domainData();
-
-        this._updateGrids(this.state.selectedCategory);
     }
 
     componentDidMount() {
@@ -442,6 +467,28 @@ class NHLayout extends React.Component {
     }
 
 
+    _updateGlobals(tyype,vval){
+
+        var tyypeValue =  _.toString(tyype);
+
+        if( _.isEqual( tyypeValue , 'market') || _.isEqual( tyypeValue , 'LOC') ){
+            this.state.marketInputText = _.toString(vval);
+            this.props.navigation.selectedNavLocale = _.toString(vval);
+            console.log('this.state.marketInputText : '+ stringify(this.state.marketInputText, {maxLength: 0, indent: '\t'}) );
+        }else if( _.isEqual( tyypeValue , 'domain') || _.isEqual( tyypeValue , 'DOM') ){
+            this.state.domainInputText = _.toString(vval);
+            this.props.navigation.selectedNavDomain =  _.toString(vval);
+            console.log('this.state.domainInputText : ' + stringify(this.state.domainInputText, {maxLength: 0, indent: '\t'}) );
+        }else if( _.isEqual( tyypeValue , 'cat') || _.isEqual( tyypeValue , 'CAT') ){
+            this.state.selectedCategory = _.toString(vval);
+            this.props.navigation.selectedNavCategory = _.toString(vval);
+            console.log('this.state.marketInputText : '+ stringify(this.state.selectedCategory, {maxLength: 0, indent: '\t'}) );
+        }
+    }
+
+
+
+
     render() {
         var gridCol1Total = 0;
         var gridCol2Total = 0;
@@ -452,15 +499,18 @@ class NHLayout extends React.Component {
                 <Header style={{ width : 800, height:100, backgroundColor: '#454545', paddingLeft: 40}}>
                     <View style={{ flex: 1, alignItems : 'flex-start', flexDirection: 'row',}}>
                         <View style={{ width: 220, height: 30, marginRight:20 }}>
-                            <InputGroup style={{ borderRadius: 8, backgroundColor: '#2c75ab'}}>
-                                <Input label="DOMAIN" placeholder="DOMAIN" placeholderTextColor="#ABABAB"
-                                       style={{ width: 120, height: 30, color: 'white', fontWeight: 'bold',
-                                       fontSize: 20, lineHeight:22, textAlign: 'center' }}/>
-                            </InputGroup>
+
+                                <TextInput ref={(domainInput) => { this._domainInput = domainInput; }}
+                                       defaultValue={this.state.domainInputText}
+                                       style={{ borderRadius: 8, backgroundColor: '#2c75ab', width: 210, height: 30, color: 'white', fontWeight: 'bold',
+                                       fontSize: 20, lineHeight:22, textAlign: 'center' }}
+                                         clearTextOnFocus={true}
+                                        onEndEditing={(event) => this._updateGlobals( 'domain', event.nativeEvent.text  )} />
+
                         </View>
                         <View style={{ width: 220, height: 30, marginRight:10,  }}>
                             <Selection
-                                ref={(mySelection1) => { this._mySelection1 = mySelection1; }}
+                                ref={(categorySelect1) => { this._categorySelect1 = categorySelect1; }}
                                 titleCustomize={true}
                                 title={this.state.selectedCategory}
                                 options={this.state.categoriesArr}
@@ -514,11 +564,14 @@ class NHLayout extends React.Component {
 
                         </View>
                         <View style={{ width: 220, height: 30, marginRight:20 }}>
-                            <InputGroup style={{ borderRadius: 8, backgroundColor: '#2c75ab'}}>
-                                <Input label="MARKET" placeholder="MARKET" placeholderTextColor="#ABABAB"
-                                       style={{ width: 120, height: 30, color: 'white', fontWeight: 'bold',
-                                       fontSize: 20, lineHeight:22, textAlign: 'center' }}/>
-                            </InputGroup>
+
+                                <Input  ref={(marketInput) => { this._marketInput = marketInput; }}
+                                       style={{ borderRadius: 8, backgroundColor: '#2c75ab', width: 210, height: 30, color: 'white', fontWeight: 'bold',
+                                       fontSize: 20, lineHeight:22, textAlign: 'center' }}
+                                        defaultValue={this.state.marketInputText}
+                                       clearTextOnFocus={true}
+                                        onEndEditing={(event) => this._updateGlobals( 'market', event.nativeEvent.text  )} />
+
                         </View>
                     </View>
                 </Header>

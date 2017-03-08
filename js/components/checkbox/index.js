@@ -14,6 +14,7 @@ class NHCheckbox extends Component {
           key: React.PropTypes.string,
           selectedNavCategory: React.PropTypes.string,
           selectedNavDomain : React.PropTypes.string,
+          selectedNavLocale: React.PropTypes.string,
           dexNavPrem: React.PropTypes.array,
           dexNavPlux: React.PropTypes.array,
           dexNavBasc: React.PropTypes.array,

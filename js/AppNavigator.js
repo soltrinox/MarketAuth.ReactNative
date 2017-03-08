@@ -65,6 +65,7 @@ class AppNavigator extends Component {
         routes: React.PropTypes.array,
         selectedNavCategory: React.PropTypes.string,
         selectedNavDomain : React.PropTypes.string,
+        selectedNavLocale: React.PropTypes.string,
         dexNavPrem: React.PropTypes.array,
         dexNavPlux: React.PropTypes.array,
         dexNavBasc: React.PropTypes.array,
