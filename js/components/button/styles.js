@@ -67,4 +67,12 @@ module.exports = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    wrapper: {
+        borderRadius: 5,
+        marginBottom: 5,
+    },
+    button: {
+        backgroundColor: '#eeeeee',
+        padding: 10,
+    },
 });
