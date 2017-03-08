@@ -15,11 +15,15 @@ class SideBar extends Component {
 
   static propTypes = {
     navigateTo: React.PropTypes.func,
-      selectCategory: React.PropTypes.string,
-      selectedDomain : React.PropTypes.string,
-      dexPrem: React.PropTypes.array,
-      dexPlux: React.PropTypes.array,
-      dexBasc: React.PropTypes.array,
+      navigation: React.PropTypes.shape({
+          key: React.PropTypes.string,
+          selectedNavCategory: React.PropTypes.string,
+          selectedNavDomain: React.PropTypes.string,
+          selectedNavCity: React.PropTypes.string,
+          dexNavPrem: React.PropTypes.array,
+          dexNavPlux: React.PropTypes.array,
+          dexNavBasc: React.PropTypes.array,
+      }),
   }
 
   constructor(props) {
@@ -27,11 +31,16 @@ class SideBar extends Component {
     this.state = {
       // shadowOffsetWidth: 0,
       // shadowRadius: 0,
-        selectedDomain: 'www.default.com',
-        selectedCategory: 'ARCHITECTS',
-        dexPrem: [],
-        dexPlux: [],
-        dexBasc: [],
+        selectedCity: this.props.navigation.selectedNavCity,
+        selectedDomain: this.props.navigation.selectedNavDomain,
+        selectedCategory: this.props.navigation.selectedNavCategory,
+        marketInputText : this.props.navigation.selectedNavCity,
+        domainInputText : this.props.navigation.selectedNavDomain,
+        dexPrem: this.props.navigation.dexNavPrem,
+        dexPlux: this.props.navigation.dexNavPlux,
+        dexBasc: this.props.navigation.dexNavBasc,
+
+
     };
   }
 
@@ -51,6 +60,13 @@ class SideBar extends Component {
         </View>
         <List>
 
+          <ListItem button  onPress={() => this.navigateTo('button')} >
+            <View style={styles.listItemContainer2}>
+              <Image source={require('./cover.png')}  style={{width: 55, height: 52, backgroundColor: 'transparent'} }  />
+              <Text style={styles.text}>Performance</Text>
+            </View>
+          </ListItem>
+
           <ListItem button  onPress={() => this.navigateTo('anatomy')} >
             <View style={styles.listItemContainer2}>
               <Image source={require('./page.png')}  style={{width: 58, height: 54, backgroundColor: 'transparent'} }  />
@@ -58,12 +74,7 @@ class SideBar extends Component {
             </View>
           </ListItem>
 
-          <ListItem button  onPress={() => this.navigateTo('button')} >
-            <View style={styles.listItemContainer2}>
-              <Image source={require('./cover.png')}  style={{width: 55, height: 52, backgroundColor: 'transparent'} }  />
-              <Text style={styles.text}>Performance</Text>
-            </View>
-          </ListItem>
+
 
           <ListItem button  onPress={() => this.navigateTo('layout')} >
             <View style={styles.listItemContainer2}>
@@ -210,11 +221,7 @@ function bindAction(dispatch) {
 
 const mapStateToProps = state => ({
   navigation: state.cardNavigation,
-    selectedDomain : state.selectedDomain,
-    selectedCategory : state.selectedCategory,
-    dexPrem: state.dexPrem,
-    dexPlux: state.dexPlux,
-    dexBasc: state.dexBasc,
+
 });
 
 export default connect(mapStateToProps, bindAction)(SideBar);
