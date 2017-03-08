@@ -396,7 +396,6 @@ class Anatomy extends React.Component {
         // return this.state.dataObjects;
     }
 
-
     getRandomInt(min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
@@ -410,8 +409,6 @@ class Anatomy extends React.Component {
             }
         )
     }
-
-
 
     _updateGlobals( tyype , vval ){
 
@@ -512,9 +509,6 @@ class Anatomy extends React.Component {
     componentDidMount() {
         this._resetGridColumnTotal();
     }
-
-
-
 
     render() {
         var gridCol1Total = 0;
@@ -889,10 +883,5 @@ const mapStateToProps = state => ({
     navigation: state.cardNavigation,
 });
 
-//     selectedNavDomain : state.selectedNavDomain,
-//     selectedNavCategory : state.selectedNavCategory,
-//     dexNavPrem: state.dexNavPrem,
-//     dexNavPlux: state.dexNavPlux,
-//     dexNavBasc: state.dexNavBasc,
 
 export default connect(mapStateToProps, bindAction)(Anatomy);

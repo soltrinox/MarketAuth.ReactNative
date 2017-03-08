@@ -61,5 +61,10 @@ module.exports = StyleSheet.create({
         paddingLeft: 0,
         paddingRight: 0,
         borderRadius: 5
-    }
+    },
+    dialogContentView: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });

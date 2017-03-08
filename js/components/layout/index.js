@@ -38,9 +38,9 @@ DBEvents.on("all", function () {
 
 class NHLayout extends React.Component {
 
-    _domainInput : any;
-    _marketInput : any;
-    _categorySelect1 : any;
+    _domainInput: any;
+    _marketInput: any;
+    _categorySelect1: any;
 
     static propTypes = {
         openDrawer: React.PropTypes.func,
@@ -66,8 +66,8 @@ class NHLayout extends React.Component {
             selectedCity: this.props.navigation.selectedNavCity,
             selectedDomain: this.props.navigation.selectedNavDomain,
             selectedCategory: this.props.navigation.selectedNavCategory,
-            marketInputText : this.props.navigation.selectedNavCity,
-            domainInputText : this.props.navigation.selectedNavDomain,
+            marketInputText: this.props.navigation.selectedNavCity,
+            domainInputText: this.props.navigation.selectedNavDomain,
             dexPrem: this.props.navigation.dexNavPrem,
             dexPlux: this.props.navigation.dexNavPlux,
             dexBasc: this.props.navigation.dexNavBasc,
@@ -240,7 +240,7 @@ class NHLayout extends React.Component {
 
     }
 
-    _resetGridColumnTotal(){
+    _resetGridColumnTotal() {
         this.setState({columnTotal1: 0});
         this.setState({columnTotal2: 0});
         this.setState({columnTotal3: 0});
@@ -266,14 +266,14 @@ class NHLayout extends React.Component {
         this._updateGrids(catName);
     }
 
-    _updateGrids(catName  ){
+    _updateGrids(catName) {
 
         this.props.navigation.selectedNavCategory = _.toString(catName);
 
         this._resetGridColumnTotal();
 
         var test = _.orderBy(this.state.rawArr, ['CAT', 'KEY', 'SCORE'], ['asc', 'asc', 'desc']);
-        var trr  = _.filter(test, {"CAT": catName});
+        var trr = _.filter(test, {"CAT": catName});
         var upp = {catName: trr};
         var kkt = [...new Set(trr.map(item => item.KEY))];
         kkt.sort();
@@ -394,33 +394,42 @@ class NHLayout extends React.Component {
         // return this.state.dataObjects;
     }
 
-    _updateGlobals( tyype , vval ){
+    _updateGlobals(tyype, vval) {
 
-        var tyypeValue =  _.toString(tyype);
+        var tyypeValue = _.toString(tyype);
 
-        if( ( tyypeValue === 'market') || ( tyypeValue === 'LOC') ){
+        if (( tyypeValue === 'market') || ( tyypeValue === 'LOC')) {
             this.state.marketInputText = _.toString(vval);
             this.props.navigation.selectedNavCity = _.toString(vval);
-            console.log('this.state.marketInputText : '+ stringify(this.state.marketInputText, {maxLength: 0, indent: '\t'}) );
+            console.log('this.state.marketInputText : ' + stringify(this.state.marketInputText, {
+                    maxLength: 0,
+                    indent: '\t'
+                }));
         }
-        if( ( tyypeValue === 'domain') || ( tyypeValue === 'DOM') ){
+        if (( tyypeValue === 'domain') || ( tyypeValue === 'DOM')) {
             this.state.domainInputText = _.toString(vval);
-            this.props.navigation.selectedNavDomain =  _.toString(vval);
-            console.log('this.state.domainInputText : ' + stringify(this.state.domainInputText, {maxLength: 0, indent: '\t'}) );
+            this.props.navigation.selectedNavDomain = _.toString(vval);
+            console.log('this.state.domainInputText : ' + stringify(this.state.domainInputText, {
+                    maxLength: 0,
+                    indent: '\t'
+                }));
         }
-        if( ( tyypeValue === 'cat') || ( tyypeValue === 'CAT') ){
+        if (( tyypeValue === 'cat') || ( tyypeValue === 'CAT')) {
             this.state.selectedCategory = _.toString(vval);
             this.props.navigation.selectedNavCategory = _.toString(vval);
-            console.log('this.state.marketInputText : '+ stringify(this.state.selectedCategory, {maxLength: 0, indent: '\t'}) );
+            console.log('this.state.marketInputText : ' + stringify(this.state.selectedCategory, {
+                    maxLength: 0,
+                    indent: '\t'
+                }));
         }
 
 
     }
 
-    _confirmGlobalsOnLoad(){
+    _confirmGlobalsOnLoad() {
 
 
-        var markVal =  _.toString(this.state.marketInputText);
+        var markVal = _.toString(this.state.marketInputText);
         var domVal = _.toString(this.state.domainInputText);
         var catVal = _.toString(this.state.selectedCategory);
 
@@ -428,55 +437,64 @@ class NHLayout extends React.Component {
         var globDom = _.toString(this.props.navigation.selectedNavDomain);
         var globCat = _.toString(this.props.navigation.selectedNavCategory);
 
-        if( _.isEqual( markVal , globLoc) ) {
+        if (_.isEqual(markVal, globLoc)) {
             console.log(' marketInputText = GLOBAL ' + globLoc);
-        }else{
-            console.log('NOT marketInputText != GLOBAL '+ globLoc);
-            this.setState({marketInputText : globLoc});
+        } else {
+            console.log('NOT marketInputText != GLOBAL ' + globLoc);
+            this.setState({marketInputText: globLoc});
             this.state.marketInputText = globLoc;
         }
 
-        if( _.isEqual( domVal , globDom)  ) {
+        if (_.isEqual(domVal, globDom)) {
             console.log(' domainInputText = GLOBAL ' + globDom);
-        }else{
-            console.log('NOT domainInputText != GLOBAL '+ globDom);
-            this.setState({domainInputText : globDom});
+        } else {
+            console.log('NOT domainInputText != GLOBAL ' + globDom);
+            this.setState({domainInputText: globDom});
             this.state.domainInputText = globDom;
         }
 
-        if( _.isEqual( catVal , globCat)  ) {
+        if (_.isEqual(catVal, globCat)) {
             console.log(' selectedCategory = GLOBAL ' + catVal);
-            this.setState({selectedCategory : catVal});
+            this.setState({selectedCategory: catVal});
             this.state.selectedCategory = catVal;
             this.props.navigation.selectedNavCategory = catVal;
-        }else if( _.isEmpty(catVal) ){
-            if( !_.isEmpty(globCat) ){
+        } else if (_.isEmpty(catVal)) {
+            if (!_.isEmpty(globCat)) {
                 catVal = globCat;
-            }else{
-                catVal =  'Carpet Dealer';
+            } else {
+                catVal = 'Carpet Dealer';
                 globCat = 'Carpet Dealer';
             }
 
-            this.setState({selectedCategory : catVal});
+            this.setState({selectedCategory: catVal});
             this.state.selectedCategory = catVal;
             this.props.navigation.selectedNavCategory = catVal;
             console.log(' selectedCategory != GLOBAL ' + globCat);
         }
 
-        console.log('marketInputText : '+  this.state.marketInputText );
-        console.log('domainInputText : ' + this.state.domainInputText );
-        console.log('selectedCategory : '+  this.state.selectedCategory  );
+        console.log('marketInputText : ' + this.state.marketInputText);
+        console.log('domainInputText : ' + this.state.domainInputText);
+        console.log('selectedCategory : ' + this.state.selectedCategory);
 
-        console.log('selectedNavCity : '+ stringify(this.props.navigation.selectedNavCity, {maxLength: 0, indent: '\t'}) );
-        console.log('selectedNavDomain : ' + stringify(this.props.navigation.selectedNavDomain, {maxLength: 0, indent: '\t'}) );
-        console.log('selectedNavCategory : '+ stringify(this.props.navigation.selectedNavCategory, {maxLength: 0, indent: '\t'}) );
+        console.log('selectedNavCity : ' + stringify(this.props.navigation.selectedNavCity, {
+                maxLength: 0,
+                indent: '\t'
+            }));
+        console.log('selectedNavDomain : ' + stringify(this.props.navigation.selectedNavDomain, {
+                maxLength: 0,
+                indent: '\t'
+            }));
+        console.log('selectedNavCategory : ' + stringify(this.props.navigation.selectedNavCategory, {
+                maxLength: 0,
+                indent: '\t'
+            }));
 
         return true;
     }
 
     componentWillMount() {
 
-        if( this._confirmGlobalsOnLoad ){
+        if (this._confirmGlobalsOnLoad) {
             this._domainData();
             this._updateGrids(this.state.selectedCategory);
         }
@@ -505,7 +523,6 @@ class NHLayout extends React.Component {
     }
 
 
-
     render() {
         var gridCol1Total = 0;
         var gridCol2Total = 0;
@@ -517,12 +534,12 @@ class NHLayout extends React.Component {
                     <View style={{ flex: 1, alignItems : 'flex-start', flexDirection: 'row',}}>
                         <View style={{ width: 220, height: 30, marginRight:20 }}>
 
-                                <TextInput ref={(domainInput) => { this._domainInput = domainInput; }}
+                            <TextInput ref={(domainInput) => { this._domainInput = domainInput; }}
                                        defaultValue={this.state.domainInputText}
                                        style={{ borderRadius: 8, backgroundColor: '#2c75ab', width: 210, height: 30, color: 'white', fontWeight: 'bold',
                                        fontSize: 20, lineHeight:22, textAlign: 'center' }}
-                                         clearTextOnFocus={true}
-                                        onEndEditing={(event) => this._updateGlobals( 'domain', event.nativeEvent.text  )} />
+                                       clearTextOnFocus={true}
+                                       onEndEditing={(event) => this._updateGlobals( 'domain', event.nativeEvent.text  )}/>
 
                         </View>
                         <View style={{ width: 220, height: 30, marginRight:10,  }}>
@@ -582,12 +599,12 @@ class NHLayout extends React.Component {
                         </View>
                         <View style={{ width: 220, height: 30, marginRight:20 }}>
 
-                                <Input  ref={(marketInput) => { this._marketInput = marketInput; }}
-                                       style={{ borderRadius: 8, backgroundColor: '#2c75ab', width: 210, height: 30, color: 'white', fontWeight: 'bold',
+                            <Input ref={(marketInput) => { this._marketInput = marketInput; }}
+                                   style={{ borderRadius: 8, backgroundColor: '#2c75ab', width: 210, height: 30, color: 'white', fontWeight: 'bold',
                                        fontSize: 20, lineHeight:22, textAlign: 'center' }}
-                                        defaultValue={this.state.marketInputText}
-                                       clearTextOnFocus={true}
-                                        onEndEditing={(event) => this._updateGlobals( 'market', event.nativeEvent.text  )} />
+                                   defaultValue={this.state.marketInputText}
+                                   clearTextOnFocus={true}
+                                   onEndEditing={(event) => this._updateGlobals( 'market', event.nativeEvent.text  )}/>
 
                         </View>
                     </View>
@@ -706,8 +723,10 @@ class NHLayout extends React.Component {
 
                                                         } else {
                                                             var tempScore = _.toInteger(itr.SCORE);
-                                                            {/*console.log('00000000000000  obj : ' + JSON.stringify(itr));*/}
-                                                            {/*console.log('00000000000000  rowValue SCORE: ' + _.toString(tempScore));*/}
+                                                            {/*console.log('00000000000000  obj : ' + JSON.stringify(itr));*/
+                                                            }
+                                                            {/*console.log('00000000000000  rowValue SCORE: ' + _.toString(tempScore));*/
+                                                            }
                                                             if (tempScore >= 1) {
                                                                 for (var k = 0; k < tempScore; k++) {
                                                                     kray.push(<Svg height="20" width="20" key={k}>
@@ -782,8 +801,10 @@ class NHLayout extends React.Component {
 
                                                         } else {
                                                             var tempScore2 = _.toInteger(itr2.SCORE);
-                                                            {/*console.log('00000000000000 DEXPREM rowValue : ' + JSON.stringify(itr2));*/}
-                                                            {/*console.log('00000000000000 DEXPREM rowValue SCORE: ' + _.toString(tempScore2));*/}
+                                                            {/*console.log('00000000000000 DEXPREM rowValue : ' + JSON.stringify(itr2));*/
+                                                            }
+                                                            {/*console.log('00000000000000 DEXPREM rowValue SCORE: ' + _.toString(tempScore2));*/
+                                                            }
                                                             if (tempScore2 >= 1) {
                                                                 for (var b = 0; b < tempScore2; b++) {
                                                                     kray2.push(<Svg height="20" width="20" key={b}>
@@ -878,12 +899,6 @@ function bindAction(dispatch) {
 const mapStateToProps = state => ({
     navigation: state.cardNavigation,
 });
-
-//     selectedNavDomain : state.selectedNavDomain,
-//     selectedNavCategory : state.selectedNavCategory,
-//     dexNavPrem: state.dexNavPrem,
-//     dexNavPlux: state.dexNavPlux,
-//     dexNavBasc: state.dexNavBasc,
 
 
 

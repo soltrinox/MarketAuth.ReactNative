@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ScrollView, AppRegistry, View, TextInput, Image} from 'react-native';
+import {ScrollView, AppRegistry, View, TextInput, Image, TouchableHighlight, AlertIOS,} from 'react-native';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import _ from 'lodash';
@@ -42,6 +42,7 @@ class NHButton extends React.Component {
     _domainInput : any;
     _marketInput : any;
     _categorySelect1 : any;
+
 
     static propTypes = {
         openDrawer: React.PropTypes.func,
@@ -208,39 +209,7 @@ class NHButton extends React.Component {
         });
 
 
-        // var devPluxUpdate = { };
-        // devPluxUpdate["CAT"] = catName;
-        // devPluxUpdate["KEYS"] = tabPlux;
-        // console.log('\n  : devPluxUpdate  = ' + stringify(devPluxUpdate, {maxLength: 0, indent: '\t'}) );
-        // this._addDexPlux(devPluxUpdate);
-        //
-        // var devPremUpdate = { };
-        // devPremUpdate["CAT"] = catName;
-        // devPremUpdate["KEYS"] = tabPrem;
-        // console.log('\n : devPremUpdate  = ' + stringify(devPremUpdate, {maxLength: 0, indent: '\t'}) );
-        // this._addDexPrem(devPremUpdate);
-        //
-        // var devBascUpdate = { };
-        // devBascUpdate["CAT"] = catName;
-        // devBascUpdate["KEYS"] = tabBasc;
-        // console.log('\n  : devBascUpdate  = ' + stringify(devBascUpdate, {maxLength: 0, indent: '\t'}) );
-        // this._addDexBasc(devBascUpdate);
 
-        // DB.dexPrem.erase_db(function(removed_data3){
-        //     console.log(removed_data3);
-        // });
-        //
-        // DB.dexPlux.erase_db(function(removed_data2){
-        //     console.log(removed_data2);
-        // });
-        //
-        // DB.dexBasc.erase_db(function(removed_data){
-        //     console.log(removed_data);
-        // });
-
-        // DB.dexBasc.get_all(function (result2) {
-        //     console.log('\n  ------ dexBasc get_all : ' + stringify(result2, {maxLength: 0, indent: '\t'}) );
-        // });
 
     }
 
