@@ -55,10 +55,7 @@ class Anatomy extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            tab1: false,
-            tab2: false,
-            tab3: true,
-            tab4: false,
+
             userData: {},
             usersArry: [],
             selectedDomain: 'www.default.com',
@@ -82,23 +79,7 @@ class Anatomy extends React.Component {
             dexPlux: [],
             dexBasc: [],
 
-            domain1: 'test 1',
-            domain2: 'test 1',
-            domain3: 'test 1',
-            productDomains: 4,
-            clientColumnItems: [],
-            domainItems2: [],
-            domainItems3: [],
-            keywordGridColumns: [],
-            domainGridColumns: [],
-            carouselPosition2: 0,
-            carouselPosition3: 0,
-            car1: {},
-            car2: {},
-            car3: {},
             message: 'Try clicking the top-right menus',
-            firstMenuDisabled: false,
-            dropdownSelection: '   CATEGORY   ',
             dataObjects: {},
             rawArr: [],
             categoriesArr: [],
@@ -346,7 +327,6 @@ class Anatomy extends React.Component {
 
     }
 
-
     _domainData() {
 
         var testJSON = require('./PHX.001.json');
@@ -403,7 +383,6 @@ class Anatomy extends React.Component {
         this.setState({categoriesArr: happy});
         // return this.state.dataObjects;
     }
-
 
     componentWillMount() {
 

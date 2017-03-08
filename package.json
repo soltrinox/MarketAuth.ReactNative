@@ -32,6 +32,7 @@
     "react-native-elements": "^0.9.2",
     "react-native-fs": "^2.0.1-rc.3",
     "react-native-jest-environment": "0.0.3",
+    "react-native-linear-gradient": "^2.0.0",
     "react-native-menu": "^0.20.2",
     "react-native-mobx": "^0.3.1",
     "react-native-modal-picker": "0.0.16",

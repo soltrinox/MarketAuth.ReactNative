@@ -1,7 +1,4 @@
-
-
-
-    import React, {Component} from 'react';
+import React, {Component} from 'react';
 import {ScrollView, AppRegistry, View, Image} from 'react-native';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
@@ -25,7 +22,7 @@ import {Col, Row, Grid} from 'react-native-easy-grid'
 import DeviceInfo from 'react-native-device-info'
 import Svg, {G, Rect, Symbol, Use, Defs, Stop} from 'react-native-svg'
 import Selection from 'react-native-selection';
-
+import LinearGradient from 'react-native-linear-gradient';
 
 import sliderEntryStyles from './SliderEntry.style'
 import myTheme from '../../themes/base-theme';
@@ -54,19 +51,15 @@ class NHButton extends React.Component {
         }),
     }
 
-
     constructor(props, context) {
         super(props, context);
         this.state = {
-            tab1: false,
-            tab2: false,
-            tab3: true,
-            tab4: false,
+
             userData: {},
             usersArry: [],
             selectedDomain: 'www.default.com',
             selectedCategory: 'Accountant',
-            _mySelection1 : 'Accountant',
+            _mySelection1: 'Accountant',
 
             results: {
                 items: []
@@ -78,30 +71,24 @@ class NHButton extends React.Component {
             columnTotal2: 0,
             columnTotal3: 0,
             columnTotal4: 0,
-            columnTotal5: 0,
-            columnTotal6: 0,
 
             dexPrem: [],
             dexPlux: [],
             dexBasc: [],
 
-            domain1: 'test 1',
-            domain2: 'test 1',
-            domain3: 'test 1',
-            productDomains: 4,
-            clientColumnItems: [],
-            domainItems2: [],
-            domainItems3: [],
-            keywordGridColumns: [],
-            domainGridColumns: [],
-            carouselPosition2: 0,
-            carouselPosition3: 0,
-            car1: {},
-            car2: {},
-            car3: {},
+            domainPercentage: '25 %',
+            productPercentage: '100 %',
+
+            domainName: 'www.domain.com',
+            productName: 'DEX ESS Premium',
+
+            domainBars: [],
+            productBars: [],
+
+            domainTotal: 0,
+            productTotal: 0,
+
             message: 'Try clicking the top-right menus',
-            firstMenuDisabled: false,
-            dropdownSelection: '   CATEGORY   ',
             dataObjects: {},
             rawArr: [],
             categoriesArr: [],
@@ -253,7 +240,7 @@ class NHButton extends React.Component {
 
     }
 
-    _resetGridColumnTotal(){
+    _resetGridColumnTotal() {
         this.setState({columnTotal1: 0});
         this.setState({columnTotal2: 0});
         this.setState({columnTotal3: 0});
@@ -279,14 +266,14 @@ class NHButton extends React.Component {
         this._updateGrids(catName);
     }
 
-    _updateGrids(catName = this.state.selectedCategory ){
+    _updateGrids(catName = this.state.selectedCategory) {
 
         this.props.navigation.selectedNavCategory = _.toString(catName);
 
         this._resetGridColumnTotal();
 
         var test = _.orderBy(this.state.rawArr, ['CAT', 'KEY', 'SCORE'], ['asc', 'asc', 'desc']);
-        var trr  = _.filter(test, {"CAT": catName});
+        var trr = _.filter(test, {"CAT": catName});
         var upp = {catName: trr};
         var kkt = [...new Set(trr.map(item => item.KEY))];
         kkt.sort();
@@ -405,6 +392,53 @@ class NHButton extends React.Component {
         }
         this.setState({categoriesArr: happy});
         // return this.state.dataObjects;
+
+
+        var tempTotal1 = this.getRandomInt(2, 15);
+
+        if (tempTotal1 >= 1) {
+            for (var b = 0; b < tempTotal1; b++) {
+                this.state.domainBars.push(<View style={{height:140, width:15, margin:0, backgroundColor:'rgba(0,0,0,0.0)', alignItems:'flex-start' }} key={b}>
+                    <Svg height="140" width="15" >
+                    <Rect
+                        x="0"
+                        y="0"
+                        width="15"
+                        height="140"
+                        stroke="rgba(0,0,0,1.0)"
+                        strokeWidth="5"
+                        fill="rgba(0,0,0,0.0)"
+                    />
+                </Svg></View>);
+            }
+        }
+
+        this.state.domainTotal = this.state.domainTotal + _.toInteger(tempTotal1);
+        tempTotal1 = 0;
+
+
+        var tempTotal2 = this.getRandomInt(6, 20);
+
+        if (tempTotal2 >= 1) {
+            for (var r = 0; r < tempTotal2; r++) {
+                this.state.productBars.push(<View style={{height:140, width:15, margin:0, backgroundColor:'rgba(0,0,0,0.0)', alignItems:'flex-start' }} key={r}>
+                    <Svg height="140" width="15" >
+                        <Rect
+                            x="0"
+                            y="0"
+                            width="15"
+                            height="140"
+                            stroke="rgba(0,0,0,1.0)"
+                            strokeWidth="5"
+                            fill="rgba(0,0,0,0.0)"
+                        />
+                    </Svg></View>);
+            }
+        }
+
+        this.state.productTotal = this.state.productTotal + _.toInteger(tempTotal2);
+        tempTotal2 = 0;
+
     }
 
 
@@ -446,8 +480,8 @@ class NHButton extends React.Component {
 
 
     render() {
-        var gridCol1Total = 0;
-        var gridCol2Total = 0;
+        var gridRowTotal = 0;
+
         const options = this.state.categoriesArr;
 
         return (
@@ -530,16 +564,15 @@ class NHButton extends React.Component {
                     </View>
                 </Header>
 
-                <Content styel={{flex: 1,
-        flexDirection: 'column',
-        justifyContent:'flex-start',}} scrollEnabled={ false }>
+                <Content styel={{flex: 1, flexDirection: 'column', justifyContent:'flex-start',}}
+                         scrollEnabled={ false }>
                     <Image
                         style={styles.stretch}
                         source={require('./proto.back.png')}
                         resizeMode={Image.resizeMode.stretch}
                     >
                         <View
-                            style={{  height:666, flexDirection: 'column', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.85)'}}>
+                            style={{  height:666, flexDirection: 'column', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,1.0)'}}>
                             <View
                                 style={{height:null,  flex:1, flexDirection:'row', justifyContent:'flex-start', marginLeft:0,
                                 backgroundColor: 'rgba(0,0,0,0.0)',  }}>
@@ -576,7 +609,7 @@ class NHButton extends React.Component {
                                     style={{ width:540, height:32, backgroundColor: 'rgba(0,0,0,0)',
                             overflow:'hidden',flexDirection:'row'   }}>
                                     <View
-                                        style={{ width:270, height:32, overflow: 'hidden',
+                                        style={{ width:250, height:32, overflow: 'hidden',
                                 borderRadius:0, backgroundColor: 'rgba(66,66,66,0.5)', padding:0,marginLeft:5, justifyContent:'center' }}>
                                         <Text
                                             style={{ color:'#FFFFFF', fontSize: 24,lineHeight:28, fontWeight:'normal',textAlign:'center'    }}
@@ -584,7 +617,7 @@ class NHButton extends React.Component {
                                             Domain</Text>
                                     </View>
                                     <View
-                                        style={{ width:270, height:32, overflow: 'hidden',
+                                        style={{ width:330, height:32, overflow: 'hidden',
                                 borderRadius:0, backgroundColor: 'rgba(66,66,66,0.5)', padding:0,marginLeft:5, justifyContent:'center' }}>
                                         <Text
                                             style={{ color:'#FFFFFF', fontSize: 24,lineHeight:28, fontWeight:'normal',textAlign:'center'   }}
@@ -594,30 +627,33 @@ class NHButton extends React.Component {
                                 </View>
                             </View>
                             <View
-                                style={{opacity:0.5, height:400, marginTop:5,  flexDirection:'row', overflow: 'hidden', justifyContent:'flex-start', backgroundColor: 'rgba(0,0,0,0)', marginLeft:5 }}>
+                                style={{opacity:1.0, height:400, marginTop:5,  flexDirection:'row', overflow: 'hidden', justifyContent:'flex-start',
+                                backgroundColor: 'rgba(0,0,0,1.0)', marginLeft:5 }}>
                                 <View
                                     style={{ flexDirection:'column', overflow: 'hidden',width:180, height:400, overflow: 'hidden', borderRadius:0, backgroundColor: 'rgba(0,0,0,0)', marginRight:5}}>
 
                                     <Grid style={{ flex:1 }}>
-                                        <Row style={{ backgroundColor: '#000000', height: 150, marginBottom: 2,  justifyContent:'center' }} >
+                                        <Row
+                                            style={{ backgroundColor: '#000000', height: 140, marginBottom: 6,  justifyContent:'center' }}>
                                             <View
-                                                style={{ paddingTop:30, paddingLeft: 3, height:150,  width:180, backgroundColor: "rgba(0,0,254,1.0)",  justifyContent:'center' }}>
+                                                style={{ paddingTop:30, paddingLeft: 3, height:140,  width:180, backgroundColor: "rgba(0,0,254,1.0)", borderRadius: 12,  justifyContent:'center' }}>
                                                 <Text
                                                     style={{ textAlignVertical: 'center', fontWeight:'bold',height:70,  width:180, color: "#FFFFFF",
                                                     fontSize: 61, lineHeight:62, textAlign: 'center' , }}
                                                     ellipsizeMode={'tail'} numberOfLines={1}>
-                                                    22 %
+                                                    {this.state.domainPercentage}
                                                 </Text>
                                             </View>
                                         </Row>
-                                        <Row style={{ backgroundColor: '#000000', height: 150, marginBottom: 2,  justifyContent:'center' }} >
+                                        <Row
+                                            style={{ backgroundColor: '#000000', height: 140, marginBottom: 0,  justifyContent:'center' }}>
                                             <View
-                                                style={{ paddingTop:30, paddingLeft: 3, height:150,  width:180, backgroundColor: "rgba(0,254,0,1.0)",  justifyContent:'center' }}>
+                                                style={{ paddingTop:30, paddingLeft: 3, height:140,  width:180, backgroundColor: "rgba(0,254,0,1.0)", borderRadius: 12, justifyContent:'center' }}>
                                                 <Text
                                                     style={{ textAlignVertical: 'center', fontWeight:'bold',height:70,  width:180, color: "#FFFFFF",
                                                     fontSize: 61, lineHeight:62, textAlign: 'center' , }}
                                                     ellipsizeMode={'tail'} numberOfLines={1}>
-                                                    44 %
+                                                    {this.state.productPercentage}
                                                 </Text>
                                             </View>
                                         </Row>
@@ -629,155 +665,62 @@ class NHButton extends React.Component {
                             overflow:'hidden',flexDirection:'row'   }}>
                                     <View
                                         style={{ width:250, height:300, overflow: 'hidden',
-                                borderRadius:0, backgroundColor: '#000', padding:0,marginLeft:5 }}>
+                                borderRadius:0, backgroundColor: '#000', padding:0, marginLeft:5 }}>
                                         <Grid style={{ flex:1 }}>
-                                            {
-
-                                                this.state.keywordArr.map((item, index) => {
-                                                        var itemString = JSON.stringify(item);
-
-                                                        var kray = [];
-
-                                                        var rowValue = [];
-                                                        rowValue = this.state.dexPlux[item];
-                                                        var itr = {};
-                                                        itr = _.head(rowValue);
-
-                                                        if (_.isUndefined(itr)) {
-
-                                                        } else {
-                                                            var tempScore = _.toInteger(itr.SCORE);
-                                                            {/*console.log('00000000000000  obj : ' + JSON.stringify(itr));*/}
-                                                            {/*console.log('00000000000000  rowValue SCORE: ' + _.toString(tempScore));*/}
-                                                            if (tempScore >= 1) {
-                                                                for (var k = 0; k < tempScore; k++) {
-                                                                    kray.push(<Svg height="20" width="20" key={k}>
-                                                                        <Rect
-                                                                            x="0"
-                                                                            y="0"
-                                                                            width="18"
-                                                                            height="18"
-                                                                            stroke="black"
-                                                                            strokeWidth="1"
-                                                                            fill="green"
-                                                                        />
-                                                                    </Svg>);
-                                                                }
-                                                            }
-                                                            gridCol1Total = gridCol1Total + _.toInteger(tempScore);
-                                                            tempScore = 0;
-                                                        }
-
-                                                        return (
-                                                            <Row
-                                                                style={{ backgroundColor: '#454545', height: 30 ,marginBottom: 2 }}
-                                                                key={index}>
-                                                                <View key={index}
-                                                                      style={{ paddingVertical: 3, paddingLeft: 3, height:30,  width:270,
-                                                                backgroundColor: "rgba(0,0,0,0)",
-                                                            }}>
-                                                                    <View style={{
-                                                                flex: 1,
-                                                                flexDirection: 'row',
-                                                                alignItems: 'flex-start',
-                                                                marginTop:3
-                                                                }}>
-                                                                        { kray }
-                                                                    </View>
-                                                                </View>
-                                                            </Row>
-                                                        )
-                                                    }
-                                                )
-                                            }
-                                            <Row style={{ backgroundColor: '#454545', height: 30,marginBottom: 4 }}
-                                                 key={98}>
-                                                <View style={{
-                                            flex: 1,
-                                            flexDirection: 'row',
-                                            alignItems: 'flex-start',
-                                            }}>
-                                                    <Text
-                                                        style={{ textAlignVertical: 'bottom',height: 30, color:'#FFFFFF', fontWeight:'bold',  fontSize: 25,lineHeight:26, textAlign: 'center'}}>
-                                                        { gridCol1Total } </Text>
+                                            <Row
+                                                style={{ backgroundColor: '#000000', height: 140, marginBottom: 6,  justifyContent:'center' }}>
+                                                <View
+                                                    style={{ paddingTop:30, paddingLeft: 3, height:140,  width:250, backgroundColor: "rgba(0,0,0,1.0)",  justifyContent:'center' }}>
+                                                    <Text style={{ textAlignVertical: 'center', fontWeight:'bold',height:70,  width:250, color: "#FFFFFF",
+                                                    fontSize: 21, lineHeight:22, textAlign: 'center' , }} ellipsizeMode={'tail'} numberOfLines={1}>
+                                                        {this.state.domainName}
+                                                    </Text>
+                                                </View>
+                                            </Row>
+                                            <Row
+                                                style={{ backgroundColor: '#000000', height: 140, marginBottom: 0,  justifyContent:'center' }}>
+                                                <View
+                                                    style={{ paddingTop:30, paddingLeft: 3, height:140,  width:250, backgroundColor: "rgba(0,0,0,1.0)",  justifyContent:'center' }}>
+                                                    <Text style={{ textAlignVertical: 'center', fontWeight:'bold',height:70,  width:250, color: "#FFFFFF",
+                                                    fontSize: 21, lineHeight:22, textAlign: 'center' , }} ellipsizeMode={'tail'} numberOfLines={1}>
+                                                        {this.state.productName}
+                                                    </Text>
                                                 </View>
                                             </Row>
                                         </Grid>
+
+
                                     </View>
                                     <View
-                                        style={{ width:300, height:300, overflow: 'hidden',
+                                        style={{ width:330, height:300, overflow: 'hidden',
                                 borderRadius:0, backgroundColor: '#0000', padding:0, marginLeft:5 }}>
                                         <Grid style={{ flex:1 }}>
-                                            {
-                                                this.state.keywordArr.map((item, index) => {
-                                                        var itemString = JSON.stringify(item);
-
-                                                        var kray2 = [];
-
-                                                        var rowValue2 = [];
-                                                        rowValue2 = this.state.dexPrem[item];
-                                                        var itr2 = {};
-                                                        itr2 = _.head(rowValue2);
-
-                                                        if (_.isUndefined(itr2)) {
-
-                                                        } else {
-                                                            var tempScore2 = _.toInteger(itr2.SCORE);
-                                                            {/*console.log('00000000000000 DEXPREM rowValue : ' + JSON.stringify(itr2));*/}
-                                                            {/*console.log('00000000000000 DEXPREM rowValue SCORE: ' + _.toString(tempScore2));*/}
-                                                            if (tempScore2 >= 1) {
-                                                                for (var b = 0; b < tempScore2; b++) {
-                                                                    kray2.push(<Svg height="20" width="20" key={b}>
-                                                                        <Rect
-                                                                            x="0"
-                                                                            y="0"
-                                                                            width="18"
-                                                                            height="18"
-                                                                            stroke="black"
-                                                                            strokeWidth="1"
-                                                                            fill="green"
-                                                                        />
-                                                                    </Svg>);
-                                                                }
-                                                            }
-
-                                                            gridCol2Total = gridCol2Total + _.toInteger(tempScore2);
-                                                            tempScore2 = 0;
-                                                        }
-
-                                                        return (
-                                                            <Row
-                                                                style={{ backgroundColor: '#454545', height: 30,marginBottom: 2 }}
-                                                                key={index}>
-                                                                <View key={index}
-                                                                      style={{ paddingVertical: 3, paddingLeft: 3, height:30,  width:270,
-                                                                backgroundColor: "rgba(0,0,0,0)",
-                                                            }}>
-
-                                                                    <View style={{
+                                            <Row
+                                                style={{ backgroundColor: '#000000', height: 140, marginBottom: 6,  justifyContent:'flex-start' }}>
+                                                <View
+                                                    style={{ paddingTop:0, paddingLeft: 0, height:140,  width:null, backgroundColor: "#FFF",  justifyContent:'flex-start' }}>
+                                                    <LinearGradient colors={['#009F1F', '#00FF00']} start={{x: 0.0, y: 0.5}} end={{x: 1.0, y: 0.5}} style={styles.linearGradient}>
+                                                    <View style={{
                                                                     flex: 1,
                                                                     flexDirection: 'row',
                                                                     alignItems: 'flex-start',
-                                                                     marginTop:3
-                                                                    }}>
-                                                                        { kray2 }
-                                                                    </View>
-                                                                </View>
-                                                            </Row>
-                                                        )
-                                                    }
-                                                )
-                                            }
-                                            <Row style={{ backgroundColor: '#454545', height: 30,marginBottom: 4 }}
-                                                 key={99}>
-                                                <View style={{
-                                            flex: 1,
-                                            flexDirection: 'row',
-                                            alignItems: 'flex-start',
-                                            }}>
-                                                    <Text
-                                                        style={{ textAlignVertical: 'bottom',height: 30, color:'#FFFFFF', fontWeight:'bold',  fontSize: 25,lineHeight:26, textAlign: 'center'}}>
-                                                        {gridCol2Total } </Text>
+                                                                     marginTop:0
+                                                                    }}>{ this.state.domainBars }</View>
+                                                    </LinearGradient>
+                                                </View>
+                                            </Row>
+                                            <Row
+                                                style={{ backgroundColor: '#000000', height: 140, marginBottom: 0,  justifyContent:'flex-start' }}>
+                                                <View
+                                                    style={{ paddingTop:0, paddingLeft: 0, height:140,  width:null, backgroundColor: "#FFF",  justifyContent:'flex-start' }}>
+                                                    <LinearGradient colors={['#009F1F', '#00FF00']} start={{x: 0.0, y: 0.5}} end={{x: 1.0, y: 0.5}} style={styles.linearGradient}>
+                                                        <View style={{
+                                                                    flex: 1,
+                                                                    flexDirection: 'row',
+                                                                    alignItems: 'flex-start',
+                                                                     marginTop:0
+                                                                    }}>{ this.state.productBars }</View>
+                                                    </LinearGradient>
                                                 </View>
                                             </Row>
                                         </Grid>

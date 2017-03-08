@@ -55,5 +55,11 @@ module.exports = StyleSheet.create({
         borderWidth: 2,
         width: 200,
         height: 200
+    },
+    linearGradient: {
+        flex: 1,
+        paddingLeft: 0,
+        paddingRight: 0,
+        borderRadius: 5
     }
 });

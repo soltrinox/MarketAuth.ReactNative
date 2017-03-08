@@ -485,9 +485,7 @@ class NHLayout extends React.Component {
                                   option: {
                                       width: 400,
                                       padding: 10,
-                                      fontSize: 20,
-                                      lineHeight:22,
-                                      fontWeight: 'bold',
+
                                       borderBottomWidth: 1,
                                       borderBottomColor: '#cccccc',
                                       flexDirection: 'row',
