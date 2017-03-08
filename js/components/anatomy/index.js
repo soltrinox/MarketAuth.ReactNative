@@ -468,26 +468,26 @@ class Anatomy extends React.Component {
 
                                 style={{
                                     main:{
-                                      backgroundColor: '#2c75ab',
                                       borderRadius: 8,
-                                      width: 220, height: 30
+                                      width: 220, height: 30,
+                                      backgroundColor: '#2c75ab',
                                     },
-                                 color: '#FFF',
-                                  textColor : '#FFF',
-                                  backgroundColor: '#2c75ab',
+                                  color: 'black',
+                                  textColor : 'black',
+                                  backgroundColor: 'black',
                                   body: {
                                       width: 400,
-                                      backgroundColor: '#ffffff',
+                                      backgroundColor: 'black',
                                       maxHeight: 400,
                                       borderRadius: 5,
                                       overflow: 'hidden',
+                                       borderColor: '#cccccc',
+                                       borderWidth: 2,
                                   },
                                   option: {
                                       width: 400,
                                       padding: 10,
-                                      fontSize: 20,
-                                      lineHeight:22,
-                                      fontWeight: 'bold',
+                                      backgroundColor: 'black',
                                       borderBottomWidth: 1,
                                       borderBottomColor: '#cccccc',
                                       flexDirection: 'row',
@@ -496,7 +496,9 @@ class Anatomy extends React.Component {
                                         color: 'white',
                                     fontWeight: 'bold',
                                     fontSize: 20,
-                                    lineHeight:22,
+
+                                      lineHeight:22,
+                                      fontWeight: 'bold',
                                   },
                                   textx:{
                                     paddingTop:3,

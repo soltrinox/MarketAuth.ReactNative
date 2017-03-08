@@ -471,26 +471,26 @@ class NHButton extends React.Component {
 
                                 style={{
                                     main:{
-                                      backgroundColor: '#2c75ab',
                                       borderRadius: 8,
-                                      width: 220, height: 30
+                                      width: 220, height: 30,
+                                      backgroundColor: '#2c75ab',
                                     },
-                                 color: '#FFF',
-                                  textColor : '#FFF',
-                                  backgroundColor: '#2c75ab',
+                                  color: 'black',
+                                  textColor : 'black',
+                                  backgroundColor: 'black',
                                   body: {
                                       width: 400,
-                                      backgroundColor: '#ffffff',
+                                      backgroundColor: 'black',
                                       maxHeight: 400,
                                       borderRadius: 5,
                                       overflow: 'hidden',
+                                       borderColor: '#cccccc',
+                                        borderWidth: 2,
                                   },
                                   option: {
                                       width: 400,
                                       padding: 10,
-                                      fontSize: 20,
-                                      lineHeight:22,
-                                      fontWeight: 'bold',
+                                      backgroundColor: 'black',
                                       borderBottomWidth: 1,
                                       borderBottomColor: '#cccccc',
                                       flexDirection: 'row',
@@ -499,7 +499,9 @@ class NHButton extends React.Component {
                                         color: 'white',
                                     fontWeight: 'bold',
                                     fontSize: 20,
-                                    lineHeight:22,
+
+                                      lineHeight:22,
+                                      fontWeight: 'bold',
                                   },
                                   textx:{
                                     paddingTop:3,
@@ -537,9 +539,10 @@ class NHButton extends React.Component {
                         resizeMode={Image.resizeMode.stretch}
                     >
                         <View
-                            style={{ opacity:0.0, height:666, flexDirection: 'column', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.85)'}}>
+                            style={{  height:666, flexDirection: 'column', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.85)'}}>
                             <View
-                                style={{height:null,  flex:1, flexDirection:'row', justifyContent:'flex-start', marginLeft:0,  backgroundColor: 'rgba(0,0,0,0.0)',  }}>
+                                style={{height:null,  flex:1, flexDirection:'row', justifyContent:'flex-start', marginLeft:0,
+                                backgroundColor: 'rgba(0,0,0,0.0)',  }}>
                                 <Text
                                     style={{ marginTop:20, width:400, height:40,overflow:'hidden', color:'#00ff00', lineHeight:38, fontSize: 36, fontWeight:'bold' , paddingLeft:20, textAlign: 'left', backgroundColor: 'rgba(0,0,0,0.5)',  }}
                                     ellipsizeMode={'tail'} numberOfLines={1}>
@@ -551,78 +554,81 @@ class NHButton extends React.Component {
                                 </Text>
                             </View>
                             <View
-                                style={{ height:40, paddingTop:8, flexDirection: 'column',overflow:'hidden', justifyContent: 'flex-start', marginTop:0 , backgroundColor : 'rgba(0,0,0,0.0)'}}>
+                                style={{ height:60, paddingTop:8, flexDirection: 'column',overflow:'hidden', justifyContent: 'flex-start',
+                                marginTop:0 , backgroundColor : 'rgba(0,0,0,0.0)'}}>
                                 <Text
-                                    style={{flex:1, width:800, height:40, flexDirection: 'row', textAlign: 'center' , color:'#ABABAB',  fontSize: 22 }}
+                                    style={{flex:1, width:800, height:60, flexDirection: 'row', textAlign: 'center' , color:'#ABABAB',
+                                    fontSize: 30, lineHeight:31, textAlignVertical: 'bottom', }}
                                     ellipsizeMode={'tail'} numberOfLines={1}>
-                                    Top 10 Searches for {this.state.selectedCategory} in {this.state.selectedCity}
+                                    Top30 Terms for {this.state.selectedCategory} in {this.state.selectedCity}
                                 </Text>
                             </View>
                             <View
-                                style={{ height:62,  flexDirection:'row', justifyContent:'flex-start', backgroundColor: 'rgba(0,0,0,0)', marginLeft:5 }}>
+                                style={{ height:32,  flexDirection:'row', justifyContent:'flex-start', backgroundColor: 'rgba(0,0,0,0)', marginLeft:5 }}>
                                 <View
-                                    style={{ width:300, height:62, overflow: 'hidden',
+                                    style={{ width:180, height:32, overflow: 'hidden',
                                     borderRadius:0, backgroundColor: 'rgba(66,66,66,0.5)', marginRight:5, justifyContent:'center'}}>
                                     <Text
                                         style={{ color:'#FFFFFF', fontSize: 24, lineHeight:28, fontWeight:'normal',textAlign:'center'  }}>
-                                        SEARCH TERM</Text>
+                                        Coverage</Text>
                                 </View>
                                 <View
-                                    style={{ width:480, height:62, backgroundColor: 'rgba(0,0,0,0)',
+                                    style={{ width:540, height:32, backgroundColor: 'rgba(0,0,0,0)',
                             overflow:'hidden',flexDirection:'row'   }}>
                                     <View
-                                        style={{ width:240, height:62, overflow: 'hidden',
+                                        style={{ width:270, height:32, overflow: 'hidden',
                                 borderRadius:0, backgroundColor: 'rgba(66,66,66,0.5)', padding:0,marginLeft:5, justifyContent:'center' }}>
                                         <Text
                                             style={{ color:'#FFFFFF', fontSize: 24,lineHeight:28, fontWeight:'normal',textAlign:'center'    }}
                                             ellipsizeMode={'tail'} numberOfLines={1}>
-                                            ESS Plus</Text>
+                                            Domain</Text>
                                     </View>
                                     <View
-                                        style={{ width:240, height:62, overflow: 'hidden',
+                                        style={{ width:270, height:32, overflow: 'hidden',
                                 borderRadius:0, backgroundColor: 'rgba(66,66,66,0.5)', padding:0,marginLeft:5, justifyContent:'center' }}>
                                         <Text
                                             style={{ color:'#FFFFFF', fontSize: 24,lineHeight:28, fontWeight:'normal',textAlign:'center'   }}
                                             ellipsizeMode={'tail'} numberOfLines={1}>
-                                            ESS PREMIUM</Text>
+                                            Google Page 1</Text>
                                     </View>
                                 </View>
                             </View>
                             <View
-                                style={{ height:365, marginTop:5,  flexDirection:'row', overflow: 'hidden', justifyContent:'flex-start', backgroundColor: 'rgba(0,0,0,0)', marginLeft:5 }}>
+                                style={{opacity:0.5, height:400, marginTop:5,  flexDirection:'row', overflow: 'hidden', justifyContent:'flex-start', backgroundColor: 'rgba(0,0,0,0)', marginLeft:5 }}>
                                 <View
-                                    style={{ width:300, height:495, overflow: 'hidden', borderRadius:0, backgroundColor: 'rgba(0,0,0,0)', marginRight:5}}>
+                                    style={{ flexDirection:'column', overflow: 'hidden',width:180, height:400, overflow: 'hidden', borderRadius:0, backgroundColor: 'rgba(0,0,0,0)', marginRight:5}}>
 
                                     <Grid style={{ flex:1 }}>
-                                        {
-                                            this.state.keywordArr.map((item, index) => {
-                                                    var itemString = JSON.stringify(item);
-                                                    return (
-                                                        <Row
-                                                            style={{ backgroundColor: '#454545', height: 30, marginBottom: 2,  justifyContent:'center' }}
-                                                            key={index}>
-                                                            <View
-                                                                style={{ paddingTop:4, paddingLeft: 3, height:30,  width:300, backgroundColor: "rgba(0,0,0,0)",  justifyContent:'center' }}>
-                                                                <Text
-                                                                    style={{ textAlignVertical: 'bottom', height:30,  width:300, color: "#FFFFFF", fontSize: 21, lineHeight:22, textAlign: 'left' , }}
-                                                                    ellipsizeMode={'tail'} numberOfLines={1}>
-
-                                                                    {item}
-                                                                </Text>
-                                                            </View>
-                                                        </Row>
-                                                    )
-                                                }
-                                            )
-                                        }
+                                        <Row style={{ backgroundColor: '#000000', height: 150, marginBottom: 2,  justifyContent:'center' }} >
+                                            <View
+                                                style={{ paddingTop:30, paddingLeft: 3, height:150,  width:180, backgroundColor: "rgba(0,0,254,1.0)",  justifyContent:'center' }}>
+                                                <Text
+                                                    style={{ textAlignVertical: 'center', fontWeight:'bold',height:70,  width:180, color: "#FFFFFF",
+                                                    fontSize: 61, lineHeight:62, textAlign: 'center' , }}
+                                                    ellipsizeMode={'tail'} numberOfLines={1}>
+                                                    22 %
+                                                </Text>
+                                            </View>
+                                        </Row>
+                                        <Row style={{ backgroundColor: '#000000', height: 150, marginBottom: 2,  justifyContent:'center' }} >
+                                            <View
+                                                style={{ paddingTop:30, paddingLeft: 3, height:150,  width:180, backgroundColor: "rgba(0,254,0,1.0)",  justifyContent:'center' }}>
+                                                <Text
+                                                    style={{ textAlignVertical: 'center', fontWeight:'bold',height:70,  width:180, color: "#FFFFFF",
+                                                    fontSize: 61, lineHeight:62, textAlign: 'center' , }}
+                                                    ellipsizeMode={'tail'} numberOfLines={1}>
+                                                    44 %
+                                                </Text>
+                                            </View>
+                                        </Row>
                                     </Grid>
 
                                 </View>
                                 <View
-                                    style={{ width:480, height:495, backgroundColor: 'rgba(0,0,0,0)',
+                                    style={{ width:550, height:300, backgroundColor: 'rgba(0,0,0,0.0)',
                             overflow:'hidden',flexDirection:'row'   }}>
                                     <View
-                                        style={{ width:240, height:495, overflow: 'hidden',
+                                        style={{ width:250, height:300, overflow: 'hidden',
                                 borderRadius:0, backgroundColor: '#000', padding:0,marginLeft:5 }}>
                                         <Grid style={{ flex:1 }}>
                                             {
@@ -667,7 +673,7 @@ class NHButton extends React.Component {
                                                                 style={{ backgroundColor: '#454545', height: 30 ,marginBottom: 2 }}
                                                                 key={index}>
                                                                 <View key={index}
-                                                                      style={{ paddingVertical: 3, paddingLeft: 3, height:30,  width:240,
+                                                                      style={{ paddingVertical: 3, paddingLeft: 3, height:30,  width:270,
                                                                 backgroundColor: "rgba(0,0,0,0)",
                                                             }}>
                                                                     <View style={{
@@ -699,7 +705,7 @@ class NHButton extends React.Component {
                                         </Grid>
                                     </View>
                                     <View
-                                        style={{ width:240, height:495, overflow: 'hidden',
+                                        style={{ width:300, height:300, overflow: 'hidden',
                                 borderRadius:0, backgroundColor: '#0000', padding:0, marginLeft:5 }}>
                                         <Grid style={{ flex:1 }}>
                                             {
@@ -744,7 +750,7 @@ class NHButton extends React.Component {
                                                                 style={{ backgroundColor: '#454545', height: 30,marginBottom: 2 }}
                                                                 key={index}>
                                                                 <View key={index}
-                                                                      style={{ paddingVertical: 3, paddingLeft: 3, height:30,  width:240,
+                                                                      style={{ paddingVertical: 3, paddingLeft: 3, height:30,  width:270,
                                                                 backgroundColor: "rgba(0,0,0,0)",
                                                             }}>
 
