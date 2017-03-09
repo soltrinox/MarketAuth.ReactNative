@@ -22,6 +22,8 @@ import DeviceInfo from 'react-native-device-info'
 import Svg, {G, Rect, Symbol, Use, Defs, Stop} from 'react-native-svg'
 import Selection from 'react-native-selection';
 
+import navigateTo from '../../actions/sideBarNav';
+
 
 import sliderEntryStyles from './SliderEntry.style'
 import myTheme from '../../themes/base-theme';
@@ -44,6 +46,7 @@ class NHLayout extends React.Component {
 
     static propTypes = {
         openDrawer: React.PropTypes.func,
+        navigateTo: React.PropTypes.func,
         navigation: React.PropTypes.shape({
             key: React.PropTypes.string,
             selectedNavCategory: React.PropTypes.string,
@@ -55,6 +58,9 @@ class NHLayout extends React.Component {
         }),
     }
 
+    navigateTo(route) {
+        this.props.navigateTo(route, 'home');
+    }
 
     constructor(props, context) {
         super(props, context);
@@ -892,14 +898,13 @@ class NHLayout extends React.Component {
 function bindAction(dispatch) {
     return {
         openDrawer: () => dispatch(openDrawer()),
-
+        navigateTo: (route, homeRoute) => dispatch(navigateTo(route, homeRoute)),
     };
 }
 
 const mapStateToProps = state => ({
     navigation: state.cardNavigation,
 });
-
 
 
 export default connect(mapStateToProps, bindAction)(NHLayout);

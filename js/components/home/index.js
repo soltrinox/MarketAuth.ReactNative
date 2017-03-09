@@ -1,10 +1,9 @@
-
-import React, { Component } from 'react';
-import { Image } from 'react-native';
-import { connect } from 'react-redux';
-import { Container, Button, View, H3 } from 'native-base';
+import React, {Component} from 'react';
+import {Image} from 'react-native';
+import {connect} from 'react-redux';
+import {Container, Button, View, H3} from 'native-base';
 import navigateTo from '../../actions/sideBarNav';
-import { openDrawer } from '../../actions/drawer';
+import {openDrawer} from '../../actions/drawer';
 import myTheme from '../../themes/base-theme';
 import styles from './styles';
 
@@ -13,64 +12,44 @@ const launchscreenLogo = require('../../../img/logo-kitchen-sink.png');
 
 class Home extends Component { // eslint-disable-line
 
-  static propTypes = {
-    openDrawer: React.PropTypes.func,
-      navigateTo: React.PropTypes.func,
-  }
-
+    static propTypes = {
+        openDrawer: React.PropTypes.func,
+        navigateTo: React.PropTypes.func,
+    }
 
 
     navigateTo(route) {
         this.props.navigateTo(route, 'home');
     }
 
-  render() {
-    return (
-      <Container theme={myTheme} style={{ width : 800, backgroundColor: '#000000' }}>
+    render() {
+        return (
+            <Container theme={myTheme} style={{ width : 800, backgroundColor: '#000000' }}>
 
 
-          <View style={{ marginTop:50 }}>
-            <Button
-              style={{ backgroundColor: '#6FAF98', alignSelf: 'center' }}
-              onPress={() => this.navigateTo('anatomy')}
-            >
-                View Google Page 1
-            </Button>
-          </View>
-          {/*<Footer >*/}
-          {/*<FooterTab>*/}
-          {/*<Button active={this.state.tab1} onPress={() => this.toggleTab1()} >*/}
-          {/*Apps*/}
-          {/*<Icon name="ios-apps-outline" />*/}
-          {/*</Button>*/}
-          {/*<Button active={this.state.tab2} onPress={() => this.toggleTab2()} >*/}
-          {/*Camera*/}
-          {/*<Icon name="ios-camera-outline" />*/}
-          {/*</Button>*/}
-          {/*<Button active={this.state.tab3} onPress={() => this.toggleTab3()} >*/}
-          {/*Navigate*/}
-          {/*<Icon name="ios-compass" />*/}
-          {/*</Button>*/}
-          {/*<Button active={this.state.tab4} onPress={() => this.toggleTab4()} >*/}
-          {/*Contact*/}
-          {/*<Icon name="ios-contact-outline" />*/}
-          {/*</Button>*/}
-          {/*</FooterTab>*/}
-          {/*</Footer>*/}
-      </Container>
-    );
-  }
+                <View style={{ marginTop:50 }}>
+                    <Button
+                        style={{ backgroundColor: '#6FAF98', alignSelf: 'center' }}
+                        onPress={() => this.navigateTo('anatomy')}
+                    >
+                        View Google Page 1
+                    </Button>
+                </View>
+
+            </Container>
+        );
+    }
 }
 
 function bindActions(dispatch) {
-  return {
-    openDrawer: () => dispatch(openDrawer()),
-      navigateTo: (route, homeRoute) => dispatch(navigateTo(route, homeRoute)),
-  };
+    return {
+        openDrawer: () => dispatch(openDrawer()),
+        navigateTo: (route, homeRoute) => dispatch(navigateTo(route, homeRoute)),
+    };
 }
 
 const mapStateToProps = state => ({
-  navigation: state.cardNavigation,
+    navigation: state.cardNavigation,
 });
 
 export default connect(mapStateToProps, bindActions)(Home);

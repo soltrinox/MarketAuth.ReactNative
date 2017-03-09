@@ -129,8 +129,6 @@ class NHButton extends React.Component {
         // console.log('2222222 USER DATA: ' + JSON.stringify(this.state.userData));
     }
 
-
-
     _updateClientColumn(items) {
         this.setState({clientColumnItems: items});
     }
@@ -394,6 +392,8 @@ class NHButton extends React.Component {
 
         this.state.domainTotal = this.state.domainTotal + _.toInteger(tempTotal1);
         tempTotal1 = 0;
+
+
 
 
         var tempTotal2 = this.getRandomInt(6, 20);
@@ -757,7 +757,7 @@ class NHButton extends React.Component {
                                                 style={{ backgroundColor: '#000000', height: 140, marginBottom: 6,  justifyContent:'flex-start' }}>
                                                 <View
                                                     style={{ paddingTop:0, paddingLeft: 0, height:140,  width:null, backgroundColor: "#FFF",  justifyContent:'flex-start' }}>
-                                                    <LinearGradient colors={['#009F1F', '#00FF00']} start={{x: 0.0, y: 0.5}} end={{x: 1.0, y: 0.5}} style={styles.linearGradient}>
+                                                    <LinearGradient colors={['#9F1B25', '#FFF404','#009F1F']} start={{x: 0.0, y: 0.5}} end={{x: 1.0, y: 0.5}} style={styles.linearGradient}>
                                                     <View style={{
                                                                     flex: 1,
                                                                     flexDirection: 'row',
@@ -771,7 +771,7 @@ class NHButton extends React.Component {
                                                 style={{ backgroundColor: '#000000', height: 140, marginBottom: 0,  justifyContent:'flex-start' }}>
                                                 <View
                                                     style={{ paddingTop:0, paddingLeft: 0, height:140,  width:null, backgroundColor: "#FFF",  justifyContent:'flex-start' }}>
-                                                    <LinearGradient colors={['#009F1F', '#00FF00']} start={{x: 0.0, y: 0.5}} end={{x: 1.0, y: 0.5}} style={styles.linearGradient}>
+                                                    <LinearGradient colors={['#9F1B25', '#FFF404','#009F1F']} start={{x: 0.0, y: 0.5}} end={{x: 1.0, y: 0.5}} style={styles.linearGradient}>
                                                         <View style={{
                                                                     flex: 1,
                                                                     flexDirection: 'row',
