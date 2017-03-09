@@ -39,9 +39,9 @@ DBEvents.on("all", function () {
 
 class NHButton extends React.Component {
 
-    _domainInput : any;
-    _marketInput : any;
-    _categorySelect1 : any;
+    _domainInput: any;
+    _marketInput: any;
+    _categorySelect1: any;
 
 
     static propTypes = {
@@ -54,6 +54,7 @@ class NHButton extends React.Component {
             dexNavPrem: React.PropTypes.array,
             dexNavPlux: React.PropTypes.array,
             dexNavBasc: React.PropTypes.array,
+            rawLocaleNavData: React.PropTypes.array,
         }),
     }
 
@@ -67,12 +68,12 @@ class NHButton extends React.Component {
             selectedCity: this.props.navigation.selectedNavCity,
             selectedDomain: this.props.navigation.selectedNavDomain,
             selectedCategory: this.props.navigation.selectedNavCategory,
-            marketInputText : this.props.navigation.selectedNavCity,
-            domainInputText : this.props.navigation.selectedNavDomain,
+            marketInputText: this.props.navigation.selectedNavCity,
+            domainInputText: this.props.navigation.selectedNavDomain,
             dexPrem: this.props.navigation.dexNavPrem,
             dexPlux: this.props.navigation.dexNavPlux,
             dexBasc: this.props.navigation.dexNavBasc,
-
+            rawLocaleData: this.props.navigation.rawLocaleNavData,
 
             results: {
                 items: []
@@ -207,8 +208,6 @@ class NHButton extends React.Component {
         });
 
 
-
-
     }
 
     _resetGridColumnTotal() {
@@ -238,7 +237,7 @@ class NHButton extends React.Component {
         this._updateGrids(catName);
     }
 
-    _updateGrids(catName ) {
+    _updateGrids(catName) {
 
         this.props.navigation.selectedNavCategory = _.toString(catName);
 
@@ -284,9 +283,9 @@ class NHButton extends React.Component {
             });
         });
 
-        console.log('@@@@@@@ dexPrem @ ' + JSON.stringify(dexPremObj));
-        console.log('@@@@@@@ dexPlux @ ' + JSON.stringify(dexPluxObj));
-        console.log('@@@@@@@ dexBasc @ ' + JSON.stringify(dexBascObj));
+        // console.log('@@@@@@@ dexPrem @ ' + JSON.stringify(dexPremObj));
+        // console.log('@@@@@@@ dexPlux @ ' + JSON.stringify(dexPluxObj));
+        // console.log('@@@@@@@ dexBasc @ ' + JSON.stringify(dexBascObj));
 
         var tabPrem = {};
         var tabPlux = {};
@@ -303,13 +302,13 @@ class NHButton extends React.Component {
         this.setState({dexPlux: tabPlux});
         this.setState({dexBasc: tabBasc});
 
-        var iint = this.getRandomInt(12,89);
+        var iint = this.getRandomInt(12, 89);
         var pper = _.toString(iint) + ' %';
-        this.setState({ productPercentage : pper });
+        this.setState({productPercentage: pper});
 
-        var xint = this.getRandomInt(12,89);
+        var xint = this.getRandomInt(12, 89);
         var xper = _.toString(xint) + ' %';
-        this.setState({ domainPercentage : xper });
+        this.setState({domainPercentage: xper});
 
     }
 
@@ -375,18 +374,20 @@ class NHButton extends React.Component {
 
         if (tempTotal1 >= 1) {
             for (var b = 0; b < tempTotal1; b++) {
-                this.state.domainBars.push(<View style={{height:140, width:15, margin:0, backgroundColor:'rgba(0,0,0,0.0)', alignItems:'flex-start' }} key={b}>
-                    <Svg height="140" width="15" >
-                    <Rect
-                        x="0"
-                        y="0"
-                        width="15"
-                        height="140"
-                        stroke="rgba(0,0,0,1.0)"
-                        strokeWidth="5"
-                        fill="rgba(0,0,0,0.0)"
-                    />
-                </Svg></View>);
+                this.state.domainBars.push(<View
+                    style={{height:140, width:15, margin:0, backgroundColor:'rgba(0,0,0,0.0)', alignItems:'flex-start' }}
+                    key={b}>
+                    <Svg height="140" width="15">
+                        <Rect
+                            x="0"
+                            y="0"
+                            width="15"
+                            height="140"
+                            stroke="rgba(0,0,0,1.0)"
+                            strokeWidth="5"
+                            fill="rgba(0,0,0,0.0)"
+                        />
+                    </Svg></View>);
             }
         }
 
@@ -394,14 +395,14 @@ class NHButton extends React.Component {
         tempTotal1 = 0;
 
 
-
-
         var tempTotal2 = this.getRandomInt(6, 20);
 
         if (tempTotal2 >= 1) {
             for (var r = 0; r < tempTotal2; r++) {
-                this.state.productBars.push(<View style={{height:140, width:15, margin:0, backgroundColor:'rgba(0,0,0,0.0)', alignItems:'flex-start' }} key={r}>
-                    <Svg height="140" width="15" >
+                this.state.productBars.push(<View
+                    style={{height:140, width:15, margin:0, backgroundColor:'rgba(0,0,0,0.0)', alignItems:'flex-start' }}
+                    key={r}>
+                    <Svg height="140" width="15">
                         <Rect
                             x="0"
                             y="0"
@@ -421,7 +422,6 @@ class NHButton extends React.Component {
     }
 
 
-
     getRandomInt(min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
@@ -437,89 +437,148 @@ class NHButton extends React.Component {
     }
 
 
-    _updateGlobals( tyype , vval ){
+    _updateGlobals(tyype, vval) {
 
-        var tyypeValue =  _.toString(tyype);
+        var tyypeValue = _.toString(tyype);
 
-        if( ( tyypeValue === 'market') || ( tyypeValue === 'LOC') ){
+        if (( tyypeValue === 'market') || ( tyypeValue === 'LOC')) {
             this.state.marketInputText = _.toString(vval);
             this.props.navigation.selectedNavCity = _.toString(vval);
-            console.log('this.state.marketInputText : '+ stringify(this.state.marketInputText, {maxLength: 0, indent: '\t'}) );
+            console.log('this.state.marketInputText : ' + stringify(this.state.marketInputText, {
+                    maxLength: 0,
+                    indent: '\t'
+                }));
         }
-        if( ( tyypeValue === 'domain') || ( tyypeValue === 'DOM') ){
+        if (( tyypeValue === 'domain') || ( tyypeValue === 'DOM')) {
             this.state.domainInputText = _.toString(vval);
-            this.props.navigation.selectedNavDomain =  _.toString(vval);
-            console.log('this.state.domainInputText : ' + stringify(this.state.domainInputText, {maxLength: 0, indent: '\t'}) );
+            this.props.navigation.selectedNavDomain = _.toString(vval);
+            console.log('this.state.domainInputText : ' + stringify(this.state.domainInputText, {
+                    maxLength: 0,
+                    indent: '\t'
+                }));
         }
-        if( ( tyypeValue === 'cat') || ( tyypeValue === 'CAT') ){
+        if (( tyypeValue === 'cat') || ( tyypeValue === 'CAT')) {
             this.state.selectedCategory = _.toString(vval);
             this.props.navigation.selectedNavCategory = _.toString(vval);
-            console.log('this.state.marketInputText : '+ stringify(this.state.selectedCategory, {maxLength: 0, indent: '\t'}) );
+            console.log('this.state.marketInputText : ' + stringify(this.state.selectedCategory, {
+                    maxLength: 0,
+                    indent: '\t'
+                }));
         }
 
 
     }
 
-    _confirmGlobalsOnLoad(){
 
+    _confirmGlobalsOnLoad() {
+        var confirmGlobMsg = '@@ confirmGlobals || \n ';
 
-        var markVal =  _.toString(this.state.marketInputText);
+        var markVal = _.toString(this.state.marketInputText);
         var domVal = _.toString(this.state.domainInputText);
         var catVal = _.toString(this.state.selectedCategory);
+        var rawArrVal = _.toString(this.state.rawArr);
 
         var globLoc = _.toString(this.props.navigation.selectedNavCity);
         var globDom = _.toString(this.props.navigation.selectedNavDomain);
         var globCat = _.toString(this.props.navigation.selectedNavCategory);
+        var rawLocaleData = _.toString(this.props.navigation.rawLocaleNavData);
 
-        if( _.isEqual( markVal , globLoc) ) {
-            console.log(' marketInputText = GLOBAL ' + globLoc);
-        }else{
-            console.log('NOT marketInputText != GLOBAL '+ globLoc);
-            this.setState({marketInputText : globLoc});
+        if (_.isEqual(rawLocaleData, rawArrVal)) {
+            console.log(confirmGlobMsg + 'rawArr = GLOBAL ' + rawLocaleData);
+        } else {
+            console.log(confirmGlobMsg + 'rawArr != GLOBAL ' + rawLocaleData);
+            if (!_.isEmpty(rawLocaleData)) {
+                rawArrVal = rawLocaleData;
+                this.setState({rawArr: rawLocaleData});
+                this.state.rawArr = rawLocaleData;
+            }
+            if (_.isEmpty(rawArrVal)) {
+                if (!_.isEmpty(rawLocaleData)) {
+                    rawArrVal = rawLocaleData;
+                    this.setState({rawArr: rawArrVal});
+                    this.state.rawArr = rawArrVal;
+                    this.props.navigation.rawLocaleNavData = rawArrVal;
+                }
+            }
+        }
+
+        if (_.isEqual(markVal, globLoc)) {
+            console.log(confirmGlobMsg + 'marketInputText = GLOBAL ' + globLoc);
+        } else {
+            console.log(confirmGlobMsg + 'NOT marketInputText != GLOBAL ' + globLoc);
+            if (!_.isEmpty(globLoc)) {
+                markVal = globLoc;
+            } else {
+                markVal = 'PHOENIX, AZ';
+                globLoc = 'PHOENIX, AZ';
+            }
+            this.setState({marketInputText: globLoc});
             this.state.marketInputText = globLoc;
+            this.props.navigation.selectedNavCity = globLoc;
         }
 
-        if( _.isEqual( domVal , globDom)  ) {
-            console.log(' domainInputText = GLOBAL ' + globDom);
-        }else{
-            console.log('NOT domainInputText != GLOBAL '+ globDom);
-            this.setState({domainInputText : globDom});
+        if (_.isEqual(domVal, globDom)) {
+            console.log(confirmGlobMsg + ' domainInputText = GLOBAL ' + globDom);
+        } else {
+            console.log(confirmGlobMsg + 'NOT domainInputText != GLOBAL ' + globDom);
+            if (!_.isEmpty(globDom)) {
+                markVal = globDom;
+            } else {
+                domVal = 'angieslist.com';
+                globDom = 'angieslist.com';
+            }
+            this.setState({domainInputText: globDom});
             this.state.domainInputText = globDom;
+            this.props.navigation.selectedNavDomain = globDom;
         }
 
-        if( _.isEqual( catVal , globCat)  ) {
-            console.log(' selectedCategory = GLOBAL ' + catVal);
-            this.setState({selectedCategory : catVal});
+        if (_.isEqual(catVal, globCat)) {
+            console.log(confirmGlobMsg + ' selectedCategory = GLOBAL ' + catVal);
+            this.setState({selectedCategory: catVal});
             this.state.selectedCategory = catVal;
             this.props.navigation.selectedNavCategory = catVal;
-        }else if( _.isEmpty(catVal) ){
-            if( !_.isEmpty(globCat) ){
+        } else if (_.isEmpty(catVal)) {
+            console.log(confirmGlobMsg + ' selectedCategory != GLOBAL ' + globCat);
+            if (!_.isEmpty(globCat)) {
                 catVal = globCat;
-            }else{
-                catVal =  'Carpet Dealer';
+            } else {
+                catVal = 'Carpet Dealer';
                 globCat = 'Carpet Dealer';
             }
 
-            this.setState({selectedCategory : catVal});
+            this.setState({selectedCategory: catVal});
             this.state.selectedCategory = catVal;
             this.props.navigation.selectedNavCategory = catVal;
-            console.log(' selectedCategory != GLOBAL ' + globCat);
+
         }
 
-        console.log('marketInputText : '+  this.state.marketInputText );
-        console.log('domainInputText : ' + this.state.domainInputText );
-        console.log('selectedCategory : '+  this.state.selectedCategory  );
+        console.log(confirmGlobMsg + 'marketInputText : ' + this.state.marketInputText);
+        console.log(confirmGlobMsg + 'domainInputText : ' + this.state.domainInputText);
+        console.log(confirmGlobMsg + 'selectedCategory : ' + this.state.selectedCategory);
 
-        console.log('selectedNavCity : '+ stringify(this.props.navigation.selectedNavCity, {maxLength: 0, indent: '\t'}) );
-        console.log('selectedNavDomain : ' + stringify(this.props.navigation.selectedNavDomain, {maxLength: 0, indent: '\t'}) );
-        console.log('selectedNavCategory : '+ stringify(this.props.navigation.selectedNavCategory, {maxLength: 0, indent: '\t'}) );
+        console.log(confirmGlobMsg + 'selectedNavCity : ' + stringify(this.props.navigation.selectedNavCity, {
+                maxLength: 0,
+                indent: '\t'
+            }));
+        console.log(confirmGlobMsg + 'selectedNavDomain : ' + stringify(this.props.navigation.selectedNavDomain, {
+                maxLength: 0,
+                indent: '\t'
+            }));
+        console.log(confirmGlobMsg + 'selectedNavCategory : ' + stringify(this.props.navigation.selectedNavCategory, {
+                maxLength: 0,
+                indent: '\t'
+            }));
 
         return true;
     }
 
-    componentWillMount() {
 
-        if( this._confirmGlobalsOnLoad ){
+    componentWillMount() {
+        console.log('\n ========== \n ========== \n  CALL COUNT WILL MOUNT \n ========== \n ========== \n  ');
+
+        var go = false;
+        go = this._confirmGlobalsOnLoad();
+        if (go) {
             this._domainData();
             this._updateGrids(this.state.selectedCategory);
         }
@@ -551,7 +610,7 @@ class NHButton extends React.Component {
                                        style={{ borderRadius: 8, backgroundColor: '#2c75ab', width: 210, height: 30, color: 'white', fontWeight: 'bold',
                                        fontSize: 20, lineHeight:22, textAlign: 'center' }}
                                        clearTextOnFocus={true}
-                                       onEndEditing={(event) => this._updateGlobals( 'domain', event.nativeEvent.text  )} />
+                                       onEndEditing={(event) => this._updateGlobals( 'domain', event.nativeEvent.text  )}/>
 
                         </View>
                         <View style={{ width: 220, height: 30, marginRight:10,  }}>
@@ -611,12 +670,12 @@ class NHButton extends React.Component {
                         </View>
                         <View style={{ width: 220, height: 30, marginRight:20 }}>
 
-                            <Input  ref={(marketInput) => { this._marketInput = marketInput; }}
-                                    style={{ borderRadius: 8, backgroundColor: '#2c75ab', width: 210, height: 30, color: 'white', fontWeight: 'bold',
+                            <Input ref={(marketInput) => { this._marketInput = marketInput; }}
+                                   style={{ borderRadius: 8, backgroundColor: '#2c75ab', width: 210, height: 30, color: 'white', fontWeight: 'bold',
                                        fontSize: 20, lineHeight:22, textAlign: 'center' }}
-                                    defaultValue={this.state.marketInputText}
-                                    clearTextOnFocus={true}
-                                    onEndEditing={(event) => this._updateGlobals( 'market', event.nativeEvent.text  )} />
+                                   defaultValue={this.state.marketInputText}
+                                   clearTextOnFocus={true}
+                                   onEndEditing={(event) => this._updateGlobals( 'market', event.nativeEvent.text  )}/>
 
                         </View>
                     </View>
@@ -730,7 +789,8 @@ class NHButton extends React.Component {
                                                 <View
                                                     style={{ paddingTop:30, paddingLeft: 3, height:140,  width:250, backgroundColor: "rgba(0,0,0,1.0)",  justifyContent:'center' }}>
                                                     <Text style={{ textAlignVertical: 'center', fontWeight:'bold',height:70,  width:250, color: "#FFFFFF",
-                                                    fontSize: 21, lineHeight:22, textAlign: 'center' , }} ellipsizeMode={'tail'} numberOfLines={1}>
+                                                    fontSize: 21, lineHeight:22, textAlign: 'center' , }}
+                                                          ellipsizeMode={'tail'} numberOfLines={1}>
                                                         {this.state.domainName}
                                                     </Text>
                                                 </View>
@@ -740,7 +800,8 @@ class NHButton extends React.Component {
                                                 <View
                                                     style={{ paddingTop:30, paddingLeft: 3, height:140,  width:250, backgroundColor: "rgba(0,0,0,1.0)",  justifyContent:'center' }}>
                                                     <Text style={{ textAlignVertical: 'center', fontWeight:'bold',height:70,  width:250, color: "#FFFFFF",
-                                                    fontSize: 21, lineHeight:22, textAlign: 'center' , }} ellipsizeMode={'tail'} numberOfLines={1}>
+                                                    fontSize: 21, lineHeight:22, textAlign: 'center' , }}
+                                                          ellipsizeMode={'tail'} numberOfLines={1}>
                                                         {this.state.productName}
                                                     </Text>
                                                 </View>
@@ -757,8 +818,10 @@ class NHButton extends React.Component {
                                                 style={{ backgroundColor: '#000000', height: 140, marginBottom: 6,  justifyContent:'flex-start' }}>
                                                 <View
                                                     style={{ paddingTop:0, paddingLeft: 0, height:140,  width:null, backgroundColor: "#FFF",  justifyContent:'flex-start' }}>
-                                                    <LinearGradient colors={['#9F1B25', '#FFF404','#009F1F']} start={{x: 0.0, y: 0.5}} end={{x: 1.0, y: 0.5}} style={styles.linearGradient}>
-                                                    <View style={{
+                                                    <LinearGradient colors={['#9F1B25', '#FFF404','#009F1F']}
+                                                                    start={{x: 0.0, y: 0.5}} end={{x: 1.0, y: 0.5}}
+                                                                    style={styles.linearGradient}>
+                                                        <View style={{
                                                                     flex: 1,
                                                                     flexDirection: 'row',
                                                                     alignItems: 'flex-start',
@@ -771,7 +834,9 @@ class NHButton extends React.Component {
                                                 style={{ backgroundColor: '#000000', height: 140, marginBottom: 0,  justifyContent:'flex-start' }}>
                                                 <View
                                                     style={{ paddingTop:0, paddingLeft: 0, height:140,  width:null, backgroundColor: "#FFF",  justifyContent:'flex-start' }}>
-                                                    <LinearGradient colors={['#9F1B25', '#FFF404','#009F1F']} start={{x: 0.0, y: 0.5}} end={{x: 1.0, y: 0.5}} style={styles.linearGradient}>
+                                                    <LinearGradient colors={['#9F1B25', '#FFF404','#009F1F']}
+                                                                    start={{x: 0.0, y: 0.5}} end={{x: 1.0, y: 0.5}}
+                                                                    style={styles.linearGradient}>
                                                         <View style={{
                                                                     flex: 1,
                                                                     flexDirection: 'row',

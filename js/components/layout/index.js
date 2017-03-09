@@ -55,8 +55,12 @@ class NHLayout extends React.Component {
             dexNavPrem: React.PropTypes.array,
             dexNavPlux: React.PropTypes.array,
             dexNavBasc: React.PropTypes.array,
+            rawLocaleNavData: React.PropTypes.array,
         }),
     }
+
+    // rawLocaleData : this.props.navigation.rawLocaleNavData,
+    // rawLocaleNavData : React.PropTypes.array,
 
     navigateTo(route) {
         this.props.navigateTo(route, 'home');
@@ -77,7 +81,7 @@ class NHLayout extends React.Component {
             dexPrem: this.props.navigation.dexNavPrem,
             dexPlux: this.props.navigation.dexNavPlux,
             dexBasc: this.props.navigation.dexNavBasc,
-            rawLocaleData : this.props.navigation.rawLocaleNavData,
+            rawLocaleData: this.props.navigation.rawLocaleNavData,
 
             results: {
                 items: []
@@ -318,9 +322,9 @@ class NHLayout extends React.Component {
             });
         });
 
-        console.log('@@@@@@@ dexPrem @ ' + JSON.stringify(dexPremObj));
-        console.log('@@@@@@@ dexPlux @ ' + JSON.stringify(dexPluxObj));
-        console.log('@@@@@@@ dexBasc @ ' + JSON.stringify(dexBascObj));
+        // console.log('@@@@@@@ dexPrem @ ' + JSON.stringify(dexPremObj));
+        // console.log('@@@@@@@ dexPlux @ ' + JSON.stringify(dexPluxObj));
+        // console.log('@@@@@@@ dexBasc @ ' + JSON.stringify(dexBascObj));
 
         var tabPrem = {};
         var tabPlux = {};
@@ -338,7 +342,7 @@ class NHLayout extends React.Component {
         this.setState({dexBasc: tabBasc});
 
 
-        console.log("NEW this.props.navigation.selectedNavCategory : " + this.props.navigation.selectedNavCategory);
+        // console.log("NEW this.props.navigation.selectedNavCategory : " + this.props.navigation.selectedNavCategory);
 
     }
 
@@ -433,38 +437,74 @@ class NHLayout extends React.Component {
     }
 
     _confirmGlobalsOnLoad() {
-
+        var confirmGlobMsg = '@@ confirmGlobals || \n ';
 
         var markVal = _.toString(this.state.marketInputText);
         var domVal = _.toString(this.state.domainInputText);
         var catVal = _.toString(this.state.selectedCategory);
+        var rawArrVal = _.toString(this.state.rawArr);
 
         var globLoc = _.toString(this.props.navigation.selectedNavCity);
         var globDom = _.toString(this.props.navigation.selectedNavDomain);
         var globCat = _.toString(this.props.navigation.selectedNavCategory);
+        var rawLocaleData = _.toString(this.props.navigation.rawLocaleNavData);
+
+        if (_.isEqual(rawLocaleData, rawArrVal)) {
+            console.log(confirmGlobMsg + 'rawArr = GLOBAL ' + rawLocaleData);
+        } else {
+            console.log(confirmGlobMsg + 'rawArr != GLOBAL ' + rawLocaleData);
+            if (!_.isEmpty(rawLocaleData)) {
+                rawArrVal = rawLocaleData;
+                this.setState({rawArr: rawLocaleData});
+                this.state.rawArr = rawLocaleData;
+            }
+            if (_.isEmpty(rawArrVal)) {
+                if (!_.isEmpty(rawLocaleData)) {
+                    rawArrVal = rawLocaleData;
+                    this.setState({rawArr: rawArrVal});
+                    this.state.rawArr = rawArrVal;
+                    this.props.navigation.rawLocaleNavData = rawArrVal;
+                }
+            }
+        }
 
         if (_.isEqual(markVal, globLoc)) {
-            console.log(' marketInputText = GLOBAL ' + globLoc);
+            console.log(confirmGlobMsg + 'marketInputText = GLOBAL ' + globLoc);
         } else {
-            console.log('NOT marketInputText != GLOBAL ' + globLoc);
+            console.log(confirmGlobMsg + 'NOT marketInputText != GLOBAL ' + globLoc);
+            if (!_.isEmpty(globLoc)) {
+                markVal = globLoc;
+            } else {
+                markVal = 'PHOENIX, AZ';
+                globLoc = 'PHOENIX, AZ';
+            }
             this.setState({marketInputText: globLoc});
             this.state.marketInputText = globLoc;
+            this.props.navigation.selectedNavCity = globLoc;
         }
 
         if (_.isEqual(domVal, globDom)) {
-            console.log(' domainInputText = GLOBAL ' + globDom);
+            console.log(confirmGlobMsg + ' domainInputText = GLOBAL ' + globDom);
         } else {
-            console.log('NOT domainInputText != GLOBAL ' + globDom);
+            console.log(confirmGlobMsg + 'NOT domainInputText != GLOBAL ' + globDom);
+            if (!_.isEmpty(globDom)) {
+                markVal = globDom;
+            } else {
+                domVal = 'angieslist.com';
+                globDom = 'angieslist.com';
+            }
             this.setState({domainInputText: globDom});
             this.state.domainInputText = globDom;
+            this.props.navigation.selectedNavDomain = globDom;
         }
 
         if (_.isEqual(catVal, globCat)) {
-            console.log(' selectedCategory = GLOBAL ' + catVal);
+            console.log(confirmGlobMsg + ' selectedCategory = GLOBAL ' + catVal);
             this.setState({selectedCategory: catVal});
             this.state.selectedCategory = catVal;
             this.props.navigation.selectedNavCategory = catVal;
         } else if (_.isEmpty(catVal)) {
+            console.log(confirmGlobMsg + ' selectedCategory != GLOBAL ' + globCat);
             if (!_.isEmpty(globCat)) {
                 catVal = globCat;
             } else {
@@ -475,22 +515,22 @@ class NHLayout extends React.Component {
             this.setState({selectedCategory: catVal});
             this.state.selectedCategory = catVal;
             this.props.navigation.selectedNavCategory = catVal;
-            console.log(' selectedCategory != GLOBAL ' + globCat);
+
         }
 
-        console.log('marketInputText : ' + this.state.marketInputText);
-        console.log('domainInputText : ' + this.state.domainInputText);
-        console.log('selectedCategory : ' + this.state.selectedCategory);
+        console.log(confirmGlobMsg + 'marketInputText : ' + this.state.marketInputText);
+        console.log(confirmGlobMsg + 'domainInputText : ' + this.state.domainInputText);
+        console.log(confirmGlobMsg + 'selectedCategory : ' + this.state.selectedCategory);
 
-        console.log('selectedNavCity : ' + stringify(this.props.navigation.selectedNavCity, {
+        console.log(confirmGlobMsg + 'selectedNavCity : ' + stringify(this.props.navigation.selectedNavCity, {
                 maxLength: 0,
                 indent: '\t'
             }));
-        console.log('selectedNavDomain : ' + stringify(this.props.navigation.selectedNavDomain, {
+        console.log(confirmGlobMsg + 'selectedNavDomain : ' + stringify(this.props.navigation.selectedNavDomain, {
                 maxLength: 0,
                 indent: '\t'
             }));
-        console.log('selectedNavCategory : ' + stringify(this.props.navigation.selectedNavCategory, {
+        console.log(confirmGlobMsg + 'selectedNavCategory : ' + stringify(this.props.navigation.selectedNavCategory, {
                 maxLength: 0,
                 indent: '\t'
             }));
@@ -500,7 +540,11 @@ class NHLayout extends React.Component {
 
     componentWillMount() {
 
-        if (this._confirmGlobalsOnLoad) {
+        console.log('\n ========== \n ========== \n  CALL COUNT WILL MOUNT \n ========== \n ========== \n  ');
+
+        var go = false;
+        go = this._confirmGlobalsOnLoad();
+        if (go) {
             this._domainData();
             this._updateGrids(this.state.selectedCategory);
         }
