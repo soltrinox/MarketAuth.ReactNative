@@ -77,7 +77,7 @@ class NHLayout extends React.Component {
             dexPrem: this.props.navigation.dexNavPrem,
             dexPlux: this.props.navigation.dexNavPlux,
             dexBasc: this.props.navigation.dexNavBasc,
-
+            rawLocaleData : this.props.navigation.rawLocaleNavData,
 
             results: {
                 items: []

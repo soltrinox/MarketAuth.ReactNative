@@ -17,6 +17,7 @@ const initialState = {
     dexNavPrem: [],
     dexNavPlux: [],
     dexNavBasc: [],
+    rawLocaleNavData : []
 };
 
 module.exports = cardStackReducer(initialState);

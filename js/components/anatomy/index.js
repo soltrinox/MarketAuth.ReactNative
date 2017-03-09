@@ -3,6 +3,7 @@ import {ScrollView, AppRegistry, View, TextInput, Image} from 'react-native';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import _ from 'lodash';
+import navigateTo from '../../actions/sideBarNav';
 
 import Picker from 'native-base';
 import { Container, Header, Title, Content, Text, H3, Button, Icon, Footer,
@@ -39,6 +40,7 @@ class Anatomy extends React.Component {
 
     static propTypes = {
         openDrawer: React.PropTypes.func,
+        navigateTo: React.PropTypes.func,
         navigation: React.PropTypes.shape({
             key: React.PropTypes.string,
             selectedNavCategory: React.PropTypes.string,
@@ -47,6 +49,8 @@ class Anatomy extends React.Component {
             dexNavPrem: React.PropTypes.array,
             dexNavPlux: React.PropTypes.array,
             dexNavBasc: React.PropTypes.array,
+            rawLocaleNavData: React.PropTypes.array,
+
         }),
     }
 
@@ -65,7 +69,7 @@ class Anatomy extends React.Component {
             dexPrem: this.props.navigation.dexNavPrem,
             dexPlux: this.props.navigation.dexNavPlux,
             dexBasc: this.props.navigation.dexNavBasc,
-
+            rawLocaleData : this.props.navigation.rawLocaleNavData,
 
             selectedDomainTotal: 2,
             columnTotal1: 0,
@@ -88,10 +92,12 @@ class Anatomy extends React.Component {
         };
 
         this._getUsers = this._getUsers.bind(this);
-        //this._renderModalPicker = this._renderModalPicker.bind(this);
         this._updateText = this._updateText.bind(this);
 
-        // this._returnDataOnSelection = this._returnDataOnSelection.bind(this);
+    }
+
+    navigateTo(route) {
+        this.props.navigateTo(route, 'home');
     }
 
     onValueChange(value: string) {
@@ -696,7 +702,7 @@ class Anatomy extends React.Component {
                                 <View
                                     style={{ width:480, height:495, backgroundColor: 'rgba(0,0,0,0)',
                             overflow:'hidden',flexDirection:'row'   }}>
-                                    <View
+                                    <View accessibilityLabel={'gridPlus'}
                                         style={{ width:240, height:495, overflow: 'hidden',
                                 borderRadius:0, backgroundColor: '#000', padding:0,marginLeft:5 }}>
                                         <Grid style={{ flex:1 }}>
@@ -775,7 +781,7 @@ class Anatomy extends React.Component {
                                             </Row>
                                         </Grid>
                                     </View>
-                                    <View
+                                    <View accessibilityLabel={'gridPrem'}
                                         style={{ width:240, height:495, overflow: 'hidden',
                                 borderRadius:0, backgroundColor: '#0000', padding:0, marginLeft:5 }}>
                                         <Grid style={{ flex:1 }}>
@@ -885,7 +891,7 @@ class Anatomy extends React.Component {
 function bindAction(dispatch) {
     return {
         openDrawer: () => dispatch(openDrawer()),
-
+        navigateTo: (route, homeRoute) => dispatch(navigateTo(route, homeRoute)),
     };
 }
 

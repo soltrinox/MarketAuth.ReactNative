@@ -69,8 +69,8 @@ class AppNavigator extends Component {
         dexNavPrem: React.PropTypes.array,
         dexNavPlux: React.PropTypes.array,
         dexNavBasc: React.PropTypes.array,
+        rawLocaleNavData: React.PropTypes.array,
     }),
-
   }
 
   componentDidMount() {
@@ -199,16 +199,13 @@ class AppNavigator extends Component {
 
         onClose={() => {return null} }
         styles={{
-          drawer: {
-          },
+          drawer: { },
         }}
         tweenHandler={(ratio) => {  // eslint-disable-line
           return {
             drawer: {
-              // shadowRadius: 0
             },
             main: {
-              // opacity: 1, //(2 - ratio) / 2,
             },
           };
         }}
@@ -238,11 +235,5 @@ const mapStateToProps = state => ({
   drawerState: state.drawer.drawerState,
   navigation: state.cardNavigation,
 });
-
-//     selectedNavDomain : state.selectedNavDomain,
-//     selectedNavCategory : state.selectedNavCategory,
-//     dexNavPrem: state.dexNavPrem,
-//     dexNAvPlux: state.dexNavPlux,
-//     dexNavBasc: state.dexNavBasc,
 
 export default connect(mapStateToProps, bindAction)(AppNavigator);

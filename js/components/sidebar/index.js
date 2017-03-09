@@ -23,6 +23,7 @@ class SideBar extends Component {
           dexNavPrem: React.PropTypes.array,
           dexNavPlux: React.PropTypes.array,
           dexNavBasc: React.PropTypes.array,
+          rawLocaleNavData: React.PropTypes.array,
       }),
   }
 
@@ -39,7 +40,7 @@ class SideBar extends Component {
         dexPrem: this.props.navigation.dexNavPrem,
         dexPlux: this.props.navigation.dexNavPlux,
         dexBasc: this.props.navigation.dexNavBasc,
-
+        rawLocaleData : this.props.navigation.rawLocaleNavData
 
     };
   }
