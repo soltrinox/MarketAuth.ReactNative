@@ -315,7 +315,6 @@ class NHButton extends React.Component {
 
     _domainData() {
 
-        var testJSON = require('./PHX.001.json');
         this.state.dataObjects = {
             CATEGORY1: [
                 {KEY: 'First Domain', DOM: 'DEX Plux'},
@@ -347,7 +346,25 @@ class NHButton extends React.Component {
                 {KEY: 'BLACKJACK!', DOM: 'BLACKJACK! Description'}
             ]
         };
-        this.state.rawArr = testJSON;
+
+        var rawArrVal = _.toString(this.state.rawArr);
+        var rawLocaleData = _.toString(this.props.navigation.rawLocaleNavData);
+
+        if(_.isEmpty(rawArrVal) && !_.isEmpty(rawLocaleData)){
+            var testJSON = require('./PHX.001.json');
+            this.state.rawArr = testJSON;
+            this.props.navigation.rawLocaleNavData = this.state.rawArr;
+            console.log( 'rawArr EMPTY && != GLOBAL ' + rawLocaleData);
+        }else if (   _.isEqual(rawLocaleData, rawArrVal)) {
+            console.log( 'rawArr = GLOBAL ' + rawLocaleData);
+        }else{
+            var testJSON = require('./PHX.001.json');
+            this.state.rawArr = testJSON;
+            this.props.navigation.rawLocaleNavData = this.state.rawArr;
+            console.log( 'rawArr  && rawLocaleData == EMPTY ' + rawLocaleData);
+        }
+
+
         var test = _.orderBy(this.state.rawArr, ['CAT', 'KEY', 'SCORE'], ['asc', 'asc', 'desc']);
 
         this.state.categoriesArr = [...new Set(test.map(item => item.CAT))];
@@ -574,7 +591,8 @@ class NHButton extends React.Component {
 
 
     componentWillMount() {
-        console.log('\n ========== \n ========== \n  CALL COUNT WILL MOUNT \n ========== \n ========== \n  ');
+
+        console.log('\n ========== \n ========== \n  PERFORMANCE WILL MOUNT \n ========== \n ========== \n  ');
 
         var go = false;
         go = this._confirmGlobalsOnLoad();
