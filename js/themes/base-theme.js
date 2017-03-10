@@ -103,8 +103,8 @@ export default {
 
 
   // Footer
-  footerHeight: 55,
-  footerDefaultBg: (Platform.OS === 'ios') ? '#F8F8F8' : '#4179F7',
+  footerHeight: 180,
+  footerDefaultBg: (Platform.OS === 'ios') ? '#454545' : '#4179F7',
 
   // FooterTab
   tabBarTextColor: (Platform.OS === 'ios') ? '#6b6b6b' : '#b3c7f9',
@@ -113,8 +113,8 @@ export default {
 
   // Header
   iosToolbarBtnColor: '#007aff',
-  toolbarDefaultBg: (Platform.OS === 'ios') ? '#F8F8F8' : '#4179F7',
-  toolbarHeight: (Platform.OS === 'ios') ? 64 : 56,
+  toolbarDefaultBg: (Platform.OS === 'ios') ? '#454545' : '#4179F7',
+  toolbarHeight: (Platform.OS === 'ios') ? 108 : 100,
   toolbarIconSize: (Platform.OS === 'ios') ? 20 : 22,
   toolbarInputColor: '#CECDD2',
   toolbarInverseBg: '#222',
@@ -158,7 +158,7 @@ export default {
   lineHeightH2: 27,
   lineHeightH3: (Platform.OS === 'ios') ? 22 : 25,
   iconLineHeight: (Platform.OS === 'ios') ? 37 : 30,
-  lineHeight: (Platform.OS === 'ios') ? 20 : 24,
+  lineHeight: (Platform.OS === 'ios') ? 17 : 21,
 
 
   // List

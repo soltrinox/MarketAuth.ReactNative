@@ -16,7 +16,7 @@ export default {
   listBorderColor: '#ffffff',
   listDividerBg: '#ffffff',
   listItemHeight: 65,
-  listItemPadding: 4,
+  listItemPadding: 2,
   listNoteColor: '#FFFFFF',
   listNoteSize: 13,
 
