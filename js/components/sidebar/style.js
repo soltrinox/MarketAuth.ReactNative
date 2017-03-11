@@ -11,34 +11,27 @@ module.exports = StyleSheet.create({
     flex: 1,
     backgroundColor: '#454545',
   },
-  drawerCover: {
+  headerLogo: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    height: 107,
     width: null,
-    marginBottom: 2,
+
   },
-  drawerImage: {
-    position: 'absolute',
-    // left: (Platform.OS === 'android') ? 30 : 40,
-    left: (Platform.OS === 'android') ? deviceWidth / 10 : deviceWidth / 9,
-    // top: (Platform.OS === 'android') ? 45 : 55,
-    top: (Platform.OS === 'android') ? deviceHeight / 13 : deviceHeight / 12,
-    width: 190,
-    height: 0,
-    resizeMode: 'cover',
+  listItemContainer:{
+      // height: 80,
+      paddingLeft: 0,
+      marginLeft: 0,
   },
-    listItemContainer2: {
-        height: 80,
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        backgroundColor: '#454545',
-        marginTop:1,
-        borderWidth:2,
-        borderColor: '#330000'
-    },
+  listItem: {
+      // height: 78,
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      backgroundColor: '#454545',
+      paddingLeft: 0,
+      marginLeft: 0
+  },
 
   iconContainer: {
     width: 61,
@@ -49,8 +42,8 @@ module.exports = StyleSheet.create({
   },
 
   text: {
-    width: 120,
-    fontWeight: '500',
+    width: 100,
+    fontWeight: '300',
       color : '#FFF',
     fontSize: 16,
       lineHeight: (Platform.OS === 'android') ? 17 : 20,

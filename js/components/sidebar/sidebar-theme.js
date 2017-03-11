@@ -13,7 +13,7 @@ export default {
 
 
   // List
-  listBorderColor: '#ffffff',
+  listBorderColor: '#000000',
   listDividerBg: '#ffffff',
   listItemHeight: 65,
   listItemPadding: 2,

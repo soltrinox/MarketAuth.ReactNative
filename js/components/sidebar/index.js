@@ -2,13 +2,38 @@
 import React, { Component } from 'react';
 import { Image } from 'react-native';
 import { connect } from 'react-redux';
-import { Container, Header, Footer, Content, Text, List, ListItem, Icon, View } from 'native-base';
+import { Container, Header, Footer, Content, Text, List, ListItem, Icon, View} from 'native-base';
 
 import navigateTo from '../../actions/sideBarNav';
 import myTheme from '../../themes/base-theme';
 import sidebarTheme from './sidebar-theme';
 import styles from './style';
 
+const headerlogo = require('./OrganicSearchLogo.png');
+const footerlogo = require('./MarketAuthorityLogo.png');
+const settingsicon = require('./cogIcon.png');
+const pageoneicon = require('./PageOneIcon.png');
+const searchperformanceicon = require('./SearchTermPerformanceIcon.png');
+const callcounticon = require('./CallCountIcon.png');
+
+
+const datas = [
+  {
+    name: 'Google Page One',
+    route: 'button',
+    icon: pageoneicon
+  },
+  {
+    name: 'Search Term Performance',
+    route: 'anatomy',
+    icon: searchperformanceicon
+  },
+  {
+    name: 'Ad Call Estimator',
+    route: 'layout',
+    icon: callcounticon
+  }
+];
 
 class SideBar extends Component {
 
@@ -48,50 +73,41 @@ class SideBar extends Component {
     this.props.navigateTo(route, 'home');
   }
 
+
+
   render() {
     return (
-      <Container theme={myTheme}>
-        <Header>
-          <View  style={styles.drawerCover}>
-            <Image source={require('./OrganicSearchLogo.png')}  />
+      <Container theme={myTheme} style={{backgroundColor: '#454545'}}>
+        <Header style={{height: 105, backgroundColor: '#454545', borderBottomWidth: 1}}>
+          <View  style={styles.headerLogo}>
+            <Image source={headerlogo} />
           </View>
         </Header>
+
         <Content>
-          <List theme={sidebarTheme} style={{borderWidth: 2, borderColor: '#00FF00'}}>
-            <ListItem button  onPress={() => this.navigateTo('button')} >
-              <View style={styles.listItemContainer2}>
-                <Image source={require('./PageOneIcon.png')}  style={styles.iconContainer} />
-                <Text style={styles.text}>Google Page One</Text>
-              </View>
-            </ListItem>
+          <List
+              dataArray={datas} renderRow={data =>
+              <ListItem style={styles.listItemContainer} button onPress={() => this.navigateTo(data.route) } >
+                <View style={styles.listItem}>
+                  <Image source={data.icon}  style={styles.iconContainer} />
+                  <Text style={styles.text}>{data.name}</Text>
+                </View>
+              </ListItem>}
+          />
 
-            <ListItem button  onPress={() => this.navigateTo('anatomy')} >
-              <View style={styles.listItemContainer2}>
-                <Image source={require('./SearchTermPerformanceIcon.png')}  style={styles.iconContainer} />
-                <Text style={styles.text}>Search Term Performance</Text>
-              </View>
-            </ListItem>
-
-            <ListItem button  onPress={() => this.navigateTo('layout')} >
-              <View style={styles.listItemContainer2}>
-                <Image source={require('./CallCountIcon.png')}  style={styles.iconContainer}  />
-                <Text style={styles.text}>Ad Call Estimator</Text>
-              </View>
-            </ListItem>
-          </List>
         </Content>
-        <Footer>
+        <Footer theme={myTheme} style={{backgroundColor: '#454545', flexDirection: 'column', height: 160, borderTopColor: '#000'}}>
           <View>
-            <List>
-              <ListItem button iconLeft onPress={() => this.navigateTo('form')} >
-                <View style={styles.listItemContainer2}>
-                  <Image source={require('./cogIcon.png')}  style={styles.iconContainer}  />
+            <List style={{width: 220}}>
+              <ListItem style={styles.listItemContainer} button iconLeft onPress={() => this.navigateTo('form')} >
+                <View style={styles.listItem}>
+                  <Image source={settingsicon}    />
                   <Text style={styles.text}>Settings</Text>
                 </View>
               </ListItem>
               <ListItem button>
-                <View style={{ backgroundColor: '#454545', height: 80}}>
-                  <Image source={require('./MarketAuthorityLogo.png')}  style={{alignSelf: 'center', width: 145, height: 48, backgroundColor: 'transparent'} }  />
+                <View style={{height: 60}}>
+                  <Image source={footerlogo}  style={{alignSelf: 'center', width: 145, height: 48, backgroundColor: 'transparent'}}  />
                 </View>
               </ListItem>
             </List>
