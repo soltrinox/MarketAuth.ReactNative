@@ -518,22 +518,22 @@ class NHLayout extends React.Component {
 
         }
 
-        console.log(confirmGlobMsg + 'marketInputText : ' + this.state.marketInputText);
-        console.log(confirmGlobMsg + 'domainInputText : ' + this.state.domainInputText);
-        console.log(confirmGlobMsg + 'selectedCategory : ' + this.state.selectedCategory);
-
-        console.log(confirmGlobMsg + 'selectedNavCity : ' + stringify(this.props.navigation.selectedNavCity, {
-                maxLength: 0,
-                indent: '\t'
-            }));
-        console.log(confirmGlobMsg + 'selectedNavDomain : ' + stringify(this.props.navigation.selectedNavDomain, {
-                maxLength: 0,
-                indent: '\t'
-            }));
-        console.log(confirmGlobMsg + 'selectedNavCategory : ' + stringify(this.props.navigation.selectedNavCategory, {
-                maxLength: 0,
-                indent: '\t'
-            }));
+        // console.log(confirmGlobMsg + 'marketInputText : ' + this.state.marketInputText);
+        // console.log(confirmGlobMsg + 'domainInputText : ' + this.state.domainInputText);
+        // console.log(confirmGlobMsg + 'selectedCategory : ' + this.state.selectedCategory);
+        //
+        // console.log(confirmGlobMsg + 'selectedNavCity : ' + stringify(this.props.navigation.selectedNavCity, {
+        //         maxLength: 0,
+        //         indent: '\t'
+        //     }));
+        // console.log(confirmGlobMsg + 'selectedNavDomain : ' + stringify(this.props.navigation.selectedNavDomain, {
+        //         maxLength: 0,
+        //         indent: '\t'
+        //     }));
+        // console.log(confirmGlobMsg + 'selectedNavCategory : ' + stringify(this.props.navigation.selectedNavCategory, {
+        //         maxLength: 0,
+        //         indent: '\t'
+        //     }));
 
         return true;
     }
@@ -549,9 +549,9 @@ class NHLayout extends React.Component {
             this._updateGrids(this.state.selectedCategory);
         }
 
-        console.log("Test Model", DeviceInfo.getModel());
-        console.log("Device ID", DeviceInfo.getDeviceId());
-        console.log("System Name", DeviceInfo.getSystemName());
+        // console.log("Test Model", DeviceInfo.getModel());
+        // console.log("Device ID", DeviceInfo.getDeviceId());
+        // console.log("System Name", DeviceInfo.getSystemName());
     }
 
     componentDidMount() {

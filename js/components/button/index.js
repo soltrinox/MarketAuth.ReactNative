@@ -312,59 +312,11 @@ class NHButton extends React.Component {
 
     }
 
-
     _domainData() {
 
-        this.state.dataObjects = {
-            CATEGORY1: [
-                {KEY: 'First Domain', DOM: 'DEX Plux'},
-                {KEY: 'First Domain', DOM: 'DEX PREM'},
-                {KEY: 'First Domain', DOM: 'www.xxxxx.com'},
-                {KEY: 'First Domain', DOM: 'www.yyyy.com'},
-                {KEY: 'First Domain', DOM: 'First Description'},
-                {KEY: 'Second Domain', DOM: 'Second Description'},
-                {KEY: 'Third Domain', DOM: 'Third Description'},
-                {KEY: 'Fourth Domain', DOM: 'Fourth Description'},
-                {KEY: 'Fifth Domain', DOM: 'Fifth Description'},
-                {KEY: 'Sixth Domain', DOM: 'Sixth Description'},
-                {KEY: 'Seventh Domain', DOM: 'Seventh Description'},
-                {KEY: 'Eighth Domain', DOM: 'Eighth Description'},
-                {KEY: 'Ninth Domain', DOM: 'Ninth Description'},
-                {KEY: 'Tenth Domain', DOM: 'Tenth Description'}
-            ],
-            CATEGORY2: [
-                {KEY: 'Eleventh Domain', DOM: 'Eleventh Description'},
-                {KEY: '12th Domain', DOM: '12th Description'},
-                {KEY: '13th Domain', DOM: '13th Description'},
-                {KEY: '14th Domain', DOM: '14th Description'},
-                {KEY: '15th Domain', DOM: '15th Description'},
-                {KEY: '16th Domain', DOM: '16th Description'},
-                {KEY: '17th Domain', DOM: '17th Description'},
-                {KEY: '18th Domain', DOM: '18th Description'},
-                {KEY: '19th Domain', DOM: '19th Description'},
-                {KEY: '20th Domain', DOM: '20th Description'},
-                {KEY: 'BLACKJACK!', DOM: 'BLACKJACK! Description'}
-            ]
-        };
-
-        var rawArrVal = _.toString(this.state.rawArr);
-        var rawLocaleData = _.toString(this.props.navigation.rawLocaleNavData);
-
-        if(_.isEmpty(rawArrVal) && !_.isEmpty(rawLocaleData)){
-            var testJSON = require('./PHX.001.json');
-            this.state.rawArr = testJSON;
-            this.props.navigation.rawLocaleNavData = this.state.rawArr;
-            console.log( 'rawArr EMPTY && != GLOBAL ' + rawLocaleData);
-        }else if (   _.isEqual(rawLocaleData, rawArrVal)) {
-            console.log( 'rawArr = GLOBAL ' + rawLocaleData);
-        }else{
-            var testJSON = require('./PHX.001.json');
-            this.state.rawArr = testJSON;
-            this.props.navigation.rawLocaleNavData = this.state.rawArr;
-            console.log( 'rawArr  && rawLocaleData == EMPTY ' + rawLocaleData);
-        }
-
-
+        var testJSON = require('./PHX.001.json');
+        this.state.dataObjects = { };
+        this.state.rawArr = testJSON;
         var test = _.orderBy(this.state.rawArr, ['CAT', 'KEY', 'SCORE'], ['asc', 'asc', 'desc']);
 
         this.state.categoriesArr = [...new Set(test.map(item => item.CAT))];
@@ -438,7 +390,6 @@ class NHButton extends React.Component {
 
     }
 
-
     getRandomInt(min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
@@ -452,7 +403,6 @@ class NHButton extends React.Component {
             }
         )
     }
-
 
     _updateGlobals(tyype, vval) {
 
@@ -485,7 +435,6 @@ class NHButton extends React.Component {
 
 
     }
-
 
     _confirmGlobalsOnLoad() {
         var confirmGlobMsg = '@@ confirmGlobals || \n ';
@@ -569,26 +518,25 @@ class NHButton extends React.Component {
 
         }
 
-        console.log(confirmGlobMsg + 'marketInputText : ' + this.state.marketInputText);
-        console.log(confirmGlobMsg + 'domainInputText : ' + this.state.domainInputText);
-        console.log(confirmGlobMsg + 'selectedCategory : ' + this.state.selectedCategory);
-
-        console.log(confirmGlobMsg + 'selectedNavCity : ' + stringify(this.props.navigation.selectedNavCity, {
-                maxLength: 0,
-                indent: '\t'
-            }));
-        console.log(confirmGlobMsg + 'selectedNavDomain : ' + stringify(this.props.navigation.selectedNavDomain, {
-                maxLength: 0,
-                indent: '\t'
-            }));
-        console.log(confirmGlobMsg + 'selectedNavCategory : ' + stringify(this.props.navigation.selectedNavCategory, {
-                maxLength: 0,
-                indent: '\t'
-            }));
+        // console.log(confirmGlobMsg + 'marketInputText : ' + this.state.marketInputText);
+        // console.log(confirmGlobMsg + 'domainInputText : ' + this.state.domainInputText);
+        // console.log(confirmGlobMsg + 'selectedCategory : ' + this.state.selectedCategory);
+        //
+        // console.log(confirmGlobMsg + 'selectedNavCity : ' + stringify(this.props.navigation.selectedNavCity, {
+        //         maxLength: 0,
+        //         indent: '\t'
+        //     }));
+        // console.log(confirmGlobMsg + 'selectedNavDomain : ' + stringify(this.props.navigation.selectedNavDomain, {
+        //         maxLength: 0,
+        //         indent: '\t'
+        //     }));
+        // console.log(confirmGlobMsg + 'selectedNavCategory : ' + stringify(this.props.navigation.selectedNavCategory, {
+        //         maxLength: 0,
+        //         indent: '\t'
+        //     }));
 
         return true;
     }
-
 
     componentWillMount() {
 
@@ -601,15 +549,14 @@ class NHButton extends React.Component {
             this._updateGrids(this.state.selectedCategory);
         }
 
-        console.log("Test Model", DeviceInfo.getModel());
-        console.log("Device ID", DeviceInfo.getDeviceId());
-        console.log("System Name", DeviceInfo.getSystemName());
+        // console.log("Test Model", DeviceInfo.getModel());
+        // console.log("Device ID", DeviceInfo.getDeviceId());
+        // console.log("System Name", DeviceInfo.getSystemName());
     }
 
     componentDidMount() {
         this._resetGridColumnTotal();
     }
-
     render() {
         var gridRowTotal = 0;
         var gridCol1Total = 0;

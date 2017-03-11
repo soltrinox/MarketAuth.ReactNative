@@ -54,6 +54,7 @@
     "redux-thunk": "^2.1.0",
     "remote-redux-devtools": "^0.3.3",
     "rn-viewpager": "^1.1.4",
+    "victor": "^1.1.0",
     "whatwg-fetch": "^2.0.1"
   },
   "devDependencies": {
