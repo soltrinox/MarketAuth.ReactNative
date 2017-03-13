@@ -566,19 +566,21 @@ class Anatomy extends React.Component {
 
         return (
             <Container theme={myTheme} style={{ width : 800, backgroundColor: '#000000'}}>
-                <Header style={{ width : 800, height:100, backgroundColor: '#454545', paddingLeft: 40}}>
+                <Header style={{ width : 800, height:100, backgroundColor: '#454545', paddingLeft: 20}}>
                     <View style={{ flex: 1, alignItems : 'flex-start', flexDirection: 'row',}}>
-                        <View style={{ width: 220, height: 30, marginRight:20 }}>
-
+                        <View style={{ width: 280, height: 30, marginRight:20 }}>
+                            <Text style={ styles.filterLabel }>Domain</Text>
                             <TextInput ref={(domainInput) => { this._domainInput = domainInput; }}
                                        defaultValue={this.state.domainInputText}
-                                       style={{ borderRadius: 8, backgroundColor: '#2c75ab', width: 210, height: 30, color: 'white', fontWeight: 'bold',
+                                       style={{ borderRadius: 14, backgroundColor: '#2c75ab', width: 260, height: 30, color: 'white', fontWeight: 'bold',
                                        fontSize: 20, lineHeight:22, textAlign: 'center' }}
                                        clearTextOnFocus={true}
                                        onEndEditing={(event) => this._updateGlobals( 'domain', event.nativeEvent.text  )}/>
 
                         </View>
-                        <View style={{ width: 220, height: 30, marginRight:10,  }}>
+
+                        <View style={{ width: 200, height: 30, marginRight:10,  }}>
+                            <Text style={ styles.filterLabel }>Category</Text>
                             <Selection
                                 ref={(categorySelect1) => { this._categorySelect1 = categorySelect1; }}
                                 titleCustomize={true}
@@ -589,8 +591,8 @@ class Anatomy extends React.Component {
                                 style={{
                                     main:{
                                       backgroundColor: '#2c75ab',
-                                      borderRadius: 8,
-                                      width: 220, height: 30
+                                      borderRadius: 14,
+                                      width: 180, height: 30
                                     },
                                  color: '#FFF',
                                   textColor : '#FFF',
@@ -633,10 +635,10 @@ class Anatomy extends React.Component {
                             />
 
                         </View>
-                        <View style={{ width: 220, height: 30, marginRight:20 }}>
-
+                        <View style={{ width: 160, height: 30, marginRight:20 }}>
+                            <Text style={ styles.filterLabel }>Market</Text>
                             <Input ref={(marketInput) => { this._marketInput = marketInput; }}
-                                   style={{ borderRadius: 8, backgroundColor: '#2c75ab', width: 210, height: 30, color: 'white', fontWeight: 'bold',
+                                   style={{ borderRadius: 8, backgroundColor: '#2c75ab', width: 140, height: 30, color: 'white', fontWeight: 'bold',
                                        fontSize: 20, lineHeight:22, textAlign: 'center' }}
                                    defaultValue={this.state.marketInputText}
                                    clearTextOnFocus={true}

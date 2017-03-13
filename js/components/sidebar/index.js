@@ -87,7 +87,11 @@ class SideBar extends Component {
         <Content>
           <List
               dataArray={datas} renderRow={data =>
-              <ListItem style={styles.listItemContainer} button onPress={() => this.navigateTo(data.route) } >
+              <ListItem
+                  style={styles.listItemContainer}
+                  button
+                  onPress={() => this.navigateTo(data.route)}
+              >
                 <View style={styles.listItem}>
                   <Image source={data.icon}  style={styles.iconContainer} />
                   <Text style={styles.text}>{data.name}</Text>
@@ -99,7 +103,12 @@ class SideBar extends Component {
         <Footer theme={myTheme} style={{backgroundColor: '#454545', flexDirection: 'column', height: 160, borderTopColor: '#000'}}>
           <View>
             <List style={{width: 220}}>
-              <ListItem style={styles.listItemContainer} button iconLeft onPress={() => this.navigateTo('form')} >
+              <ListItem
+                  style={styles.listItemContainer}
+                  button
+                  iconLeft
+                  onPress={() => this.navigateTo('form')}
+              >
                 <View style={styles.listItem}>
                   <Image source={settingsicon}    />
                   <Text style={styles.text}>Settings</Text>

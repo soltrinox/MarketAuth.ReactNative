@@ -32,7 +32,6 @@ module.exports = StyleSheet.create({
       paddingLeft: 0,
       marginLeft: 0
   },
-
   iconContainer: {
     width: 61,
     height: 61,
