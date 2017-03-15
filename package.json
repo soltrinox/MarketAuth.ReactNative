@@ -16,6 +16,7 @@
     "format-json": "^1.0.3",
     "jest-react-native": "^17.1.0",
     "lodash": "^4.17.4",
+    "mathjs": "^3.10.0",
     "moment": "^2.13.0",
     "native-base": "^0.5.22",
     "querystringify": "0.0.4",
@@ -54,7 +55,6 @@
     "redux-thunk": "^2.1.0",
     "remote-redux-devtools": "^0.3.3",
     "rn-viewpager": "^1.1.4",
-    "victor": "^1.1.0",
     "whatwg-fetch": "^2.0.1"
   },
   "devDependencies": {

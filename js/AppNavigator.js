@@ -42,8 +42,8 @@ import SplashPage from './components/splashscreen/';
 import SideBar from './components/sidebar';
 import statusBarColor from './themes/base-theme';
 
-
-var Victor = require('victor');
+// var sylvester = require("sylvester-es6");
+import mathjs from 'mathjs';
 
 
 const {
@@ -97,8 +97,30 @@ class AppNavigator extends Component {
             dataObjects: {},
             rawArr: [],
             categoriesArr: [],
-            keywordArr: []
+            keywordArr: [],
+            globalCatArr: [],
+            globalKeyArr: [],
+            globalCatKeyArr: []
         };
+
+    }
+
+    _initializeAppData(){
+
+        console.log( '\n ========== \n ========== \n  INIT APPLICATION DATA \n ========== \n ========== \n  ' );
+        var test = [];
+        test = require('./CAT.KEY.json');
+        var catKey = [];
+        catKey = _.orderBy(test, ['CAT', 'KEY'], ['asc', 'asc']);
+
+        this.state.globalCatArr = [];
+        this.state.globalKeyArr = [];
+        this.state.globalCatArr = [...new Set(catKey.map(item => item.CAT))];
+        this.state.globalCatArr.sort();
+        this.state.globalKeyArr = [...new Set(catKey.map(item => item.KEY))];
+        this.state.globalKeyArr.sort();
+
+        console.log('\n XXXXXXXXXXX  \n '+ stringify(catKey, {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX');
 
     }
 
@@ -132,12 +154,13 @@ class AppNavigator extends Component {
             // console.log(j + '] ' + this.state.categoriesArr[j] );
             var trr = [];
             var catName = _.toString(this.state.categoriesArr[j]);
-            happy.push({name: catName, value: catName, icon: '',});
+            happy.push({name: catName, value: catName, icon: '', iid : ''});
             trr = _.filter(test, {"CAT": catName});
             var sup = [];
             sup =  [...new Set(trr.map(item => item.KEY))];
             var supCt = _.size(sup);
-            console.log('\n ========== \n ' + catName + '\n =========  \n TOTAL ' + supCt + ' @ '  +'] \n '+stringify(sup, {maxLength: 0, indent: '\t'}));
+            console.log('\n ========== \n ' + catName + '\n =========  \n TOTAL ' + supCt + ' @ '  +'] \n '+
+                stringify(sup, {maxLength: 0, indent: '\t'}));
             _.set(this.state.dataObjects, catName, trr);
         }
         this.setState({categoriesArr: happy});
@@ -152,10 +175,10 @@ class AppNavigator extends Component {
 
     componentWillMount() {
         console.log('\n ========== \n ========== \n  NAVIGATOR WILL MOUNT \n ========== \n ========== \n  ');
-
+        this._initializeAppData();
         this._domainData();
 
-        var vec = new Victor(42, 1337);
+        // var vec = new Victor(42, 1337);
 
     }
 
