@@ -73,7 +73,9 @@ class AppNavigator extends Component {
             dexNavPrem: React.PropTypes.array,
             dexNavPlux: React.PropTypes.array,
             dexNavBasc: React.PropTypes.array,
-            rawLocaleNavData: React.PropTypes.array
+            rawLocaleNavData: React.PropTypes.array,
+            masterSumProdArr : React.PropTypes.array,
+            masterSumProdObj: React.PropTypes.any,
         }),
     }
 
@@ -91,6 +93,10 @@ class AppNavigator extends Component {
             dexPlux: this.props.navigation.dexNavPlux,
             dexBasc: this.props.navigation.dexNavBasc,
             rawLocaleData: this.props.navigation.rawLocaleNavData,
+
+            globalSumProdArr: this.props.navigation.masterSumProdArr,
+            globalSumProdObj: this.props.navigation.masterSumProdObj,
+
             results: {
                 items: []
             },
@@ -100,7 +106,8 @@ class AppNavigator extends Component {
             keywordArr: [],
             globalCatArr: [],
             globalKeyArr: [],
-            globalCatKeyArr: []
+            globalCatKeyArr: [],
+
         };
 
     }
@@ -220,9 +227,6 @@ class AppNavigator extends Component {
 
         test = require('./CAT.KEY.json');
         var catKey = this.state.globalCatKeyArr;
-        // catKey = _.orderBy(test, ['CAT', 'KEY'], ['asc', 'asc']);
-
-
 
         var testJSON = require('./PHX.003.json');
         this.state.dataObjects = {};
@@ -231,33 +235,32 @@ class AppNavigator extends Component {
 
         // console.log('\n XXXXXXXXXXX rawArr \n ' + stringify(this.state.rawArr, {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
 
-
-
         for (var j = 0; j < catKey.length; j++) {
 
             var trr = [];
             var tky = catKey[j];
-
-            console.log('\n ==========  KEY ITEM '+
-                stringify(tky, {maxLength: 0, indent: '\t'}));
-
             var keyID = _.toString(tky.KID);
-            // console.log(j + '] ' + keyID );
-            trr = _.filter(this.state.rawArr, {'KID': tky.KID });
-                //{ 'KID' : keyID } );
-            console.log('\n ==========  \n ' + keyID + ' ] \n =========  \n '+
-                stringify(trr, {maxLength: 0, indent: '\t'}));
 
+            trr = _.filter(this.state.rawArr, {'KID': tky.KID });
+
+            var kidArr = [];
+            _.forEach(trr, function(value) {
+                console.log('' + value.KID + ' ] ' + value.SUMPROD);
+                var sumArr = [];
+                sumArr =  _.split(value.SUMPROD, ',');
+                kidArr.push( {'DOM': value.DOM , 'KID': value.KID , 'SUMPROD': sumArr } );
+            });
+            _.set(this.state.globalSumProdObj, tky, kidArr);
+            console.log('\n XXXXXXXXXXX SUMPROD CATS \n ' +  stringify(kidArr, {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
+                // JSON.stringify(this.state.globalSumProdObj) );
+                //
 
             _.set(this.state.dataObjects, keyID, trr);
         }
 
 
-        console.log( '\n ========== \n ========== \n  dataObjects \n ========== \n ========== \n  '  );
-
-        // for (var g = 0; g < this.state.dataObjects; g++) {
-        //     console.log('\n @@@@@ '+g + '] ' + stringify(this.state.dataObjects[g], {maxLength: 0, indent: '\t'})  );
-        // }
+        // console.log( '\n ========== \n ========== \n  dataObjects \n ========== \n ========== \n  '  );
+        // console.log('\n  ' + stringify(this.state.dataObjects, {maxLength: 0, indent: '\t'})  );
     }
 
     componentWillMount() {

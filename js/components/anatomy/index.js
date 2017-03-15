@@ -51,7 +51,7 @@ class Anatomy extends React.Component {
             dexNavPlux: React.PropTypes.array,
             dexNavBasc: React.PropTypes.array,
             rawLocaleNavData: React.PropTypes.array,
-
+            masterSumProdArr : React.PropTypes.array,
         }),
     }
 
@@ -71,6 +71,7 @@ class Anatomy extends React.Component {
             dexPlux: this.props.navigation.dexNavPlux,
             dexBasc: this.props.navigation.dexNavBasc,
             rawLocaleData: this.props.navigation.rawLocaleNavData,
+            globalSumProdArr: this.props.navigation.masterSumProdArr,
 
             selectedDomainTotal: 2,
             columnTotal1: 0,
