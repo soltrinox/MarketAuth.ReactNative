@@ -482,30 +482,10 @@ class Anatomy extends React.Component {
                 catVal = 'Carpet Dealer';
                 globCat = 'Carpet Dealer';
             }
-
             this.setState({selectedCategory: catVal});
             this.state.selectedCategory = catVal;
             this.props.navigation.selectedNavCategory = catVal;
-
         }
-
-        // console.log(confirmGlobMsg + 'marketInputText : ' + this.state.marketInputText);
-        // console.log(confirmGlobMsg + 'domainInputText : ' + this.state.domainInputText);
-        // console.log(confirmGlobMsg + 'selectedCategory : ' + this.state.selectedCategory);
-
-        // console.log(confirmGlobMsg + 'selectedNavCity : ' + stringify(this.props.navigation.selectedNavCity, {
-        //         maxLength: 0,
-        //         indent: '\t'
-        //     }));
-        // console.log(confirmGlobMsg + 'selectedNavDomain : ' + stringify(this.props.navigation.selectedNavDomain, {
-        //         maxLength: 0,
-        //         indent: '\t'
-        //     }));
-        // console.log(confirmGlobMsg + 'selectedNavCategory : ' + stringify(this.props.navigation.selectedNavCategory, {
-        //         maxLength: 0,
-        //         indent: '\t'
-        //     }));
-
         return true;
     }
 

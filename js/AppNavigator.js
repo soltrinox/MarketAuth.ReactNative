@@ -73,7 +73,7 @@ class AppNavigator extends Component {
             dexNavPrem: React.PropTypes.array,
             dexNavPlux: React.PropTypes.array,
             dexNavBasc: React.PropTypes.array,
-            rawLocaleNavData: React.PropTypes.array,
+            rawLocaleNavData: React.PropTypes.array
         }),
     }
 
@@ -105,78 +105,171 @@ class AppNavigator extends Component {
 
     }
 
+    _confirmGlobalsOnLoad() {
+        var confirmGlobMsg = '@@ confirmGlobals || \n ';
+
+        var markVal = _.toString(this.state.marketInputText);
+        var domVal = _.toString(this.state.domainInputText);
+        var catVal = _.toString(this.state.selectedCategory);
+        var rawArrVal = _.toString(this.state.rawArr);
+
+        var globLoc = _.toString(this.props.navigation.selectedNavCity);
+        var globDom = _.toString(this.props.navigation.selectedNavDomain);
+        var globCat = _.toString(this.props.navigation.selectedNavCategory);
+        var rawLocaleData = _.toString(this.props.navigation.rawLocaleNavData);
+
+        if (_.isEqual(rawLocaleData, rawArrVal)) {
+            console.log(confirmGlobMsg + 'rawArr = GLOBAL ' + rawLocaleData);
+        } else {
+            console.log(confirmGlobMsg + 'rawArr != GLOBAL ' + rawLocaleData);
+            if (!_.isEmpty(rawLocaleData)) {
+                rawArrVal = rawLocaleData;
+                this.setState({rawArr: rawLocaleData});
+                this.state.rawArr = rawLocaleData;
+            }
+            if (_.isEmpty(rawArrVal)) {
+                if (!_.isEmpty(rawLocaleData)) {
+                    rawArrVal = rawLocaleData;
+                    this.setState({rawArr: rawArrVal});
+                    this.state.rawArr = rawArrVal;
+                    this.props.navigation.rawLocaleNavData = rawArrVal;
+                }
+            }
+        }
+
+        if (_.isEqual(markVal, globLoc)) {
+            console.log(confirmGlobMsg + 'marketInputText = GLOBAL ' + globLoc);
+        } else {
+            console.log(confirmGlobMsg + 'NOT marketInputText != GLOBAL ' + globLoc);
+            if (!_.isEmpty(globLoc)) {
+                markVal = globLoc;
+            } else {
+                markVal = 'PHOENIX, AZ';
+                globLoc = 'PHOENIX, AZ';
+            }
+            this.setState({marketInputText: globLoc});
+            this.state.marketInputText = globLoc;
+            this.props.navigation.selectedNavCity = globLoc;
+        }
+
+        if (_.isEqual(domVal, globDom)) {
+            console.log(confirmGlobMsg + ' domainInputText = GLOBAL ' + globDom);
+        } else {
+            console.log(confirmGlobMsg + 'NOT domainInputText != GLOBAL ' + globDom);
+            if (!_.isEmpty(globDom)) {
+                markVal = globDom;
+            } else {
+                domVal = 'angieslist.com';
+                globDom = 'angieslist.com';
+            }
+            this.setState({domainInputText: globDom});
+            this.state.domainInputText = globDom;
+            this.props.navigation.selectedNavDomain = globDom;
+        }
+
+        if (_.isEqual(catVal, globCat)) {
+            console.log(confirmGlobMsg + ' selectedCategory = GLOBAL ' + catVal);
+            this.setState({selectedCategory: catVal});
+            this.state.selectedCategory = catVal;
+            this.props.navigation.selectedNavCategory = catVal;
+        } else if (_.isEmpty(catVal)) {
+            console.log(confirmGlobMsg + ' selectedCategory != GLOBAL ' + globCat);
+            if (!_.isEmpty(globCat)) {
+                catVal = globCat;
+            } else {
+                catVal = 'Carpet Dealer';
+                globCat = 'Carpet Dealer';
+            }
+            this.setState({selectedCategory: catVal});
+            this.state.selectedCategory = catVal;
+            this.props.navigation.selectedNavCategory = catVal;
+        }
+
+        console.log('\n ========== selectedCategory : ' +  this.props.navigation.selectedNavCategory );
+        console.log('\n ========== selectedNavDomain : ' +  this.props.navigation.selectedNavDomain );
+        console.log('\n ========== selectedNavCity : ' +  this.props.navigation.selectedNavCategory );
+
+        return true;
+    }
+
     _initializeAppData(){
 
         console.log( '\n ========== \n ========== \n  INIT APPLICATION DATA \n ========== \n ========== \n  ' );
         var test = [];
-        test = require('./CAT.KEY.json');
+        test = require('./KEY.CAT.json');
         var catKey = [];
         catKey = _.orderBy(test, ['CAT', 'KEY'], ['asc', 'asc']);
 
         this.state.globalCatArr = [];
         this.state.globalKeyArr = [];
+        this.state.globalCatKeyArr = [];
+
         this.state.globalCatArr = [...new Set(catKey.map(item => item.CAT))];
         this.state.globalCatArr.sort();
+
         this.state.globalKeyArr = [...new Set(catKey.map(item => item.KEY))];
         this.state.globalKeyArr.sort();
 
-        console.log('\n XXXXXXXXXXX  \n '+ stringify(catKey, {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX');
+        this.state.globalCatKeyArr = catKey;
+
 
     }
 
     _domainData() {
         console.log( '\n ========== \n ========== \n  PARSING DOMAIN DATA \n ========== \n ========== \n  ' );
 
-        var testJSON = require('./phoenix.json');
+        test = require('./CAT.KEY.json');
+        var catKey = this.state.globalCatKeyArr;
+        // catKey = _.orderBy(test, ['CAT', 'KEY'], ['asc', 'asc']);
+
+
+
+        var testJSON = require('./PHX.003.json');
         this.state.dataObjects = {};
         this.state.rawArr = testJSON;
-        var test = [];
-        test = _.orderBy(this.state.rawArr, ['CAT', 'KEY'], ['asc', 'asc']);
+        var test = _.orderBy(this.state.rawArr, ['KEY'], ['asc']);
 
-        this.state.categoriesArr = [...new Set(test.map(item => item.CAT))];
-        this.state.categoriesArr.sort();
-        this.state.keywordArr = [...new Set(test.map(item => item.KEY))];
-        this.state.keywordArr.sort();
-        // this.state.keywordArr = ["Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category"];
+        // console.log('\n XXXXXXXXXXX rawArr \n ' + stringify(this.state.rawArr, {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
 
-         // for (var g = 0; g < test; g++) {
-         //     var tty = {};
-         //     tty = test[g];
-         //     console.log(JSON.stringify(tty));
-         //    console.log( g+ '] ' + stringify(tty, {maxLength: 0, indent: '\t'}) );
-         // }
 
-        var happy = [];
 
-        console.log( '\n ========== \n ========== \n  CATEGORIES \n ========== \n ========== \n  ' );
+        for (var j = 0; j < catKey.length; j++) {
 
-        for (var j = 0; j < this.state.categoriesArr.length; j++) {
-            // console.log(j + '] ' + this.state.categoriesArr[j] );
             var trr = [];
-            var catName = _.toString(this.state.categoriesArr[j]);
-            happy.push({name: catName, value: catName, icon: '', iid : ''});
-            trr = _.filter(test, {"CAT": catName});
-            var sup = [];
-            sup =  [...new Set(trr.map(item => item.KEY))];
-            var supCt = _.size(sup);
-            console.log('\n ========== \n ' + catName + '\n =========  \n TOTAL ' + supCt + ' @ '  +'] \n '+
-                stringify(sup, {maxLength: 0, indent: '\t'}));
-            _.set(this.state.dataObjects, catName, trr);
-        }
-        this.setState({categoriesArr: happy});
+            var tky = catKey[j];
 
-        console.log( '\n ========== \n ========== \n  dataObjects \n ========== \n ========== \n  ' );
+            console.log('\n ==========  KEY ITEM '+
+                stringify(tky, {maxLength: 0, indent: '\t'}));
 
-        for (var g = 0; g < this.state.dataObjects; g++) {
-            console.log(g + '] ' + stringify(this.state.dataObjects[g], {maxLength: 0, indent: '\t'})  );
+            var keyID = _.toString(tky.KID);
+            // console.log(j + '] ' + keyID );
+            trr = _.filter(this.state.rawArr, {'KID': tky.KID });
+                //{ 'KID' : keyID } );
+            console.log('\n ==========  \n ' + keyID + ' ] \n =========  \n '+
+                stringify(trr, {maxLength: 0, indent: '\t'}));
+
+
+            _.set(this.state.dataObjects, keyID, trr);
         }
+
+
+        console.log( '\n ========== \n ========== \n  dataObjects \n ========== \n ========== \n  '  );
+
+        // for (var g = 0; g < this.state.dataObjects; g++) {
+        //     console.log('\n @@@@@ '+g + '] ' + stringify(this.state.dataObjects[g], {maxLength: 0, indent: '\t'})  );
+        // }
     }
-
 
     componentWillMount() {
         console.log('\n ========== \n ========== \n  NAVIGATOR WILL MOUNT \n ========== \n ========== \n  ');
-        this._initializeAppData();
-        this._domainData();
+
+        var go = false;
+        go = this._confirmGlobalsOnLoad();
+
+        if (go) {
+            this._initializeAppData();
+            this._domainData();
+        }
 
         // var vec = new Victor(42, 1337);
 
