@@ -234,7 +234,8 @@ class AppNavigator extends Component {
              var tSS = tempCatKeys[0];
             var uii = Math.floor(tSS.KID / 100);
             var tuu = {};
-            _.set(tuu, uii , item);
+            _.set(tuu, 'CAT', item);
+            _.set(tuu, 'CID', _.toInteger(uii));
             catObjs.push(tuu);
         });
 
@@ -249,6 +250,15 @@ class AppNavigator extends Component {
 
         var catCoverage = [];
 
+        for (var p = 0; p < navCat.length; p++) {
+            var xcatId = navCat[p];
+            var tCatCov = {};
+            _.set(tCatCov, xcatId.CID , []);
+            catCoverage.push(tCatCov);
+        }
+
+        // console.log('\n catCoverage :  ' + JSON.stringify(catCoverage));
+
         // TODO : BUILD LIST OF UNIQUE DOMAINS AND SUM THE SCORE FOR CAT / ALL CHILD KEYS
         this.state.globalSumDomCoverage = [];
 
@@ -262,8 +272,6 @@ class AppNavigator extends Component {
             var tky = catKey[j];
             var keyID = _.toString(tky.KID);
             var coverageVal = [];
-            var catID = Math.floor(tky.KID / 100);
-
 
             trr = _.filter(this.state.rawArr, {'KID': tky.KID});
 
@@ -272,10 +280,21 @@ class AppNavigator extends Component {
                 // console.log('' + value.KID + ' ] ' + value.SUMPROD);
                 var sumArr = [];
                 sumArr = _.split(value.SUMPROD, ',');
-                var covObj = {};
-                _.set(covObj, catID, sumArr );
-                coverageVal.push(covObj);
-                kidArr.push({'DOM': value.DOM, 'KID': _.toInteger(value.KID), 'CAT': _.toInteger(catID), 'SCORE': _.toInteger(sumArr[0]) });
+                coverageVal.push(sumArr);
+                var catID = Math.floor(value.KID / 100);
+                kidArr.push({'DOM': value.DOM, 'KID': _.toInteger(value.KID), 'CID': _.toInteger(catID), 'SCORE': _.toInteger(sumArr[0]) });
+
+                // var tCatCov =  _.filter(catCoverage, {'CID': _.toInteger(catID) });
+                var ccu = _.toInteger(catID);
+                var tCatCov = {};
+                tCatCov = _.find(catCoverage, ccu);
+                var yys = [];
+                yys =  tCatCov[ccu];
+                yys.push(sumArr);
+                console.log('\n' + ccu + ' ] ' + JSON.stringify(yys));
+                // yys.push(sumArr);
+                // _.set(tCatCov, ccu, yys);
+                // _.set(catCoverage, catID , tCatCov);
             });
 
             // console.log('\n XXXXXXXXXXX coverageVal : ' + tky.KID + ' \n '  + stringify(coverageVal, {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
@@ -314,19 +333,24 @@ class AppNavigator extends Component {
             var dexBascObj = {};
             _.set(dexBascObj, keyID, scoreBasc);
             this.state.dexBasc.push(dexBascObj);
+
+
+            // _.set(this.state.globalSumProdCoverage, keyID, kidArr);
         }
 
-        for (var p = 0; p < navCat.length; p++) {
+        // for (var v = 0; v < navCat.length; v++) {
+        //
+        //     var vcatId = navCat[p];
+        //     var tCatCov = catCoverage[vcatId];
+        //     tCatCov.push()
+        //     catCoverage.push(tCatCov);
+        //     console.log('\n  ================= \n  ^^^^^^^^^ txx :  \n'+  stringify( txx , {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
+        //
+        // }
 
-            var catId = navCat[p];
-            var txx = _.filter(this.state.domainScoreArray, {'CAT': catId.CAT});
-
-            console.log('\n  ================= \n  ^^^^^^^^^ txx :  \n'+  stringify( txx , {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
-
-        }
 
 
-        // console.log('\n  ================= \n  XXXXXXXXXXX domainScoreArray :  \n'+  stringify(this.state.domainScoreArray, {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
+        console.log('\n  ================= \n  XXXXXXXXXXX catCoverage :  \n'+  stringify(catCoverage, {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
 
         this.props.navigation.dexNavPrem = this.state.dexPrem;
         this.props.navigation.dexNavPlux = this.state.dexPlux;
