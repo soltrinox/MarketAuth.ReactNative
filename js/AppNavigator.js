@@ -43,7 +43,7 @@ import SideBar from './components/sidebar';
 import statusBarColor from './themes/base-theme';
 
 // var sylvester = require("sylvester-es6");
-var mathjs  = require('mathjs') ;
+var mathjs = require('mathjs');
 
 
 const {
@@ -75,11 +75,11 @@ class AppNavigator extends Component {
             dexNavBasc: React.PropTypes.array,
             rawLocaleNavData: React.PropTypes.array,
 
-            masterCatKeyArray : React.PropTypes.array,
-            masterSumDomCoverage : React.PropTypes.array,
+            masterCatKeyArray: React.PropTypes.array,
+            masterSumDomCoverage: React.PropTypes.array,
             masterSumProdCoverage: React.PropTypes.array,
-            masterDomainScoreArray : React.PropTypes.object,
-            masterNavCatArray : React.PropTypes.array,
+            masterDomainScoreArray: React.PropTypes.object,
+            masterNavCatArray: React.PropTypes.array,
         }),
     }
 
@@ -99,16 +99,16 @@ class AppNavigator extends Component {
             dexBasc: [],
             rawLocaleData: [],
 
-            globalCatKeyArray : [],
+            globalCatKeyArray: [],
             globalSumDomCoverage: [],
             globalSumProdCoverage: [],
             domainScoreArray: {},
-            globalNavCatArray : [],
+            globalNavCatArray: [],
 
             results: {
                 items: []
             },
-            
+
             rawArr: [],
             categoriesArr: [],
             keywordArr: [],
@@ -200,35 +200,26 @@ class AppNavigator extends Component {
             this.props.navigation.selectedNavCategory = catVal;
         }
 
-        console.log('\n ========== selectedCategory : ' +  this.props.navigation.selectedNavCategory );
-        console.log('\n ========== selectedNavDomain : ' +  this.props.navigation.selectedNavDomain );
-        console.log('\n ========== selectedNavCity : ' +  this.props.navigation.selectedNavCategory );
+        console.log('\n ========== selectedCategory : ' + this.props.navigation.selectedNavCategory);
+        console.log('\n ========== selectedNavDomain : ' + this.props.navigation.selectedNavDomain);
+        console.log('\n ========== selectedNavCity : ' + this.props.navigation.selectedNavCategory);
 
         return true;
     }
 
-    _initializeAppData(){
+    _initializeAppData() {
 
-        console.log( '\n ========== \n ========== \n  INIT APPLICATION DATA \n ========== \n ========== \n  ' );
+        console.log('\n ========== \n ========== \n  INIT APPLICATION DATA \n ========== \n ========== \n  ');
         var catKey = [];
+        var test = [];
+        test = require('./CAT.KEY.json');
+        catKey = _.orderBy(test, ['CAT', 'KEY'], ['asc', 'asc']);
+        this.state.globalCatKeyArray = catKey;
+        this.props.navigation.masterCatKeyArray = catKey;
 
-        if(_.isEmpty(this.props.navigation.masterCatKeyArray)){
-            var test = [];
-            test = require('./CAT.KEY.json');
-            catKey = _.orderBy(test, ['CAT', 'KEY'], ['asc', 'asc']);
-            this.state.globalCatKeyArray = catKey;
-            this.props.navigation.masterCatKeyArray = catKey;
-        }else{
-            this.state.globalCatKeyArray = this.props.navigation.masterCatKeyArray;
-        }
 
         var testJSON = require('./PHX.003.json');
-        // this.state.domainScoreArray = {};
         this.state.rawArr = testJSON;
-
-        // this.state.globalCatArr = [];
-        // this.state.globalKeyArr = [];
-        // this.state.globalCatKeyArr = [];
 
         this.state.globalCatArr = [...new Set(catKey.map(item => item.CAT))];
         this.state.globalCatArr.sort();
@@ -236,41 +227,33 @@ class AppNavigator extends Component {
         this.state.globalKeyArr = [...new Set(catKey.map(item => item.KEY))];
         this.state.globalKeyArr.sort();
 
-
-
-        // console.log('\n XXXXXXXXXXX tuu \n ' + stringify(catKey, {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
-
         var catObjs = [];
-        _.forEach(this.state.globalCatArr, function(item) {
+        _.forEach(this.state.globalCatArr, function (item) {
 
-           var tempCatKeys = _.filter(catKey, { 'CAT' : item });
-            // console.log('\n XXXXXXXXXXX ITEM \n ' + stringify(tempCatKeys, {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
-            var tSS = tempCatKeys[0];
+            var tempCatKeys = _.filter(catKey, {'CAT': item});
+             var tSS = tempCatKeys[0];
             var uii = Math.floor(tSS.KID / 100);
-
             var tuu = {};
-            _.set(tuu,  item  , uii );
-
-            catObjs.push( tuu );
+            _.set(tuu, uii , item);
+            catObjs.push(tuu);
         });
 
-        // console.log('\n XXXXXXXXXXX catObjs \n ' + stringify(catObjs, {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
-        // this.state.globalCatKeyArr = catObjs;
-
-
-
+        this.state.globalNavCatArray = catObjs;
     }
 
     _domainData() {
-        console.log( '\n ========== \n ========== \n  PARSING DOMAIN DATA \n ========== \n ========== \n  ' );
+        console.log('\n ========== \n ========== \n  PARSING DOMAIN DATA \n ========== \n ========== \n  ');
 
-
-        var catKey = [];
-        catKey = this.state.globalCatKeyArr;
-
-        console.log('\n XXXXXXXXXXX catKey \n ' + stringify(catKey, {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
+        var catKey = this.state.globalCatKeyArray;
+        var navCat = this.state.globalNavCatArray;
 
         var catCoverage = [];
+
+        // TODO : BUILD LIST OF UNIQUE DOMAINS AND SUM THE SCORE FOR CAT / ALL CHILD KEYS
+        this.state.globalSumDomCoverage = [];
+
+        // TODO : GET THE COVERAGE SCORE ACROSS A PRODUCT IN THE CATEGORY FOR ALL CHILD KEYS
+        this.state.globalSumProdCoverage = [];
 
         //  THIS IS THE KEYWORD LIST WITH A CAL VALUE
         for (var j = 0; j < catKey.length; j++) {
@@ -279,81 +262,82 @@ class AppNavigator extends Component {
             var tky = catKey[j];
             var keyID = _.toString(tky.KID);
             var coverageVal = [];
+            var catID = Math.floor(tky.KID / 100);
 
-            trr = _.filter(this.state.rawArr, {'KID': tky.KID });
+
+            trr = _.filter(this.state.rawArr, {'KID': tky.KID});
 
             var kidArr = [];
-            _.forEach(trr, function(value) {
+            _.forEach(trr, function (value) {
                 // console.log('' + value.KID + ' ] ' + value.SUMPROD);
                 var sumArr = [];
-                sumArr =  _.split(value.SUMPROD, ',');
-                coverageVal.push(sumArr);
-                kidArr.push( {'DOM': value.DOM , 'KID': value.KID , 'SCORE': sumArr[0] } );
+                sumArr = _.split(value.SUMPROD, ',');
+                var covObj = {};
+                _.set(covObj, catID, sumArr );
+                coverageVal.push(covObj);
+                kidArr.push({'DOM': value.DOM, 'KID': _.toInteger(value.KID), 'CAT': _.toInteger(catID), 'SCORE': _.toInteger(sumArr[0]) });
             });
 
-            var colZero =  coverageVal.map(x=> x[0]);
-            var colPrem = coverageVal.map(x=> x[4]);
-            var colPlus = coverageVal.map(x=> x[3]);
-            var colBasc = coverageVal.map(x=> x[2]);
-            var scorePrem = mathjs.multiply(colZero,colPrem);
-            var scorePlus = mathjs.multiply(colZero,colPlus);
-            var scoreBasc = mathjs.multiply(colZero,colBasc);
+            // console.log('\n XXXXXXXXXXX coverageVal : ' + tky.KID + ' \n '  + stringify(coverageVal, {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
 
-            // TODO : BUILD LIST OF UNIQUE DOMAINS AND SUM THE SCORE FOR CAT / ALL CHILD KEYS
-            this.state.globalSumDomCoverage = [];
+            _.set(this.state.domainScoreArray, tky.KID, kidArr);
 
-            // TODO : GET THE COVERAGE SCORE ACROSS A PRODUCT IN THE CATEGORY FOR ALL CHILD KEYS
-            this.state.globalSumProdCoverage = [];
+            var colZero = coverageVal.map(x => x[0]);
+            var colPrem = coverageVal.map(x => x[4]);
+            var colPlus = coverageVal.map(x => x[3]);
+            var colBasc = coverageVal.map(x => x[2]);
+            var scorePrem = mathjs.multiply(colZero, colPrem);
+            var scorePlus = mathjs.multiply(colZero, colPlus);
+            var scoreBasc = mathjs.multiply(colZero, colBasc);
 
-            
+
             // console.log(' \n ++++++++++++++++++ \n VECT : ' + keyID +' \n PREM : ' + JSON.stringify(scorePrem));
-            if(_.isNull(scorePrem)){
+            if (_.isNull(scorePrem)) {
                 scorePrem = 0;
             }
             var dexPremObj = {};
-            _.set(dexPremObj , keyID , scorePrem  );
+            _.set(dexPremObj, keyID, scorePrem);
             this.state.dexPrem.push(dexPremObj);
 
             // console.log(' \n ++++++++++++++++++ \n VECT : ' + keyID +' \n PLUS : ' + JSON.stringify(scorePlus));
-            if(_.isNull(scorePlus)){
+            if (_.isNull(scorePlus)) {
                 scorePrem = 0;
             }
             var dexPlusObj = {};
-            _.set(dexPlusObj , keyID , scorePlus  );
+            _.set(dexPlusObj, keyID, scorePlus);
             this.state.dexPlux.push(dexPlusObj);
 
             // console.log(' \n ++++++++++++++++++ \n VECT : ' + keyID +' \n BASC : ' + JSON.stringify(scoreBasc));
-            if(_.isNull(scoreBasc)){
+            if (_.isNull(scoreBasc)) {
                 scorePrem = 0;
             }
             var dexBascObj = {};
-            _.set(dexBascObj , keyID , scoreBasc  );
+            _.set(dexBascObj, keyID, scoreBasc);
             this.state.dexBasc.push(dexBascObj);
-
-            _.set(this.state.domainScoreArray, keyID, kidArr);
-
-
-            // _.set(this.state.globalSumProdCoverage, keyID, kidArr);
-            // catCoverage.push(coverageVal);
-
-            // console.log('\n  ================= \n  XXXXXXXXXXX kidArr :' +
-            //     JSON.stringify(coverageVal)  + '  \n'+  stringify(kidArr, {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
-            // JSON.stringify(coverageVal) );
         }
 
-        console.log('\n  ================= \n  XXXXXXXXXXX domainScoreArray :' +
-            JSON.stringify(coverageVal)  + '  \n'+  stringify(this.state.domainScoreArray, {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
+        for (var p = 0; p < navCat.length; p++) {
 
-        // this.props.navigation.dexNavPrem = this.state.dexPrem;
-        // this.props.navigation.dexNavPlux =  this.state.dexPlux;
-        // this.props.navigation.dexNavBasc =  this.state.dexBasc;
+            var catId = navCat[p];
+            var txx = _.filter(this.state.domainScoreArray, {'CAT': catId.CAT});
+
+            console.log('\n  ================= \n  ^^^^^^^^^ txx :  \n'+  stringify( txx , {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
+
+        }
+
+
+        // console.log('\n  ================= \n  XXXXXXXXXXX domainScoreArray :  \n'+  stringify(this.state.domainScoreArray, {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
+
+        this.props.navigation.dexNavPrem = this.state.dexPrem;
+        this.props.navigation.dexNavPlux = this.state.dexPlux;
+        this.props.navigation.dexNavBasc = this.state.dexBasc;
         // this.props.navigation.rawLocaleNavData = this.state.rawLocaleData;
         //
         // this.props.navigation.masterSumDomCoverage =    this.state.globalSumDomCoverage;
         // this.props.navigation.masterSumProdCoverage =   this.state.globalSumProdCoverage;
-        // this.props.navigation.masterDomainScoreArray =    this.state.domainScoreArray;
+        this.props.navigation.masterDomainScoreArray = this.state.domainScoreArray;
         // this.props.navigation.masterCatKeyArray =   this.state.globalCatKeyArray ;
-
+        //
         // console.log('\n XXXXXXXXXXX STATE domainScoreArray OBJS \n '+
         //     stringify(this.state.domainScoreArray, {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
         // console.log( '\n ========== \n ========== \n  domainScoreArray \n ========== \n ========== \n  '  );
