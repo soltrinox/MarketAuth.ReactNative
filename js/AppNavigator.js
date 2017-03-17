@@ -291,10 +291,8 @@ class AppNavigator extends Component {
                 var yys = [];
                 yys =  tCatCov[ccu];
                 yys.push(sumArr);
-                console.log('\n' + ccu + ' ] ' + JSON.stringify(yys));
-                // yys.push(sumArr);
-                // _.set(tCatCov, ccu, yys);
-                // _.set(catCoverage, catID , tCatCov);
+                _.set(tCatCov, ccu, yys);
+                _.set(catCoverage, catID , tCatCov);
             });
 
             // console.log('\n XXXXXXXXXXX coverageVal : ' + tky.KID + ' \n '  + stringify(coverageVal, {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
@@ -338,30 +336,24 @@ class AppNavigator extends Component {
             // _.set(this.state.globalSumProdCoverage, keyID, kidArr);
         }
 
-        // for (var v = 0; v < navCat.length; v++) {
-        //
-        //     var vcatId = navCat[p];
-        //     var tCatCov = catCoverage[vcatId];
-        //     tCatCov.push()
-        //     catCoverage.push(tCatCov);
-        //     console.log('\n  ================= \n  ^^^^^^^^^ txx :  \n'+  stringify( txx , {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
-        //
-        // }
+        this.state.globalSumDomCoverage = catCoverage;
 
+        _.forEach(catCoverage, function (value) {
+            console.log('\n  ================= \n  XXXXXXXXXXX catCoverage :  \n' + JSON.stringify(value));
+        });
 
-
-        console.log('\n  ================= \n  XXXXXXXXXXX catCoverage :  \n'+  stringify(catCoverage, {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
 
         this.props.navigation.dexNavPrem = this.state.dexPrem;
         this.props.navigation.dexNavPlux = this.state.dexPlux;
         this.props.navigation.dexNavBasc = this.state.dexBasc;
         // this.props.navigation.rawLocaleNavData = this.state.rawLocaleData;
         //
-        // this.props.navigation.masterSumDomCoverage =    this.state.globalSumDomCoverage;
+        this.props.navigation.masterSumDomCoverage =    this.state.globalSumDomCoverage;
         // this.props.navigation.masterSumProdCoverage =   this.state.globalSumProdCoverage;
         this.props.navigation.masterDomainScoreArray = this.state.domainScoreArray;
         // this.props.navigation.masterCatKeyArray =   this.state.globalCatKeyArray ;
-        //
+
+
         // console.log('\n XXXXXXXXXXX STATE domainScoreArray OBJS \n '+
         //     stringify(this.state.domainScoreArray, {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
         // console.log( '\n ========== \n ========== \n  domainScoreArray \n ========== \n ========== \n  '  );
