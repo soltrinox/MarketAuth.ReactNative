@@ -52,6 +52,13 @@ class Anatomy extends React.Component {
             dexNavBasc: React.PropTypes.array,
             rawLocaleNavData: React.PropTypes.array,
             masterSumProdArr : React.PropTypes.array,
+
+            masterCatKeyArray : React.PropTypes.array,
+            masterSumDomCoverage : React.PropTypes.array,
+            masterSumProdCoverage: React.PropTypes.array,
+            masterDomainScoreArray : React.PropTypes.object,
+            masterNavCatArray : React.PropTypes.array,
+
         }),
     }
 
@@ -72,6 +79,14 @@ class Anatomy extends React.Component {
             dexBasc: this.props.navigation.dexNavBasc,
             rawLocaleData: this.props.navigation.rawLocaleNavData,
             globalSumProdArr: this.props.navigation.masterSumProdArr,
+
+            globalSumDomCoverage: this.props.navigation.masterSumDomCoverage,
+            globalSumProdCoverage: this.props.navigation.masterSumProdCoverage,
+            domainScoreArray: this.props.navigation.masterDomainScoreArray,
+            globalCatKeyArray : this.props.navigation.masterCatKeyArray,
+            globalNavCatArray :this.props.navigation.masterNavCatArray,
+
+
 
             selectedDomainTotal: 2,
             columnTotal1: 0,
@@ -347,7 +362,6 @@ class Anatomy extends React.Component {
         this.state.categoriesArr.sort();
         this.state.keywordArr = [...new Set(test.map(item => item.KEY))];
         this.state.keywordArr.sort();
-        this.state.keywordArr = ["Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category"];
 
         var happy = [];
 
@@ -361,6 +375,11 @@ class Anatomy extends React.Component {
         }
         this.setState({categoriesArr: happy});
         // return this.state.dataObjects;
+
+        // this.state.domainScoreArray = this.props.navigation.masterDomainScoreArray;
+         console.log('\n XXXXXXXXXXX masterDomainScoreArray \n ' +
+             stringify(this.props.navigation.masterDomainScoreArray, {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
+
     }
 
     getRandomInt(min, max) {
@@ -419,7 +438,23 @@ class Anatomy extends React.Component {
         var globLoc = _.toString(this.props.navigation.selectedNavCity);
         var globDom = _.toString(this.props.navigation.selectedNavDomain);
         var globCat = _.toString(this.props.navigation.selectedNavCategory);
-        var rawLocaleData = _.toString(this.props.navigation.rawLocaleNavData);
+        var rawLocaleData = this.props.navigation.rawLocaleNavData;
+
+        // if(!_.isEmpty(this.props.navigation.masterSumDomCoverage)){
+        //     this.state.globalSumDomCoverage = this.props.navigation.masterSumDomCoverage;
+        // }
+        // if(!_.isEmpty(this.props.navigation.masterSumProdCoverage)){
+        //     this.state.globalSumProdCoverage = this.props.navigation.masterSumProdCoverage;
+        // }
+        // if(!_.isEmpty(this.props.navigation.masterDomainScoreArray)){
+        //     this.state.domainScoreArray = this.props.navigation.masterDomainScoreArray;
+        // }
+        // if(!_.isEmpty(this.props.navigation.masterCatKeyArray)){
+        //     this.state.globalCatKeyArray = this.props.navigation.masterCatKeyArray;
+        // }
+        // if(!_.isEmpty(this.props.navigation.masterNavCatArray)){
+        //     this.state.globalNavCatArray = this.props.navigation.masterNavCatArray;
+        // }
 
         if (_.isEqual(rawLocaleData, rawArrVal)) {
             console.log(confirmGlobMsg + 'rawArr = GLOBAL ' + rawLocaleData);
