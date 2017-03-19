@@ -45,6 +45,7 @@ class Anatomy extends React.Component {
         navigation: React.PropTypes.shape({
             key: React.PropTypes.string,
 
+            selectedNavCID : React.PropTypes.number,
             selectedNavCategory: React.PropTypes.string,
             selectedNavDomain: React.PropTypes.string,
             selectedNavMarket: React.PropTypes.string,
@@ -70,6 +71,7 @@ class Anatomy extends React.Component {
             userData: {},
             usersArry: [],
 
+            selectedCID : this.props.navigation.selectedNavCID,
             selectedCity: this.props.navigation.selectedNavMarket,
             selectedDomain: this.props.navigation.selectedNavDomain,
             selectedCategory: this.props.navigation.selectedNavCategory,
@@ -213,24 +215,32 @@ class Anatomy extends React.Component {
 
     _returnDataOnSelection(item, e) {
 
+        
+        console.log('\n ========= \n e.VALUE \n' + JSON.stringify(e) );
+        // console.log('\n ========= \n item \n' + e.cid);
+
         this._resetGridColumnTotal();
 
-        var catName = '';
+        var catName = 'CARPET DEALERS';
+        var cid = 1029;
         if (_.isUndefined(e.value)) {
             if (_.isUndefined(this.props.navigation.selectedNavCategory)) {
-                catName = '';
+
             } else {
                 catName = this.props.navigation.selectedNavCategory;
             }
         } else {
             catName = e.value;
+            cid = e.cid;
             this.props.navigation.selectedNavCategory = catName;
         }
         this.setState({selectedCategory: catName});
-        this._updateGrids(catName);
+        this._updateGrids(catName, cid);
     }
 
     _updateGrids(catName) {
+
+        console.log('\n catName: ' + JSON.stringify(catName));
 
         this.props.navigation.selectedNavCategory = _.toString(catName);
 
@@ -628,7 +638,7 @@ class Anatomy extends React.Component {
                                                                     style={{ textAlignVertical: 'bottom', height:30,  width:300, color: "#FFFFFF", fontSize: 21, lineHeight:22, textAlign: 'left' , }}
                                                                     ellipsizeMode={'tail'} numberOfLines={1}>
 
-                                                                    {item}
+                                                                    {item.CAT}
                                                                 </Text>
                                                             </View>
                                                         </Row>

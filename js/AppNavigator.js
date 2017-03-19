@@ -68,6 +68,7 @@ class AppNavigator extends Component {
             key: React.PropTypes.string,
             routes: React.PropTypes.array,
 
+            selectedNavCID : React.PropTypes.number,
             selectedNavCategory: React.PropTypes.string,
             selectedNavDomain: React.PropTypes.string,
             selectedNavMarket: React.PropTypes.string,
@@ -93,6 +94,7 @@ class AppNavigator extends Component {
             userData: {},
             usersArry: [],
 
+            selectedCID : this.props.navigation.selectedNavCID,
             selectedCity: this.props.navigation.selectedNavMarket,
             selectedDomain: this.props.navigation.selectedNavDomain,
             selectedCategory: this.props.navigation.selectedNavCategory,
@@ -271,10 +273,6 @@ class AppNavigator extends Component {
             catCoverage.push(tCatCov);
         }
 
-        // console.log('\n catCoverage :  ' + JSON.stringify(catCoverage));
-
-
-
         for (var b = 0; b < navCat.length; b++) {
             var xcatId = navCat[b];
             var tObj = {};
@@ -282,9 +280,6 @@ class AppNavigator extends Component {
             _.set(tObj, 'CVAL', []);
             domCovVals.push(tObj);
         }
-
-        // console.log( '\n ========== \n ========== \n  domCovVals \n ========== \n ========== \n   ' + stringify(domCovVals, {maxLength: 0, indent: '\t'})  );
-
 
         //  THIS IS THE KEYWORD LIST WITH A CAL VALUE
         for (var j = 0; j < catKey.length; j++) {
@@ -329,12 +324,6 @@ class AppNavigator extends Component {
 
             });
 
-            // _.forEach(domCovVals, function (value) {
-            //     console.log(' \n ++++++++++++++++++ \n FOUND IN domCovVals : ' + value.CID + ' \n  ' + JSON.stringify(value.CVAL));
-            // });
-
-            // console.log('\n XXXXXXXXXXX coverageVal : ' + tky.KID + ' \n '  + stringify(coverageVal, {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
-
             _.set(this.state.domainScoreObjects, tky.KID, kidArr);
 
             var colZero = coverageVal.map(x => x[0]);
@@ -369,7 +358,6 @@ class AppNavigator extends Component {
             var dexBascObj = {};
             _.set(dexBascObj, keyID, scoreBasc);
             this.state.dexBasc.push(dexBascObj);
-
 
             // _.set(this.state.globalSumProdCoverage, keyID, kidArr);
         }

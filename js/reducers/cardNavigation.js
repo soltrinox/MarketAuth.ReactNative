@@ -11,6 +11,7 @@ const initialState = {
 
     },
   ],
+    selectedNavCID: 1029,
     selectedNavCategory: 'Carpet Dealer',
     selectedNavDomain : 'www.angieslist.com',
     selectedNavMarket: 'PHOENIX, AZ',
