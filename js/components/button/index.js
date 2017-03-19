@@ -51,7 +51,7 @@ class NHButton extends React.Component {
 
             selectedNavCategory: React.PropTypes.string,
             selectedNavDomain: React.PropTypes.string,
-            selectedNavCity: React.PropTypes.string,
+            selectedNavMarket: React.PropTypes.string,
             dexNavPrem: React.PropTypes.array,
             dexNavPlux: React.PropTypes.array,
             dexNavBasc: React.PropTypes.array,
@@ -73,10 +73,10 @@ class NHButton extends React.Component {
             userData: {},
             usersArry: [],
 
-            selectedCity: this.props.navigation.selectedNavCity,
+            selectedCity: this.props.navigation.selectedNavMarket,
             selectedDomain: this.props.navigation.selectedNavDomain,
             selectedCategory: this.props.navigation.selectedNavCategory,
-            marketInputText: this.props.navigation.selectedNavCity,
+            marketInputText: this.props.navigation.selectedNavMarket,
             domainInputText: this.props.navigation.selectedNavDomain,
 
             dexPrem: this.props.navigation.dexNavPrem,
@@ -102,7 +102,6 @@ class NHButton extends React.Component {
             columnTotal3: 0,
             columnTotal4: 0,
 
-
             domainPercentage: '25 %',
             productPercentage: '100 %',
 
@@ -125,6 +124,10 @@ class NHButton extends React.Component {
         this._getUsers = this._getUsers.bind(this);
 
         // this._returnDataOnSelection = this._returnDataOnSelection.bind(this);
+    }
+
+    _reportEmptyObj(objName){
+        console.log('\n !!!!!!!!!!!!! \n !!!!!!!!!  EMPTY OBJECT  !!!!!!!!!!!!\n ' +  objName + '\n !!!!!!!!!!!!!' );
     }
 
     onValueChange(value: string) {
@@ -315,7 +318,7 @@ class NHButton extends React.Component {
 
         if (( tyypeValue === 'market') || ( tyypeValue === 'LOC')) {
             this.state.marketInputText = _.toString(vval);
-            this.props.navigation.selectedNavCity = _.toString(vval);
+            this.props.navigation.selectedNavMarket = _.toString(vval);
             console.log('this.state.marketInputText : ' + stringify(this.state.marketInputText, {
                     maxLength: 0,
                     indent: '\t'
@@ -349,10 +352,20 @@ class NHButton extends React.Component {
         var catVal = _.toString(this.state.selectedCategory);
         var rawArrVal = _.toString(this.state.rawArr);
 
-        var globLoc = _.toString(this.props.navigation.selectedNavCity);
+        var globLoc = _.toString(this.props.navigation.selectedNavMarket);
         var globDom = _.toString(this.props.navigation.selectedNavDomain);
         var globCat = _.toString(this.props.navigation.selectedNavCategory);
 
+        if(_.isEmpty(this.props.navigation.dexNavPrem)){ this._reportEmptyObj('this.props.navigation.dexNavPrem') }
+        if(_.isEmpty(this.props.navigation.dexNavPlux)){ this._reportEmptyObj('this.props.navigation.dexNavPlux') }
+        if(_.isEmpty(this.props.navigation.dexNavBasc)){ this._reportEmptyObj('this.props.navigation.dexNavBasc') }
+        if(_.isEmpty(this.props.navigation.rawLocaleNavData)){ this._reportEmptyObj('this.props.navigation.rawLocaleNavData') }
+
+        if(_.isEmpty(this.props.navigation.masterCatKeyArray)){ this._reportEmptyObj('this.props.navigation.masterCatKeyArray'); }
+        if(_.isEmpty(this.props.navigation.masterNavCatArray)){ this._reportEmptyObj('this.props.navigation.masterNavCatArray'); }
+        if(_.isEmpty(this.props.navigation.masterSumDomCoverage)){ this._reportEmptyObj('this.props.navigation.masterSumDomCoverage'); }
+        if(_.isEmpty(this.props.navigation.masterSumProdCoverage)){ this._reportEmptyObj('this.props.navigation.masterSumProdCoverage'); }
+        if(_.isEmpty(this.props.navigation.masterDomainScoreObjects)){ this._reportEmptyObj('this.props.navigation.masterDomainScoreObjects'); }
 
 
         if (_.isEqual(markVal, globLoc)) {
@@ -367,7 +380,7 @@ class NHButton extends React.Component {
             }
             this.setState({marketInputText: globLoc});
             this.state.marketInputText = globLoc;
-            this.props.navigation.selectedNavCity = globLoc;
+            this.props.navigation.selectedNavMarket = globLoc;
         }
 
         if (_.isEqual(domVal, globDom)) {
@@ -409,6 +422,24 @@ class NHButton extends React.Component {
         return true;
     }
 
+    _updateCategoryArray(){
+        var catKey = [];
+        catKey = this.props.navigation.masterNavCatArray;
+        // console.log('\n masterCatKeyArray \n'+stringify(catKey, {maxLength: 0, indent: '\t'}));
+        var happy = [];
+
+        _.forEach(catKey, function(item){
+            var catName = item.CAT;
+            var catID = item.CID;
+            happy.push({name: catName, value: catName, cid : catID, icon: '',});
+
+        });
+        this.state.categoriesArr = happy;
+        this.state.categoriesArr.sort();
+
+        // console.log('\n categoriesArr \n'+JSON.stringify(this.state.categoriesArr));
+    }
+
     componentWillMount() {
 
         console.log('\n ========== \n ========== \n  PERFORMANCE WILL MOUNT \n ========== \n ========== \n  ');
@@ -416,6 +447,7 @@ class NHButton extends React.Component {
         var go = false;
         go = this._confirmGlobalsOnLoad();
         if (go) {
+            this._updateCategoryArray();
             this._domainData();
             this._updateGrids(this.state.selectedCategory);
         }

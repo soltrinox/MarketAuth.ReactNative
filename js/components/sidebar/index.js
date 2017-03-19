@@ -20,7 +20,7 @@ class SideBar extends Component {
 
           selectedNavCategory: React.PropTypes.string,
           selectedNavDomain: React.PropTypes.string,
-          selectedNavCity: React.PropTypes.string,
+          selectedNavMarket: React.PropTypes.string,
           dexNavPrem: React.PropTypes.array,
           dexNavPlux: React.PropTypes.array,
           dexNavBasc: React.PropTypes.array,
@@ -40,10 +40,10 @@ class SideBar extends Component {
     this.state = {
       // shadowOffsetWidth: 0,
       // shadowRadius: 0,
-        selectedCity: this.props.navigation.selectedNavCity,
+        selectedCity: this.props.navigation.selectedNavMarket,
         selectedDomain: this.props.navigation.selectedNavDomain,
         selectedCategory: this.props.navigation.selectedNavCategory,
-        marketInputText: this.props.navigation.selectedNavCity,
+        marketInputText: this.props.navigation.selectedNavMarket,
         domainInputText: this.props.navigation.selectedNavDomain,
 
         dexPrem: this.props.navigation.dexNavPrem,

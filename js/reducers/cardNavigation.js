@@ -13,7 +13,7 @@ const initialState = {
   ],
     selectedNavCategory: 'Carpet Dealer',
     selectedNavDomain : 'www.angieslist.com',
-    selectedNavCity: 'PHOENIX, AZ',
+    selectedNavMarket: 'PHOENIX, AZ',
     dexNavPrem: [],
     dexNavPlux: [],
     dexNavBasc: [],

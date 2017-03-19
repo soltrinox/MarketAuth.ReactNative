@@ -51,7 +51,7 @@ class NHLayout extends React.Component {
             key: React.PropTypes.string,
             selectedNavCategory: React.PropTypes.string,
             selectedNavDomain: React.PropTypes.string,
-            selectedNavCity: React.PropTypes.string,
+            selectedNavMarket: React.PropTypes.string,
             dexNavPrem: React.PropTypes.array,
             dexNavPlux: React.PropTypes.array,
             dexNavBasc: React.PropTypes.array,
@@ -73,10 +73,10 @@ class NHLayout extends React.Component {
             userData: {},
             usersArry: [],
 
-            selectedCity: this.props.navigation.selectedNavCity,
+            selectedCity: this.props.navigation.selectedNavMarket,
             selectedDomain: this.props.navigation.selectedNavDomain,
             selectedCategory: this.props.navigation.selectedNavCategory,
-            marketInputText: this.props.navigation.selectedNavCity,
+            marketInputText: this.props.navigation.selectedNavMarket,
             domainInputText: this.props.navigation.selectedNavDomain,
             dexPrem: this.props.navigation.dexNavPrem,
             dexPlux: this.props.navigation.dexNavPlux,
@@ -401,6 +401,7 @@ class NHLayout extends React.Component {
             _.set(this.state.dataObjects, catName, trr);
         }
         this.setState({categoriesArr: happy});
+        console.log('\n happy \n'+stringify(happy, {maxLength: 0, indent: '\t'}));
         // return this.state.dataObjects;
     }
 
@@ -410,7 +411,7 @@ class NHLayout extends React.Component {
 
         if (( tyypeValue === 'market') || ( tyypeValue === 'LOC')) {
             this.state.marketInputText = _.toString(vval);
-            this.props.navigation.selectedNavCity = _.toString(vval);
+            this.props.navigation.selectedNavMarket = _.toString(vval);
             console.log('this.state.marketInputText : ' + stringify(this.state.marketInputText, {
                     maxLength: 0,
                     indent: '\t'
@@ -444,7 +445,7 @@ class NHLayout extends React.Component {
         var catVal = _.toString(this.state.selectedCategory);
         var rawArrVal = _.toString(this.state.rawArr);
 
-        var globLoc = _.toString(this.props.navigation.selectedNavCity);
+        var globLoc = _.toString(this.props.navigation.selectedNavMarket);
         var globDom = _.toString(this.props.navigation.selectedNavDomain);
         var globCat = _.toString(this.props.navigation.selectedNavCategory);
         var rawLocaleData = _.toString(this.props.navigation.rawLocaleNavData);
@@ -480,7 +481,7 @@ class NHLayout extends React.Component {
             }
             this.setState({marketInputText: globLoc});
             this.state.marketInputText = globLoc;
-            this.props.navigation.selectedNavCity = globLoc;
+            this.props.navigation.selectedNavMarket = globLoc;
         }
 
         if (_.isEqual(domVal, globDom)) {
@@ -522,7 +523,7 @@ class NHLayout extends React.Component {
         // console.log(confirmGlobMsg + 'domainInputText : ' + this.state.domainInputText);
         // console.log(confirmGlobMsg + 'selectedCategory : ' + this.state.selectedCategory);
         //
-        // console.log(confirmGlobMsg + 'selectedNavCity : ' + stringify(this.props.navigation.selectedNavCity, {
+        // console.log(confirmGlobMsg + 'selectedNavMarket : ' + stringify(this.props.navigation.selectedNavMarket, {
         //         maxLength: 0,
         //         indent: '\t'
         //     }));
@@ -538,6 +539,25 @@ class NHLayout extends React.Component {
         return true;
     }
 
+
+    _updateCategoryArray(){
+        var catKey = [];
+        catKey = this.props.navigation.masterNavCatArray;
+        console.log('\n masterCatKeyArray \n'+stringify(catKey, {maxLength: 0, indent: '\t'}));
+        var happy = [];
+
+        _.forEach(catKey, function(item){
+            var catName = item.CAT;
+            var catID = item.CID;
+            happy.push({name: catName, value: catName, cid : catID, icon: '',});
+
+        });
+        this.state.categoriesArr = happy;
+        this.state.categoriesArr.sort();
+
+        // console.log('\n categoriesArr \n'+JSON.stringify(this.state.categoriesArr));
+    }
+
     componentWillMount() {
 
         console.log('\n ========== \n ========== \n  CALL COUNT WILL MOUNT \n ========== \n ========== \n  ');
@@ -545,7 +565,7 @@ class NHLayout extends React.Component {
         var go = false;
         go = this._confirmGlobalsOnLoad();
         if (go) {
-            this._domainData();
+            this._updateCategoryArray();
             this._updateGrids(this.state.selectedCategory);
         }
 

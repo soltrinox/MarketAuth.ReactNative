@@ -70,7 +70,8 @@ class AppNavigator extends Component {
 
             selectedNavCategory: React.PropTypes.string,
             selectedNavDomain: React.PropTypes.string,
-            selectedNavCity: React.PropTypes.string,
+            selectedNavMarket: React.PropTypes.string,
+
             dexNavPrem: React.PropTypes.array,
             dexNavPlux: React.PropTypes.array,
             dexNavBasc: React.PropTypes.array,
@@ -78,10 +79,11 @@ class AppNavigator extends Component {
             masterSumProdArr : React.PropTypes.array,
 
             masterCatKeyArray: React.PropTypes.array,
+            masterNavCatArray: React.PropTypes.array,
             masterSumDomCoverage: React.PropTypes.array,
             masterSumProdCoverage: React.PropTypes.array,
             masterDomainScoreObjects: React.PropTypes.object,
-            masterNavCatArray: React.PropTypes.array,
+
         }),
     }
 
@@ -91,10 +93,10 @@ class AppNavigator extends Component {
             userData: {},
             usersArry: [],
 
-            selectedCity: this.props.navigation.selectedNavCity,
+            selectedCity: this.props.navigation.selectedNavMarket,
             selectedDomain: this.props.navigation.selectedNavDomain,
             selectedCategory: this.props.navigation.selectedNavCategory,
-            marketInputText: this.props.navigation.selectedNavCity,
+            marketInputText: this.props.navigation.selectedNavMarket,
             domainInputText: this.props.navigation.selectedNavDomain,
 
             dexPrem: this.props.navigation.dexNavPrem,
@@ -103,11 +105,12 @@ class AppNavigator extends Component {
             rawLocaleData: this.props.navigation.rawLocaleNavData,
             globalSumProdArr: this.props.navigation.masterSumProdArr,
 
+            globalCatKeyArray : this.props.navigation.masterCatKeyArray,
+            globalNavCatArray : this.props.navigation.masterNavCatArray,
             globalSumDomCoverage: this.props.navigation.masterSumDomCoverage,
             globalSumProdCoverage: this.props.navigation.masterSumProdCoverage,
             domainScoreObjects: this.props.navigation.masterDomainScoreObjects,
-            globalCatKeyArray : this.props.navigation.masterCatKeyArray,
-            globalNavCatArray :this.props.navigation.masterNavCatArray,
+
 
             results: {
                 items: []
@@ -124,6 +127,10 @@ class AppNavigator extends Component {
 
     }
 
+    _reportEmptyObj(objName){
+        console.log('\n !!!!!!!!!!!!! \n !!!!!!!!!  EMPTY OBJECT  !!!!!!!!!!!!\n ' +  objName + '\n !!!!!!!!!!!!!' );
+    }
+
     _confirmGlobalsOnLoad() {
         var confirmGlobMsg = '@@ confirmGlobals || \n ';
 
@@ -132,29 +139,22 @@ class AppNavigator extends Component {
         var catVal = _.toString(this.state.selectedCategory);
 
 
-        var globLoc = _.toString(this.props.navigation.selectedNavCity);
+        var globLoc = _.toString(this.props.navigation.selectedNavMarket);
         var globDom = _.toString(this.props.navigation.selectedNavDomain);
         var globCat = _.toString(this.props.navigation.selectedNavCategory);
-        var rawLocaleData = _.toString(this.props.navigation.rawLocaleNavData);
 
-        // if (_.isEqual(rawLocaleData, rawArrVal)) {
-        //     console.log(confirmGlobMsg + 'rawArr = GLOBAL ' + rawLocaleData);
-        // } else {
-        //     console.log(confirmGlobMsg + 'rawArr != GLOBAL ' + rawLocaleData);
-        //     if (!_.isEmpty(rawLocaleData)) {
-        //         rawArrVal = rawLocaleData;
-        //         this.setState({rawArr: rawLocaleData});
-        //         this.state.rawArr = rawLocaleData;
-        //     }
-        //     if (_.isEmpty(rawArrVal)) {
-        //         if (!_.isEmpty(rawLocaleData)) {
-        //             rawArrVal = rawLocaleData;
-        //             this.setState({rawArr: rawArrVal});
-        //             this.state.rawArr = rawArrVal;
-        //             this.props.navigation.rawLocaleNavData = rawArrVal;
-        //         }
-        //     }
-        // }
+        if(_.isEmpty(this.props.navigation.dexNavPrem)){ this._reportEmptyObj('this.props.navigation.dexNavPrem') }
+        if(_.isEmpty(this.props.navigation.dexNavPlux)){ this._reportEmptyObj('this.props.navigation.dexNavPlux') }
+        if(_.isEmpty(this.props.navigation.dexNavBasc)){ this._reportEmptyObj('this.props.navigation.dexNavBasc') }
+        if(_.isEmpty(this.props.navigation.rawLocaleNavData)){ this._reportEmptyObj('this.props.navigation.rawLocaleNavData') }
+
+        if(_.isEmpty(this.props.navigation.masterCatKeyArray)){ this._reportEmptyObj('this.props.navigation.masterCatKeyArray'); }
+        if(_.isEmpty(this.props.navigation.masterNavCatArray)){ this._reportEmptyObj('this.props.navigation.masterNavCatArray'); }
+        if(_.isEmpty(this.props.navigation.masterSumDomCoverage)){ this._reportEmptyObj('this.props.navigation.masterSumDomCoverage'); }
+        if(_.isEmpty(this.props.navigation.masterSumProdCoverage)){ this._reportEmptyObj('this.props.navigation.masterSumProdCoverage'); }
+        if(_.isEmpty(this.props.navigation.masterDomainScoreObjects)){ this._reportEmptyObj('this.props.navigation.masterDomainScoreObjects'); }
+
+
 
         if (_.isEqual(markVal, globLoc)) {
             console.log(confirmGlobMsg + 'marketInputText = GLOBAL ' + globLoc);
@@ -168,7 +168,7 @@ class AppNavigator extends Component {
             }
             this.setState({marketInputText: globLoc});
             this.state.marketInputText = globLoc;
-            this.props.navigation.selectedNavCity = globLoc;
+            this.props.navigation.selectedNavMarket = globLoc;
         }
 
         if (_.isEqual(domVal, globDom)) {
@@ -206,7 +206,7 @@ class AppNavigator extends Component {
 
         console.log('\n ========== selectedCategory : ' + this.props.navigation.selectedNavCategory);
         console.log('\n ========== selectedNavDomain : ' + this.props.navigation.selectedNavDomain);
-        console.log('\n ========== selectedNavCity : ' + this.props.navigation.selectedNavCategory);
+        console.log('\n ========== selectedNavMarket : ' + this.props.navigation.selectedNavMarket);
 
         return true;
     }
@@ -246,6 +246,7 @@ class AppNavigator extends Component {
         });
 
         this.state.globalNavCatArray = catObjs;
+        this.props.navigation.masterNavCatArray = catObjs;
     }
 
     _domainData() {
