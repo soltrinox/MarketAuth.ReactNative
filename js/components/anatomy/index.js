@@ -45,7 +45,7 @@ class Anatomy extends React.Component {
         navigation: React.PropTypes.shape({
             key: React.PropTypes.string,
 
-            selectedNavCID : React.PropTypes.number,
+            selectedNavCID: React.PropTypes.number,
             selectedNavCategory: React.PropTypes.string,
             selectedNavDomain: React.PropTypes.string,
             selectedNavMarket: React.PropTypes.string,
@@ -53,7 +53,7 @@ class Anatomy extends React.Component {
             dexNavPlux: React.PropTypes.array,
             dexNavBasc: React.PropTypes.array,
             rawLocaleNavData: React.PropTypes.array,
-            masterSumProdArr : React.PropTypes.array,
+            masterSumProdArr: React.PropTypes.array,
 
             masterCatKeyArray: React.PropTypes.array,
             masterSumDomCoverage: React.PropTypes.array,
@@ -71,7 +71,7 @@ class Anatomy extends React.Component {
             userData: {},
             usersArry: [],
 
-            selectedCID : this.props.navigation.selectedNavCID,
+            selectedCID: this.props.navigation.selectedNavCID,
             selectedCity: this.props.navigation.selectedNavMarket,
             selectedDomain: this.props.navigation.selectedNavDomain,
             selectedCategory: this.props.navigation.selectedNavCategory,
@@ -87,14 +87,18 @@ class Anatomy extends React.Component {
             globalSumDomCoverage: this.props.navigation.masterSumDomCoverage,
             globalSumProdCoverage: this.props.navigation.masterSumProdCoverage,
             domainScoreObjects: this.props.navigation.masterDomainScoreObjects,
-            globalCatKeyArray : this.props.navigation.masterCatKeyArray,
-            globalNavCatArray :this.props.navigation.masterNavCatArray,
+            globalCatKeyArray: this.props.navigation.masterCatKeyArray,
+            globalNavCatArray: this.props.navigation.masterNavCatArray,
 
             selectedDomainTotal: 2,
             columnTotal1: 0,
             columnTotal2: 0,
             columnTotal3: 0,
             columnTotal4: 0,
+
+            dexPremObj : [],
+            dexPluxObj : [],
+            dexBascObj : [],
 
             results: {
                 items: []
@@ -215,29 +219,34 @@ class Anatomy extends React.Component {
 
     _returnDataOnSelection(item, e) {
 
-        
-        console.log('\n ========= \n e.VALUE \n' + JSON.stringify(e) );
+
+        console.log('\n ========= \n e.VALUE \n' + JSON.stringify(e));
         // console.log('\n ========= \n item \n' + e.cid);
 
         this._resetGridColumnTotal();
 
-        var catName = 'CARPET DEALERS';
-        var cid = 1029;
+        var catName = e.value;
+        var cid = e.cid;
         if (_.isUndefined(e.value)) {
-                catName = this.props.navigation.selectedNavCategory;
-                cid = this.props.navigation.selectedNavCID;
+            catName = this.props.navigation.selectedNavCategory;
+            cid = this.props.navigation.selectedNavCID;
         } else {
             catName = e.value;
             cid = e.cid;
             this.props.navigation.selectedNavCategory = catName;
             this.props.navigation.selectedNavCID = cid;
         }
-        this.setState({selectedCID : cid});
+        this.setState({selectedCID: cid});
+        this.props.navigation.selectedNavCID = cid;
         this.setState({selectedCategory: catName});
+        this.props.navigation.selectedNavCategory = catName;
         this._updateGrids(catName, cid);
     }
 
     _updateGrids(catName, cid) {
+
+        console.log('@@@@@@@ dexPremObj @ ' + JSON.stringify(this.state.dexPrem));
+        console.log('@@@@@@@ dexPlux @ ' + JSON.stringify(this.state.dexPlux));
 
         console.log('\n catName: ' + JSON.stringify(catName));
         console.log('\n cid: ' + JSON.stringify(cid));
@@ -246,16 +255,13 @@ class Anatomy extends React.Component {
         this.props.navigation.selectedNavCID = _.toNumber(cid);
 
 
-
-
         var keysForThisCat = _.filter(this.state.globalCatKeyArray,
-            function(o) {
+            function (o) {
                 var xcid = Math.floor(o.KID / 100);
-                 if(xcid === cid){ return o }
-                // return cid === this.state.selectedCID;
+                if (xcid === cid) {
+                    return o
+                }
             });
-
-
 
 
         this._resetGridColumnTotal();
@@ -277,48 +283,48 @@ class Anatomy extends React.Component {
          // console.log('########### MATCHED DOMAINS BY KEY : ' + JSON.stringify(testDomains));
          */
 
-        var dexPremObj = [];
-        var dexPluxObj = [];
-        var dexBascObj = [];
-        var dexPremTemp = this.state.dexPrem;
+        this.state.dexPremObj = [];
+        this.state.dexPluxObj = [];
+        this.state.dexBascObj = [];
 
-        for(var x = 0; x < dexPremTemp.length; x++){
-            var utemp = dexPremTemp[x];
+    var dexPremObjVals = [];
+    var dexPluxObjVals = [];
+
+        var dexPluxTemp = this.state.dexPlux;
+        for (var h = 0; h < dexPluxTemp.length; h++) {
+            var utemp2 = dexPluxTemp[h];
             _.forEach(keysForThisCat, function (value) {
-
-                var kky = _.toString(value.KID);
-                var yyd = Object.keys(utemp)[0];
-                if(utemp.hasOwnProperty(kky)){
-                    console.log('@@@@@@@ FOUND @ ' + yyd + ' \n' +  JSON.stringify(utemp[kky]) );
-                    dexPremObj.push(utemp);
+                var kky2 = _.toString(value.KID);
+                var yyd2 = Object.keys(utemp2)[0];
+                if (utemp2.hasOwnProperty(kky2)) {
+                    // console.log('@@@@@@@ FOUND @ ' + yyd + ' \n' + JSON.stringify(utemp[kky]));
+                    var dd2 = _.toNumber(utemp2[kky2]);
+                    dexPluxObjVals.push(dd2);
                 }
-
             });
         }
 
+        var dexPremTemp = this.state.dexPrem;
+        for (var x = 0; x < dexPremTemp.length; x++) {
+            var utemp = dexPremTemp[x];
+            _.forEach(keysForThisCat, function (value) {
+                var kky = _.toString(value.KID);
+                var yyd = Object.keys(utemp)[0];
+                if (utemp.hasOwnProperty(kky)) {
+                    // console.log('@@@@@@@ FOUND @ ' + yyd + ' \n' + JSON.stringify(utemp[kky]));
+                    var dd = _.toNumber(utemp[kky]);
+                    dexPremObjVals.push(dd);
+                }
+            });
+        }
+
+        this.setState({dexPremObj: dexPremObjVals});
+        this.setState({dexPluxObj: dexPluxObjVals});
 
 
-
-        console.log('@@@@@@@ dexPremObj @ ' + JSON.stringify(dexPremObj));
-        // console.log('@@@@@@@ dexPlux @ ' + JSON.stringify(dexPluxObj));
+        console.log('@@@@@@@ dexPremObj @ ' + JSON.stringify(this.state.dexPremObj));
+        console.log('@@@@@@@ dexPluxObj @ ' + JSON.stringify(this.state.dexPluxObj));
         // console.log('@@@@@@@ dexBasc @ ' + JSON.stringify(dexBascObj));
-
-        var tabPrem = {};
-        var tabPlux = {};
-        var tabBasc = {};
-
-        // _.forEach(keysForThisCat, function (value) {
-        //     // console.log('XXXXXXXXXXX value @ ' + JSON.stringify(value));
-        //     tabPrem[value] = _.filter(dexPremObj, {"DOM": "Dex ESS Premium", "KEY": value});
-        //     tabPlux[value] = _.filter(dexPluxObj, {"DOM": "Dex ESS Plus", "KEY": value});
-        //     tabBasc[value] = _.filter(dexBascObj, {"DOM": "Dex ESS Basic", "KEY": value});
-        // });
-        //
-        // this.setState({dexPrem: tabPrem});
-        // this.setState({dexPlux: tabPlux});
-        // this.setState({dexBasc: tabBasc});
-
-        // console.log("NEW this.props.navigation.selectedNavCategory : " + this.props.navigation.selectedNavCategory);
 
     }
 
@@ -330,7 +336,7 @@ class Anatomy extends React.Component {
 
     _renderPicker() {
         this.props.navigation.masterNavCatArray.map((item, index) => {
-            console.log( JSON.stringify(item));
+                console.log(JSON.stringify(item));
 
                 var itemString = JSON.stringify(item.CAT);
                 var itemVal = JSON.stringify(item.CID);
@@ -371,8 +377,8 @@ class Anatomy extends React.Component {
     }
 
 
-    _reportEmptyObj(objName){
-        console.log('\n !!!!!!!!!!!!! \n !!!!!!!!!  EMPTY OBJECT  !!!!!!!!!!!!\n ' +  objName + '\n !!!!!!!!!!!!!' );
+    _reportEmptyObj(objName) {
+        console.log('\n !!!!!!!!!!!!! \n !!!!!!!!!  EMPTY OBJECT  !!!!!!!!!!!!\n ' + objName + '\n !!!!!!!!!!!!!');
     }
 
     _confirmGlobalsOnLoad() {
@@ -386,21 +392,36 @@ class Anatomy extends React.Component {
         var globCat = _.toString(this.props.navigation.selectedNavCategory);
 
 
+        if (_.isEmpty(this.props.navigation.dexNavPrem)) {
+            this._reportEmptyObj('this.props.navigation.dexNavPrem')
+        }
+        if (_.isEmpty(this.props.navigation.dexNavPlux)) {
+            this._reportEmptyObj('this.props.navigation.dexNavPlux')
+        }
+        if (_.isEmpty(this.props.navigation.dexNavBasc)) {
+            this._reportEmptyObj('this.props.navigation.dexNavBasc')
+        }
+        if (_.isEmpty(this.props.navigation.rawLocaleNavData)) {
+            this._reportEmptyObj('this.props.navigation.rawLocaleNavData')
+        }
 
-      if(_.isEmpty(this.props.navigation.dexNavPrem)){ this._reportEmptyObj('this.props.navigation.dexNavPrem') }
-      if(_.isEmpty(this.props.navigation.dexNavPlux)){ this._reportEmptyObj('this.props.navigation.dexNavPlux') }
-      if(_.isEmpty(this.props.navigation.dexNavBasc)){ this._reportEmptyObj('this.props.navigation.dexNavBasc') }
-      if(_.isEmpty(this.props.navigation.rawLocaleNavData)){ this._reportEmptyObj('this.props.navigation.rawLocaleNavData') }
-
-      if(_.isEmpty(this.props.navigation.masterCatKeyArray)){ this._reportEmptyObj('this.props.navigation.masterCatKeyArray'); }
-      if(_.isEmpty(this.props.navigation.masterNavCatArray)){
-          this._reportEmptyObj('this.props.navigation.masterNavCatArray');
-      }else{
-          this._updateCategoryArray();
-      }
-      if(_.isEmpty(this.props.navigation.masterSumDomCoverage)){ this._reportEmptyObj('this.props.navigation.masterSumDomCoverage'); }
-      if(_.isEmpty(this.props.navigation.masterSumProdCoverage)){ this._reportEmptyObj('this.props.navigation.masterSumProdCoverage'); }
-      if(_.isEmpty(this.props.navigation.masterDomainScoreObjects)){ this._reportEmptyObj('this.props.navigation.masterDomainScoreObjects'); }
+        if (_.isEmpty(this.props.navigation.masterCatKeyArray)) {
+            this._reportEmptyObj('this.props.navigation.masterCatKeyArray');
+        }
+        if (_.isEmpty(this.props.navigation.masterNavCatArray)) {
+            this._reportEmptyObj('this.props.navigation.masterNavCatArray');
+        } else {
+            this._updateCategoryArray();
+        }
+        if (_.isEmpty(this.props.navigation.masterSumDomCoverage)) {
+            this._reportEmptyObj('this.props.navigation.masterSumDomCoverage');
+        }
+        if (_.isEmpty(this.props.navigation.masterSumProdCoverage)) {
+            this._reportEmptyObj('this.props.navigation.masterSumProdCoverage');
+        }
+        if (_.isEmpty(this.props.navigation.masterDomainScoreObjects)) {
+            this._reportEmptyObj('this.props.navigation.masterDomainScoreObjects');
+        }
 
         if (_.isEqual(markVal, globLoc)) {
             console.log(confirmGlobMsg + 'marketInputText = GLOBAL ' + globLoc);
@@ -452,16 +473,16 @@ class Anatomy extends React.Component {
         return true;
     }
 
-    _updateCategoryArray(){
+    _updateCategoryArray() {
         var catKey = [];
         catKey = this.props.navigation.masterNavCatArray;
         // console.log('\n masterCatKeyArray \n'+stringify(catKey, {maxLength: 0, indent: '\t'}));
         var happy = [];
 
-        _.forEach(catKey, function(item){
+        _.forEach(catKey, function (item) {
             var catName = item.CAT;
             var catID = item.CID;
-            happy.push({name: catName, value: catName, cid : catID, icon: '',});
+            happy.push({name: catName, value: catName, cid: catID, icon: '',});
 
         });
         this.state.categoriesArr = happy;
@@ -477,7 +498,7 @@ class Anatomy extends React.Component {
         go = this._confirmGlobalsOnLoad();
         if (go) {
             this._updateCategoryArray();
-            this._updateGrids(this.state.selectedCategory,this.state.selectedCID);
+            this._updateGrids(this.state.selectedCategory, this.state.selectedCID);
         }
     }
 
@@ -651,7 +672,7 @@ class Anatomy extends React.Component {
                                                                     style={{ textAlignVertical: 'bottom', height:30,  width:300, color: "#FFFFFF", fontSize: 21, lineHeight:22, textAlign: 'left' , }}
                                                                     ellipsizeMode={'tail'} numberOfLines={1}>
 
-                                                                    {item.KID} : {item.KEY}
+                                                                     {item.KEY}
                                                                 </Text>
                                                             </View>
                                                         </Row>
@@ -672,41 +693,31 @@ class Anatomy extends React.Component {
                                             {
 
                                                 this.state.keywordArr.map((item, index) => {
-                                                        var itemString = JSON.stringify(item);
-
+                                                    console.log('\n keyWord : ' + JSON.stringify(item));
                                                         var kray = [];
 
-                                                        var rowValue = [];
-                                                        rowValue = this.state.dexPlux[item];
-                                                        var itr = {};
-                                                        itr = _.head(rowValue);
+                                                    var tempScore = this.state.dexPluxObj[index];
+                                                    console.log('\n tempScore : ' + JSON.stringify(tempScore));
 
-                                                        if (_.isUndefined(itr)) {
 
-                                                        } else {
-                                                            var tempScore = _.toInteger(itr.SCORE);
-                                                            {/*console.log('00000000000000  obj : ' + JSON.stringify(itr));*/
-                                                            }
-                                                            {/*console.log('00000000000000  rowValue SCORE: ' + _.toString(tempScore));*/
-                                                            }
-                                                            if (tempScore >= 1) {
-                                                                for (var k = 0; k < tempScore; k++) {
-                                                                    kray.push(<Svg height="20" width="20" key={k}>
-                                                                        <Rect
-                                                                            x="0"
-                                                                            y="0"
-                                                                            width="18"
-                                                                            height="18"
-                                                                            stroke="black"
-                                                                            strokeWidth="1"
-                                                                            fill="green"
-                                                                        />
-                                                                    </Svg>);
-                                                                }
-                                                            }
-                                                            gridCol1Total = gridCol1Total + _.toInteger(tempScore);
-                                                            tempScore = 0;
+
+                                                        for (var k = 0; k < tempScore; k++) {
+                                                            kray.push(<Svg height="20" width="20" key={k}>
+                                                                <Rect
+                                                                    x="0"
+                                                                    y="0"
+                                                                    width="18"
+                                                                    height="18"
+                                                                    stroke="black"
+                                                                    strokeWidth="1"
+                                                                    fill="green"
+                                                                />
+                                                            </Svg>);
                                                         }
+
+                                                        gridCol1Total = gridCol1Total + _.toInteger(tempScore);
+                                                        tempScore = 0;
+
 
                                                         return (
                                                             <Row
@@ -749,59 +760,48 @@ class Anatomy extends React.Component {
                                 borderRadius:0, backgroundColor: '#0000', padding:0, marginLeft:5 }}>
                                         <Grid style={{ flex:1 }}>
                                             {
-                                                this.state.keywordArr.map((item, index) => {
-                                                        var itemString = JSON.stringify(item);
 
+                                                this.state.keywordArr.map((item, index) => {
+                                                        console.log('\n keyWord : ' + JSON.stringify(item));
                                                         var kray2 = [];
 
-                                                        var rowValue2 = [];
-                                                        rowValue2 = this.state.dexPrem[item];
-                                                        var itr2 = {};
-                                                        itr2 = _.head(rowValue2);
+                                                        var tempScore2 = this.state.dexPremObj[index];
+                                                        console.log('\n tempScore : ' + JSON.stringify(tempScore2));
 
-                                                        if (_.isUndefined(itr2)) {
 
-                                                        } else {
-                                                            var tempScore2 = _.toInteger(itr2.SCORE);
-                                                            {/*console.log('00000000000000 DEXPREM rowValue : ' + JSON.stringify(itr2));*/
-                                                            }
-                                                            {/*console.log('00000000000000 DEXPREM rowValue SCORE: ' + _.toString(tempScore2));*/
-                                                            }
-                                                            if (tempScore2 >= 1) {
-                                                                for (var b = 0; b < tempScore2; b++) {
-                                                                    kray2.push(<Svg height="20" width="20" key={b}>
-                                                                        <Rect
-                                                                            x="0"
-                                                                            y="0"
-                                                                            width="18"
-                                                                            height="18"
-                                                                            stroke="black"
-                                                                            strokeWidth="1"
-                                                                            fill="green"
-                                                                        />
-                                                                    </Svg>);
-                                                                }
-                                                            }
 
-                                                            gridCol2Total = gridCol2Total + _.toInteger(tempScore2);
-                                                            tempScore2 = 0;
+                                                        for (var k = 0; k < tempScore2; k++) {
+                                                            kray2.push(<Svg height="20" width="20" key={k}>
+                                                                <Rect
+                                                                    x="0"
+                                                                    y="0"
+                                                                    width="18"
+                                                                    height="18"
+                                                                    stroke="black"
+                                                                    strokeWidth="1"
+                                                                    fill="green"
+                                                                />
+                                                            </Svg>);
                                                         }
+
+                                                        gridCol2Total = gridCol2Total + _.toInteger(tempScore2);
+                                                        tempScore2 = 0;
+
 
                                                         return (
                                                             <Row
-                                                                style={{ backgroundColor: '#454545', height: 30,marginBottom: 2 }}
+                                                                style={{ backgroundColor: '#454545', height: 30 ,marginBottom: 2 }}
                                                                 key={index}>
                                                                 <View key={index}
                                                                       style={{ paddingVertical: 3, paddingLeft: 3, height:30,  width:240,
                                                                 backgroundColor: "rgba(0,0,0,0)",
                                                             }}>
-
                                                                     <View style={{
-                                                                    flex: 1,
-                                                                    flexDirection: 'row',
-                                                                    alignItems: 'flex-start',
-                                                                     marginTop:3
-                                                                    }}>
+                                                                flex: 1,
+                                                                flexDirection: 'row',
+                                                                alignItems: 'flex-start',
+                                                                marginTop:3
+                                                                }}>
                                                                         { kray2 }
                                                                     </View>
                                                                 </View>
@@ -809,7 +809,7 @@ class Anatomy extends React.Component {
                                                         )
                                                     }
                                                 )
-                                            }
+                                             }
                                             <Row style={{ backgroundColor: '#454545', height: 30,marginBottom: 4 }}
                                                  key={99}>
                                                 <View style={{
