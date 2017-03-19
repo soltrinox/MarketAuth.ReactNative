@@ -245,8 +245,8 @@ class Anatomy extends React.Component {
 
     _updateGrids(catName, cid) {
 
-        console.log('@@@@@@@ dexPremObj @ ' + JSON.stringify(this.state.dexPrem));
-        console.log('@@@@@@@ dexPlux @ ' + JSON.stringify(this.state.dexPlux));
+        console.log('@@@@@@@ dexNavPrem @ ' + JSON.stringify(this.props.navigation.dexNavPrem));
+        console.log('@@@@@@@ dexNavPlux @ ' + JSON.stringify(this.props.navigation.dexNavPlux));
 
         console.log('\n catName: ' + JSON.stringify(catName));
         console.log('\n cid: ' + JSON.stringify(cid));
@@ -290,7 +290,7 @@ class Anatomy extends React.Component {
     var dexPremObjVals = [];
     var dexPluxObjVals = [];
 
-        var dexPluxTemp = this.state.dexPlux;
+        var dexPluxTemp = this.props.navigation.dexNavPlux;
         for (var h = 0; h < dexPluxTemp.length; h++) {
             var utemp2 = dexPluxTemp[h];
             _.forEach(keysForThisCat, function (value) {
@@ -304,7 +304,7 @@ class Anatomy extends React.Component {
             });
         }
 
-        var dexPremTemp = this.state.dexPrem;
+        var dexPremTemp = this.props.navigation.dexNavPrem;
         for (var x = 0; x < dexPremTemp.length; x++) {
             var utemp = dexPremTemp[x];
             _.forEach(keysForThisCat, function (value) {
@@ -318,9 +318,11 @@ class Anatomy extends React.Component {
             });
         }
 
+
         this.setState({dexPremObj: dexPremObjVals});
         this.setState({dexPluxObj: dexPluxObjVals});
-
+        this.state.dexPremObj = dexPremObjVals;
+        this.state.dexPluxObj = dexPluxObjVals;
 
         console.log('@@@@@@@ dexPremObj @ ' + JSON.stringify(this.state.dexPremObj));
         console.log('@@@@@@@ dexPluxObj @ ' + JSON.stringify(this.state.dexPluxObj));
