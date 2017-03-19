@@ -17,7 +17,14 @@ const initialState = {
     dexNavPrem: [],
     dexNavPlux: [],
     dexNavBasc: [],
-    rawLocaleNavData : []
+    rawLocaleNavData : [],
+
+    masterCatKeyArray: [],
+    masterSumDomCoverage: [],
+    masterSumProdCoverage: [],
+    masterDomainScoreObjects: {},
+    masterNavCatArray: [],
+
 };
 
 module.exports = cardStackReducer(initialState);

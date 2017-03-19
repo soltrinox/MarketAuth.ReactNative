@@ -56,7 +56,7 @@ class Anatomy extends React.Component {
             masterCatKeyArray : React.PropTypes.array,
             masterSumDomCoverage : React.PropTypes.array,
             masterSumProdCoverage: React.PropTypes.array,
-            masterDomainScoreArray : React.PropTypes.object,
+            masterDomainScoreObjects : React.PropTypes.object,
             masterNavCatArray : React.PropTypes.array,
 
         }),
@@ -82,7 +82,7 @@ class Anatomy extends React.Component {
 
             globalSumDomCoverage: this.props.navigation.masterSumDomCoverage,
             globalSumProdCoverage: this.props.navigation.masterSumProdCoverage,
-            domainScoreArray: this.props.navigation.masterDomainScoreArray,
+            domainScoreObjects: this.props.navigation.masterDomainScoreObjects,
             globalCatKeyArray : this.props.navigation.masterCatKeyArray,
             globalNavCatArray :this.props.navigation.masterNavCatArray,
 
@@ -376,9 +376,9 @@ class Anatomy extends React.Component {
         this.setState({categoriesArr: happy});
         // return this.state.dataObjects;
 
-        // this.state.domainScoreArray = this.props.navigation.masterDomainScoreArray;
-         console.log('\n XXXXXXXXXXX masterDomainScoreArray \n ' +
-             stringify(this.props.navigation.masterDomainScoreArray, {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
+        // this.state.domainScoreObjects = this.props.navigation.masterDomainScoreObjects;
+         console.log('\n XXXXXXXXXXX globalSumProdCoverage \n ' +
+             stringify(this.props.navigation.globalSumProdCoverage , {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
 
     }
 
@@ -440,21 +440,31 @@ class Anatomy extends React.Component {
         var globCat = _.toString(this.props.navigation.selectedNavCategory);
         var rawLocaleData = this.props.navigation.rawLocaleNavData;
 
-        // if(!_.isEmpty(this.props.navigation.masterSumDomCoverage)){
-        //     this.state.globalSumDomCoverage = this.props.navigation.masterSumDomCoverage;
-        // }
-        // if(!_.isEmpty(this.props.navigation.masterSumProdCoverage)){
-        //     this.state.globalSumProdCoverage = this.props.navigation.masterSumProdCoverage;
-        // }
-        // if(!_.isEmpty(this.props.navigation.masterDomainScoreArray)){
-        //     this.state.domainScoreArray = this.props.navigation.masterDomainScoreArray;
-        // }
-        // if(!_.isEmpty(this.props.navigation.masterCatKeyArray)){
-        //     this.state.globalCatKeyArray = this.props.navigation.masterCatKeyArray;
-        // }
-        // if(!_.isEmpty(this.props.navigation.masterNavCatArray)){
-        //     this.state.globalNavCatArray = this.props.navigation.masterNavCatArray;
-        // }
+
+
+
+        if(!_.isEmpty(this.props.navigation.masterSumDomCoverage)){
+            this.state.globalSumDomCoverage = this.props.navigation.masterSumDomCoverage;
+        }
+        if(!_.isEmpty(this.props.navigation.masterSumProdCoverage)){
+            this.state.globalSumProdCoverage = this.props.navigation.masterSumProdCoverage;
+        }
+        if(!_.isEmpty(this.props.navigation.masterDomainScoreObjects)){
+            this.state.domainScoreObjects = this.props.navigation.masterDomainScoreObjects;
+        }
+        if(!_.isEmpty(this.props.navigation.masterCatKeyArray)){
+            this.state.globalCatKeyArray = this.props.navigation.masterCatKeyArray;
+        }
+        if(!_.isEmpty(this.props.navigation.masterNavCatArray)){
+            this.state.globalNavCatArray = this.props.navigation.masterNavCatArray;
+        }
+
+        console.log('\n XXXXXXXXXXX globalSumProdCoverage \n ' +
+            stringify(this.props.navigation.globalSumProdCoverage , {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
+
+        console.log('\n XXXXXXXXXXX masterSumDomCoverage \n ' +
+            stringify(this.props.navigation.masterSumDomCoverage , {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
+
 
         if (_.isEqual(rawLocaleData, rawArrVal)) {
             console.log(confirmGlobMsg + 'rawArr = GLOBAL ' + rawLocaleData);
@@ -532,7 +542,7 @@ class Anatomy extends React.Component {
         var go = false;
         go = this._confirmGlobalsOnLoad();
         if (go) {
-            this._domainData();
+            // this._domainData();
             this._updateGrids(this.state.selectedCategory);
         }
 

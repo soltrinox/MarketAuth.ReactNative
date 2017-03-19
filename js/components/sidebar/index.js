@@ -24,6 +24,12 @@ class SideBar extends Component {
           dexNavPlux: React.PropTypes.array,
           dexNavBasc: React.PropTypes.array,
           rawLocaleNavData: React.PropTypes.array,
+
+          masterCatKeyArray : React.PropTypes.array,
+          masterSumDomCoverage : React.PropTypes.array,
+          masterSumProdCoverage: React.PropTypes.array,
+          masterDomainScoreObjects : React.PropTypes.object,
+          masterNavCatArray : React.PropTypes.array,
       }),
   }
 
@@ -40,7 +46,13 @@ class SideBar extends Component {
         dexPrem: this.props.navigation.dexNavPrem,
         dexPlux: this.props.navigation.dexNavPlux,
         dexBasc: this.props.navigation.dexNavBasc,
-        rawLocaleData : this.props.navigation.rawLocaleNavData
+        rawLocaleData : this.props.navigation.rawLocaleNavData,
+
+        globalSumDomCoverage: this.props.navigation.masterSumDomCoverage,
+        globalSumProdCoverage: this.props.navigation.masterSumProdCoverage,
+        domainScoreObjects: this.props.navigation.masterDomainScoreObjects,
+        globalCatKeyArray : this.props.navigation.masterCatKeyArray,
+        globalNavCatArray :this.props.navigation.masterNavCatArray,
 
     };
   }

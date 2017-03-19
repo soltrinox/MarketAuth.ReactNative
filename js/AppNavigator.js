@@ -78,7 +78,7 @@ class AppNavigator extends Component {
             masterCatKeyArray: React.PropTypes.array,
             masterSumDomCoverage: React.PropTypes.array,
             masterSumProdCoverage: React.PropTypes.array,
-            masterDomainScoreArray: React.PropTypes.object,
+            masterDomainScoreObjects: React.PropTypes.object,
             masterNavCatArray: React.PropTypes.array,
         }),
     }
@@ -94,16 +94,17 @@ class AppNavigator extends Component {
             marketInputText: this.props.navigation.selectedNavCity,
             domainInputText: this.props.navigation.selectedNavDomain,
 
-            dexPrem: [],
-            dexPlux: [],
-            dexBasc: [],
-            rawLocaleData: [],
+            dexPrem: this.props.navigation.dexNavPrem,
+            dexPlux: this.props.navigation.dexNavPlux,
+            dexBasc: this.props.navigation.dexNavBasc,
+            rawLocaleData: this.props.navigation.rawLocaleNavData,
+            globalSumProdArr: this.props.navigation.masterSumProdArr,
 
-            globalCatKeyArray: [],
-            globalSumDomCoverage: [],
-            globalSumProdCoverage: [],
-            domainScoreArray: {},
-            globalNavCatArray: [],
+            globalSumDomCoverage: this.props.navigation.masterSumDomCoverage,
+            globalSumProdCoverage: this.props.navigation.masterSumProdCoverage,
+            domainScoreObjects: this.props.navigation.masterDomainScoreObjects,
+            globalCatKeyArray : this.props.navigation.masterCatKeyArray,
+            globalNavCatArray :this.props.navigation.masterNavCatArray,
 
             results: {
                 items: []
@@ -247,8 +248,15 @@ class AppNavigator extends Component {
 
         var catKey = this.state.globalCatKeyArray;
         var navCat = this.state.globalNavCatArray;
-
+        var domCovVals = [];
         var catCoverage = [];
+
+
+        // TODO : BUILD LIST OF UNIQUE DOMAINS AND SUM THE SCORE FOR CAT / ALL CHILD KEYS
+        // this.state.globalSumDomCoverage = [];
+
+        // TODO : GET THE COVERAGE SCORE ACROSS A PRODUCT IN THE CATEGORY FOR ALL CHILD KEYS
+        // this.state.globalSumProdCoverage = [];
 
         for (var p = 0; p < navCat.length; p++) {
             var xcatId = navCat[p];
@@ -259,11 +267,18 @@ class AppNavigator extends Component {
 
         // console.log('\n catCoverage :  ' + JSON.stringify(catCoverage));
 
-        // TODO : BUILD LIST OF UNIQUE DOMAINS AND SUM THE SCORE FOR CAT / ALL CHILD KEYS
-        this.state.globalSumDomCoverage = [];
 
-        // TODO : GET THE COVERAGE SCORE ACROSS A PRODUCT IN THE CATEGORY FOR ALL CHILD KEYS
-        this.state.globalSumProdCoverage = [];
+
+        for (var b = 0; b < navCat.length; b++) {
+            var xcatId = navCat[b];
+            var tObj = {};
+            _.set(tObj, 'CID' , xcatId.CID );
+            _.set(tObj, 'CVAL', []);
+            domCovVals.push(tObj);
+        }
+
+        // console.log( '\n ========== \n ========== \n  domCovVals \n ========== \n ========== \n   ' + stringify(domCovVals, {maxLength: 0, indent: '\t'})  );
+
 
         //  THIS IS THE KEYWORD LIST WITH A CAL VALUE
         for (var j = 0; j < catKey.length; j++) {
@@ -274,8 +289,10 @@ class AppNavigator extends Component {
             var coverageVal = [];
 
             trr = _.filter(this.state.rawArr, {'KID': tky.KID});
+            _.orderBy(trr, ['KID'], ['asc']);
 
             var kidArr = [];
+
             _.forEach(trr, function (value) {
                 // console.log('' + value.KID + ' ] ' + value.SUMPROD);
                 var sumArr = [];
@@ -284,20 +301,35 @@ class AppNavigator extends Component {
                 var catID = Math.floor(value.KID / 100);
                 kidArr.push({'DOM': value.DOM, 'KID': _.toInteger(value.KID), 'CID': _.toInteger(catID), 'SCORE': _.toInteger(sumArr[0]) });
 
-                // var tCatCov =  _.filter(catCoverage, {'CID': _.toInteger(catID) });
-                var ccu = _.toInteger(catID);
-                var tCatCov = {};
-                tCatCov = _.find(catCoverage, ccu);
-                var yys = [];
-                yys =  tCatCov[ccu];
-                yys.push(sumArr);
-                _.set(tCatCov, ccu, yys);
-                _.set(catCoverage, catID , tCatCov);
+                // -------------------------
+
+                var dObj = {};
+                dObj = _.find(domCovVals, function(d){ if(d.CID === catID){
+
+                    return d;
+                }  }  );
+                var yObj = [];
+                yObj = _.toArray(dObj.CVAL);
+                yObj.push(sumArr);
+
+                domCovVals = _.remove(domCovVals, function(n) {
+                    if(n.CID != catID){ return n }
+                });
+
+                var tObj = {};
+                _.set(tObj, 'CID' , catID );
+                _.set(tObj, 'CVAL', yObj);
+                domCovVals.push(tObj);
+
             });
+
+            // _.forEach(domCovVals, function (value) {
+            //     console.log(' \n ++++++++++++++++++ \n FOUND IN domCovVals : ' + value.CID + ' \n  ' + JSON.stringify(value.CVAL));
+            // });
 
             // console.log('\n XXXXXXXXXXX coverageVal : ' + tky.KID + ' \n '  + stringify(coverageVal, {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
 
-            _.set(this.state.domainScoreArray, tky.KID, kidArr);
+            _.set(this.state.domainScoreObjects, tky.KID, kidArr);
 
             var colZero = coverageVal.map(x => x[0]);
             var colPrem = coverageVal.map(x => x[4]);
@@ -336,11 +368,19 @@ class AppNavigator extends Component {
             // _.set(this.state.globalSumProdCoverage, keyID, kidArr);
         }
 
+
         this.state.globalSumDomCoverage = catCoverage;
 
-        _.forEach(catCoverage, function (value) {
-            console.log('\n  ================= \n  XXXXXXXXXXX catCoverage :  \n' + JSON.stringify(value));
-        });
+        this.setState({globalSumProdCoverage : domCovVals});
+        this.props.navigation.masterSumProdCoverage = this.state.globalSumProdCoverage;
+        console.log('\n GGGGGGGGGGGGG  domCovVals  \n '+ JSON.stringify( domCovVals) );
+
+        console.log('\n GGGGGGGGGGGGG  this.state.globalSumProdCoverage  \n '+ JSON.stringify( this.state.globalSumProdCoverage) );
+
+
+        // _.forEach(domCovVals, function (index, value) {
+        //     console.log('\n  ================= \n   domCovVals : ' + value +' ] \n' + JSON.stringify(value));
+        // });
 
 
         this.props.navigation.dexNavPrem = this.state.dexPrem;
@@ -348,15 +388,14 @@ class AppNavigator extends Component {
         this.props.navigation.dexNavBasc = this.state.dexBasc;
         // this.props.navigation.rawLocaleNavData = this.state.rawLocaleData;
         //
-        this.props.navigation.masterSumDomCoverage =    this.state.globalSumDomCoverage;
+        // this.props.navigation.masterSumDomCoverage =    this.state.globalSumDomCoverage;
         // this.props.navigation.masterSumProdCoverage =   this.state.globalSumProdCoverage;
-        this.props.navigation.masterDomainScoreArray = this.state.domainScoreArray;
+        this.props.navigation.masterDomainScoreObjects = this.state.domainScoreObjects;
         // this.props.navigation.masterCatKeyArray =   this.state.globalCatKeyArray ;
 
 
-        // console.log('\n XXXXXXXXXXX STATE domainScoreArray OBJS \n '+
-        //     stringify(this.state.domainScoreArray, {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
-        // console.log( '\n ========== \n ========== \n  domainScoreArray \n ========== \n ========== \n  '  );
+
+        // console.log( '\n ========== \n ========== \n  domainScoreObjects \n ========== \n ========== \n  '  );
         // console.log('\n  ' + stringify(catCoverage, {maxLength: 0, indent: '\t'})  );
     }
 
@@ -366,11 +405,10 @@ class AppNavigator extends Component {
         var go = false;
         this._initializeAppData();
         go = this._confirmGlobalsOnLoad();
-        this._domainData();
-
-
         if (go) {
-
+            this._domainData();
+            // console.log('\n XXXXXXXXXXX  this.props.navigation.masterSumProdCoverage  \n '+ JSON.stringify( this.props.navigation.masterSumProdCoverage) );
+                // stringify(this.state.globalSumDomCoverage, {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
         }
     }
 
