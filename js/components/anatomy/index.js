@@ -255,18 +255,12 @@ class Anatomy extends React.Component {
                 // return cid === this.state.selectedCID;
             });
 
-        console.log(' \n ++++++++++++++++++ \n rawArr : ' + JSON.stringify(this.state.rawArr));
-        _.forEach(this.state.rawArr, function(ckc){
 
-
-        });
 
 
         this._resetGridColumnTotal();
 
-        // var test = _.orderBy(this.state.rawArr, ['CAT', 'KEY', 'SCORE'], ['asc', 'asc', 'desc']);
-        // var trr = _.filter(test, {"CAT": catName});
-        // var upp = {catName: trr};
+
         var keys = [...new Set(keysForThisCat.map(item => item.KEY))];
         console.log(' \n ++++++++++++++++++ \n keys : ' + JSON.stringify(keys));
         keys.sort();
@@ -286,26 +280,26 @@ class Anatomy extends React.Component {
         var dexPremObj = [];
         var dexPluxObj = [];
         var dexBascObj = [];
+        var dexPremTemp = this.state.dexPrem;
 
-        _.forEach(keysForThisCat, function (value) {
-            var keysByCat = _.filter(test, {"CAT": catName, "KEY": value});
-            _.forEach(keysByCat, function (value2) {
-                if (_.isEqual(value2.DOM, "Dex ESS Premium")) {
-                    // console.log('\n FOUND: ' + JSON.stringify(value2.DOM) + ' @ ' + value2.KEY + ' <- ' + value2.SCORE);
-                    dexPremObj.push(value2);
+        for(var x = 0; x < dexPremTemp.length; x++){
+            var utemp = dexPremTemp[x];
+            _.forEach(keysForThisCat, function (value) {
+
+                var kky = _.toString(value.KID);
+                var yyd = Object.keys(utemp)[0];
+                if(utemp.hasOwnProperty(kky)){
+                    console.log('@@@@@@@ FOUND @ ' + yyd + ' \n' +  JSON.stringify(utemp[kky]) );
+                    dexPremObj.push(utemp);
                 }
-                if (_.isEqual(value2.DOM, "Dex ESS Plus")) {
-                    // console.log('\n FOUND: ' + JSON.stringify(value2.DOM) + ' @ ' + value2.KEY + ' <- ' + value2.SCORE);
-                    dexPluxObj.push(value2);
-                }
-                if (_.isEqual(value2.DOM, "Dex ESS Basic")) {
-                    // console.log('\n FOUND: ' + JSON.stringify(value2.DOM) + ' @ ' + value2.KEY + ' <- ' + value2.SCORE);
-                    dexBascObj.push(value2);
-                }
+
             });
-        });
+        }
 
-        // console.log('@@@@@@@ dexPrem @ ' + JSON.stringify(dexPremObj));
+
+
+
+        console.log('@@@@@@@ dexPremObj @ ' + JSON.stringify(dexPremObj));
         // console.log('@@@@@@@ dexPlux @ ' + JSON.stringify(dexPluxObj));
         // console.log('@@@@@@@ dexBasc @ ' + JSON.stringify(dexBascObj));
 
@@ -313,16 +307,16 @@ class Anatomy extends React.Component {
         var tabPlux = {};
         var tabBasc = {};
 
-        _.forEach(keysForThisCat, function (value) {
-            // console.log('XXXXXXXXXXX value @ ' + JSON.stringify(value));
-            tabPrem[value] = _.filter(dexPremObj, {"DOM": "Dex ESS Premium", "KEY": value});
-            tabPlux[value] = _.filter(dexPluxObj, {"DOM": "Dex ESS Plus", "KEY": value});
-            tabBasc[value] = _.filter(dexBascObj, {"DOM": "Dex ESS Basic", "KEY": value});
-        });
-
-        this.setState({dexPrem: tabPrem});
-        this.setState({dexPlux: tabPlux});
-        this.setState({dexBasc: tabBasc});
+        // _.forEach(keysForThisCat, function (value) {
+        //     // console.log('XXXXXXXXXXX value @ ' + JSON.stringify(value));
+        //     tabPrem[value] = _.filter(dexPremObj, {"DOM": "Dex ESS Premium", "KEY": value});
+        //     tabPlux[value] = _.filter(dexPluxObj, {"DOM": "Dex ESS Plus", "KEY": value});
+        //     tabBasc[value] = _.filter(dexBascObj, {"DOM": "Dex ESS Basic", "KEY": value});
+        // });
+        //
+        // this.setState({dexPrem: tabPrem});
+        // this.setState({dexPlux: tabPlux});
+        // this.setState({dexBasc: tabBasc});
 
         // console.log("NEW this.props.navigation.selectedNavCategory : " + this.props.navigation.selectedNavCategory);
 
@@ -657,7 +651,7 @@ class Anatomy extends React.Component {
                                                                     style={{ textAlignVertical: 'bottom', height:30,  width:300, color: "#FFFFFF", fontSize: 21, lineHeight:22, textAlign: 'left' , }}
                                                                     ellipsizeMode={'tail'} numberOfLines={1}>
 
-                                                                    {item.KEY}
+                                                                    {item.KID} : {item.KEY}
                                                                 </Text>
                                                             </View>
                                                         </Row>
