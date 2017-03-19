@@ -48,6 +48,7 @@ class NHButton extends React.Component {
         openDrawer: React.PropTypes.func,
         navigation: React.PropTypes.shape({
             key: React.PropTypes.string,
+
             selectedNavCategory: React.PropTypes.string,
             selectedNavDomain: React.PropTypes.string,
             selectedNavCity: React.PropTypes.string,
@@ -55,6 +56,13 @@ class NHButton extends React.Component {
             dexNavPlux: React.PropTypes.array,
             dexNavBasc: React.PropTypes.array,
             rawLocaleNavData: React.PropTypes.array,
+            masterSumProdArr : React.PropTypes.array,
+
+            masterCatKeyArray: React.PropTypes.array,
+            masterSumDomCoverage: React.PropTypes.array,
+            masterSumProdCoverage: React.PropTypes.array,
+            masterDomainScoreObjects: React.PropTypes.object,
+            masterNavCatArray: React.PropTypes.array,
         }),
     }
 
@@ -70,10 +78,19 @@ class NHButton extends React.Component {
             selectedCategory: this.props.navigation.selectedNavCategory,
             marketInputText: this.props.navigation.selectedNavCity,
             domainInputText: this.props.navigation.selectedNavDomain,
+
             dexPrem: this.props.navigation.dexNavPrem,
             dexPlux: this.props.navigation.dexNavPlux,
             dexBasc: this.props.navigation.dexNavBasc,
             rawLocaleData: this.props.navigation.rawLocaleNavData,
+            globalSumProdArr: this.props.navigation.masterSumProdArr,
+
+            globalSumDomCoverage: this.props.navigation.masterSumDomCoverage,
+            globalSumProdCoverage: this.props.navigation.masterSumProdCoverage,
+            domainScoreObjects: this.props.navigation.masterDomainScoreObjects,
+            globalCatKeyArray : this.props.navigation.masterCatKeyArray,
+            globalNavCatArray :this.props.navigation.masterNavCatArray,
+
 
             results: {
                 items: []
@@ -130,86 +147,6 @@ class NHButton extends React.Component {
         // console.log('2222222 USER DATA: ' + JSON.stringify(this.state.userData));
     }
 
-    _updateClientColumn(items) {
-        this.setState({clientColumnItems: items});
-    }
-
-    _updateKeywords(arrayz) {
-        this.setState({keywordGridColumns: arrayz});
-    }
-
-    _updateDomainColumns(arrayz) {
-        this.setState({domainGridColumns: arrayz});
-    }
-
-    _addDexPrem(newObj) {
-        var ttd = this.state.selectedCategory;
-
-        DB.dexPrem.add(newObj, function (added_data) {
-            console.log('dexPrem added_data = ' + stringify(added_data, {maxLength: 0, indent: '\t'}));
-            DB.dexPrem.get_all(function (result) {
-                console.log('dexPrem get_all = ' + stringify(result, {maxLength: 0, indent: '\t'}));
-            });
-        });
-
-    }
-
-    _addDexPlux(newObj) {
-        var ttd = this.state.selectedCategory;
-
-        DB.dexPlux.add(newObj, function (added_data) {
-            console.log('dexPlux added_data = ' + stringify(added_data, {maxLength: 0, indent: '\t'}));
-            DB.dexPlux.get_all(function (result) {
-                console.log('dexPlux get_all = ' + stringify(result, {maxLength: 0, indent: '\t'}));
-            });
-        });
-
-    }
-
-    _addDexBasc(newObj) {
-        var ttd = this.state.selectedCategory;
-
-        DB.dexBasc.add(newObj, function (added_data) {
-            console.log('dexBasc added_data = ' + stringify(added_data, {maxLength: 0, indent: '\t'}));
-            DB.dexBasc.get_all(function (result) {
-                console.log('dexBasc get_all = ' + stringify(result, {maxLength: 0, indent: '\t'}));
-            });
-        });
-
-    }
-
-    _persistObjects() {
-        DB.dexBasc.get({CAT: catName}, function (result) {
-            if (_.isEmpty(result)) {
-                console.log('\n @@@@@@@@ EMPTY dexBasc NO ' + catName + ' ..... ');
-
-            } else {
-                console.log('\n ######## EXISTS dexBasc  : ' + stringify(result, {maxLength: 0, indent: '\t'}));
-                r
-            }
-        });
-
-        DB.dexPlux.get({CAT: catName}, function (result) {
-            if (_.isEmpty(result)) {
-                console.log('\n @@@@@@@@ EMPTY dexPlux NO ' + catName + ' ..... ');
-
-            } else {
-                console.log('\n ######## EXISTS dexPlux : ' + stringify(result, {maxLength: 0, indent: '\t'}));
-
-            }
-        });
-
-        DB.dexPrem.get({CAT: catName}, function (result) {
-            if (_.isEmpty(result)) {
-                console.log('\n @@@@@@@@ EMPTY dexPrem NO ' + catName + ' ..... ');
-            } else {
-                console.log('\n ######## EXISTS dexPrem : ' + stringify(result, {maxLength: 0, indent: '\t'}));
-            }
-        });
-
-
-    }
-
     _resetGridColumnTotal() {
         this.setState({columnTotal1: 0});
         this.setState({columnTotal2: 0});
@@ -251,15 +188,6 @@ class NHButton extends React.Component {
         this.setState({keywordArr: kkt});
         this.setState({dataObjects: upp});
 
-        /*
-         // console.log('########### DOMAINS BY KEY ON : ' + JSON.stringify(kkt));
-         // var resultXXX = _.filter(test, function (p) {
-         //     return _.includes(kkt, p.KEY);
-         // });
-
-         // var testDomains = _.orderBy(resultXXX, ['KEY', 'SCORE'], ['asc', 'desc']);
-         // console.log('########### MATCHED DOMAINS BY KEY : ' + JSON.stringify(testDomains));
-         */
 
         var dexPremObj = [];
         var dexPluxObj = [];
@@ -314,29 +242,6 @@ class NHButton extends React.Component {
 
     _domainData() {
 
-        var testJSON = require('./PHX.001.json');
-        this.state.dataObjects = { };
-        this.state.rawArr = testJSON;
-        var test = _.orderBy(this.state.rawArr, ['CAT', 'KEY', 'SCORE'], ['asc', 'asc', 'desc']);
-
-        this.state.categoriesArr = [...new Set(test.map(item => item.CAT))];
-        this.state.categoriesArr.sort();
-        this.state.keywordArr = [...new Set(test.map(item => item.KEY))];
-        this.state.keywordArr.sort();
-        this.state.keywordArr = ["Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category", "Select Category"];
-
-        var happy = [];
-
-        for (var j = 0; j < this.state.categoriesArr.length; j++) {
-            var trr = [];
-            var catName = _.toString(this.state.categoriesArr[j]);
-            happy.push({name: catName, value: catName, icon: '',});
-            trr = _.filter(test, {"CAT": catName});
-            // var upp = '{' + catName + ' : ' + JSON.stringify(trr) + '}';
-            _.set(this.state.dataObjects, catName, trr);
-        }
-        this.setState({categoriesArr: happy});
-        // return this.state.dataObjects;
 
 
         var tempTotal1 = this.getRandomInt(2, 15);
@@ -447,26 +352,8 @@ class NHButton extends React.Component {
         var globLoc = _.toString(this.props.navigation.selectedNavCity);
         var globDom = _.toString(this.props.navigation.selectedNavDomain);
         var globCat = _.toString(this.props.navigation.selectedNavCategory);
-        var rawLocaleData = _.toString(this.props.navigation.rawLocaleNavData);
 
-        if (_.isEqual(rawLocaleData, rawArrVal)) {
-            console.log(confirmGlobMsg + 'rawArr = GLOBAL ' + rawLocaleData);
-        } else {
-            console.log(confirmGlobMsg + 'rawArr != GLOBAL ' + rawLocaleData);
-            if (!_.isEmpty(rawLocaleData)) {
-                rawArrVal = rawLocaleData;
-                this.setState({rawArr: rawLocaleData});
-                this.state.rawArr = rawLocaleData;
-            }
-            if (_.isEmpty(rawArrVal)) {
-                if (!_.isEmpty(rawLocaleData)) {
-                    rawArrVal = rawLocaleData;
-                    this.setState({rawArr: rawArrVal});
-                    this.state.rawArr = rawArrVal;
-                    this.props.navigation.rawLocaleNavData = rawArrVal;
-                }
-            }
-        }
+
 
         if (_.isEqual(markVal, globLoc)) {
             console.log(confirmGlobMsg + 'marketInputText = GLOBAL ' + globLoc);
@@ -518,22 +405,6 @@ class NHButton extends React.Component {
 
         }
 
-        // console.log(confirmGlobMsg + 'marketInputText : ' + this.state.marketInputText);
-        // console.log(confirmGlobMsg + 'domainInputText : ' + this.state.domainInputText);
-        // console.log(confirmGlobMsg + 'selectedCategory : ' + this.state.selectedCategory);
-        //
-        // console.log(confirmGlobMsg + 'selectedNavCity : ' + stringify(this.props.navigation.selectedNavCity, {
-        //         maxLength: 0,
-        //         indent: '\t'
-        //     }));
-        // console.log(confirmGlobMsg + 'selectedNavDomain : ' + stringify(this.props.navigation.selectedNavDomain, {
-        //         maxLength: 0,
-        //         indent: '\t'
-        //     }));
-        // console.log(confirmGlobMsg + 'selectedNavCategory : ' + stringify(this.props.navigation.selectedNavCategory, {
-        //         maxLength: 0,
-        //         indent: '\t'
-        //     }));
 
         return true;
     }
@@ -549,9 +420,6 @@ class NHButton extends React.Component {
             this._updateGrids(this.state.selectedCategory);
         }
 
-        // console.log("Test Model", DeviceInfo.getModel());
-        // console.log("Device ID", DeviceInfo.getDeviceId());
-        // console.log("System Name", DeviceInfo.getSystemName());
     }
 
     componentDidMount() {
