@@ -67,6 +67,7 @@ class AppNavigator extends Component {
         navigation: React.PropTypes.shape({
             key: React.PropTypes.string,
             routes: React.PropTypes.array,
+
             selectedNavCategory: React.PropTypes.string,
             selectedNavDomain: React.PropTypes.string,
             selectedNavCity: React.PropTypes.string,
@@ -74,6 +75,7 @@ class AppNavigator extends Component {
             dexNavPlux: React.PropTypes.array,
             dexNavBasc: React.PropTypes.array,
             rawLocaleNavData: React.PropTypes.array,
+            masterSumProdArr : React.PropTypes.array,
 
             masterCatKeyArray: React.PropTypes.array,
             masterSumDomCoverage: React.PropTypes.array,
@@ -88,6 +90,7 @@ class AppNavigator extends Component {
         this.state = {
             userData: {},
             usersArry: [],
+
             selectedCity: this.props.navigation.selectedNavCity,
             selectedDomain: this.props.navigation.selectedNavDomain,
             selectedCategory: this.props.navigation.selectedNavCategory,
@@ -127,31 +130,31 @@ class AppNavigator extends Component {
         var markVal = _.toString(this.state.marketInputText);
         var domVal = _.toString(this.state.domainInputText);
         var catVal = _.toString(this.state.selectedCategory);
-        var rawArrVal = _.toString(this.state.rawArr);
+
 
         var globLoc = _.toString(this.props.navigation.selectedNavCity);
         var globDom = _.toString(this.props.navigation.selectedNavDomain);
         var globCat = _.toString(this.props.navigation.selectedNavCategory);
         var rawLocaleData = _.toString(this.props.navigation.rawLocaleNavData);
 
-        if (_.isEqual(rawLocaleData, rawArrVal)) {
-            console.log(confirmGlobMsg + 'rawArr = GLOBAL ' + rawLocaleData);
-        } else {
-            console.log(confirmGlobMsg + 'rawArr != GLOBAL ' + rawLocaleData);
-            if (!_.isEmpty(rawLocaleData)) {
-                rawArrVal = rawLocaleData;
-                this.setState({rawArr: rawLocaleData});
-                this.state.rawArr = rawLocaleData;
-            }
-            if (_.isEmpty(rawArrVal)) {
-                if (!_.isEmpty(rawLocaleData)) {
-                    rawArrVal = rawLocaleData;
-                    this.setState({rawArr: rawArrVal});
-                    this.state.rawArr = rawArrVal;
-                    this.props.navigation.rawLocaleNavData = rawArrVal;
-                }
-            }
-        }
+        // if (_.isEqual(rawLocaleData, rawArrVal)) {
+        //     console.log(confirmGlobMsg + 'rawArr = GLOBAL ' + rawLocaleData);
+        // } else {
+        //     console.log(confirmGlobMsg + 'rawArr != GLOBAL ' + rawLocaleData);
+        //     if (!_.isEmpty(rawLocaleData)) {
+        //         rawArrVal = rawLocaleData;
+        //         this.setState({rawArr: rawLocaleData});
+        //         this.state.rawArr = rawLocaleData;
+        //     }
+        //     if (_.isEmpty(rawArrVal)) {
+        //         if (!_.isEmpty(rawLocaleData)) {
+        //             rawArrVal = rawLocaleData;
+        //             this.setState({rawArr: rawArrVal});
+        //             this.state.rawArr = rawArrVal;
+        //             this.props.navigation.rawLocaleNavData = rawArrVal;
+        //         }
+        //     }
+        // }
 
         if (_.isEqual(markVal, globLoc)) {
             console.log(confirmGlobMsg + 'marketInputText = GLOBAL ' + globLoc);
@@ -219,8 +222,10 @@ class AppNavigator extends Component {
         this.props.navigation.masterCatKeyArray = catKey;
 
 
-        var testJSON = require('./PHX.003.json');
-        this.state.rawArr = testJSON;
+        var rawArrVal = require('./PHX.003.json');
+        this.state.rawArr = rawArrVal;
+        this.state.rawLocaleData = rawArrVal;
+        this.props.navigation.rawLocaleNavData = rawArrVal;
 
         this.state.globalCatArr = [...new Set(catKey.map(item => item.CAT))];
         this.state.globalCatArr.sort();
@@ -370,33 +375,24 @@ class AppNavigator extends Component {
 
 
         this.state.globalSumDomCoverage = catCoverage;
-
-        this.setState({globalSumProdCoverage : domCovVals});
-        this.props.navigation.masterSumProdCoverage = this.state.globalSumProdCoverage;
-        console.log('\n GGGGGGGGGGGGG  domCovVals  \n '+ JSON.stringify( domCovVals) );
-
-        console.log('\n GGGGGGGGGGGGG  this.state.globalSumProdCoverage  \n '+ JSON.stringify( this.state.globalSumProdCoverage) );
-
-
-        // _.forEach(domCovVals, function (index, value) {
-        //     console.log('\n  ================= \n   domCovVals : ' + value +' ] \n' + JSON.stringify(value));
-        // });
-
+        this.props.navigation.masterSumDomCoverage = catCoverage;
+        this.state.globalSumProdCoverage  = domCovVals;
+        this.props.navigation.masterSumProdCoverage = domCovVals;
 
         this.props.navigation.dexNavPrem = this.state.dexPrem;
         this.props.navigation.dexNavPlux = this.state.dexPlux;
         this.props.navigation.dexNavBasc = this.state.dexBasc;
-        // this.props.navigation.rawLocaleNavData = this.state.rawLocaleData;
+        this.props.navigation.rawLocaleNavData = this.state.rawLocaleData;
         //
         // this.props.navigation.masterSumDomCoverage =    this.state.globalSumDomCoverage;
         // this.props.navigation.masterSumProdCoverage =   this.state.globalSumProdCoverage;
-        this.props.navigation.masterDomainScoreObjects = this.state.domainScoreObjects;
+        // this.props.navigation.masterDomainScoreObjects = this.state.domainScoreObjects;
         // this.props.navigation.masterCatKeyArray =   this.state.globalCatKeyArray ;
 
 
 
-        // console.log( '\n ========== \n ========== \n  domainScoreObjects \n ========== \n ========== \n  '  );
-        // console.log('\n  ' + stringify(catCoverage, {maxLength: 0, indent: '\t'})  );
+        // console.log( '\n ========== \n ========== \n  this.props.navigation.masterDomainScoreObjects \n ========== \n ========== \n  '  );
+        // console.log('\n  ' + stringify(this.props.navigation.masterDomainScoreObjects, {maxLength: 0, indent: '\t'})  );
     }
 
     componentWillMount() {

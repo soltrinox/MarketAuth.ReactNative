@@ -18,6 +18,8 @@ const initialState = {
     dexNavPlux: [],
     dexNavBasc: [],
     rawLocaleNavData : [],
+    rawLocaleData: [],
+    globalSumProdArr : [],
 
     masterCatKeyArray: [],
     masterSumDomCoverage: [],

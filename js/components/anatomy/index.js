@@ -44,6 +44,7 @@ class Anatomy extends React.Component {
         navigateTo: React.PropTypes.func,
         navigation: React.PropTypes.shape({
             key: React.PropTypes.string,
+
             selectedNavCategory: React.PropTypes.string,
             selectedNavDomain: React.PropTypes.string,
             selectedNavCity: React.PropTypes.string,
@@ -53,11 +54,11 @@ class Anatomy extends React.Component {
             rawLocaleNavData: React.PropTypes.array,
             masterSumProdArr : React.PropTypes.array,
 
-            masterCatKeyArray : React.PropTypes.array,
-            masterSumDomCoverage : React.PropTypes.array,
+            masterCatKeyArray: React.PropTypes.array,
+            masterSumDomCoverage: React.PropTypes.array,
             masterSumProdCoverage: React.PropTypes.array,
-            masterDomainScoreObjects : React.PropTypes.object,
-            masterNavCatArray : React.PropTypes.array,
+            masterDomainScoreObjects: React.PropTypes.object,
+            masterNavCatArray: React.PropTypes.array,
 
         }),
     }
@@ -74,6 +75,7 @@ class Anatomy extends React.Component {
             selectedCategory: this.props.navigation.selectedNavCategory,
             marketInputText: this.props.navigation.selectedNavCity,
             domainInputText: this.props.navigation.selectedNavDomain,
+
             dexPrem: this.props.navigation.dexNavPrem,
             dexPlux: this.props.navigation.dexNavPlux,
             dexBasc: this.props.navigation.dexNavBasc,
@@ -362,7 +364,6 @@ class Anatomy extends React.Component {
         this.state.categoriesArr.sort();
         this.state.keywordArr = [...new Set(test.map(item => item.KEY))];
         this.state.keywordArr.sort();
-
         var happy = [];
 
         for (var j = 0; j < this.state.categoriesArr.length; j++) {
@@ -377,9 +378,6 @@ class Anatomy extends React.Component {
         // return this.state.dataObjects;
 
         // this.state.domainScoreObjects = this.props.navigation.masterDomainScoreObjects;
-         console.log('\n XXXXXXXXXXX globalSumProdCoverage \n ' +
-             stringify(this.props.navigation.globalSumProdCoverage , {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
-
     }
 
     getRandomInt(min, max) {
@@ -441,49 +439,31 @@ class Anatomy extends React.Component {
         var rawLocaleData = this.props.navigation.rawLocaleNavData;
 
 
+        // console.log('\n XXXXXXXXXXX masterSumProdCoverage \n ' +  JSON.stringify(this.props.navigation.masterSumProdCoverage));
+            // stringify(this.props.navigation.masterSumProdCoverage , {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXX/X ');
+
+        // console.log('\n XXXXXXXXXXX masterSumDomCoverage \n ' +  JSON.stringify(this.props.navigation.masterSumDomCoverage));
+            // stringify(this.props.navigation.masterSumDomCoverage , {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
 
 
-        if(!_.isEmpty(this.props.navigation.masterSumDomCoverage)){
-            this.state.globalSumDomCoverage = this.props.navigation.masterSumDomCoverage;
-        }
-        if(!_.isEmpty(this.props.navigation.masterSumProdCoverage)){
-            this.state.globalSumProdCoverage = this.props.navigation.masterSumProdCoverage;
-        }
-        if(!_.isEmpty(this.props.navigation.masterDomainScoreObjects)){
-            this.state.domainScoreObjects = this.props.navigation.masterDomainScoreObjects;
-        }
-        if(!_.isEmpty(this.props.navigation.masterCatKeyArray)){
-            this.state.globalCatKeyArray = this.props.navigation.masterCatKeyArray;
-        }
-        if(!_.isEmpty(this.props.navigation.masterNavCatArray)){
-            this.state.globalNavCatArray = this.props.navigation.masterNavCatArray;
-        }
-
-        console.log('\n XXXXXXXXXXX globalSumProdCoverage \n ' +
-            stringify(this.props.navigation.globalSumProdCoverage , {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
-
-        console.log('\n XXXXXXXXXXX masterSumDomCoverage \n ' +
-            stringify(this.props.navigation.masterSumDomCoverage , {maxLength: 0, indent: '\t'}) + ' \n XXXXXXXXXXX ');
-
-
-        if (_.isEqual(rawLocaleData, rawArrVal)) {
-            console.log(confirmGlobMsg + 'rawArr = GLOBAL ' + rawLocaleData);
-        } else {
-            console.log(confirmGlobMsg + 'rawArr != GLOBAL ' + rawLocaleData);
-            if (!_.isEmpty(rawLocaleData)) {
-                rawArrVal = rawLocaleData;
-                this.setState({rawArr: rawLocaleData});
-                this.state.rawArr = rawLocaleData;
-            }
-            if (_.isEmpty(rawArrVal)) {
-                if (!_.isEmpty(rawLocaleData)) {
-                    rawArrVal = rawLocaleData;
-                    this.setState({rawArr: rawArrVal});
-                    this.state.rawArr = rawArrVal;
-                    this.props.navigation.rawLocaleNavData = rawArrVal;
-                }
-            }
-        }
+        // if (_.isEqual(rawLocaleData, rawArrVal)) {
+        //     console.log(confirmGlobMsg + 'rawArr = GLOBAL ' + rawLocaleData);
+        // } else {
+        //     console.log(confirmGlobMsg + 'rawArr != GLOBAL ' + rawLocaleData);
+        //     if (!_.isEmpty(rawLocaleData)) {
+        //         rawArrVal = rawLocaleData;
+        //         this.setState({rawArr: rawLocaleData});
+        //         this.state.rawArr = rawLocaleData;
+        //     }
+        //     if (_.isEmpty(rawArrVal)) {
+        //         if (!_.isEmpty(rawLocaleData)) {
+        //             rawArrVal = rawLocaleData;
+        //             this.setState({rawArr: rawArrVal});
+        //             this.state.rawArr = rawArrVal;
+        //             this.props.navigation.rawLocaleNavData = rawArrVal;
+        //         }
+        //     }
+        // }
 
         if (_.isEqual(markVal, globLoc)) {
             console.log(confirmGlobMsg + 'marketInputText = GLOBAL ' + globLoc);

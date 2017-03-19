@@ -17,6 +17,7 @@ class SideBar extends Component {
     navigateTo: React.PropTypes.func,
       navigation: React.PropTypes.shape({
           key: React.PropTypes.string,
+
           selectedNavCategory: React.PropTypes.string,
           selectedNavDomain: React.PropTypes.string,
           selectedNavCity: React.PropTypes.string,
@@ -24,12 +25,13 @@ class SideBar extends Component {
           dexNavPlux: React.PropTypes.array,
           dexNavBasc: React.PropTypes.array,
           rawLocaleNavData: React.PropTypes.array,
+          masterSumProdArr : React.PropTypes.array,
 
-          masterCatKeyArray : React.PropTypes.array,
-          masterSumDomCoverage : React.PropTypes.array,
+          masterCatKeyArray: React.PropTypes.array,
+          masterSumDomCoverage: React.PropTypes.array,
           masterSumProdCoverage: React.PropTypes.array,
-          masterDomainScoreObjects : React.PropTypes.object,
-          masterNavCatArray : React.PropTypes.array,
+          masterDomainScoreObjects: React.PropTypes.object,
+          masterNavCatArray: React.PropTypes.array,
       }),
   }
 
@@ -41,12 +43,14 @@ class SideBar extends Component {
         selectedCity: this.props.navigation.selectedNavCity,
         selectedDomain: this.props.navigation.selectedNavDomain,
         selectedCategory: this.props.navigation.selectedNavCategory,
-        marketInputText : this.props.navigation.selectedNavCity,
-        domainInputText : this.props.navigation.selectedNavDomain,
+        marketInputText: this.props.navigation.selectedNavCity,
+        domainInputText: this.props.navigation.selectedNavDomain,
+
         dexPrem: this.props.navigation.dexNavPrem,
         dexPlux: this.props.navigation.dexNavPlux,
         dexBasc: this.props.navigation.dexNavBasc,
-        rawLocaleData : this.props.navigation.rawLocaleNavData,
+        rawLocaleData: this.props.navigation.rawLocaleNavData,
+        globalSumProdArr: this.props.navigation.masterSumProdArr,
 
         globalSumDomCoverage: this.props.navigation.masterSumDomCoverage,
         globalSumProdCoverage: this.props.navigation.masterSumProdCoverage,
