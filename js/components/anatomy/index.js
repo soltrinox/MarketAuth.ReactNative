@@ -224,40 +224,59 @@ class Anatomy extends React.Component {
         var catName = 'CARPET DEALERS';
         var cid = 1029;
         if (_.isUndefined(e.value)) {
-            if (_.isUndefined(this.props.navigation.selectedNavCategory)) {
-
-            } else {
                 catName = this.props.navigation.selectedNavCategory;
-            }
+                cid = this.props.navigation.selectedNavCID;
         } else {
             catName = e.value;
             cid = e.cid;
             this.props.navigation.selectedNavCategory = catName;
+            this.props.navigation.selectedNavCID = cid;
         }
+        this.setState({selectedCID : cid});
         this.setState({selectedCategory: catName});
         this._updateGrids(catName, cid);
     }
 
-    _updateGrids(catName) {
+    _updateGrids(catName, cid) {
 
         console.log('\n catName: ' + JSON.stringify(catName));
+        console.log('\n cid: ' + JSON.stringify(cid));
 
         this.props.navigation.selectedNavCategory = _.toString(catName);
+        this.props.navigation.selectedNavCID = _.toNumber(cid);
+
+
+
+
+        var keysForThisCat = _.filter(this.state.globalCatKeyArray,
+            function(o) {
+                var xcid = Math.floor(o.KID / 100);
+                 if(xcid === cid){ return o }
+                // return cid === this.state.selectedCID;
+            });
+
+        console.log(' \n ++++++++++++++++++ \n rawArr : ' + JSON.stringify(this.state.rawArr));
+        _.forEach(this.state.rawArr, function(ckc){
+
+
+        });
+
 
         this._resetGridColumnTotal();
 
-        var test = _.orderBy(this.state.rawArr, ['CAT', 'KEY', 'SCORE'], ['asc', 'asc', 'desc']);
-        var trr = _.filter(test, {"CAT": catName});
-        var upp = {catName: trr};
-        var kkt = [...new Set(trr.map(item => item.KEY))];
-        kkt.sort();
-        this.setState({keywordArr: kkt});
-        this.setState({dataObjects: upp});
+        // var test = _.orderBy(this.state.rawArr, ['CAT', 'KEY', 'SCORE'], ['asc', 'asc', 'desc']);
+        // var trr = _.filter(test, {"CAT": catName});
+        // var upp = {catName: trr};
+        var keys = [...new Set(keysForThisCat.map(item => item.KEY))];
+        console.log(' \n ++++++++++++++++++ \n keys : ' + JSON.stringify(keys));
+        keys.sort();
+        this.setState({keywordArr: keysForThisCat});
+        // this.setState({dataObjects: upp});
 
         /*
-         // console.log('########### DOMAINS BY KEY ON : ' + JSON.stringify(kkt));
+         // console.log('########### DOMAINS BY KEY ON : ' + JSON.stringify(keysForThisCat));
          // var resultXXX = _.filter(test, function (p) {
-         //     return _.includes(kkt, p.KEY);
+         //     return _.includes(keysForThisCat, p.KEY);
          // });
 
          // var testDomains = _.orderBy(resultXXX, ['KEY', 'SCORE'], ['asc', 'desc']);
@@ -268,7 +287,7 @@ class Anatomy extends React.Component {
         var dexPluxObj = [];
         var dexBascObj = [];
 
-        _.forEach(kkt, function (value) {
+        _.forEach(keysForThisCat, function (value) {
             var keysByCat = _.filter(test, {"CAT": catName, "KEY": value});
             _.forEach(keysByCat, function (value2) {
                 if (_.isEqual(value2.DOM, "Dex ESS Premium")) {
@@ -294,7 +313,7 @@ class Anatomy extends React.Component {
         var tabPlux = {};
         var tabBasc = {};
 
-        _.forEach(kkt, function (value) {
+        _.forEach(keysForThisCat, function (value) {
             // console.log('XXXXXXXXXXX value @ ' + JSON.stringify(value));
             tabPrem[value] = _.filter(dexPremObj, {"DOM": "Dex ESS Premium", "KEY": value});
             tabPlux[value] = _.filter(dexPluxObj, {"DOM": "Dex ESS Plus", "KEY": value});
@@ -464,7 +483,7 @@ class Anatomy extends React.Component {
         go = this._confirmGlobalsOnLoad();
         if (go) {
             this._updateCategoryArray();
-            this._updateGrids(this.state.selectedCategory);
+            this._updateGrids(this.state.selectedCategory,this.state.selectedCID);
         }
     }
 
@@ -638,7 +657,7 @@ class Anatomy extends React.Component {
                                                                     style={{ textAlignVertical: 'bottom', height:30,  width:300, color: "#FFFFFF", fontSize: 21, lineHeight:22, textAlign: 'left' , }}
                                                                     ellipsizeMode={'tail'} numberOfLines={1}>
 
-                                                                    {item.CAT}
+                                                                    {item.KEY}
                                                                 </Text>
                                                             </View>
                                                         </Row>
